@@ -7,7 +7,7 @@
 
 ## 🗓 Last Updated
 - **Date:** 7 November 2026
-- **Session:** Initial scaffold
+- **Session:** Python venv + dependency installation
 
 ---
 
@@ -16,8 +16,8 @@
 |-------|-------|
 | **Week** | 1 |
 | **Day** | 1 |
-| **Stage** | Setup complete |
-| **Status** | Scaffold done. Ready to begin reading project documents. No implementation code yet. |
+| **Stage** | Environment ready |
+| **Status** | venv created, all packages installed, .env created. **Needs OpenRouter API key before proceeding.** |
 
 ---
 
@@ -39,6 +39,11 @@
 | 7 Nov 2026 | `CONTEXT.md` and `TIMELINE.md` created |
 | 7 Nov 2026 | `README.md`, `.gitignore` created |
 | 7 Nov 2026 | Git repo initialized on `main` branch, first commit made |
+| 7 Nov 2026 | Python venv created at `venv/` (Python 3.9.6) |
+| 7 Nov 2026 | All dependencies installed — resolved version conflicts in original requirements.txt (langchain-openai/openai conflict, psycopg2 dropped in favour of SQLite) |
+| 7 Nov 2026 | `pytest.ini` created — asyncio_mode=auto, warnings suppressed |
+| 7 Nov 2026 | `.env` created from `.env.example` — **OpenRouter API key still needs to be filled in** |
+| 7 Nov 2026 | All 18 tests pass: 13 passed, 5 xfailed (as expected) using venv |
 
 ---
 
@@ -89,7 +94,7 @@
 
 ## ❓ Open Questions / Blockers
 
-1. **API key needed:** Get OpenRouter API key before Week 2 Day 2 (retrieval + classification require LLM calls)
+1. **⚠️ API key needed NOW:** Open `.env` and replace `your_key_here` with your OpenRouter key. Get one free at https://openrouter.ai/ → Sign in → Keys → Create key. Without this, Week 2 Day 2 (retrieval) and Day 3 (classification) will not work.
 2. **Threshold decision:** Set final `CONFIDENCE_THRESHOLD` value after first evaluation run (Week 2 Day 5) — default 0.80 is a starting point
 3. **Architecture review:** Review `docs/architecture.md` diagram after PRD v1 is written (Week 1 Day 4) to ensure it matches requirements
 
@@ -98,28 +103,28 @@
 ## ⏭ Next Immediate Action
 > **START HERE next session:**
 
-**Week 1 Day 1 — Afternoon: Read all core project documents IN THIS ORDER:**
-
-1. Open: `/Users/nishchaygupta/Downloads/FDE_Capstone_Complete/Capstone_Pack/01_Read_First/00_Start_Here.docx` — 15 minutes
-2. Open: `/Users/nishchaygupta/Downloads/FDE_Capstone_Complete/Capstone_Pack/01_Read_First/01_Project_Brief.docx` — 2-3 hours, do NOT skim
-3. Open: `/Users/nishchaygupta/Downloads/FDE_Capstone_Complete/Capstone_Pack/04_Submission/Submission_Guide.docx` — 30 minutes
-4. Open: `/Users/nishchaygupta/Downloads/FDE_Capstone_Complete/Capstone_Pack/01_Read_First/02_Build_Specification.docx` — 45 minutes (all 12 ACs)
-
-**Then:** Set up Python virtual environment:
+**Step 1 — Add your OpenRouter API key (5 minutes):**
+1. Go to **https://openrouter.ai/** → Sign in with Google
+2. Click **Keys** in left sidebar → **Create key** → name it `capstone` → copy the key (`sk-or-...`)
+3. Open `.env` in the project root and replace `your_key_here` with your key
+4. Verify it works:
 ```bash
 cd /Users/nishchaygupta/Documents/Final_Capstone_Project
-python -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+python -c "
+from dotenv import load_dotenv; import os; load_dotenv()
+from openai import OpenAI
+client = OpenAI(base_url='https://openrouter.ai/api/v1', api_key=os.getenv('OPENROUTER_API_KEY'))
+r = client.chat.completions.create(model='meta-llama/llama-3.1-8b-instruct', messages=[{'role':'user','content':'Say OK'}], max_tokens=5)
+print('API works:', r.choices[0].message.content.strip())
+"
 ```
 
-**Then:** Test that API key works (get one from https://openrouter.ai/ — free tier):
-```bash
-cp .env.example .env
-# edit .env and add your OPENROUTER_API_KEY
-python -c "from src import ingest, classify, retrieve; print('All imports OK')"
-python evaluation/harness.py --input data/validation_tickets.json --output evaluation/results/test.json
-```
+**Step 2 — Read all core project documents IN THIS ORDER:**
+1. `00_Start_Here.docx` in Downloads/FDE_Capstone_Complete (15 min)
+2. `01_Project_Brief.docx` (2-3 hrs — do NOT skim governance/evaluation sections)
+3. `Submission_Guide.docx` (30 min — know the finish line)
+4. `02_Build_Specification.docx` (45 min — all 12 acceptance criteria)
 
 ---
 
@@ -128,3 +133,4 @@ python evaluation/harness.py --input data/validation_tickets.json --output evalu
 | Date | Duration | What Was Done | Next Session Goal |
 |------|----------|--------------|-------------------|
 | 7 Nov 2026 | ~2 hrs | Full project scaffold created. All files stubbed, datasets copied, git initialized. | Read all project docs + set up Python env + test OpenRouter API |
+| 7 Nov 2026 | ~30 min | Python venv created, all packages installed (resolved version conflicts in requirements.txt), .env created, 18 tests passing. | Add OpenRouter API key to .env, then read project docs |
