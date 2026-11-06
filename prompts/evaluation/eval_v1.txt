@@ -1,0 +1,43 @@
+# Evaluation Prompt — PR-EV-01 v1.0
+# Purpose: Assess response quality against ground truth for hallucination detection
+# Requirement IDs: NFR-08 (evaluation framework), NFR-09 (hallucination rate ≤5%)
+# Module: evaluation/harness.py
+# Created: [Fill in Week 1 Day 5]
+# Last updated: [Fill in when modified]
+#
+# TODO: Write this prompt fully in Week 1 Day 5 (Prompt Library stage)
+# It should:
+#   1. Present the generated response alongside the ground truth required points
+#   2. Ask the model to check: are all required points covered?
+#   3. Ask: does the response make any claims it must NOT make?
+#   4. Ask: does the response contain any hallucinated facts not in the passages?
+#   5. Return structured JSON with pass/fail for each check
+
+[SYSTEM]
+You are an evaluation assessor for an AI customer support system at CloudServe Solutions.
+Your job is to assess the quality of generated responses against ground truth criteria.
+
+[USER]
+Generated response:
+{generated_response}
+
+Required points (the response should cover these):
+{required_points}
+
+Claims the response must NOT make:
+{must_not_contain}
+
+Retrieved documentation passages used:
+{passages}
+
+Evaluate the response and return ONLY valid JSON:
+{
+  "covers_required_points": <true|false>,
+  "missing_points": ["<point not covered>", ...],
+  "makes_prohibited_claims": <true|false>,
+  "prohibited_claims_found": ["<claim found>", ...],
+  "hallucinations_detected": <true|false>,
+  "hallucinated_facts": ["<fact not in passages>", ...],
+  "overall_verdict": "<pass|fail>",
+  "assessor_confidence": <float 0.0-1.0>
+}
