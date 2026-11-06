@@ -13,5 +13,7 @@ env/
 .coverage
 htmlcov/
 dist/
-build/
+# Python build artifacts (NOT prompts/build/)
+*.egg-info/
+*.dist-info/
 *.ipynb_checkpoints
