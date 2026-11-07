@@ -7,7 +7,7 @@
 
 ## 🗓 Last Updated
 - **Date:** 7 November 2026
-- **Session:** Stage 1 Discovery — all 5 interviews read, ticket data analysed, workbook filled
+- **Session:** Stage 1 Discovery Workbook + Stage 2 PRD generated as .docx files
 
 ---
 
@@ -15,9 +15,9 @@
 | Field | Value |
 |-------|-------|
 | **Week** | 1 |
-| **Day** | 2-3 |
-| **Stage** | Stage 1 Discovery — COMPLETE |
-| **Status** | All 5 interviews read. Ticket data analysed (500 tickets). Discovery workbook fully filled. Problem statement written and self-checked against all 5 stakeholders. Ready for Stage 2: PRD v1. |
+| **Day** | 4 |
+| **Stage** | Stage 2 PRD v1 — COMPLETE |
+| **Status** | Stage 1 Discovery Workbook (.docx, 49KB, 6 sections, 23 tables) and Stage 2 PRD v1 (.docx, 47KB, 10 sections, 18 FRs + 10 NFRs) both generated and committed. Ready for Stage 3: Prompt Library. |
 
 ---
 
@@ -45,6 +45,7 @@
 | 7 Nov 2026 | `.env` created from `.env.example` — **OpenRouter API key still needs to be filled in** |
 | 7 Nov 2026 | All 18 tests pass: 13 passed, 5 xfailed (as expected) using venv |
 | 7 Nov 2026 | **Stage 1 Discovery COMPLETE** — All 5 stakeholder interviews read, 500 tickets analysed, `docs/Stage_1_Discovery_Workbook_Filled.md` written with all 6 sections fully populated, problem statement written and self-checked |
+| 7 Nov 2026 | **Stage 1 + Stage 2 as .docx** — `docs/Stage_1_Discovery_Workbook_Filled.docx` (49KB, 6 sections, 23 tables) and `docs/Stage_2_PRD_v1.docx` (47KB, 18 FRs + 10 NFRs, traceability matrix, revision log placeholder) generated and committed |
 
 ---
 
@@ -153,11 +154,37 @@ print('API works:', r.choices[0].message.content.strip())
 ---
 
 ## 📋 Requirement IDs Defined
-> ⚠️ Fill this in during **Week 1 Day 4** when writing the PRD.
 
-| ID | Description | Discovery Evidence | Acceptance Test |
-|----|-------------|-------------------|-----------------|
-| FR-01 | *(pending — Week 1 Day 4)* | | |
+| ID | Description | Discovery Evidence | Code Module |
+|----|-------------|-------------------|-------------|
+| FR-01 | Accept tickets from all 4 channels (email, chat, docs_comment, forum) | Section 2, Table 2-A: channel distribution | src/ingest.py |
+| FR-02 | Normalise all tickets to single internal representation | Architecture requirement | src/ingest.py |
+| FR-03 | Classify every ticket with one of 22 intent classes | Section 4 success metrics; Marcus / Sofia interviews | src/classify.py |
+| FR-04 | Assign urgency (high/medium/low) to every ticket | Data: 29.2% high-urgency; Ravi urgency asymmetry | src/classify.py |
+| FR-05 | Calibrated confidence score 0.0–1.0 (within 5pp per band) | Marcus: 'rather it said nothing than said something wrong' | src/classify.py |
+| FR-06 | Semantic search over 29 KB articles (all-MiniLM-L6-v2) | Ines: vocab mismatch; 71.4% answerable from docs | src/retrieve.py |
+| FR-07 | Return empty list when no article is relevant — escalate, never hallucinate | Ines: feature requests have no article | src/retrieve.py |
+| FR-08 | Hard-block must_not_auto_respond=True tickets before routing | Data: 17.4% safety-flagged; Daniel: security/billing | src/route.py |
+| FR-09 | Route using confidence threshold (default 0.80); deterministic | Marcus: threshold must be justified with data | src/route.py |
+| FR-10 | Escalated tickets carry context packet (summary + passages + reason) | Daniel: 'context would make me twice as fast' | src/route.py |
+| FR-11 | Generated responses cite specific KB articles (doc_id); citations must resolve | Ines: citation requirement; Ravi: source transparency | src/generate.py |
+| FR-12 | System MUST NOT generate without retrieved passages | Ines: no article → must not manufacture answer | src/generate.py |
+| FR-13 | Guardrail 1: PII scan on every outbound response; block if detected | GDPR; Marcus compliance review | src/guardrails.py |
+| FR-14 | Guardrail 2: Grounding check; every factual claim must trace to a passage | Marcus primary fear; Ravi: 'I will act on it' | src/guardrails.py |
+| FR-15 | Guardrail 3: Prompt injection detection; block and log | Security — tickets are untrusted input | src/guardrails.py |
+| FR-16 | Guardrail 4: Tone/scope — no refund or timeline commitments | Daniel: 'billing becomes contractual quickly' | src/guardrails.py |
+| FR-17 | Guardrail 5: Confidence floor — verify threshold was applied | Governance requirement | src/guardrails.py |
+| FR-18 | Every automated decision logged to SQLite with full schema | Marcus: compliance review; autumn deadline | src/logging_store.py |
+| NFR-01 | Latency P95 < 3 seconds | Ravi: urgency matters; SLA context | evaluation/harness.py |
+| NFR-02 | Availability ≥ 99.5% | SLA obligation | Monitoring |
+| NFR-03 | Intent precision ≥ 85% per class | Routing depends on classification quality | evaluation/harness.py |
+| NFR-04 | Hallucination rate ≤ 5% | Marcus primary fear | evaluation/harness.py |
+| NFR-05 | Citation accuracy ≥ 95% | Ines: citation requirement | evaluation/harness.py |
+| NFR-06 | Zero PII in outbound responses | GDPR | src/guardrails.py |
+| NFR-07 | Tier consistency: <5pp gap increase | Ravi: enterprise–business gap | evaluation/harness.py |
+| NFR-08 | Language consistency: <5pp fluent vs non-fluent | Sofia concern; vocab mismatch affects retrieval | evaluation/harness.py |
+| NFR-09 | Decision log coverage: 100% | Marcus: compliance audit trail | src/logging_store.py |
+| NFR-10 | Confidence calibration: within 5pp per band | Threshold only meaningful if calibrated | evaluation/harness.py |
 
 ---
 
