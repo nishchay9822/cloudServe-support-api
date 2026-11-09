@@ -6,8 +6,8 @@
 ---
 
 ## 🗓 Last Updated
-- **Date:** 7 November 2026
-- **Session:** Stage 1 Discovery Workbook + Stage 2 PRD generated as .docx files
+- **Date:** 9 November 2026
+- **Session:** Extraordinary Problem framework applied to Stage 1 + Stage 2 docs; both verified
 
 ---
 
@@ -16,8 +16,8 @@
 |-------|-------|
 | **Week** | 1 |
 | **Day** | 4 |
-| **Stage** | Stage 2 PRD v1 — COMPLETE |
-| **Status** | Stage 1 Discovery Workbook (.docx, 49KB, 6 sections, 23 tables) and Stage 2 PRD v1 (.docx, 47KB, 10 sections, 18 FRs + 10 NFRs) both generated and committed. Ready for Stage 3: Prompt Library. |
+| **Stage** | Stage 2 PRD v1 — COMPLETE (with Extraordinary Problem framework) |
+| **Status** | Stage 1 Discovery Workbook (50KB, 24 tables, 99 rows) and Stage 2 PRD v1 (48KB, 28 tables, 102 rows) both regenerated with full Extraordinary Problem framework and verified on disk. FR-19 (resolution graph) added as the network-effect exponent. CONTEXT.md updated. **Ready for Stage 3: Prompt Library.** |
 
 ---
 
@@ -25,27 +25,17 @@
 
 | Date | Task |
 |------|------|
-| 7 Nov 2026 | Project directory created at `/Users/nishchaygupta/Documents/Final_Capstone_Project` |
-| 7 Nov 2026 | All directories scaffolded: `src/`, `prompts/`, `tests/`, `evaluation/`, `docs/`, `data/`, `storage/`, `.github/workflows/` |
-| 7 Nov 2026 | All 4 datasets copied from Downloads → `data/`: `development_tickets.json` (500), `validation_tickets.json` (80), `ground_truth_responses.json` (200), `documentation.json` (29 articles) |
-| 7 Nov 2026 | `requirements.txt` and `.env.example` copied from Capstone_Pack |
-| 7 Nov 2026 | All 8 `src/` modules stubbed with correct signatures and docstrings (all import cleanly) |
-| 7 Nov 2026 | `evaluation/harness.py` created with `--input`/`--output` CLI (A9-ready from day 1) |
-| 7 Nov 2026 | `tests/test_ingest.py` created (channel validation tests pass; implementation tests marked xfail) |
-| 7 Nov 2026 | `tests/test_harness.py` created (all tests pass immediately) |
-| 7 Nov 2026 | `docs/architecture.md` created with full Mermaid diagram |
-| 7 Nov 2026 | `.github/workflows/ci.yml` created |
-| 7 Nov 2026 | `prompts/` register created with 3 prompt stubs |
-| 7 Nov 2026 | `CONTEXT.md` and `TIMELINE.md` created |
-| 7 Nov 2026 | `README.md`, `.gitignore` created |
-| 7 Nov 2026 | Git repo initialized on `main` branch, first commit made |
-| 7 Nov 2026 | Python venv created at `venv/` (Python 3.9.6) |
-| 7 Nov 2026 | All dependencies installed — resolved version conflicts in original requirements.txt (langchain-openai/openai conflict, psycopg2 dropped in favour of SQLite) |
-| 7 Nov 2026 | `pytest.ini` created — asyncio_mode=auto, warnings suppressed |
-| 7 Nov 2026 | `.env` created from `.env.example` — **OpenRouter API key still needs to be filled in** |
-| 7 Nov 2026 | All 18 tests pass: 13 passed, 5 xfailed (as expected) using venv |
-| 7 Nov 2026 | **Stage 1 Discovery COMPLETE** — All 5 stakeholder interviews read, 500 tickets analysed, `docs/Stage_1_Discovery_Workbook_Filled.md` written with all 6 sections fully populated, problem statement written and self-checked |
-| 7 Nov 2026 | **Stage 1 + Stage 2 as .docx** — `docs/Stage_1_Discovery_Workbook_Filled.docx` (49KB, 6 sections, 23 tables) and `docs/Stage_2_PRD_v1.docx` (47KB, 18 FRs + 10 NFRs, traceability matrix, revision log placeholder) generated and committed |
+| 7 Nov 2026 | Project directory + all directories scaffolded |
+| 7 Nov 2026 | All 4 datasets copied → `data/`: dev_tickets (500), validation (80), ground_truth (200), documentation (29 articles) |
+| 7 Nov 2026 | All 8 `src/` modules stubbed, `evaluation/harness.py` with `--input/--output` CLI, tests created |
+| 7 Nov 2026 | `docs/architecture.md`, CI workflow, prompts register, CONTEXT.md, TIMELINE.md created |
+| 7 Nov 2026 | Git repo initialized on `main`, first commit |
+| 7 Nov 2026 | Python venv created, all packages installed (resolved version conflicts), `.env` created |
+| 7 Nov 2026 | All 18 tests pass: 13 passed, 5 xfailed (as expected) |
+| 7 Nov 2026 | Stage 1 Discovery COMPLETE — all 5 interviews read, 500 tickets analysed, `Stage_1_Discovery_Workbook_Filled.md` written |
+| 7 Nov 2026 | Stage 1 + Stage 2 initial .docx generated (v1 — ordinary problem framing) |
+| 9 Nov 2026 | **Extraordinary Problem framework applied** — both .docx files regenerated with IIT Roorkee FDE Module 1 Session 2 framework throughout |
+| 9 Nov 2026 | **Both documents verified on disk** — all key markers confirmed present in both files |
 
 ---
 
@@ -54,33 +44,68 @@
 | Decision | Rationale | Date |
 |----------|-----------|------|
 | SQLite for decision log (not PostgreSQL) | Sufficient at this scale; no service to provision; spec says SQLite is fine | 7 Nov 2026 |
-| Default `CONFIDENCE_THRESHOLD = 0.80` | Starting point from spec `.env.example`; will be justified with evaluation data in report | 7 Nov 2026 |
-| Harness uses argparse `--input`/`--output` | A9 requirement — harness will be pointed at hidden 120-ticket set | 7 Nov 2026 |
+| Default `CONFIDENCE_THRESHOLD = 0.80` | Starting point; will be justified with evaluation data in report (Week 2 Day 5) | 7 Nov 2026 |
+| Harness uses `--input` / `--output` args | A9 requirement — harness will be pointed at hidden 120-ticket evaluation set | 7 Nov 2026 |
 | `all-MiniLM-L6-v2` for embeddings | Runs locally, no API cost, spec requirement | 7 Nov 2026 |
 | `meta-llama/llama-3.1-8b-instruct` default model | Spec default; OpenRouter free tier | 7 Nov 2026 |
-| **Build a retrieval system, NOT a generative chatbot** | 71.4% of tickets are answerable from existing 29 KB articles. The problem is delivery/findability, not knowledge generation. Confirmed by data against all 5 stakeholder accounts. | 7 Nov 2026 |
-| **Escalation must carry context packet** | Daniel: "If an escalation arrived with context I would be twice as fast." Currently escalations are just raw ticket forwards. Context packet = summary + relevant docs + uncertainty reason. | 7 Nov 2026 |
-| **Private snippet files excluded from retrieval corpus** | Daniel's explicit warning: snippet files contain outdated answers. Only the 29 reviewed KB articles are safe retrieval sources. | 7 Nov 2026 |
-| **17.4% of tickets are hard-blocked from auto-response** | `must_not_auto_respond=True` on 87/500 tickets: security incidents, compliance requests, billing disputes, unclear requests. System must check this flag before any routing decision. | 7 Nov 2026 |
+| **Extraordinary problem framing: collective intelligence waste, not delivery problem** | 71.4% of tickets already have KB answers. Problem is not missing answers — it is that every resolved ticket's knowledge is discarded. Each new ticket should benefit from all previous ones. Economic equation: Prevention = (Ticket history × Resolution patterns) ^ Cross-customer learning | 9 Nov 2026 |
+| **FR-19 added: Resolution graph** | The network-effect exponent. FCR=True resolutions logged as reusable resolution records. Without this, the system is a SaaS feature, not an AI-native product. | 9 Nov 2026 |
+| **Escalation must carry context packet** | Daniel: "If an escalation arrived with context I would be twice as fast." | 7 Nov 2026 |
+| **Private snippet files excluded from retrieval** | Daniel: stale answers would scale mistakes. Only 29 reviewed KB articles used. | 7 Nov 2026 |
+| **17.4% of tickets hard-blocked from auto-response** | `must_not_auto_respond=True` on 87/500: security, compliance, billing, unclear. | 7 Nov 2026 |
 
 ---
 
-## � Key Discovery Findings (for PRD and Report)
+## 📊 Key Discovery Findings (for PRD and Report)
 
-| Finding | Evidence | Implication for design |
-|---------|----------|----------------------|
-| **71.4% of tickets are answerable from existing 29 KB articles** | `answerable_from_docs=True` in 357/500 tickets | Build a retrieval system, not a generative one. The answers exist — the system needs to find and surface them. |
-| **Agents bypass KB search — use private snippet files instead** | Sofia + Ines interviews | Keyword search fails on vocabulary mismatch ("deployment keeps dying" ≠ "resolving container health check failures"). Semantic (embedding) search solves this directly. |
-| **56.2% escalation rate; ~50% of those are tier-1 resolvable** | `history.escalated` = 281/500; Daniel interview; deployment 59% escalated but 70% answerable from docs | Reducing unnecessary escalations is the primary cost lever (4× cost ratio). Confidence threshold + draft response reduces this. |
-| **Escalations arrive with no context** | Daniel interview (explicit) | Escalation must carry: 2-sentence summary + retrieved docs + reason for uncertainty. Non-negotiable design requirement. |
-| **17.4% of tickets must never be auto-responded** | `must_not_auto_respond=True` on 87/500 | Security incidents, compliance, billing disputes, unclear requests. Hard block before routing. |
-| **Enterprise FCR is worst (37.3%) despite premium agreements** | `customer_tier=enterprise`: FCR 37.3%, escalation 62.7% | Enterprise tickets are most complex. System should not claim to fix enterprise FCR — it helps standard/business most. Enterprise benefit comes from better escalation context. |
-| **21.6% repeat contact rate** | `history.repeat_contact=True` on 108/500 | 1 in 5 tickets is a follow-up from insufficient first response. Improving first-contact quality directly eliminates this work. |
-| **Sofia's non-fluent CSAT claim not confirmed by data** | Non-fluent CSAT: 3.04 vs Fluent: 2.95 | Vocabulary mismatch still affects retrieval quality for non-fluent customers; monitor per-segment metrics but do not over-engineer for non-fluent in v1. |
+| Finding | Data | Design implication |
+|---------|------|-------------------|
+| **71.4% of tickets answerable from 29 existing KB articles** | 357/500 `answerable_from_docs=True` | Resolution knowledge already exists — system must surface it, not invent it |
+| **Resolution knowledge discarded after every ticket close** | No current mechanism to reuse closed-ticket resolutions | FR-19: log FCR=True resolutions as reusable records — this is the compounding exponent |
+| **56.2% escalation rate; ~50% tier-1 resolvable** | 281/500 escalated; deployment 59% escalated but 70% answerable | Confidence threshold + grounded draft reduces unnecessary escalations |
+| **Agents use private snippet files, not KB** | Sofia + Ines interviews; keyword search vocabulary mismatch | Semantic retrieval (all-MiniLM-L6-v2) solves vocabulary mismatch |
+| **Escalations arrive with no context** | Daniel interview (explicit) | Escalation context packet: summary + docs + uncertainty reason |
+| **17.4% must never be auto-responded** | 87/500 safety-flagged | Hard-block before routing — not after |
+| **Enterprise FCR 37.3% (worst tier)** | Enterprise: FCR 37.3%, avg 484 min, 62.7% escalated | System benefits standard/business most; enterprise benefit via better escalation context |
+| **21.6% repeat contact rate** | 108/500 `repeat_contact=True` | Better first-contact quality eliminates 108 follow-up tickets in this sample alone |
+| **Non-fluent CSAT claim not confirmed by data** | Non-fluent CSAT 3.04 vs Fluent 2.95 | Monitor per-segment but don't over-engineer for non-fluent in v1 |
+| **docs_comment is 15.6% of traffic** | 78/500 via docs_comment | Highest-intent users — best candidates for compound learning |
 
-| ID | Description | Discovery Evidence | Acceptance Test |
-|----|-------------|-------------------|-----------------|
-| FR-01 | *(pending — Week 1 Day 4)* | | |
+---
+
+## � Requirement IDs (FR-01 to FR-19, NFR-01 to NFR-10)
+
+| ID | Description | Discovery Evidence | Code Module |
+|----|-------------|-------------------|-------------|
+| FR-01 | Accept tickets from all 4 channels (email, chat, docs_comment, forum) | Data: channel distribution (Section 2, Table 2-A) | src/ingest.py |
+| FR-02 | Normalise all tickets to single internal representation | Architecture; cross-channel resolution graph requires uniform format | src/ingest.py |
+| FR-03 | Classify every ticket with one of 22 intent classes (≥85% precision) | Marcus/Sofia interviews; Section 4 success metrics | src/classify.py |
+| FR-04 | Assign urgency (high/medium/low) to every ticket | Data: 29.2% high-urgency; Ravi: urgency asymmetry | src/classify.py |
+| FR-05 | Calibrated confidence score 0.0–1.0 (within 5pp per band) | Marcus: "rather it said nothing than said something wrong" | src/classify.py |
+| FR-06 | Semantic search over 29 KB articles (all-MiniLM-L6-v2) | Ines: vocab mismatch; 71.4% answerable from docs | src/retrieve.py |
+| FR-07 | Return empty list when no article relevant — never hallucinate a retrieval | Ines: feature requests have no article | src/retrieve.py |
+| FR-08 | Hard-block must_not_auto_respond=True before routing | Data: 17.4% safety-flagged; Daniel: security/billing always escalate | src/route.py |
+| FR-09 | Route using confidence threshold (default 0.80); deterministic | Marcus: threshold justified by calibration data, not assumption | src/route.py |
+| FR-10 | Escalated tickets carry context packet (summary + passages + uncertainty reason) | Daniel: "context would make me twice as fast" | src/route.py |
+| FR-11 | Generated responses cite KB articles (doc_id inline); citations resolve to retrieved passages | Ines: citation requirement; Ravi: source transparency | src/generate.py |
+| FR-12 | MUST NOT generate without retrieved passages | Ines: no article → must not manufacture | src/generate.py |
+| FR-13 | Guardrail 1: PII scan; block + escalate | GDPR; Marcus compliance | src/guardrails.py |
+| FR-14 | Guardrail 2: Grounding check; every claim traces to passage; block if not | Marcus primary fear; Ravi: "I will act on it" | src/guardrails.py |
+| FR-15 | Guardrail 3: Prompt injection detection; block + log | Security — ticket body is untrusted input | src/guardrails.py |
+| FR-16 | Guardrail 4: Tone/scope — no refund or timeline commitments | Daniel: "billing becomes contractual quickly" | src/guardrails.py |
+| FR-17 | Guardrail 5: Confidence floor — verify threshold was applied | Governance; decision log must show threshold applied | src/guardrails.py |
+| FR-18 | Every automated decision logged to SQLite (full schema) | Marcus: compliance review; autumn deadline | src/logging_store.py |
+| **FR-19** ★ | **Resolution graph: FCR=True resolutions logged as reusable records (intent, doc_ids, confidence, tier, fluency)** | **Section 6: extraordinary problem. Economic equation exponent. "THIS IS THE EXPONENT."** | **src/logging_store.py (extension)** |
+| NFR-01 | Latency P95 < 3 seconds | Ravi: urgency asymmetry; SLA context | evaluation/harness.py |
+| NFR-02 | Availability ≥ 99.5% | SLA obligation | Monitoring |
+| NFR-03 | Intent precision ≥ 85% per class | Routing quality depends on classification | evaluation/harness.py |
+| NFR-04 | Hallucination rate ≤ 5% | Marcus primary fear | evaluation/harness.py |
+| NFR-05 | Citation accuracy ≥ 95% | Ines: citation = KB audit trail | evaluation/harness.py |
+| NFR-06 | Zero PII in outbound responses | GDPR | src/guardrails.py |
+| NFR-07 | Tier consistency: <5pp FCR gap increase | Ravi: enterprise–business gap | evaluation/harness.py |
+| NFR-08 | Language consistency: <5pp fluent vs non-fluent | Sofia concern; vocab mismatch affects retrieval | evaluation/harness.py |
+| NFR-09 | Decision log coverage: 100% (count_decisions() == tickets_processed) | Marcus: compliance audit trail | src/logging_store.py |
+| NFR-10 | Confidence calibration: within 5pp per band | Threshold only meaningful if calibrated | evaluation/harness.py |
 
 ---
 
@@ -88,9 +113,9 @@
 
 | Prompt ID | Version | File | Status |
 |-----------|---------|------|--------|
-| PR-CL-01 | v1.0 (stub) | `prompts/build/classify_v1.txt` | Stub only — write fully Week 1 Day 5 |
-| PR-GN-01 | v1.0 (stub) | `prompts/build/generate_v1.txt` | Stub only — write fully Week 1 Day 5 |
-| PR-EV-01 | v1.0 (stub) | `prompts/evaluation/eval_v1.txt` | Stub only — write fully Week 1 Day 5 |
+| PR-CL-01 | v1.0 (stub) | `prompts/build/classify_v1.txt` | Write fully — Week 1 Day 5 |
+| PR-GN-01 | v1.0 (stub) | `prompts/build/generate_v1.txt` | Write fully — Week 1 Day 5 |
+| PR-EV-01 | v1.0 (stub) | `prompts/evaluation/eval_v1.txt` | Write fully — Week 1 Day 5 |
 
 ---
 
@@ -99,48 +124,41 @@
 
 | Metric | Target | Result | Run Date |
 |--------|--------|--------|----------|
-| Intent precision | ≥85% | — | — |
+| Intent precision | ≥85% per class | — | — |
 | Hallucination rate | ≤5% | — | — |
 | Citation accuracy | ≥95% | — | — |
 | Latency P95 | <3s | — | — |
 | Escalation rate | ≤30% | — | — |
 | FCR rate | ≥60% | — | — |
+| Resolution graph growth (FR-19) | ≥FCR × tickets/run | — | — |
 
 ---
 
 ## ❓ Open Questions / Blockers
 
-1. **⚠️ API key needed NOW:** Open `.env` and replace `your_key_here` with your OpenRouter key. Get one free at https://openrouter.ai/ → Sign in → Keys → Create key. Without this, Week 2 Day 2 (retrieval) and Day 3 (classification) will not work.
-2. **Threshold decision:** Set final `CONFIDENCE_THRESHOLD` value after first evaluation run (Week 2 Day 5) — default 0.80 is a starting point
-3. **Architecture review:** Review `docs/architecture.md` diagram after PRD v1 is written (Week 1 Day 4) to ensure it matches requirements
+1. **⚠️ API key needed:** Open `.env`, replace `your_key_here` with your OpenRouter key (https://openrouter.ai/ → Keys → Create key). Required before Week 2 Day 2 (retrieval) and Day 3 (classification).
+2. **Threshold calibration:** `CONFIDENCE_THRESHOLD=0.80` is the starting point. Final value set after Week 2 Day 5 gate run — justify with calibration check data.
+3. **FR-19 implementation scope:** Resolution graph (FR-19) is a v1 seed — the logging mechanism. The actual retrieval-from-resolution-graph is a v2 enhancement. Clarify in PRD revision log after Week 2 Day 5.
+4. **Architecture diagram update needed:** `docs/architecture.md` predates the extraordinary problem reframing. Update after Stage 3 Prompt Library is written (Week 1 Day 5).
 
 ---
 
 ## ⏭ Next Immediate Action
 > **START HERE next session:**
 
-**Step 1 — Add your OpenRouter API key (5 minutes):**
-1. Go to **https://openrouter.ai/** → Sign in with Google
-2. Click **Keys** in left sidebar → **Create key** → name it `capstone` → copy the key (`sk-or-...`)
-3. Open `.env` in the project root and replace `your_key_here` with your key
-4. Verify it works:
-```bash
-cd /Users/nishchaygupta/Documents/Final_Capstone_Project
-source venv/bin/activate
-python -c "
-from dotenv import load_dotenv; import os; load_dotenv()
-from openai import OpenAI
-client = OpenAI(base_url='https://openrouter.ai/api/v1', api_key=os.getenv('OPENROUTER_API_KEY'))
-r = client.chat.completions.create(model='meta-llama/llama-3.1-8b-instruct', messages=[{'role':'user','content':'Say OK'}], max_tokens=5)
-print('API works:', r.choices[0].message.content.strip())
-"
-```
+**Stage 3: Write the Prompt Library (Week 1 Day 5)**
 
-**Step 2 — Read all core project documents IN THIS ORDER:**
-1. `00_Start_Here.docx` in Downloads/FDE_Capstone_Complete (15 min)
-2. `01_Project_Brief.docx` (2-3 hrs — do NOT skim governance/evaluation sections)
-3. `Submission_Guide.docx` (30 min — know the finish line)
-4. `02_Build_Specification.docx` (45 min — all 12 acceptance criteria)
+1. Open `Stage_3_Prompt_Library.docx` from Downloads/FDE_Capstone_Complete/Capstone_Pack/02_Stage_Workbooks/
+2. Convert each FR into a specification — write actual prompts (not stubs) for:
+   - `prompts/build/classify_v1.txt` (FR-03, FR-04, FR-05) — classify intent, urgency, confidence
+   - `prompts/build/generate_v1.txt` (FR-11, FR-12) — grounded response with doc_id citations
+   - `prompts/evaluation/eval_v1.txt` (NFR-03 to NFR-05) — hallucination + citation check
+   - Add new: `prompts/build/route_v1.txt` (FR-08 to FR-10)
+3. Update `prompts/README.md` version register with real content, dates, requirement IDs
+4. Fill `Stage_4_Sprint_Plan.docx` — Day-by-Day Week 2 backlog with definitions of done
+5. Update CONTEXT.md with prompt versions
+
+**Also: API key still needed for Week 2 Day 2.**
 
 ---
 
@@ -148,75 +166,8 @@ print('API works:', r.choices[0].message.content.strip())
 
 | Date | Duration | What Was Done | Next Session Goal |
 |------|----------|--------------|-------------------|
-| 7 Nov 2026 | ~2 hrs | Full project scaffold created. All files stubbed, datasets copied, git initialized. | Read all project docs + set up Python env + test OpenRouter API |
-| 7 Nov 2026 | ~30 min | Python venv created, all packages installed (resolved version conflicts in requirements.txt), .env created, 18 tests passing. | Add OpenRouter API key to .env, then read project docs |
-
----
-
-## 📋 Requirement IDs Defined
-
-| ID | Description | Discovery Evidence | Code Module |
-|----|-------------|-------------------|-------------|
-| FR-01 | Accept tickets from all 4 channels (email, chat, docs_comment, forum) | Section 2, Table 2-A: channel distribution | src/ingest.py |
-| FR-02 | Normalise all tickets to single internal representation | Architecture requirement | src/ingest.py |
-| FR-03 | Classify every ticket with one of 22 intent classes | Section 4 success metrics; Marcus / Sofia interviews | src/classify.py |
-| FR-04 | Assign urgency (high/medium/low) to every ticket | Data: 29.2% high-urgency; Ravi urgency asymmetry | src/classify.py |
-| FR-05 | Calibrated confidence score 0.0–1.0 (within 5pp per band) | Marcus: 'rather it said nothing than said something wrong' | src/classify.py |
-| FR-06 | Semantic search over 29 KB articles (all-MiniLM-L6-v2) | Ines: vocab mismatch; 71.4% answerable from docs | src/retrieve.py |
-| FR-07 | Return empty list when no article is relevant — escalate, never hallucinate | Ines: feature requests have no article | src/retrieve.py |
-| FR-08 | Hard-block must_not_auto_respond=True tickets before routing | Data: 17.4% safety-flagged; Daniel: security/billing | src/route.py |
-| FR-09 | Route using confidence threshold (default 0.80); deterministic | Marcus: threshold must be justified with data | src/route.py |
-| FR-10 | Escalated tickets carry context packet (summary + passages + reason) | Daniel: 'context would make me twice as fast' | src/route.py |
-| FR-11 | Generated responses cite specific KB articles (doc_id); citations must resolve | Ines: citation requirement; Ravi: source transparency | src/generate.py |
-| FR-12 | System MUST NOT generate without retrieved passages | Ines: no article → must not manufacture answer | src/generate.py |
-| FR-13 | Guardrail 1: PII scan on every outbound response; block if detected | GDPR; Marcus compliance review | src/guardrails.py |
-| FR-14 | Guardrail 2: Grounding check; every factual claim must trace to a passage | Marcus primary fear; Ravi: 'I will act on it' | src/guardrails.py |
-| FR-15 | Guardrail 3: Prompt injection detection; block and log | Security — tickets are untrusted input | src/guardrails.py |
-| FR-16 | Guardrail 4: Tone/scope — no refund or timeline commitments | Daniel: 'billing becomes contractual quickly' | src/guardrails.py |
-| FR-17 | Guardrail 5: Confidence floor — verify threshold was applied | Governance requirement | src/guardrails.py |
-| FR-18 | Every automated decision logged to SQLite with full schema | Marcus: compliance review; autumn deadline | src/logging_store.py |
-| NFR-01 | Latency P95 < 3 seconds | Ravi: urgency matters; SLA context | evaluation/harness.py |
-| NFR-02 | Availability ≥ 99.5% | SLA obligation | Monitoring |
-| NFR-03 | Intent precision ≥ 85% per class | Routing depends on classification quality | evaluation/harness.py |
-| NFR-04 | Hallucination rate ≤ 5% | Marcus primary fear | evaluation/harness.py |
-| NFR-05 | Citation accuracy ≥ 95% | Ines: citation requirement | evaluation/harness.py |
-| NFR-06 | Zero PII in outbound responses | GDPR | src/guardrails.py |
-| NFR-07 | Tier consistency: <5pp gap increase | Ravi: enterprise–business gap | evaluation/harness.py |
-| NFR-08 | Language consistency: <5pp fluent vs non-fluent | Sofia concern; vocab mismatch affects retrieval | evaluation/harness.py |
-| NFR-09 | Decision log coverage: 100% | Marcus: compliance audit trail | src/logging_store.py |
-| NFR-10 | Confidence calibration: within 5pp per band | Threshold only meaningful if calibrated | evaluation/harness.py |
-
----
-
-## ⏭ Next Immediate Action (updated after Stage 1)
-
-**Stage 1 Discovery is complete.** Next: write PRD v1 (Stage 2, Week 1 Day 4).
-
-**Tasks for next session:**
-1. Open `Stage_2_PRD_Template.docx` from Downloads
-2. Write all functional requirements (FR-01 through ~FR-15) with unique IDs and discovery evidence references — use findings in `docs/Stage_1_Discovery_Workbook_Filled.md`
-3. Write non-functional requirements (NFR-01 through ~NFR-08): latency, availability, hallucination rate, citation accuracy, PII=0, fairness
-4. Write out-of-scope section (feature requests, roadmap, novel incidents, private snippet files)
-5. Update CONTEXT.md with all requirement IDs
-
-**Key discovery inputs to use in PRD:**
-- `71.4% answerable from docs` → drives retrieval requirement (FR)
-- `Vocabulary mismatch (Sofia + Ines)` → drives semantic/embedding search requirement
-- `Escalations without context (Daniel)` → drives escalation context packet requirement
-- `17.4% must_not_auto_respond` → drives hard-block safety requirement
-- `Explainability for compliance review (Marcus)` → drives decision logging requirement
-- `Citation required (Ravi + Ines)` → drives grounding and citation requirements
-- `Confidence calibration` → drives threshold + calibration requirement
-- `Enterprise FCR worst (37.3%)` → drives per-tier monitoring in NFR
-
-**Also still needed:** Add OpenRouter API key to `.env` before Week 2 Day 2 builds start.
-
----
-
-## 📅 Session Log (updated)
-
-| Date | Duration | What Was Done | Next Session Goal |
-|------|----------|--------------|-------------------|
-| 7 Nov 2026 | ~2 hrs | Full project scaffold created | Read project docs + set up Python env |
-| 7 Nov 2026 | ~30 min | Python venv + all packages installed, .env created | Add OpenRouter API key, read project docs |
-| 7 Nov 2026 | ~3 hrs | Stage 1 Discovery COMPLETE — all 5 interviews read, 500 tickets analysed, full workbook written at `docs/Stage_1_Discovery_Workbook_Filled.md` | Write PRD v1 (Stage 2) — use discovery findings |
+| 7 Nov 2026 | ~2 hrs | Full project scaffold created. All files stubbed, datasets copied, git initialized. | Read project docs + set up Python env |
+| 7 Nov 2026 | ~30 min | Python venv + all packages installed, .env created, 18 tests passing | Add OpenRouter API key, read project docs |
+| 7 Nov 2026 | ~3 hrs | Stage 1 Discovery COMPLETE — all 5 interviews read, 500 tickets analysed, workbook written | Write PRD v1 (Stage 2) |
+| 7 Nov 2026 | ~2 hrs | Stage 1 + Stage 2 initial .docx generated | Apply Extraordinary Problem framework |
+| 9 Nov 2026 | ~2 hrs | Extraordinary Problem framework applied to both .docx files. FR-19 (resolution graph exponent) added. Both documents verified on disk. CONTEXT.md updated. | Write Stage 3 Prompt Library + Stage 4 Sprint Plan |
