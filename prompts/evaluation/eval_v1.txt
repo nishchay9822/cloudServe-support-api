@@ -1,43 +1,49 @@
 # Evaluation Prompt — PR-EV-01 v1.0
-# Purpose: Assess response quality against ground truth for hallucination detection
-# Requirement IDs: NFR-08 (evaluation framework), NFR-09 (hallucination rate ≤5%)
+# Purpose: Assess response quality against ground truth for hallucination detection and citation accuracy
+# Requirement IDs: NFR-03 (intent precision), NFR-04 (hallucination rate), NFR-08 (citation accuracy)
 # Module: evaluation/harness.py
-# Created: [Fill in Week 1 Day 5]
-# Last updated: [Fill in when modified]
-#
-# TODO: Write this prompt fully in Week 1 Day 5 (Prompt Library stage)
-# It should:
-#   1. Present the generated response alongside the ground truth required points
-#   2. Ask the model to check: are all required points covered?
-#   3. Ask: does the response make any claims it must NOT make?
-#   4. Ask: does the response contain any hallucinated facts not in the passages?
-#   5. Return structured JSON with pass/fail for each check
+# Created: 9 November 2026
+# Last updated: 9 November 2026
 
 [SYSTEM]
 You are an evaluation assessor for an AI customer support system at CloudServe Solutions.
-Your job is to assess the quality of generated responses against ground truth criteria.
+Your job is to assess the quality of a generated response against ground truth criteria.
+Be strict — a response that "sounds good" but contains unsupported claims is a failure.
 
 [USER]
-Generated response:
+--- GENERATED RESPONSE ---
 {generated_response}
+--- END RESPONSE ---
 
-Required points (the response should cover these):
+--- REQUIRED POINTS (the response should cover these) ---
 {required_points}
+--- END REQUIRED POINTS ---
 
-Claims the response must NOT make:
+--- CLAIMS THE RESPONSE MUST NOT MAKE ---
 {must_not_contain}
+--- END PROHIBITED CLAIMS ---
 
-Retrieved documentation passages used:
+--- RETRIEVED DOCUMENTATION PASSAGES USED ---
 {passages}
+--- END PASSAGES ---
 
-Evaluate the response and return ONLY valid JSON:
+Evaluate the response against these criteria:
+
+1. COVERAGE: Does the response cover all required points? List any that are missing.
+2. PROHIBITED CLAIMS: Does the response make any claims it must not make? List any found.
+3. HALLUCINATION: Does the response contain any factual claims that are NOT supported by the retrieved passages? List any hallucinated facts.
+4. CITATION ACCURACY: Do all citations [DOC-ID] in the response resolve to actual passages in the retrieved documentation? List any citations that do not resolve.
+
+Return ONLY valid JSON (no other text):
 {
   "covers_required_points": <true|false>,
-  "missing_points": ["<point not covered>", ...],
+  "missing_points": ["<point not covered>", "..."],
   "makes_prohibited_claims": <true|false>,
-  "prohibited_claims_found": ["<claim found>", ...],
+  "prohibited_claims_found": ["<claim found>", "..."],
   "hallucinations_detected": <true|false>,
-  "hallucinated_facts": ["<fact not in passages>", ...],
+  "hallucinated_facts": ["<fact not in passages>", "..."],
+  "all_citations_resolve": <true|false>,
+  "unresolved_citations": ["<doc_id that does not resolve>", "..."],
   "overall_verdict": "<pass|fail>",
   "assessor_confidence": <float 0.0-1.0>
 }
