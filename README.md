@@ -1,147 +1,137 @@
-# CloudServe Intelligent Support System — FDE Capstone
+# CloudServe Intelligent Support System: FDE Capstone
 
-An AI-powered customer support routing and response system built for CloudServe Solutions. The system receives support tickets from four channels (email, live chat, API documentation comments, and community forum), classifies each ticket for intent and urgency, retrieves relevant passages from the knowledge base, and decides whether to auto-generate a grounded response or escalate to a human agent with a prepared context packet. Every automated decision is logged for governance and audit purposes.
+An AI support system for CloudServe Solutions. It takes tickets from four channels (`email`, `chat`, `docs_comment`, `forum`), classifies intent and urgency, retrieves passages from the knowledge base, then either sends a grounded, cited reply or escalates to a human with a prepared context packet. Every decision is written to a persistent log.
+
+Architecture: see `docs/architecture.md` and `docs/architecture.drawio` (open in draw.io / diagrams.net).
 
 ---
 
-## Setup
+## Setup (Python 3.9 to 3.11)
 
-### 1. Clone the repository
 ```bash
 git clone <your-repo-url>
 cd Final_Capstone_Project
-```
-
-### 2. Create and activate a virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate       # macOS / Linux
-# venv\Scripts\activate        # Windows
-```
-
-### 3. Install dependencies
-```bash
+python3 -m venv venv
+source venv/bin/activate          # macOS / Linux
 pip install -r requirements.txt
+cp .env.example .env              # then set OPENROUTER_API_KEY
 ```
 
-### 4. Configure environment variables
+Never commit `.env`. It is gitignored. All other variables have working defaults (see `.env.example`).
+
+The first run downloads the `all-MiniLM-L6-v2` embedding model and builds the local Chroma index under `storage/`.
+
+### No API key?
+The pipeline still runs. With no key (or no credit), replies cannot be generated, so every ticket is escalated to a human with its context packet. No ticket is dropped and no unreviewed reply is sent (verified by the outage run: 80/80 processed, 80 escalated).
+
+### Other providers
+Any OpenAI-compatible endpoint works:
 ```bash
-cp .env.example .env
+export LLM_BASE_URL=https://api.groq.com/openai/v1
+export LLM_API_KEY=...
+export MODEL_NAME=llama-3.1-8b-instant
 ```
-Then open `.env` and fill in your `OPENROUTER_API_KEY`. All other values have working defaults.
+(Groq switch is implemented but not tested against a live key.)
 
-> **Never commit `.env` to git.** It is in `.gitignore`.
+---
 
-### 5. Run the evaluation harness (validates the full pipeline)
+## Run the evaluation harness
+
 ```bash
 python evaluation/harness.py \
   --input data/validation_tickets.json \
   --output evaluation/results/run_001.json
 ```
 
-> **Note:** The evaluation harness always accepts `--input` and `--output` arguments. Never hardcode file paths. The harness will be pointed at a hidden evaluation set during grading.
+Options: `--max-tickets N`, `--judge N` (independent model assesses up to N replies), `--ground-truth PATH`, `--run-id ID`.
 
----
+Outputs: the JSON file, a Markdown metrics report beside it, and a `*_human_review.csv` for the human second assessor. Exit code 0 means it finished the whole set; 2 means it could not start. The harness always takes `--input` and `--output`, so it can be pointed at any hidden set.
 
-## Running Tests
+Provider-outage drill: run with the key unset. Expect every ticket processed, all escalated, no customer replies, no errors.
+
+## Run the tests
 
 ```bash
 pytest tests/ -v
 ```
 
-Tests in `tests/test_ingest.py` are marked `xfail` until Week 2 Day 1 implementation — that is expected.
-Tests in `tests/test_harness.py` should pass immediately.
+82 tests, no network needed.
 
----
-
-## Running the API
+## Run the API
 
 ```bash
 uvicorn src.api:app --reload
 ```
 
-The API starts at `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`.
+Docs at `http://localhost:8000/docs`.
 
-Endpoints:
-- `GET /health` — health check
-- `POST /process` — process a support ticket through the full pipeline
-- `GET /decisions/{ticket_id}` — retrieve decision log entries for a ticket
+| Endpoint | Purpose |
+|---|---|
+| `GET /health` | Status, provider configured, kill switch state |
+| `POST /process` | Run one ticket through the pipeline; always returns a decision |
+| `GET /decisions/{ticket_id}` | Decision log entries for a ticket |
+| `GET /metrics` | Prometheus metrics |
+| `POST /admin/kill-switch` | Body `{"on": true, "token": "<ADMIN_TOKEN>"}`. Sends all later tickets to humans |
+
+Kill switch can also be set with `KILL_SWITCH=1` or by creating `storage/KILL_SWITCH`.
 
 ---
 
-## Directory Structure
+## How a ticket is decided
+
+1. Ingest: normalise channel and fields, screen for prompt injection.
+2. Classify: kNN over development tickets; if vote share is below `KNN_TRUST` the LLM is also called and the two are combined. Confidence comes from classifier agreement.
+3. Retrieve: Chroma search, one passage per document, minimum score `RETRIEVAL_MIN_SCORE`.
+4. Route (deterministic code): safety intent, then no passages, then confidence below `CONFIDENCE_THRESHOLD`, else auto-respond.
+5. Generate: cited reply from the full top article. A `NO_ANSWER` reply escalates.
+6. Guardrails: PII, grounding, figures, injection, tone. Any block escalates.
+7. Log: decision, reason, sources, prompt version and requirement IDs go to SQLite.
+
+Safety intents that always escalate: `security_incident`, `compliance_request`, `feature_request`, `unclear_request`.
+
+---
+
+## Directory structure
 
 ```
 Final_Capstone_Project/
-├── README.md                    ← This file
-├── requirements.txt             ← Pinned dependencies
-├── .env.example                 ← Environment variable template
-├── .gitignore
-├── CONTEXT.md                   ← Persistent session memory (update every session)
-├── TIMELINE.md                  ← 3-week checklist with effort tracking
-│
-├── src/                         ← Core pipeline modules
-│   ├── __init__.py
-│   ├── ingest.py                ← Channel normalisation (A2)
-│   ├── classify.py              ← Intent + urgency + confidence (A3)
-│   ├── retrieve.py              ← Chroma RAG retrieval (A4)
-│   ├── route.py                 ← Auto-respond vs escalate decision (A5)
-│   ├── generate.py              ← Grounded response with citations (A6)
-│   ├── guardrails.py            ← 5 guardrails, can block response (A7)
-│   ├── logging_store.py         ← SQLite decision log (A8)
-│   └── api.py                   ← FastAPI HTTP interface
-│
-├── prompts/                     ← Versioned prompt library
-│   ├── README.md                ← Prompt register (version table)
-│   ├── build/
-│   │   ├── classify_v1.txt      ← Classification prompt
-│   │   └── generate_v1.txt      ← Generation prompt
-│   └── evaluation/
-│       └── eval_v1.txt          ← Evaluation prompt
-│
-├── tests/
-│   ├── __init__.py
-│   ├── test_ingest.py           ← Ingest tests (xfail until Week 2 Day 1)
-│   └── test_harness.py          ← Harness CLI tests (pass immediately)
-│
-├── evaluation/
-│   ├── __init__.py
-│   ├── harness.py               ← Evaluation harness (accepts --input/--output)
-│   └── results/                 ← Output JSON files (gitignored via storage/)
-│
-├── docs/
-│   └── architecture.md          ← System architecture diagram (Mermaid)
-│
-├── data/                        ← Datasets (never commit production secrets here)
-│   ├── development_tickets.json ← 500 labelled tickets for development
-│   ├── validation_tickets.json  ← 80 labelled tickets for validation
-│   ├── ground_truth_responses.json ← 200 reference answers
-│   └── documentation.json       ← 29 knowledge base articles
-│
-├── storage/                     ← Generated at runtime, NEVER committed
-│   ├── chroma/                  ← Chroma vector store
-│   └── decisions.db             ← SQLite decision log
-│
-└── .github/
-    └── workflows/
-        └── ci.yml               ← GitHub Actions CI
+├── README.md, requirements.txt, .env.example, CONTEXT.md, TIMELINE.md
+├── src/
+│   ├── ingest.py, classify.py, retrieve.py, route.py, generate.py
+│   ├── guardrails.py, logging_store.py
+│   ├── llm.py          ← provider client, retries, circuit breaker
+│   ├── prompts.py      ← versioned prompt loader
+│   ├── pipeline.py     ← process_ticket(), kill switch
+│   ├── telemetry.py    ← Prometheus metrics
+│   └── api.py          ← FastAPI
+├── prompts/            ← versioned prompts + register (prompts/README.md)
+├── evaluation/         ← harness.py, metrics.py, judge.py, analysis scripts, results/
+├── tests/              ← 82 tests
+├── docs/               ← stage documents, architecture.md, architecture.drawio
+├── data/               ← tickets, ground truth, documentation, calibration.json
+├── storage/            ← runtime only (Chroma, decisions.db), never committed
+└── .github/workflows/ci.yml
 ```
 
 ---
 
-## Acceptance Criteria Reference
+## Acceptance criteria map
 
-| Criterion | What it requires | Module |
-|-----------|-----------------|--------|
-| A1 | Runs from clean checkout following README | `README.md` |
+| Criterion | Requirement | Module |
+|---|---|---|
+| A1 | Runs from clean checkout following this README | `README.md` |
 | A2 | All 4 channels ingested and normalised | `src/ingest.py` |
-| A3 | Every ticket classified with confidence 0–1 | `src/classify.py` |
-| A4 | Retrieval runs against documentation corpus | `src/retrieve.py` |
-| A5 | Routing applies threshold; deterministic | `src/route.py` |
-| A6 | Generated answers cite retrieved passages | `src/generate.py` |
-| A7 | At least one guardrail blocks when triggered | `src/guardrails.py` |
-| A8 | Every decision written to persistent log | `src/logging_store.py` |
-| A9 | Full evaluation set processed unattended | `evaluation/harness.py` |
-| A10 | Metrics report produced automatically | `evaluation/harness.py` |
-| A11 | Graceful failure on errors, no crashes | All modules |
-| A12 | Tests run with one documented command | `pytest tests/ -v` |
+| A3 | Every ticket classified with confidence 0 to 1 | `src/classify.py` |
+| A4 | Retrieval against the documentation corpus | `src/retrieve.py` |
+| A5 | Deterministic routing with threshold | `src/route.py` |
+| A6 | Answers cite retrieved passages | `src/generate.py` |
+| A7 | Guardrails block when triggered | `src/guardrails.py` |
+| A8 | Every decision written to a persistent log | `src/logging_store.py` |
+| A9 | Full set processed unattended | `evaluation/harness.py` |
+| A10 | Metrics report produced automatically | `evaluation/harness.py`, `metrics.py` |
+| A11 | Graceful failure, no crashes | all modules |
+| A12 | Tests run with one command | `pytest tests/ -v` |
+
+## Known limitations
+
+See `CONTEXT.md`. In short: route and urgency labels are partly unpredictable from ticket text, headline accuracy is flattered by templated data, and the resolution-record learning loop (FR-13) is not demonstrated.

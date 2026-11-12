@@ -34,7 +34,7 @@ jobs:
       - name: Verify all src modules import cleanly
         run: |
           python -c "
-          from src import ingest, classify, retrieve, route, generate, guardrails, logging_store
+          from src import ingest, classify, retrieve, route, generate, guardrails, logging_store, llm, pipeline, telemetry, api
           print('✓ All src modules import successfully')
           "
 

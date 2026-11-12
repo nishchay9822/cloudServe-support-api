@@ -1,152 +1,125 @@
-# System Architecture — CloudServe Intelligent Support System
+# System Architecture: CloudServe Intelligent Support System
+
+Editable diagram: `docs/architecture.drawio` (open at app.diagrams.net or in the draw.io desktop app).
 
 ## High-Level Architecture
 
 ```mermaid
 flowchart LR
     subgraph Channels["Input Channels"]
-        E["📧 Email"]
-        C["💬 Live Chat"]
-        A["🔧 API Comments"]
-        F["🌐 Community Forum"]
+        E["Email"]
+        C["Chat"]
+        A["docs_comment"]
+        F["Forum"]
     end
-
-    subgraph Pipeline["Processing Pipeline"]
-        IN["**Ingest**\nnormalize_ticket()"]
-        CL["**Classify**\nclassify_ticket()"]
-        RT["**Retrieve**\nretrieve_passages()"]
-        RO["**Route**\nroute_ticket()"]
-        GN["**Generate**\ngenerate_response()"]
-        VL["**Validate**\nrun_guardrails()"]
+    subgraph Pipeline["Processing Pipeline (src/pipeline.py)"]
+        KS{"Kill switch?"}
+        IN["Ingest + injection screen"]
+        CL["Classify: kNN first, LLM if vote < 0.85"]
+        RT["Retrieve: Chroma, min score 0.30"]
+        RO["Route: deterministic"]
+        GN["Generate: full top article, NO_ANSWER sentinel"]
+        VL["Guardrails: PII, grounding, figures, injection, tone"]
     end
-
     subgraph Outputs["Outputs"]
-        OUT["✅ Auto Response"]
-        ESC["🔺 Escalation Packet"]
+        OUT["Auto reply with citations"]
+        ESC["Escalation packet"]
     end
-
     subgraph Store["Persistence"]
-        LOG[("📋 Decision Log\nSQLite")]
-        VEC[("🔍 Chroma\nVector Store")]
+        LOG[("SQLite decision log")]
+        VEC[("Chroma: docs + dev_tickets_v3")]
+        RES[("Resolution records FR-13")]
     end
+    LLM["LLM provider (OpenRouter / any OpenAI-compatible)"]
+    MON["Prometheus /metrics"]
 
-    subgraph Obs["Observability"]
-        MON["📊 Prometheus\nMetrics"]
-    end
-
-    E & C & A & F --> IN
+    E & C & A & F --> KS
+    KS -->|off| IN
+    KS -->|on| ESC
     IN --> CL --> RT --> RO
-    RO -->|"confidence ≥ threshold\nNOT must_not_auto_respond"| GN
+    RO -->|"safe intent, passages, confidence >= 0.80"| GN
+    RO -->|"safety intent, no passages, low confidence"| ESC
     GN --> VL
-    VL -->|"all guardrails pass"| OUT
-    VL -->|"guardrail blocked"| ESC
-    RO -->|"confidence < threshold\nor must_not_auto_respond"| ESC
-
-    RT <-.->|"embed + search"| VEC
-    IN & CL & RT & RO & GN & VL -.->|"every decision"| LOG
-    IN & CL & RT & RO & GN & VL -.->|"counters + histograms"| MON
+    VL -->|pass| OUT
+    VL -->|"blocked or NO_ANSWER"| ESC
+    CL <-.-> VEC
+    RT <-.-> VEC
+    CL -.-> LLM
+    GN -.-> LLM
+    Pipeline -.->|every decision| LOG
+    Pipeline -.-> MON
+    OUT & ESC -.-> RES
 ```
-
----
 
 ## Component Responsibilities
 
-| Component | File | Key Function(s) | Acceptance Criteria |
-|-----------|------|----------------|---------------------|
-| **Ingest** | `src/ingest.py` | `normalize_ticket()` | A2 — all 4 channels normalised |
-| **Classify** | `src/classify.py` | `classify_ticket()` | A3 — intent + urgency + confidence 0–1 |
-| **Retrieve** | `src/retrieve.py` | `embed_corpus()`, `retrieve_passages()` | A4 — sources resolve to real passages |
-| **Route** | `src/route.py` | `route_ticket()` | A5 — deterministic, threshold applied |
-| **Generate** | `src/generate.py` | `generate_response()` | A6 — citations resolve to retrieved passages |
-| **Validate** | `src/guardrails.py` | `run_guardrails()` | A7 — at least one guardrail blocks when triggered |
-| **Log** | `src/logging_store.py` | `log_decision()`, `count_decisions()` | A8 — every decision logged |
-| **API** | `src/api.py` | `POST /process` | A1, A9 — runnable, full pipeline |
-
----
+| Component | File | Key function(s) |
+|---|---|---|
+| Ingest | `src/ingest.py` | `normalize_ticket()`; accepts `api_comments` as alias of `docs_comment` |
+| Classify | `src/classify.py` | kNN over dev tickets (`dev_tickets_v3`), LLM fallback, agreement-based confidence |
+| Retrieve | `src/retrieve.py` | `embed_corpus()`, `retrieve_passages()`, `select_for_generation()` |
+| Route | `src/route.py` | `route_ticket()`, escalation context packet |
+| Generate | `src/generate.py` | `generate_response()` using `generate_v3.txt` |
+| Guardrails | `src/guardrails.py` | `run_guardrails()` |
+| Log | `src/logging_store.py` | decision log and resolution records |
+| LLM client | `src/llm.py` | `chat()`, retries, circuit breaker, fail-fast on 401/402 |
+| Pipeline | `src/pipeline.py` | `process_ticket()`, `warm_up()`, `kill_switch_on()` |
+| Telemetry | `src/telemetry.py` | Prometheus counters and histograms |
+| API | `src/api.py` | `/health`, `/process`, `/decisions/{id}`, `/metrics`, `/admin/kill-switch` |
 
 ## Routing Decision Logic
 
+Routing is code, not a model call. First match wins:
+
 ```
-threshold  = CONFIDENCE_THRESHOLD  (from .env, default 0.80 — justify in evaluation report)
-confidence = classify_ticket(ticket).confidence
-passages   = retrieve_passages(ticket.body)
-must_block = ticket.labels.must_not_auto_respond  (safety flag — always escalate if True)
-
-if confidence >= threshold
-   AND len(passages) > 0
-   AND NOT must_block:
-    ──► generate_response(ticket, passages) ──► run_guardrails() ──► auto_respond
-else:
-    ──► escalation_packet(summary, passages, uncertainty_reason) ──► escalate
-```
-
-An escalation always carries:
-- `summary`: 2-sentence summary of the ticket
-- `retrieved_sources`: passages found (even if confidence was low)
-- `uncertainty_reason`: why the system did not auto-respond
-
----
-
-## Five Guardrails
-
-| # | Name | Trigger | Action |
-|---|------|---------|--------|
-| G1 | PII | Names, addresses, keys, account numbers in outbound response | Block + escalate |
-| G2 | Grounding | Factual claim not traceable to a retrieved passage | Block + escalate |
-| G3 | Injection | Ticket text attempts to alter system instructions | Block + escalate + record |
-| G4 | Tone/Scope | Response makes refund promises or timeline commitments | Block |
-| G5 | Confidence Floor | Routing threshold was not actually applied | Escalate |
-
----
-
-## Decision Log Schema
-
-Every automated decision writes to SQLite with this structure:
-
-```json
-{
-  "decision_id":        "uuid",
-  "timestamp":          "2024-01-15T09:00:00Z",
-  "ticket_id":          "DEV-0001",
-  "stage":              "classify | route | generate | guardrail",
-  "input_summary":      "Brief description of what was processed",
-  "model":              {"name": "meta-llama/llama-3.1-8b-instruct", "version": "..."},
-  "prediction":         {"value": "billing_inquiry", "confidence": 0.87},
-  "alternatives":       [{"value": "refund_request", "confidence": 0.08}],
-  "sources_used":       [{"doc_id": "DOC-BILL-001", "score": 0.92}],
-  "threshold_applied":  0.80,
-  "action_taken":       "auto_respond",
-  "reason":             "Confidence 0.87 exceeds threshold 0.80; 2 relevant passages found",
-  "guardrail_results":  {"pii": "pass", "grounding": "pass", "tone": "pass"},
-  "prompt_version":     "PR-CL-01 v1.0",
-  "requirement_ids":    ["FR-03", "FR-04"]
-}
+if kill_switch:                         escalate  (kill_switch)
+if predicted_intent in SAFETY_INTENTS:  escalate  (safety)
+if no passages above MIN_SCORE:         escalate  (no_evidence)
+if confidence < CONFIDENCE_THRESHOLD:   escalate  (low_confidence)   # 0.80
+else:                                   generate
+generate -> NO_ANSWER                   escalate
+guardrail blocks                        escalate
+else:                                   auto_respond
 ```
 
----
+SAFETY_INTENTS = security_incident, compliance_request, feature_request, unclear_request. The rule uses the predicted intent only; ground-truth labels are never read at inference.
+
+An escalation always carries a summary, the retrieved sources, and the reason code.
+
+## Guardrails
+
+| Name | Trigger | Action |
+|---|---|---|
+| PII | Personal data or secrets in the outbound reply | Block and escalate |
+| Grounding | Claim not traceable to the shown documents | Block and escalate |
+| Figures | Number, version or duration not in sources or the customer's own text (checked in every sentence) | Block and escalate |
+| Injection | Ticket tries to alter instructions (screened before any LLM call) | Block and escalate |
+| Tone/Scope | Refund promises or timeline commitments | Block |
+| Confidence floor | Routing threshold not actually applied | Escalate |
+
+## Decision Log (SQLite)
+
+Each decision stores: decision id, timestamp, ticket id, stage, model and prompt version (e.g. `PR-GN-01 v3.0`), prediction and confidence, sources used with scores, threshold applied, action taken, reason code, guardrail results, requirement IDs, and run id. `GET /decisions/{ticket_id}` returns them.
 
 ## Technology Stack
 
-| Layer | Technology | Notes |
-|-------|-----------|-------|
-| Language | Python 3.10+ | |
-| Orchestration | LangChain + LangGraph | Pipeline + agent logic |
-| Vector Store | Chroma | Runs locally — no service to provision |
-| Embeddings | `all-MiniLM-L6-v2` | Local, no API cost |
-| LLM Access | OpenRouter (free tier) | |
-| Default Model | `meta-llama/llama-3.1-8b-instruct` | Change via `.env` |
-| HTTP Interface | FastAPI | |
-| Decision Log | SQLite | Via `DATABASE_URL` in `.env` |
-| Monitoring | Prometheus + Grafana | |
-| CI/CD | GitHub Actions | `.github/workflows/ci.yml` |
+| Layer | Technology |
+|---|---|
+| Language | Python 3.9 to 3.11 |
+| Vector store | Chroma (local) |
+| Embeddings | `all-MiniLM-L6-v2` (local, no API cost) |
+| LLM access | OpenRouter by default; any OpenAI-compatible endpoint via `LLM_BASE_URL` |
+| Default model | `meta-llama/llama-3.1-8b-instruct` |
+| Judge model | `openai/gpt-4o-mini` (independent of the generator) |
+| HTTP | FastAPI |
+| Decision log | SQLite |
+| Monitoring | Prometheus metrics at `/metrics`; Grafana dashboard is Stage 6 |
+| CI | GitHub Actions |
 
----
+## Monitoring Dashboard (Stage 6)
 
-## Monitoring Dashboard (Prometheus + Grafana)
-
-The dashboard must show:
-1. Tickets processed per hour, split by channel and outcome
-2. Auto-answered vs escalated proportion (track against 30% target)
-3. Response latency at median and P95 (target: P95 < 3s)
-4. Guardrail activations by type over time
-5. Confidence score distribution (where threshold drift shows up first)
+1. Tickets per hour by channel and outcome
+2. Auto-reply vs escalation share
+3. Latency median and p95 (target p95 under 3 s)
+4. Guardrail activations by type
+5. Confidence distribution, to spot threshold drift
