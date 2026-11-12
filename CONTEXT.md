@@ -68,10 +68,10 @@ Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 
 ## Next Immediate Actions
 1. After credit restored: `venv/bin/python3 evaluation/rejudge.py evaluation/results/dev_run.json --n 100`; optionally re-run the gate.
-2. Still to update: root `README.md` run commands and env vars, `.env.example`, `docs/architecture.md` (kNN-first design), check `.github/workflows/ci.yml`.
-3. Verify a clean checkout (clone, venv, pip install, pytest, harness per README).
-4. Stage 6: Governance_Framework (risk register, fairness audit, kill switch, incident response), Prometheus/Grafana, report (20-30 pages), 20-minute video, effort log, package `NishchayGupta_Capstone_Submission.zip`. See `TIMELINE.md`.
+2. Stage 6: Governance_Framework (risk register, fairness audit, kill switch, incident response), Prometheus/Grafana, report (20-30 pages), 20-minute video, effort log, package `NishchayGupta_Capstone_Submission.zip`. See `TIMELINE.md`.
+3. Done this session: README, `.env.example`, `docs/architecture.md`, `docs/architecture.drawio`, CI imports. A1 verified from a fresh clone (Python 3.9, no key): 82 tests passed, harness exit 0. Needs Python 3.9 to 3.11 (3.15 fails dependency resolution).
 
 ## Session Log
 - Stages 1-4 sessions: discovery, PRD v1, prompt library, sprint plan (commits up to c158448).
 - Stage 5 session: built modules, found and fixed channel/label/prompt/chunking/latency bugs, ran gate (80/80), outage run, dev run (500/500), swapped to independent judge, hit 402 credit limit, produced PRD v2.0 and revision log, updated prompt register and this file.
+- Wrap-up session: committed Stage 5, rewrote README/.env.example/architecture, added draw.io diagram, verified clean checkout (A1).
