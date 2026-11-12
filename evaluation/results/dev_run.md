@@ -46,7 +46,7 @@
 ## 7. Citations and answer quality
 
 - Auto-replies 397; with a citation 1.0; citations that resolve 1.0; cited the expected article 0.8743
-- Model-assessed (openai/gpt-4o-mini (independent model; a human second assessor is still required)), n=25: hallucination rate **0.0**, citations resolve 1.0, prohibited claims 0.0, required-point coverage 0.88, pass 0.88
+- Model-assessed (openai/gpt-4o-mini (independent model; a human second assessor is still required)), n=100: hallucination rate **0.0**, citations resolve 1.0, prohibited claims 0.0, required-point coverage 0.95, pass 0.95
 
 ## 8. Governance
 

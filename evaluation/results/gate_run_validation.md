@@ -1,6 +1,6 @@
-# Evaluation report - gate-validation-final
+# Evaluation report - gate-openrouter-final
 
-- Input: `data/validation_tickets.json`  |  tickets: **80**  |  finished: 2026-11-11T19:36:28+00:00  |  wall time: 38.0s
+- Input: `data/validation_tickets.json`  |  tickets: **80**  |  finished: 2026-11-12T17:52:17+00:00  |  wall time: 35.9s
 - Model: `meta-llama/llama-3.1-8b-instruct`  |  confidence threshold: 0.8  |  labelled input: True
 
 ## Gate: unattended run
@@ -12,7 +12,7 @@
 
 - Escalation rate: system **0.2** vs baseline 0.5375
 - Auto-resolution proxy (auto-replied and docs can answer it): **0.5875** vs baseline FCR 0.4625
-- Median time to first reply on auto-replies: **0.39 s** vs baseline median resolution 227 min
+- Median time to first reply on auto-replies: **0.42 s** vs baseline median resolution 227 min
 - Baseline repeat-contact rate 0.2125; baseline CSAT 2.6; system CSAT: not measurable offline
 
 ## 2. Routing
@@ -23,7 +23,7 @@
 
 ## 3. Classification
 
-- Intent accuracy **1.0** (n=80); urgency accuracy 0.45
+- Intent accuracy **1.0** (n=80); urgency accuracy 0.4375
 - Classes with precision below 85%: none; methods used: {'knn': 78, 'llm+knn': 2}
 - Top confusions: []
 
@@ -39,8 +39,8 @@
 
 ## 6. Latency
 
-- All tickets: p50 392 ms, p95 733 ms. Auto-replies: p50 387 ms, **p95 636 ms** (target < 3000 ms: True)
-- Model provider: 84 calls, 0 retries, 0 failures, 65803 tokens
+- All tickets: p50 409 ms, p95 735 ms. Auto-replies: p50 417 ms, **p95 673 ms** (target < 3000 ms: True)
+- Model provider: 84 calls, 0 retries, 0 failures, 65691 tokens
 
 ## 7. Citations and answer quality
 
@@ -57,23 +57,23 @@
 
 ## 9. Fairness by segment (groups with n < 15 are flagged)
 
-**customer_tier**  - max gap (pp): {'auto_rate': 18.6, 'route_accuracy': 0.5, 'intent_accuracy': 0.0, 'retrieval_hit@1': 8.0}
+**customer_tier**  - max gap (pp): {'auto_rate': 16.2, 'route_accuracy': 2.9, 'intent_accuracy': 0.0, 'retrieval_hit@1': 8.0}
 - business: n=30, auto rate 0.9, route acc 0.7333, intent acc 1.0, retrieval hit@1 1.0
-- enterprise: n=8 (low n), auto rate 0.875, route acc 0.875, intent acc 1.0, retrieval hit@1 0.8333
-- standard: n=42, auto rate 0.7143, route acc 0.7381, intent acc 1.0, retrieval hit@1 0.92
+- enterprise: n=8 (low n), auto rate 0.75, route acc 0.75, intent acc 1.0, retrieval hit@1 0.8333
+- standard: n=42, auto rate 0.7381, route acc 0.7619, intent acc 1.0, retrieval hit@1 0.92
 
 **language_fluency**  - max gap (pp): {'auto_rate': 1.4, 'route_accuracy': 29.3, 'intent_accuracy': 0.0, 'retrieval_hit@1': 6.8}
 - fluent: n=61, auto rate 0.8033, route acc 0.8197, intent acc 1.0, retrieval hit@1 0.9318
 - non_fluent: n=19, auto rate 0.7895, route acc 0.5263, intent acc 1.0, retrieval hit@1 1.0
 
-**region**  - max gap (pp): {'auto_rate': 3.0, 'route_accuracy': 9.6, 'intent_accuracy': 0.0, 'retrieval_hit@1': 10.5}
-- asia_pacific: n=21, auto rate 0.8095, route acc 0.7143, intent acc 1.0, retrieval hit@1 1.0
+**region**  - max gap (pp): {'auto_rate': 7.9, 'route_accuracy': 13.3, 'intent_accuracy': 0.0, 'retrieval_hit@1': 10.5}
+- asia_pacific: n=21, auto rate 0.8571, route acc 0.7619, intent acc 1.0, retrieval hit@1 1.0
 - europe: n=25, auto rate 0.84, route acc 0.8, intent acc 1.0, retrieval hit@1 0.8947
 - latin_america: n=7 (low n), auto rate 0.5714, route acc 0.8571, intent acc 1.0, retrieval hit@1 1.0
-- north_america: n=27, auto rate 0.8148, route acc 0.7037, intent acc 1.0, retrieval hit@1 0.9286
+- north_america: n=27, auto rate 0.7778, route acc 0.6667, intent acc 1.0, retrieval hit@1 0.9286
 
-**channel**  - max gap (pp): {'auto_rate': 21.6, 'route_accuracy': 8.7, 'intent_accuracy': 0.0, 'retrieval_hit@1': 15.4}
-- chat: n=22, auto rate 0.7273, route acc 0.7727, intent acc 1.0, retrieval hit@1 0.8462
+**channel**  - max gap (pp): {'auto_rate': 18.4, 'route_accuracy': 13.1, 'intent_accuracy': 0.0, 'retrieval_hit@1': 15.4}
+- chat: n=22, auto rate 0.7727, route acc 0.8182, intent acc 1.0, retrieval hit@1 0.8462
 - docs_comment: n=16, auto rate 0.6875, route acc 0.6875, intent acc 1.0, retrieval hit@1 1.0
-- email: n=31, auto rate 0.9032, route acc 0.7742, intent acc 1.0, retrieval hit@1 0.9545
+- email: n=31, auto rate 0.871, route acc 0.7419, intent acc 1.0, retrieval hit@1 0.9545
 - forum: n=11 (low n), auto rate 0.8182, route acc 0.7273, intent acc 1.0, retrieval hit@1 1.0
