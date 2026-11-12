@@ -1,0 +1,29 @@
+# Alert rules. Each one maps to a risk in docs/Governance_Framework (R-xx) and a step in the incident runbook.
+groups:
+  - name: cloudserve
+    rules:
+      - alert: ProviderUnavailable            # R-06
+        expr: sum(rate(routing_reason_total{reason="provider_unavailable"}[5m])) > 0.05
+        for: 5m
+        labels: {severity: page}
+        annotations: {summary: "Model provider failing: tickets are being escalated. Check LLM credit/key, consider the kill switch."}
+      - alert: LatencyP95High                 # R-07
+        expr: histogram_quantile(0.95, sum(rate(ticket_latency_seconds_bucket[10m])) by (le)) > 3
+        for: 10m
+        labels: {severity: warn}
+        annotations: {summary: "p95 ticket latency above the 3 s target."}
+      - alert: GuardrailBlocksSpike           # R-01, R-02, R-03
+        expr: sum(rate(guardrail_blocks_total[15m])) / clamp_min(sum(rate(tickets_processed_total[15m])), 0.001) > 0.10
+        for: 15m
+        labels: {severity: warn}
+        annotations: {summary: "More than 10% of tickets blocked by guardrails: possible attack or a bad prompt/model change."}
+      - alert: AutoRateDrift                  # R-01: confidence drift shows up here first
+        expr: abs(sum(rate(tickets_processed_total{decision="auto_respond"}[1h])) / clamp_min(sum(rate(tickets_processed_total[1h])), 0.001) - 0.79) > 0.15
+        for: 1h
+        labels: {severity: warn}
+        annotations: {summary: "Auto-reply share moved more than 15 points from the evaluated 79%. Re-check calibration."}
+      - alert: LowConfidenceShift             # R-01
+        expr: histogram_quantile(0.5, sum(rate(classification_confidence_bucket[1h])) by (le)) < 0.8
+        for: 1h
+        labels: {severity: warn}
+        annotations: {summary: "Median classification confidence fell below the 0.80 threshold."}

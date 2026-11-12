@@ -1,0 +1,21 @@
+# Prometheus + Grafana for the CloudServe support system.
+# Start the API first:  uvicorn src.api:app --host 0.0.0.0 --port 8000
+# Then:                 docker compose -f monitoring/docker-compose.yml up -d
+# Grafana: http://localhost:3000  (admin / admin on first login; change it)   Prometheus: http://localhost:9090
+services:
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./alerts.yml:/etc/prometheus/alerts.yml:ro
+    ports: ["9090:9090"]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+  grafana:
+    image: grafana/grafana:11.1.0
+    depends_on: [prometheus]
+    ports: ["3000:3000"]
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/cloudserve.json

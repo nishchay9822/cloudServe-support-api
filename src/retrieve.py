@@ -25,6 +25,9 @@ CHROMA_PATH = os.getenv("CHROMA_PATH", os.path.join(ROOT, "storage", "chroma"))
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
 DEFAULT_TOP_K = int(os.getenv("RETRIEVAL_TOP_K", "5"))
 MIN_SCORE = float(os.getenv("RETRIEVAL_MIN_SCORE", "0.30"))  # chosen from evaluation/eval_retrieval.py
+# Risk R-05 (stale documentation): an article not reviewed within this many days is never quoted to a customer;
+# the ticket escalates instead. 0 disables the guard. The shipped corpus is a fresh snapshot (every article 0 days).
+DOC_MAX_AGE_DAYS = int(os.getenv("DOC_MAX_AGE_DAYS", "180"))
 DOC_COLLECTION = "kb_articles"
 DEFAULT_DOCS = os.path.join(ROOT, "data", "documentation.json")
 
@@ -127,4 +130,6 @@ def retrieve_passages(query: str, top_k: int = DEFAULT_TOP_K, min_score: Optiona
                          "category": meta.get("category", ""),
                          "last_reviewed_days_ago": meta.get("last_reviewed_days_ago", 0)}
     ranked = sorted(best.values(), key=lambda p: -p["score"])
-    return [p for p in ranked if p["score"] >= floor][:top_k]
+    max_age = DOC_MAX_AGE_DAYS
+    fresh = [p for p in ranked if not max_age or int(p.get("last_reviewed_days_ago") or 0) <= max_age]
+    return [p for p in fresh if p["score"] >= floor][:top_k]

@@ -55,7 +55,7 @@ Provider-outage drill: run with the key unset. Expect every ticket processed, al
 pytest tests/ -v
 ```
 
-82 tests, no network needed.
+93 tests, no network needed.
 
 ## Run the API
 
@@ -91,6 +91,24 @@ Safety intents that always escalate: `security_incident`, `compliance_request`, 
 
 ---
 
+## Fairness audit, monitoring and the report
+
+```bash
+# Segment a finished run by tier, fluency, length, region and channel (intervals + significance tests)
+python evaluation/fairness_audit.py --run evaluation/results/dev_run.json \
+  --tickets data/development_tickets.json --out evaluation/results/fairness_dev
+
+# Prometheus + Grafana (needs Docker; start the API on port 8000 first)
+docker compose -f monitoring/docker-compose.yml up -d     # Grafana http://localhost:3000
+python monitoring/replay_traffic.py --n 60                 # send validation tickets so the dashboard has data
+
+# Rebuild the report PDF (extra packages: pip install -r docs/requirements-report.txt)
+python docs/report/build_report.py
+```
+
+The completed governance workbook is `docs/Governance_Framework.docx`; the effort log template is `docs/Effort_Log.docx`.
+
+---
 ## Directory structure
 
 ```
@@ -106,7 +124,8 @@ Final_Capstone_Project/
 │   └── api.py          ← FastAPI
 ├── prompts/            ← versioned prompts + register (prompts/README.md)
 ├── evaluation/         ← harness.py, metrics.py, judge.py, analysis scripts, results/
-├── tests/              ← 82 tests
+├── tests/              ← 93 tests
+├── monitoring/         ← Prometheus config, alert rules, Grafana dashboard, traffic replay
 ├── docs/               ← stage documents, architecture.md, architecture.drawio
 ├── data/               ← tickets, ground truth, documentation, calibration.json
 ├── storage/            ← runtime only (Chroma, decisions.db), never committed

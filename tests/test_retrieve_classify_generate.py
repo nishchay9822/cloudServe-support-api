@@ -105,3 +105,30 @@ def test_stray_sentinel_after_a_real_answer_is_removed(monkeypatch):
     monkeypatch.setattr(llm, "chat", lambda *a, **k: {"text": "Open the revisions page. [DOC-DEPLOY-002] NO_ANSWER", "tokens": 1})
     out = generate.generate_response({"body": "x"}, PASSAGE)
     assert not out["declined"] and "NO_ANSWER" not in out["answer"]
+
+
+def test_stale_article_is_never_returned(monkeypatch):
+    """R-05: an article past DOC_MAX_AGE_DAYS must be excluded, so the ticket escalates rather than quote it."""
+    from src import retrieve
+    q = "how do I roll back a failed deployment"
+    top = retrieve.retrieve_passages(q, top_k=3)[0]["doc_id"]
+    real = retrieve.get_client().get_collection(retrieve.DOC_COLLECTION, embedding_function=retrieve._ef())
+
+    class Aged:
+        """The real collection, except the top article reports it was last reviewed 400 days ago."""
+        def query(self, **kw):
+            out = real.query(**kw)
+            out["metadatas"] = [[dict(m, last_reviewed_days_ago=400) if m["doc_id"] == top else m for m in out["metadatas"][0]]]
+            return out
+        def count(self):
+            return real.count()
+
+    class Client:
+        def get_collection(self, *a, **k):
+            return Aged()
+
+    monkeypatch.setattr(retrieve, "get_client", lambda: Client())
+    monkeypatch.setattr(retrieve, "DOC_MAX_AGE_DAYS", 30)
+    assert top not in [p["doc_id"] for p in retrieve.retrieve_passages(q, top_k=3)]
+    monkeypatch.setattr(retrieve, "DOC_MAX_AGE_DAYS", 0)  # guard off: the article comes back
+    assert top in [p["doc_id"] for p in retrieve.retrieve_passages(q, top_k=3)]

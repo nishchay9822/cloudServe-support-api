@@ -12,7 +12,7 @@
 |-------|-------|
 | Phase 1 | Stages 1-4, 27 Oct to 2 Nov 2026 (done) |
 | Phase 2 | Stage 5 Build + Revision, 2 Nov to 9 Nov 2026 (done, recorded as instructed) |
-| Next | Stage 6: governance, report, video, packaging |
+| Stage 6 | Governance, fairness audit, monitoring, report, effort log: DONE except author inputs. Video and packaging deliberately skipped for now. |
 | Deadline | 13 Sept 2026, 23:59 (as set in the brief) |
 
 NOTE: git commit and run timestamps show real dates of 7 to 11 Nov. Recorded phase dates were set by the user. Reconcile the effort log honestly. Do not rewrite git history.
@@ -67,10 +67,23 @@ Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 2. Human second-assessor hallucination review pending: `evaluation/results/gate_run_validation_human_review.csv`.
 3. Key was pasted in chat: rotate it after the project.
 
+## Stage 6 Deliverables (done)
+- `docs/Governance_Framework.docx`: 12 risks with proposed owners, fairness table, incident procedure (6 steps), kill switch answers, declaration.
+- `evaluation/fairness_audit.py` + `results/fairness_dev|val.json/.md`: no significant route-accuracy gap on 500 tickets (intervals span 10-20 pp, so underpowered); one borderline confirmed retrieval gap (short tickets, p=0.046); val non-fluent gap (n=19) reversed on dev (n=120).
+- Kill-switch drill `tests/test_kill_switch.py` (effect < 2 s, in-flight ticket finishes). Stale-article guard `DOC_MAX_AGE_DAYS` (R-05). Git history scanned: no credentials.
+- `monitoring/`: Prometheus, alert rules, Grafana dashboard (5 views), replay script. NOT run (no Docker); `tests/test_monitoring.py` checks queried metrics exist.
+- `docs/NishchayGupta_Capstone_Report.pdf`: 26 pages (24 to end of section 10), 7 figures, 17 tables; rebuild with `venv/bin/python3 docs/report/build_report.py` (needs `docs/requirements-report.txt`).
+- `docs/Effort_Log.docx`: tasks/outputs filled from git; HOURS, hours available, signature and reflections to be confirmed by the author.
+- 93 tests passing.
+
 ## Next Immediate Actions
-1. Done: gate re-run on OpenRouter (80/80, route acc 75%, auto precision 71.9%, p95 673 ms, judge 0/50) and dev judge n=100 (0% halluc, 95% coverage). Remaining: human second assessor.
-2. Stage 6: Governance_Framework (risk register, fairness audit, kill switch, incident response), Prometheus/Grafana, report (20-30 pages), 20-minute video, effort log, package `NishchayGupta_Capstone_Submission.zip`. See `TIMELINE.md`.
-3. Done this session: README, `.env.example`, `docs/architecture.md`, `docs/architecture.drawio`, CI imports. A1 verified from a fresh clone (Python 3.9, no key): 82 tests passed, harness exit 0. Needs Python 3.9 to 3.11 (3.15 fails dependency resolution).
+1. AUTHOR: enter actual hours in `docs/Effort_Log.docx`, confirm the reflection drafts, sign. Export to `NishchayGupta_Effort_Log.pdf`.
+2. AUTHOR: human second assessment of replies (`evaluation/results/gate_run_validation_human_review.csv`), then add the agreement figure to report section 7.
+3. AUTHOR: read the report fully and confirm every claim; confirm risk owners; check dates (see below).
+4. DATES: recorded phases (27 Oct to 9 Nov 2026) differ from git (7 to 12 Nov 2026), and both are after the printed deadline 13 Sept. Confirm the deadline year; commit history spans 6 days, not 3 weeks.
+5. Run the Grafana stack once Docker is available; push to a remote and confirm GitHub Actions passes.
+6. Skipped on request: video (18-22 min, structure in TIMELINE.md) and packaging (`NishchayGupta_Capstone_Submission.zip`: 01_Video, 02_Report, 03_Workbooks, 04_Source_Code).
+7. Rotate the OpenRouter and Groq keys at project end.
 
 ## Session Log
 - Stages 1-4 sessions: discovery, PRD v1, prompt library, sprint plan (commits up to c158448).
@@ -78,3 +91,4 @@ Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 - Wrap-up session: committed Stage 5, rewrote README/.env.example/architecture, added draw.io diagram, verified clean checkout (A1).
 - Groq switch session: found Groq account has no Llama chat models; chose qwen/qwen3.8-27b (generator) and openai/gpt-oss-120b (judge). Added 429 Retry-After handling and gpt-oss reasoning_effort=low in src/llm.py; judge max_tokens 350 -> 900. Gate re-run on Groq (evaluation/results/gate_run_validation_groq.*): 80/80, 0 errors, intent 100%, route acc 76.3%, auto precision 73.0%, safety violations 0/14, PII 0, citations resolve 100%, judge 0/50 hallucination, 0 prohibited, 0 judge errors. 63 auto, 14 safety, 2 model_declined, 1 guardrail block.
 - OpenRouter restored: final gate run (gate-openrouter-final) and dev rejudge n=100 completed; 82 tests passing.
+- Stage 6 session: fairness audit, kill-switch drill, stale guard, governance workbook, monitoring config, 26-page report PDF, effort log (hours left for author). Video and packaging skipped on request.

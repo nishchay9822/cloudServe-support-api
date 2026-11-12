@@ -1,0 +1,4 @@
+matplotlib==3.8.4
+reportlab==4.2.2
+# optional, only to render PDF pages to images when checking layout
+pymupdf

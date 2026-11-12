@@ -17,3 +17,4 @@ dist/
 *.egg-info/
 *.dist-info/
 *.ipynb_checkpoints
+docs/report/fig/
