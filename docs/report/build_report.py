@@ -25,7 +25,7 @@ from evaluation.fairness_audit import wilson
 RES = os.path.join(ROOT, "evaluation", "results")
 J = lambda n: json.load(open(os.path.join(RES, n)))
 
-TABLE_ORDER = ["asked", "findings", "disagree", "reqs", "alts", "modules", "bugs", "results", "runs", "judge", "calib",
+TABLE_ORDER = ["asked", "findings", "disagree", "reqs", "alts", "modules", "bugs", "results", "runs", "judge", "calib", "sweep",
                "risks", "fairsum", "changes", "appfair", "appprompts", "apptests"]
 FIG_ORDER = ["disc", "arch", "signals", "outcomes", "latency", "risk", "fair"]
 
@@ -50,6 +50,9 @@ def context():
         "commit": "0297e25",
         "p95_val_ms": vm["latency"]["auto_p95_ms"], "p95_dev_ms": dm["latency"]["auto_p95_ms"],
         "med_val_ms": vm["latency"]["auto_p50_ms"], "med_dev_ms": dm["latency"]["auto_p50_ms"],
+        "mean_val_ms": vm["latency"]["auto_mean_ms"], "mean_dev_ms": dm["latency"]["auto_mean_ms"],
+        "brief_fcr_dev": dm["business"]["fcr_brief_formula"] * 100, "brief_fcr_val": vm["business"]["fcr_brief_formula"] * 100,
+        "sweep_dev": J("threshold_sweep_dev.json"), "sweep_val": J("threshold_sweep_val.json"),
         "med_dev": dm["business"]["median_time_to_first_reply_seconds_auto"], "med_val": vm["business"]["median_time_to_first_reply_seconds_auto"],
         "fcr_dev": fd * 100, "fcr_val": fv * 100, "fcr_dev_ci": ci(fd, nd), "fcr_val_ci": ci(fv, nv),
         "esc_dev": dm["business"]["system_escalation_rate"] * 100, "esc_val": vm["business"]["system_escalation_rate"] * 100,

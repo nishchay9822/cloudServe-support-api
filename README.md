@@ -6,7 +6,7 @@ Architecture: see `docs/architecture.md` and `docs/architecture.drawio` (open in
 
 ---
 
-## Setup (Python 3.9 to 3.11)
+## Setup (Python 3.9 to 3.11; clean-checkout install and tests verified on 3.9 and 3.11)
 
 ```bash
 git clone <your-repo-url>
@@ -154,3 +154,12 @@ Final_Capstone_Project/
 ## Known limitations
 
 See `CONTEXT.md`. In short: route and urgency labels are partly unpredictable from ticket text, headline accuracy is flattered by templated data, and the resolution-record learning loop (FR-13) is not demonstrated.
+
+---
+## Attribution and AI use
+
+- Most of the source code, tests, evaluation scripts, workbook text and the report were drafted by **Kiro**, an AI coding assistant, in conversation with the author, who set the goals, supplied the data and decisions, and is responsible for the submission. The commit history shows the work as it happened.
+- Runtime models: Llama 3.1 8B Instruct (generation and fallback classification, via OpenRouter), GPT-4o-mini and GPT-OSS-120B (independent judges), Qwen3.8-27B (Groq fallback), and `all-MiniLM-L6-v2` (local embeddings).
+- Third-party libraries are listed in `requirements.txt` (FastAPI, Chroma, sentence-transformers, prometheus-client, python-docx and others). `langchain` and `langgraph` are listed because the brief suggests them, but the pipeline does not import them (see `docs/architecture.md`).
+- No external code was knowingly copied. Templates for the workbooks come from the course pack.
+

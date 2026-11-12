@@ -101,8 +101,9 @@ def calibration(rows: list) -> list:
 def latency_metrics(rows: list) -> dict:
     all_ms = [r["latency_ms"] for r, _ in rows if r.get("latency_ms") is not None]
     auto_ms = [r["latency_ms"] for r, _ in rows if r["decision"] == "auto_respond" and r.get("latency_ms") is not None]
-    return {"all_p50_ms": pct(all_ms, 50), "all_p95_ms": pct(all_ms, 95), "all_max_ms": max(all_ms) if all_ms else None,
-            "auto_p50_ms": pct(auto_ms, 50), "auto_p95_ms": pct(auto_ms, 95),
+    mean = lambda v: round(sum(v) / len(v), 1) if v else None
+    return {"all_mean_ms": mean(all_ms), "all_p50_ms": pct(all_ms, 50), "all_p95_ms": pct(all_ms, 95), "all_max_ms": max(all_ms) if all_ms else None,
+            "auto_mean_ms": mean(auto_ms), "auto_p50_ms": pct(auto_ms, 50), "auto_p95_ms": pct(auto_ms, 95),
             "p95_under_3s": (pct(auto_ms, 95) or 0) < 3000 if auto_ms else None}
 
 
@@ -165,5 +166,8 @@ def business_proxies(rows: list) -> dict:
     out["system_escalation_rate"] = _ratio(sum(1 for r, _ in rows if r["decision"] == "escalate"), n)
     auto_ms = [r["latency_ms"] for r, _ in rows if r["decision"] == "auto_respond" and r.get("latency_ms") is not None]
     out["median_time_to_first_reply_seconds_auto"] = round(pct(auto_ms, 50) / 1000, 2) if auto_ms else None
+    out["mean_time_to_first_reply_seconds_auto"] = round(sum(auto_ms) / len(auto_ms) / 1000, 2) if auto_ms else None
+    # The brief's formula: tickets closed without escalation / all tickets. Reported next to the stricter proxy above.
+    out["fcr_brief_formula"] = _ratio(sum(1 for r, _ in rows if r["decision"] == "auto_respond"), n)
     out["csat"] = "not measurable offline"
     return out

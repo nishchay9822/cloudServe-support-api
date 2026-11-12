@@ -27,7 +27,7 @@ def build(r, figs, ctx):
         "the documentation. When those are counted as tickets that still need a person, the effective escalation rate is 37% on the "
         "development set and 41% on validation, not 21%. I tried five different signals to predict which tickets should escalate and none "
         "worked better than chance, and identical ticket text carries the same route label only 87.8% of the time, so part of this is a "
-        "property of the labels rather than something more engineering would fix. The evaluation also flatters the system in ways stated "
+        "property of the labels rather than something more engineering would fix. The confidence threshold also does no work on this data (every threshold up to 0.99 routes identically), so the real controls are the restricted-intent rule and the evidence requirement. The evaluation also flatters the system in ways stated "
         "in Section 7: half the development tickets share their text with another ticket, the validation set was used while fixing faults, "
         "the hidden evaluation set was never available to me, and the second human assessor of reply quality has not yet reviewed any replies.")
     r.p("<b>Recommendation.</b> Do not deploy this as an autonomous responder. Deploy it first as a draft-for-agent tool, which is also what the "

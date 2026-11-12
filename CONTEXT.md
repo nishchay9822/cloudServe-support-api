@@ -76,6 +76,11 @@ Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 - `docs/Effort_Log.docx`: tasks/outputs filled from git; HOURS, hours available, signature and reflections to be confirmed by the author.
 - 93 tests passing.
 
+## Brief/Spec Audit (after reading 01_Project_Brief and 02_Build_Specification)
+On track: all 12 acceptance criteria covered, unattended harness takes --input/--output and handles unlabelled and malformed input, graceful degradation, guardrails block, decision log reconciles.
+Gaps found and handled: mean response time added to metrics (was missing); threshold_sweep.py shows the 0.80 threshold does no work on this data (confidence is ~0.99 for nearly all tickets), reported honestly; repeat-contacts row and the brief's FCR formula added to report; LangChain/LangGraph not used (justified in report + architecture.md); attribution added to README; Python 3.11 verified.
+Not fixable / must be disclosed: the brief says do not look at or tune against the 80 validation tickets and use a hidden 120-ticket set once; validation WAS used while debugging. Hidden set never run. CSAT and repeat contacts not measurable offline. No response cache (spec encourages one). Generation output is text with inline citations, not JSON.
+
 ## Next Immediate Actions
 1. AUTHOR: enter actual hours in `docs/Effort_Log.docx`, confirm the reflection drafts, sign. Export to `NishchayGupta_Effort_Log.pdf`.
 2. AUTHOR: human second assessment of replies (`evaluation/results/gate_run_validation_human_review.csv`), then add the agreement figure to report section 7.

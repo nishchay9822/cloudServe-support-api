@@ -51,6 +51,10 @@ flowchart LR
     OUT & ESC -.-> RES
 ```
 
+## Orchestration
+
+The brief suggests LangChain with LangGraph. This system does not use them. `process_ticket()` in `src/pipeline.py` is an ordinary function that runs the steps in a fixed order with early exits (kill switch, injection screen, routing, guardrails). The flow has no loops or branches that need a graph engine, the routing must be deterministic code, and a plain function is simple to test offline (93 tests, no network). The packages stay in `requirements.txt` only because the brief lists them; they can be removed.
+
 ## Component Responsibilities
 
 | Component | File | Key function(s) |

@@ -165,9 +165,11 @@
       }
     ],
     "latency": {
+      "all_mean_ms": 443.0,
       "all_p50_ms": 409,
       "all_p95_ms": 735,
       "all_max_ms": 954,
+      "auto_mean_ms": 434.4,
       "auto_p50_ms": 417,
       "auto_p95_ms": 673,
       "p95_under_3s": true
@@ -189,6 +191,8 @@
       "auto_resolution_proxy": 0.5875,
       "system_escalation_rate": 0.2,
       "median_time_to_first_reply_seconds_auto": 0.42,
+      "mean_time_to_first_reply_seconds_auto": 0.43,
+      "fcr_brief_formula": 0.8,
       "csat": "not measurable offline"
     },
     "segments": {
