@@ -57,6 +57,27 @@ def _client():
     return _state["client"]
 
 
+RATE_LIMIT_MAX_WAIT_S = float(os.getenv("LLM_RATE_LIMIT_MAX_WAIT_S", "60"))
+RATE_LIMIT_MAX_WAITS = int(os.getenv("LLM_RATE_LIMIT_MAX_WAITS", "6"))
+
+
+def _retry_after(e: Exception) -> Optional[float]:
+    """Seconds the provider asks us to wait, from the Retry-After header (None if absent)."""
+    try:
+        return float(e.response.headers.get("retry-after"))
+    except Exception:
+        return None
+
+
+def _extra_body(model: str) -> Optional[dict]:
+    body: dict = {}
+    if PROVIDER_SORT and "openrouter" in BASE_URL:
+        body["provider"] = {"sort": PROVIDER_SORT}
+    if "gpt-oss" in model and "groq" in os.getenv("LLM_BASE_URL", BASE_URL):
+        body["reasoning_effort"] = "low"  # otherwise hidden reasoning eats the max_tokens budget
+    return body or None
+
+
 def reset_breaker() -> None:
     _state["consecutive_failures"] = 0
     _state["open_until"] = 0.0
@@ -77,9 +98,11 @@ def chat(messages: list, max_tokens: int = 400, temperature: float = 0.0, model:
         raise LLMUnavailable("circuit breaker open after repeated provider failures")
 
     last_err: Optional[Exception] = None
-    for attempt in range(MAX_RETRIES):
+    attempt, rl_waits = -1, 0
+    while attempt + 1 < MAX_RETRIES:
+        attempt += 1
         t_call = time.time()
-        if attempt:
+        if attempt or rl_waits:
             stats["retries"] += 1
         try:
             resp = _client().chat.completions.create(
@@ -89,7 +112,7 @@ def chat(messages: list, max_tokens: int = 400, temperature: float = 0.0, model:
                 temperature=temperature,
                 # Default OpenRouter routing measured at ~11 s median for a short reply; sorting providers by
                 # throughput measured ~0.4 s (evaluation/time_llm.py). Same model, same weights.
-                extra_body={"provider": {"sort": PROVIDER_SORT}} if (PROVIDER_SORT and "openrouter" in BASE_URL) else None,
+                extra_body=_extra_body(model or model_name()),
             )
             text = (resp.choices[0].message.content or "").strip()
             tokens = getattr(getattr(resp, "usage", None), "total_tokens", 0) or 0
@@ -106,10 +129,22 @@ def chat(messages: list, max_tokens: int = 400, temperature: float = 0.0, model:
                 last_err = e
                 _state["open_until"] = time.time() + BREAKER_COOLDOWN_S if status in (401, 402) else _state["open_until"]
                 break
+            if status == 429:
+                # Rate limit (e.g. free-tier tokens-per-minute). Honour Retry-After for short waits and do not
+                # use up a normal retry; a long wait means a daily cap, which retrying cannot fix.
+                wait = _retry_after(e)
+                if wait is not None and wait <= RATE_LIMIT_MAX_WAIT_S and rl_waits < RATE_LIMIT_MAX_WAITS:
+                    rl_waits += 1
+                    attempt -= 1
+                    time.sleep(wait + 0.5)
+                    continue
+                if wait is not None and wait > RATE_LIMIT_MAX_WAIT_S:
+                    break
             time.sleep(min(2 ** attempt, 8))
 
     stats["failures"] += 1
     _state["consecutive_failures"] += 1
     if _state["consecutive_failures"] >= BREAKER_THRESHOLD:
         _state["open_until"] = time.time() + BREAKER_COOLDOWN_S
-    raise LLMUnavailable(f"provider call failed: {type(last_err).__name__}")
+    code = getattr(last_err, "status_code", None)
+    raise LLMUnavailable(f"provider call failed: {type(last_err).__name__}" + (f" (HTTP {code})" if code else ""))

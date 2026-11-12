@@ -32,7 +32,7 @@ def judge_one(result: dict, ground_truth: dict = None) -> dict:
                     passages=passages)
     try:
         out = llm.chat([{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-                       max_tokens=350, model=JUDGE_MODEL)
+                       max_tokens=900, model=JUDGE_MODEL)
     except llm.LLMUnavailable as e:
         return {"error": str(e)}
     m = _JSON.search(out["text"])

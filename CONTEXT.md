@@ -59,10 +59,11 @@ Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 - FR-13 resolution records are write-only; compounding is NOT demonstrated.
 - Fairness gaps on dev exceed the 5pp target (tier route-acc 9.4, region auto-rate 14.4, channel 9.5).
 - Calibration populated only in the 0.9-1.0 band.
-- Provider switch to Groq is built but untested.
+- Groq free tier: rate limits (429) make latency p50 7.1 s, p95 11 s, max 244 s; NFR p95 < 3 s NOT met on this tier. Daily token cap unknown; a 500-ticket dev run is ~400k tokens and may need splitting.
+- Judge on Groq is gpt-oss-120b, a different family from the Qwen generator.
 
 ## Blockers
-1. OpenRouter key has no credit (HTTP 402). Add credit at openrouter.ai/settings/credits, or get a free Groq key.
+1. OpenRouter key has no credit (HTTP 402). Switched to Groq (free). `.env` must set LLM_BASE_URL, LLM_API_KEY, MODEL_NAME=qwen/qwen3.8-27b, JUDGE_MODEL=openai/gpt-oss-120b (llama ids 404 on this Groq account). The old llama-3.1-8b-instant value in .env must be replaced.
 2. Human second-assessor hallucination review pending: `evaluation/results/gate_run_validation_human_review.csv`.
 3. Key was pasted in chat: rotate it after the project.
 
@@ -75,3 +76,4 @@ Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 - Stages 1-4 sessions: discovery, PRD v1, prompt library, sprint plan (commits up to c158448).
 - Stage 5 session: built modules, found and fixed channel/label/prompt/chunking/latency bugs, ran gate (80/80), outage run, dev run (500/500), swapped to independent judge, hit 402 credit limit, produced PRD v2.0 and revision log, updated prompt register and this file.
 - Wrap-up session: committed Stage 5, rewrote README/.env.example/architecture, added draw.io diagram, verified clean checkout (A1).
+- Groq switch session: found Groq account has no Llama chat models; chose qwen/qwen3.8-27b (generator) and openai/gpt-oss-120b (judge). Added 429 Retry-After handling and gpt-oss reasoning_effort=low in src/llm.py; judge max_tokens 350 -> 900. Gate re-run on Groq (evaluation/results/gate_run_validation_groq.*): 80/80, 0 errors, intent 100%, route acc 76.3%, auto precision 73.0%, safety violations 0/14, PII 0, citations resolve 100%, judge 0/50 hallucination, 0 prohibited, 0 judge errors. 63 auto, 14 safety, 2 model_declined, 1 guardrail block.
