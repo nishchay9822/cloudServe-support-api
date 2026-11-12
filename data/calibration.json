@@ -1,0 +1,8 @@
+{
+ "intercept": -1.5554874535791148,
+ "w_llm": 0.0,
+ "w_agree": 3.8573133238409807,
+ "w_knn": 3.7482764152593813,
+ "n_fit": 300,
+ "fit_on": "development_tickets (leave-one-out kNN)"
+}

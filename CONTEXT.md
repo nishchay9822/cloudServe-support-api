@@ -1,155 +1,77 @@
-# Project Context — CloudServe Capstone
-> **Update this file at the END of every working session.**
-> If you're starting a new session, **READ THIS FILE FIRST.**
-> This is your persistent memory across sessions.
+# Project Context: CloudServe Capstone
+> Update this file at the END of every working session.
+> If you're starting a new session, READ THIS FILE FIRST.
 
 ---
 
-## 🗓 Last Updated
-- **Date:** 9 November 2026
-- **Session:** Stage 3 Prompt Library + Stage 4 Sprint Plan complete
+## Last Updated
+- Session: Stage 5 build + revision complete (code, gate, dev run, PRD v2.0, revision log)
 
----
-
-## 📍 Current Position
+## Current Position
 | Field | Value |
 |-------|-------|
-| **Week** | 1 |
-| **Day** | 5 |
-| **Stage** | Stages 1-4 ALL COMPLETE |
-| **Status** | Discovery, PRD, Prompt Library, and Sprint Plan all done. Week 1 is complete. **Ready for Week 2 build.** API key still needed before Week 2 Day 2. |
+| Phase 1 | Stages 1-4, 27 Oct to 2 Nov 2026 (done) |
+| Phase 2 | Stage 5 Build + Revision, 2 Nov to 9 Nov 2026 (done, recorded as instructed) |
+| Next | Stage 6: governance, report, video, packaging |
+| Deadline | 13 Sept 2026, 23:59 (as set in the brief) |
 
----
+NOTE: git commit and run timestamps show real dates of 7 to 11 Nov. Recorded phase dates were set by the user. Reconcile the effort log honestly. Do not rewrite git history.
 
-## ✅ Completed Tasks
+## Completed (Stage 5)
+- All `src/` modules: llm, prompts, ingest, retrieve, classify, route, generate, guardrails, logging_store, pipeline, telemetry, api.
+- Harness `evaluation/harness.py` (unattended; exit 0 finished, 2 cannot start), metrics, independent judge, rejudge.
+- 82 tests passing (`venv/bin/python3 -m pytest tests/ -q`).
+- `docs/Stage_2_PRD_v2_0.docx` (v1 untouched) and `docs/Stage_5_PRD_Revision_Log.docx` (11 changed, 2 added, 0 removed).
 
-| Date | Task |
-|------|------|
-| 7 Nov 2026 | Project scaffold: all directories, src stubs, harness, tests, CI, architecture diagram |
-| 7 Nov 2026 | Python venv created, all packages installed, .env created |
-| 7 Nov 2026 | Stage 1 Discovery: 5 interviews read, 500 tickets analysed, workbook filled |
-| 7 Nov 2026 | Stage 1 + Stage 2 initial .docx generated |
-| 9 Nov 2026 | Extraordinary Problem framework applied to both docs; FR-19 (resolution graph) added |
-| 9 Nov 2026 | Stage 2 PRD rewritten in exact template format (9 sections, 18 FRs + 10 NFRs) |
-| 9 Nov 2026 | **Stage 3 Prompt Library COMPLETE** — 4 actual prompts written (PR-CL-01, PR-GN-01, PR-RO-01, PR-EV-01), spec table for 16 FRs, traceability matrix, injection defence documented |
-| 9 Nov 2026 | **Stage 4 Sprint Plan COMPLETE** — capacity, backlog B-01 to B-18, Week 2 day-by-day, Week 3 day-by-day, drop list, daily check-in template |
+## Key Decisions
+- Channel is `docs_comment` (`api_comments` kept as alias); intent labels are the real 22.
+- Classifier: kNN over dev tickets primary when vote share >= 0.85, else LLM combined. Confidence from classifier agreement (`data/calibration.json`).
+- Safety rule from predicted intent: security_incident, compliance_request, feature_request, unclear_request.
+- Routing is deterministic code: safety, no passages, confidence < 0.80, else auto_respond.
+- Generator sees the full top article (+ runner-up if score >= 0.6x top). Prompt `generate_v3.txt`.
+- Judge is `openai/gpt-4o-mini` (env `JUDGE_MODEL`), independent of the generator. Human second assessor still required.
+- Provider configurable: `LLM_BASE_URL`, `LLM_API_KEY`, `MODEL_NAME`, `JUDGE_MODEL`, `LLM_PROVIDER_SORT`, `KILL_SWITCH`, `ADMIN_TOKEN`. HTTP 401/402 fail fast.
+- Requirement numbering follows the PRD docx: FR-01..FR-18 plus FR-19, FR-20; NFR-01..NFR-10.
 
----
+## Prompt Versions Active
+PR-CL-01 v2.0, PR-GN-01 v3.0, PR-RO-01 v1.0, PR-EV-01 v1.0 (see `prompts/README.md`).
 
-## 🔑 Key Decisions Made
+## Results
+| | Validation (n=80, gate) | Dev (n=500, leave-one-out) |
+|---|---|---|
+| Processed | 80/80, 0 errors | 500/500, 0 errors |
+| Intent accuracy | 100% | 99.8% |
+| Urgency accuracy | 45% | 52% |
+| Retrieval hit@1/@3/@5 | 94.3/96.2/98.1% | 90.5/95.5/97.2% |
+| Auto-reply p95 latency | 636 ms | 508 ms |
+| Route accuracy | 75% | 78% |
+| Auto-reply precision | 72% | 75% |
+| Safety violations | 0/14 | 0/87 |
+| Outbound PII | 0 | 0 |
+| Citations resolve | 100% | 100% |
+| Judge | gpt-4o-mini: 0/50 hallucinated | n=25 only (credit ran out); earlier n=100: 0% halluc, 95% coverage |
 
-| Decision | Rationale | Date |
-|----------|-----------|------|
-| SQLite for decision log | Sufficient at scale; no service to provision | 7 Nov |
-| CONFIDENCE_THRESHOLD = 0.80 | Starting point; justify with calibration data Week 2 Day 5 | 7 Nov |
-| Harness uses argparse --input/--output | A9 requirement — pointed at hidden 120-ticket set | 7 Nov |
-| all-MiniLM-L6-v2 for embeddings | Local, no API cost, spec requirement | 7 Nov |
-| meta-llama/llama-3.1-8b-instruct | Spec default; OpenRouter free tier | 7 Nov |
-| **Extraordinary problem framing** | 71.4% answerable → collective intelligence waste, not delivery problem | 9 Nov |
-| **FR-13: Resolution graph** | Network-effect exponent — FCR=True tickets logged as reusable records | 9 Nov |
-| Escalation must carry context packet | Daniel: "context would make me twice as fast" | 7 Nov |
-| Private snippet files excluded | Daniel: stale answers would scale mistakes | 7 Nov |
-| 17.4% hard-blocked from auto-response | must_not_auto_respond=True on 87/500 tickets | 7 Nov |
-| PR-RO-01 added as new prompt | Escalation context packet generation (FR-08) needs LLM for summary | 9 Nov |
+Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 
----
+## Known Limitations (report honestly)
+- Route and urgency labels are partly unpredictable: five signals failed; identical text has the same route label only 87.8% of the time, urgency 68.5%.
+- Headline numbers flattered by templated data (254/500 dev tickets share text with another).
+- FR-13 resolution records are write-only; compounding is NOT demonstrated.
+- Fairness gaps on dev exceed the 5pp target (tier route-acc 9.4, region auto-rate 14.4, channel 9.5).
+- Calibration populated only in the 0.9-1.0 band.
+- Provider switch to Groq is built but untested.
 
-## � Prompt Versions Active
+## Blockers
+1. OpenRouter key has no credit (HTTP 402). Add credit at openrouter.ai/settings/credits, or get a free Groq key.
+2. Human second-assessor hallucination review pending: `evaluation/results/gate_run_validation_human_review.csv`.
+3. Key was pasted in chat: rotate it after the project.
 
-| Prompt ID | Version | File | Status |
-|-----------|---------|------|--------|
-| PR-CL-01 | v1.0 (FULL) | `prompts/build/classify_v1.txt` | ✅ Written — 22 classes, 4 few-shot examples, confidence calibration |
-| PR-GN-01 | v1.0 (FULL) | `prompts/build/generate_v1.txt` | ✅ Written — 8 rules, injection defence, citation format |
-| PR-RO-01 | v1.0 (FULL) | `prompts/build/route_v1.txt` | ✅ Written — escalation context packet (summary + reason + docs) |
-| PR-EV-01 | v1.0 (FULL) | `prompts/evaluation/eval_v1.txt` | ✅ Written — 4 evaluation criteria, JSON output |
+## Next Immediate Actions
+1. After credit restored: `venv/bin/python3 evaluation/rejudge.py evaluation/results/dev_run.json --n 100`; optionally re-run the gate.
+2. Still to update: root `README.md` run commands and env vars, `.env.example`, `docs/architecture.md` (kNN-first design), check `.github/workflows/ci.yml`.
+3. Verify a clean checkout (clone, venv, pip install, pytest, harness per README).
+4. Stage 6: Governance_Framework (risk register, fairness audit, kill switch, incident response), Prometheus/Grafana, report (20-30 pages), 20-minute video, effort log, package `NishchayGupta_Capstone_Submission.zip`. See `TIMELINE.md`.
 
----
-
-## 📋 Requirement IDs (FR-01 to FR-18, NFR-01 to NFR-10)
-
-| ID | Description | Code Module |
-|----|-------------|-------------|
-| FR-01 | Accept tickets from all 4 channels | src/ingest.py |
-| FR-02 | Normalise all tickets to single representation | src/ingest.py |
-| FR-03 | Classify with 22 intent classes | src/classify.py |
-| FR-04 | Assign urgency (high/medium/low) | src/classify.py |
-| FR-05 | Calibrated confidence score 0.0-1.0 | src/classify.py |
-| FR-06 | Semantic search over 29 KB articles | src/retrieve.py |
-| FR-07 | Return empty list when no match | src/retrieve.py |
-| FR-08 | Hard-block must_not_auto_respond | src/route.py |
-| FR-09 | Route using confidence threshold | src/route.py |
-| FR-10 | Escalation context packet | src/route.py |
-| FR-11 | Generated responses cite KB articles | src/generate.py |
-| FR-12 | No generation without passages | src/generate.py |
-| FR-13 | Guardrail 1: PII detection | src/guardrails.py |
-| FR-14 | Guardrail 2: Grounding check | src/guardrails.py |
-| FR-15 | Guardrail 3: Injection detection | src/guardrails.py |
-| FR-16 | Guardrail 4: Tone/scope | src/guardrails.py |
-| FR-17 | Guardrail 5: Confidence floor | src/guardrails.py |
-| FR-18 | Every decision logged to SQLite | src/logging_store.py |
-| NFR-01 | Latency P95 < 3s | evaluation/harness.py |
-| NFR-02 | Availability ≥ 99.5% | Monitoring |
-| NFR-03 | Intent precision ≥ 85% per class | evaluation/harness.py |
-| NFR-04 | Hallucination rate ≤ 5% | evaluation/harness.py |
-| NFR-05 | Citation accuracy ≥ 95% | evaluation/harness.py |
-| NFR-06 | Zero PII in responses | src/guardrails.py |
-| NFR-07 | Tier consistency < 5pp | evaluation/harness.py |
-| NFR-08 | Language consistency < 5pp | evaluation/harness.py |
-| NFR-09 | Decision log coverage 100% | src/logging_store.py |
-| NFR-10 | Confidence calibration within 5pp | evaluation/harness.py |
-
-> Note: FR-19 (resolution graph) was in the previous PRD version as a "Should" priority item. In the template-format PRD it is FR-13 (Should). The numbering shifted because the template uses the original FR-01 to FR-18 sequence from the capstone pack.
-
----
-
-## 📊 Evaluation Results
-> ⚠️ Fill in after Week 2 Day 5 gate run
-
-| Metric | Target | Result | Run Date |
-|--------|--------|--------|----------|
-| Intent precision | ≥85% per class | — | — |
-| Hallucination rate | ≤5% | — | — |
-| Citation accuracy | ≥95% | — | — |
-| Latency P95 | <3s | — | — |
-| Escalation rate | ≤30% | — | — |
-| FCR rate | ≥60% | — | — |
-
----
-
-## ❓ Open Questions / Blockers
-
-1. **⚠️ API key needed:** Open `.env`, replace `your_key_here` with OpenRouter key (https://openrouter.ai/ → Keys → Create key). Required before Week 2 Day 2 (retrieval) and Day 3 (classification).
-2. **Threshold calibration:** `CONFIDENCE_THRESHOLD=0.80` is starting point. Final value set after Week 2 Day 5 gate run.
-3. **Architecture diagram update:** `docs/architecture.md` predates extraordinary problem reframing. Update after Week 2 build starts.
-
----
-
-## ⏭ Next Immediate Action
-> **START HERE next session:**
-
-**Week 2 — BUILD. Day 1 (Monday): Ingest + Harness Wiring**
-
-1. Add OpenRouter API key to `.env` (5 min — do this FIRST)
-2. Implement `src/ingest.py` → `normalize_ticket()` for all 4 channels
-3. Run `pytest tests/test_ingest.py -v` — xfail tests should now PASS
-4. Wire ingest into `evaluation/harness.py` → `process_ticket()` calls `normalize_ticket()`
-5. Run: `python evaluation/harness.py --input data/validation_tickets.json --output evaluation/results/run_001.json`
-6. Demo checkpoint: Print normalised object for one ticket from each of the 4 channels
-7. Fill in daily check-in row in `Stage_4_Sprint_Plan.docx`
-8. Update CONTEXT.md
-
-**Sprint Plan reference:** B-01 (env setup — already done ✅) + B-02 (ingest) + B-05 (harness wiring)
-
----
-
-## 📅 Session Log
-
-| Date | Duration | What Was Done | Next Session Goal |
-|------|----------|--------------|-------------------|
-| 7 Nov | ~2 hrs | Full project scaffold created | Read project docs + set up env |
-| 7 Nov | ~30 min | Python venv + packages installed, .env created | Add OpenRouter API key |
-| 7 Nov | ~3 hrs | Stage 1 Discovery complete — 5 interviews, 500 tickets, workbook filled | Write PRD v1 |
-| 7 Nov | ~2 hrs | Stage 1 + Stage 2 initial .docx generated | Apply Extraordinary Problem framework |
-| 9 Nov | ~2 hrs | Extraordinary Problem framework applied; FR-19 (resolution graph) added | Rewrite PRD in template format |
-| 9 Nov | ~1 hr | Stage 2 PRD rewritten in exact template format | Write Stage 3 + Stage 4 |
-| 9 Nov | ~2 hrs | Stage 3 Prompt Library (4 prompts written) + Stage 4 Sprint Plan (backlog, day-by-day, drop list) | **Week 2 Day 1: Implement ingest.py + wire harness** |
+## Session Log
+- Stages 1-4 sessions: discovery, PRD v1, prompt library, sprint plan (commits up to c158448).
+- Stage 5 session: built modules, found and fixed channel/label/prompt/chunking/latency bugs, ran gate (80/80), outage run, dev run (500/500), swapped to independent judge, hit 402 credit limit, produced PRD v2.0 and revision log, updated prompt register and this file.

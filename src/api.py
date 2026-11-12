@@ -1,99 +1,99 @@
 """
-FastAPI application — HTTP interface for the CloudServe support system.
-Provides endpoints for processing tickets and checking system health.
+HTTP interface for the CloudServe support system (FastAPI).
+
+    uvicorn src.api:app --port 8000
+
+POST /process  runs the full pipeline on one ticket and logs the decision.
+GET  /health   liveness plus readiness of the parts the pipeline needs.
+GET  /decisions/{ticket_id}  the logged decisions for a ticket (audit trail).
+GET  /metrics  Prometheus metrics.
+POST /admin/kill-switch  on/off: when on, every ticket is escalated to a human.
 """
 import os
+from contextlib import asynccontextmanager
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException, Response
+from pydantic import BaseModel, Field
 
-app = FastAPI(
-    title="CloudServe Intelligent Support System",
-    description=(
-        "FDE Capstone — AI-powered customer support routing and response system. "
-        "Processes tickets from 4 channels through: ingest → classify → retrieve → "
-        "route → generate → validate."
-    ),
-    version="0.1.0",
-)
+from src import llm, logging_store, pipeline, telemetry
+
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logging_store.init_db()
+    pipeline.warm_up()
+    yield
+
+
+app = FastAPI(title="CloudServe Intelligent Support System", version="1.0.0", lifespan=lifespan,
+              description="Ingest, classify, retrieve, route, generate, validate. Every decision is logged.")
 
 
 class TicketRequest(BaseModel):
-    ticket_id: str
+    ticket_id: str = Field(..., min_length=1)
     channel: str
     subject: Optional[str] = ""
-    body: str
+    body: str = ""
     customer_id: Optional[str] = None
+    customer_name: Optional[str] = None
     customer_tier: Optional[str] = "standard"
     customer_region: Optional[str] = None
     language_fluency: Optional[str] = "fluent"
-
-
-class TicketResponse(BaseModel):
-    ticket_id: str
-    decision: str           # 'auto_respond' or 'escalate'
-    response: Optional[str] = None
-    citations: Optional[list] = None
-    escalation_context: Optional[dict] = None
-    confidence: float
-    decision_id: str
+    received_at: Optional[str] = None
 
 
 @app.get("/health")
-def health_check():
-    """
-    Health check endpoint.
-    Returns 200 with status 'healthy' when the service is running.
-    Used by monitoring and CI to verify the service has started.
-    """
-    return {"status": "healthy", "version": "0.1.0"}
+def health():
+    return {"status": "healthy", "version": app.version, "model_provider_configured": llm.is_available(),
+            "kill_switch": pipeline.kill_switch_on()}
 
 
-@app.post("/process", response_model=TicketResponse)
-def process_ticket(request: TicketRequest):
-    """
-    Process a support ticket through the full pipeline:
-    ingest → classify → retrieve → route → generate → validate
-
-    Returns the routing decision with either:
-    - A drafted response and citations (auto_respond)
-    - An escalation context packet (escalate)
-
-    Every call writes to the decision log regardless of outcome.
-
-    Raises:
-        HTTPException 422: If ticket data is malformed
-        HTTPException 500: If pipeline fails unexpectedly
-        HTTPException 501: Until implemented in Week 2 Day 4
-    """
-    # TODO: implement full pipeline - Week 2 Day 4
-    # Pipeline:
-    #   1. normalized = ingest.normalize_ticket(request.dict(), request.channel)
-    #   2. classification = classify.classify_ticket(normalized)
-    #   3. passages = retrieve.retrieve_passages(normalized['body'])
-    #   4. routing = route.route_ticket(normalized, classification, passages)
-    #   5. if routing['decision'] == 'auto_respond':
-    #          response = generate.generate_response(normalized, passages, classification)
-    #          guardrail_result = guardrails.run_guardrails(response, normalized, passages, routing)
-    #          if guardrail_result['overall_status'] != 'pass': escalate
-    #   6. logging_store.log_decision({...})
-    raise HTTPException(
-        status_code=501,
-        detail="Full pipeline not yet implemented — complete in Week 2 Day 4",
-    )
+@app.post("/process")
+def process(req: TicketRequest):
+    """Always returns a decision. Provider trouble becomes an escalation, never a 500."""
+    result = pipeline.process_ticket(req.model_dump(), run_id="api")
+    if result["status"] == "error" and result["reason_code"] == "pipeline_error" and result.get("error", "").startswith("ValueError"):
+        raise HTTPException(status_code=422, detail=result["error"])
+    return {
+        "ticket_id": result["ticket_id"], "decision": result["decision"], "reason": result["reason"],
+        "reason_code": result["reason_code"], "intent": result["intent"], "urgency": result["urgency"],
+        "confidence": result["confidence"], "response": result["response_text"], "citations": result["citations"],
+        "escalation_context": result["escalation_context"], "decision_id": result.get("decision_id"),
+        "latency_ms": result["latency_ms"],
+    }
 
 
 @app.get("/decisions/{ticket_id}")
-def get_ticket_decisions(ticket_id: str):
-    """
-    Retrieve all decision log entries for a given ticket_id.
-    Useful for auditing and debugging individual tickets.
+def decisions(ticket_id: str):
+    rows = logging_store.get_decisions_for_ticket(ticket_id)
+    if not rows:
+        raise HTTPException(status_code=404, detail="no decisions logged for that ticket")
+    return rows
 
-    Raises:
-        HTTPException 501: Until implemented in Week 2 Day 3
-    """
-    raise HTTPException(
-        status_code=501,
-        detail="Decision log retrieval not yet implemented — complete in Week 2 Day 3",
-    )
+
+@app.get("/metrics")
+def metrics():
+    body, ctype = telemetry.export()
+    return Response(content=body, media_type=ctype)
+
+
+class KillSwitch(BaseModel):
+    on: bool
+    token: str = ""
+
+
+@app.post("/admin/kill-switch")
+def kill_switch(req: KillSwitch):
+    """Takes effect on the next ticket. In-flight tickets finish normally; later ones go to humans."""
+    if not ADMIN_TOKEN or req.token != ADMIN_TOKEN:
+        raise HTTPException(status_code=403, detail="admin token required (set ADMIN_TOKEN)")
+    path = os.path.join(pipeline.ROOT, "storage", "KILL_SWITCH")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    if req.on:
+        open(path, "w").write("on")
+    elif os.path.exists(path):
+        os.remove(path)
+    return {"kill_switch": pipeline.kill_switch_on()}

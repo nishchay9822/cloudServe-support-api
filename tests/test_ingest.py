@@ -1,146 +1,56 @@
-"""
-Tests for the ingest module.
-Run with: pytest tests/test_ingest.py -v
-
-These tests define the expected behaviour of ingest.normalize_ticket().
-Tests marked xfail WILL FAIL until Week 2 Day 1 when the function is implemented.
-That is expected — tests exist to guide implementation, not to pass before coding starts.
-"""
+"""A2: tickets from all four channels normalise to one representation."""
 import pytest
-from src.ingest import normalize_ticket, SUPPORTED_CHANNELS
+
+from src.ingest import SUPPORTED_CHANNELS, load_tickets, normalize_ticket
+
+RAW = {"ticket_id": "T-1", "channel": "email", "subject": " Cannot log in ", "body": "Invalid credentials\x00 on login",
+       "received_at": "2026-05-23T22:43:00Z", "customer_id": "CUST-1", "customer_name": "Ada Lovelace",
+       "customer_tier": "Enterprise", "customer_region": "europe", "language_fluency": "fluent",
+       "labels": {"intent": "x"}, "history": {"escalated": True}}
+REQUIRED = {"ticket_id", "channel", "subject", "body", "received_at", "customer_id", "customer_tier",
+            "customer_region", "language_fluency"}
 
 
-class TestSupportedChannels:
-    """Tests for the channel constants."""
-
-    def test_exactly_four_channels(self):
-        """Should have exactly 4 supported channels."""
-        assert len(SUPPORTED_CHANNELS) == 4
-
-    def test_all_expected_channels_present(self):
-        """All four channel names must be present."""
-        assert "email" in SUPPORTED_CHANNELS
-        assert "chat" in SUPPORTED_CHANNELS
-        assert "api_comments" in SUPPORTED_CHANNELS
-        assert "forum" in SUPPORTED_CHANNELS
+def test_four_channels_supported():
+    assert SUPPORTED_CHANNELS == ["email", "chat", "docs_comment", "forum"]
 
 
-class TestNormalizeTicketValidation:
-    """Tests that run immediately (do not require implementation)."""
-
-    def test_rejects_unsupported_channel(self):
-        """normalize_ticket should raise ValueError for unknown channels."""
-        with pytest.raises(ValueError, match="Unsupported channel"):
-            normalize_ticket({}, "telegram")
-
-    def test_rejects_empty_channel_string(self):
-        """normalize_ticket should raise ValueError for empty string channel."""
-        with pytest.raises(ValueError):
-            normalize_ticket({}, "")
-
-    def test_rejects_none_channel(self):
-        """normalize_ticket should raise ValueError for None channel."""
-        with pytest.raises((ValueError, TypeError)):
-            normalize_ticket({}, None)
+@pytest.mark.parametrize("channel", ["email", "chat", "docs_comment", "forum"])
+def test_every_channel_gives_the_same_schema(channel):
+    out = normalize_ticket({**RAW, "channel": channel})
+    assert REQUIRED <= set(out)
+    assert out["channel"] == channel
 
 
-class TestNormalizeTicketImplementation:
-    """Tests that require the full implementation — marked xfail until Week 2 Day 1."""
+def test_api_comments_alias_maps_to_docs_comment():
+    assert normalize_ticket(RAW, "api_comments")["channel"] == "docs_comment"
 
-    @pytest.mark.xfail(reason="Not implemented until Week 2 Day 1", strict=False)
-    def test_normalizes_email_ticket(self):
-        """Email ticket should normalise to standard schema."""
-        raw = {
-            "ticket_id": "DEV-0001",
-            "channel": "email",
-            "subject": "Can't log in",
-            "body": "I keep getting invalid credential errors when I try to log in.",
-            "received_at": "2024-01-15T09:00:00Z",
-            "customer_id": "CUST-001",
-            "customer_tier": "enterprise",
-            "customer_region": "NA",
-            "language_fluency": "fluent",
-        }
-        result = normalize_ticket(raw, "email")
-        assert result["ticket_id"] == "DEV-0001"
-        assert result["channel"] == "email"
-        assert "body" in result
-        assert "customer_tier" in result
-        assert result["customer_tier"] == "enterprise"
 
-    @pytest.mark.xfail(reason="Not implemented until Week 2 Day 1", strict=False)
-    def test_normalizes_chat_ticket(self):
-        """Chat ticket should normalise to same schema as email."""
-        raw = {
-            "ticket_id": "DEV-0002",
-            "channel": "chat",
-            "subject": "",
-            "body": "my deployment keeps dying",
-            "received_at": "2024-01-15T10:00:00Z",
-            "customer_id": "CUST-002",
-            "customer_tier": "standard",
-            "customer_region": "EU",
-            "language_fluency": "non-fluent",
-        }
-        result = normalize_ticket(raw, "chat")
-        assert result["channel"] == "chat"
-        assert result["language_fluency"] == "non-fluent"
+def test_ground_truth_is_not_carried_into_the_normalised_ticket():
+    out = normalize_ticket(RAW)
+    assert "labels" not in out and "history" not in out
 
-    @pytest.mark.xfail(reason="Not implemented until Week 2 Day 1", strict=False)
-    def test_normalizes_api_comments_ticket(self):
-        """API comments ticket should normalise to standard schema."""
-        raw = {
-            "ticket_id": "DEV-0003",
-            "channel": "api_comments",
-            "subject": "Rate limit question",
-            "body": "What is the rate limit for the /ingest endpoint?",
-            "received_at": "2024-01-15T11:00:00Z",
-            "customer_id": "CUST-003",
-            "customer_tier": "business",
-            "customer_region": "APAC",
-            "language_fluency": "fluent",
-        }
-        result = normalize_ticket(raw, "api_comments")
-        assert result["channel"] == "api_comments"
 
-    @pytest.mark.xfail(reason="Not implemented until Week 2 Day 1", strict=False)
-    def test_normalizes_forum_ticket(self):
-        """Forum ticket should normalise to standard schema."""
-        raw = {
-            "ticket_id": "DEV-0004",
-            "channel": "forum",
-            "subject": "Integration help",
-            "body": "Has anyone integrated with Salesforce?",
-            "received_at": "2024-01-15T12:00:00Z",
-            "customer_id": "CUST-004",
-            "customer_tier": "standard",
-            "customer_region": "LATAM",
-            "language_fluency": "non-fluent",
-        }
-        result = normalize_ticket(raw, "forum")
-        assert result["channel"] == "forum"
+def test_cleaning_and_defaults():
+    out = normalize_ticket(RAW)
+    assert out["subject"] == "Cannot log in" and "\x00" not in out["body"]
+    assert out["customer_tier"] == "enterprise"
+    sparse = normalize_ticket({"ticket_id": "T-2", "channel": "chat"})
+    assert sparse["body"] == "" and sparse["customer_tier"] == "standard" and sparse["is_empty"] is True
 
-    @pytest.mark.xfail(reason="Not implemented until Week 2 Day 1", strict=False)
-    def test_all_four_channels_produce_same_schema(self):
-        """All 4 channels should produce normalised output with the same keys."""
-        required_keys = {
-            "ticket_id", "channel", "subject", "body", "received_at",
-            "customer_id", "customer_tier", "customer_region", "language_fluency",
-        }
-        for channel in SUPPORTED_CHANNELS:
-            raw = {
-                "ticket_id": f"TEST-{channel}",
-                "channel": channel,
-                "subject": "test subject",
-                "body": "test body text",
-                "received_at": "2024-01-15T09:00:00Z",
-                "customer_id": "CUST-TEST",
-                "customer_tier": "standard",
-                "customer_region": "NA",
-                "language_fluency": "fluent",
-            }
-            result = normalize_ticket(raw, channel)
-            for key in required_keys:
-                assert key in result, (
-                    f"Missing required key '{key}' in result for channel '{channel}'"
-                )
+
+@pytest.mark.parametrize("bad", ["telegram", "", None, 5])
+def test_unsupported_channel_rejected(bad):
+    with pytest.raises(ValueError):
+        normalize_ticket({"ticket_id": "T"}, bad)
+
+
+def test_non_dict_rejected():
+    with pytest.raises(ValueError):
+        normalize_ticket("not a ticket", "email")
+
+
+def test_load_tickets_reads_a_list(tmp_path):
+    p = tmp_path / "t.json"
+    p.write_text('[{"ticket_id": "A"}, {"ticket_id": "B"}]')
+    assert [t["ticket_id"] for t in load_tickets(str(p))] == ["A", "B"]

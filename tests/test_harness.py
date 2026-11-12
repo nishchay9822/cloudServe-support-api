@@ -1,186 +1,57 @@
-"""
-Tests for the evaluation harness CLI contract.
-
-These verify the harness:
-- Accepts --input and --output arguments
-- Runs without crashing on real data
-- Produces valid JSON output
-
-These tests PASS immediately — the harness stub is fully wired from day one.
-"""
+"""A9, A10: the harness takes any input/output path, finishes unattended and writes its own report."""
 import json
 import os
 import subprocess
 import sys
-import tempfile
 
-import pytest
+from tests.conftest import ROOT
 
-
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-HARNESS = os.path.join(PROJECT_ROOT, "evaluation", "harness.py")
-VALIDATION_TICKETS = os.path.join(PROJECT_ROOT, "data", "validation_tickets.json")
+HARNESS = os.path.join(ROOT, "evaluation", "harness.py")
+VAL = os.path.join(ROOT, "data", "validation_tickets.json")
 
 
-class TestHarnessCLI:
-    """Tests that the harness CLI contract is correct from day one."""
+def run(args, tmp_path, key=""):
+    env = {**os.environ, "OPENROUTER_API_KEY": key, "DATABASE_URL": f"sqlite:///{tmp_path}/d.db", "ANONYMIZED_TELEMETRY": "False"}
+    return subprocess.run([sys.executable, HARNESS, *args], capture_output=True, text=True, cwd=ROOT, env=env, timeout=600)
 
-    def test_harness_script_exists(self):
-        """The harness script must exist at evaluation/harness.py."""
-        assert os.path.exists(HARNESS), f"harness.py not found at {HARNESS}"
 
-    def test_validation_tickets_exist(self):
-        """The validation dataset must be present in data/."""
-        assert os.path.exists(VALIDATION_TICKETS), (
-            f"validation_tickets.json not found at {VALIDATION_TICKETS}"
-        )
+def test_both_paths_are_required(tmp_path):
+    assert run(["--output", str(tmp_path / "o.json")], tmp_path).returncode != 0
+    assert run(["--input", VAL], tmp_path).returncode != 0
 
-    def test_harness_fails_without_input_arg(self):
-        """Harness should exit non-zero if --input is missing."""
-        result = subprocess.run(
-            [sys.executable, HARNESS, "--output", "/tmp/test_no_input.json"],
-            capture_output=True,
-            text=True,
-            cwd=PROJECT_ROOT,
-        )
-        assert result.returncode != 0, (
-            "Harness should fail when --input argument is not provided"
-        )
 
-    def test_harness_fails_without_output_arg(self):
-        """Harness should exit non-zero if --output is missing."""
-        result = subprocess.run(
-            [sys.executable, HARNESS, "--input", VALIDATION_TICKETS],
-            capture_output=True,
-            text=True,
-            cwd=PROJECT_ROOT,
-        )
-        assert result.returncode != 0, (
-            "Harness should fail when --output argument is not provided"
-        )
+def test_missing_input_file_exits_2_without_traceback(tmp_path):
+    p = run(["--input", str(tmp_path / "nope.json"), "--output", str(tmp_path / "o.json")], tmp_path)
+    assert p.returncode == 2 and "Traceback" not in p.stderr
 
-    def test_harness_runs_on_validation_set(self):
-        """Harness must run on validation_tickets.json without crashing."""
-        with tempfile.NamedTemporaryFile(
-            suffix=".json", delete=False, dir="/tmp"
-        ) as f:
-            output_path = f.name
 
-        try:
-            result = subprocess.run(
-                [
-                    sys.executable, HARNESS,
-                    "--input", VALIDATION_TICKETS,
-                    "--output", output_path,
-                ],
-                capture_output=True,
-                text=True,
-                cwd=PROJECT_ROOT,
-                timeout=120,
-            )
-            # No unhandled exception
-            assert "Traceback" not in result.stderr, (
-                f"Harness crashed with unhandled exception:\n{result.stderr}"
-            )
-            # Output file must be created
-            assert os.path.exists(output_path), "Output file was not created"
-            # Output must be valid JSON
-            with open(output_path) as f:
-                output = json.load(f)
-            assert "metrics" in output, "Output JSON missing 'metrics' key"
-            assert "results" in output, "Output JSON missing 'results' key"
-        finally:
-            if os.path.exists(output_path):
-                os.unlink(output_path)
+def test_runs_over_an_unseen_file_and_writes_json_and_report(tmp_path):
+    src = json.load(open(VAL))[:8]
+    inp = tmp_path / "hidden_like.json"
+    inp.write_text(json.dumps(src))
+    out = tmp_path / "sub" / "dir" / "result.json"       # output directory does not exist yet
+    p = run(["--input", str(inp), "--output", str(out)], tmp_path)
+    assert p.returncode == 0, p.stderr
+    d = json.load(open(out))
+    assert len(d["results"]) == 8 and d["metrics"]["governance"]["log_reconciles"] is True
+    assert d["metrics"]["governance"]["decisions_logged"] == 8
+    assert os.path.exists(str(out)[:-5] + ".md")        # A10: report produced automatically
 
-    def test_harness_output_has_required_structure(self):
-        """Output JSON must contain metrics with total_tickets and results list."""
-        with tempfile.NamedTemporaryFile(
-            suffix=".json", delete=False, dir="/tmp"
-        ) as f:
-            output_path = f.name
 
-        try:
-            subprocess.run(
-                [
-                    sys.executable, HARNESS,
-                    "--input", VALIDATION_TICKETS,
-                    "--output", output_path,
-                    "--max-tickets", "5",
-                ],
-                capture_output=True,
-                text=True,
-                cwd=PROJECT_ROOT,
-                timeout=60,
-            )
-            with open(output_path) as f:
-                output = json.load(f)
+def test_unlabelled_tickets_are_processed_too(tmp_path):
+    src = [{k: v for k, v in t.items() if k not in ("labels", "history")} for t in json.load(open(VAL))[:5]]
+    inp = tmp_path / "u.json"
+    inp.write_text(json.dumps(src))
+    p = run(["--input", str(inp), "--output", str(tmp_path / "o.json")], tmp_path)
+    d = json.load(open(tmp_path / "o.json"))
+    assert p.returncode == 0 and len(d["results"]) == 5 and d["metrics"]["run"]["labelled"] is False
 
-            assert "metrics" in output
-            assert "results" in output
-            assert "total_tickets" in output["metrics"]
-            assert isinstance(output["results"], list)
-            # With --max-tickets 5, should have 5 results
-            assert len(output["results"]) == 5
-        finally:
-            if os.path.exists(output_path):
-                os.unlink(output_path)
 
-    def test_harness_processes_all_tickets_without_stopping(self):
-        """Harness must process all tickets even when individual ones fail."""
-        with tempfile.NamedTemporaryFile(
-            suffix=".json", delete=False, dir="/tmp"
-        ) as f:
-            output_path = f.name
-
-        try:
-            subprocess.run(
-                [
-                    sys.executable, HARNESS,
-                    "--input", VALIDATION_TICKETS,
-                    "--output", output_path,
-                ],
-                capture_output=True,
-                text=True,
-                cwd=PROJECT_ROOT,
-                timeout=120,
-            )
-            with open(output_path) as f:
-                output = json.load(f)
-
-            # All 80 validation tickets should be in results (not stopped early)
-            assert len(output["results"]) == output["metrics"]["total_tickets"]
-        finally:
-            if os.path.exists(output_path):
-                os.unlink(output_path)
-
-    def test_each_result_has_ticket_id(self):
-        """Each result in the output must have a ticket_id field."""
-        with tempfile.NamedTemporaryFile(
-            suffix=".json", delete=False, dir="/tmp"
-        ) as f:
-            output_path = f.name
-
-        try:
-            subprocess.run(
-                [
-                    sys.executable, HARNESS,
-                    "--input", VALIDATION_TICKETS,
-                    "--output", output_path,
-                    "--max-tickets", "10",
-                ],
-                capture_output=True,
-                text=True,
-                cwd=PROJECT_ROOT,
-                timeout=60,
-            )
-            with open(output_path) as f:
-                output = json.load(f)
-
-            for result in output["results"]:
-                assert "ticket_id" in result, (
-                    f"Result missing ticket_id: {result}"
-                )
-        finally:
-            if os.path.exists(output_path):
-                os.unlink(output_path)
+def test_bad_tickets_do_not_stop_the_run(tmp_path):
+    mixed = json.load(open(VAL))[:3] + [None, "junk", {"ticket_id": "ONLY-ID"}, {"channel": "pigeon"}] + json.load(open(VAL))[3:5]
+    inp = tmp_path / "m.json"
+    inp.write_text(json.dumps(mixed))
+    p = run(["--input", str(inp), "--output", str(tmp_path / "o.json")], tmp_path)
+    d = json.load(open(tmp_path / "o.json"))
+    assert p.returncode == 0 and len(d["results"]) == len(mixed)
+    assert d["metrics"]["governance"]["log_reconciles"] is True
