@@ -110,7 +110,7 @@
 |--------|-------------|
 | **This project will have been worth doing if, within three months of launch...** | FCR rises from 44% to 60%+, first response time drops below 2 hours for auto-responded tickets, and repeat contact rate falls from 22% to 10% or below. |
 | **We will know it did not work if we see...** | A confidently wrong automated answer screenshotted and circulated publicly by an engineer-customer; or if agent workload increases because they are handling a flood of corrections to auto-responses; or if escalation rate rises rather than falls. |
-| **The measure the client will actually be judged on internally is...** | First contact resolution. Marcus was explicit: "FCR, if I am being honest, more than response time. Response time is what is in the agreement so it is what gets reported." FCR is the real business outcome. |
+| **The measure the client will actually be judged on internally is...** | First contact resolution. Marcus was explicit: "First contact resolution, if I am being honest, more than response time. Response time is what is in the agreement so it is what gets reported." FCR is the real business outcome. |
 
 ---
 

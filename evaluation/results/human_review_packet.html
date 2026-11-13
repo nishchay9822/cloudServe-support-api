@@ -1,0 +1,2047 @@
+<!doctype html><meta charset='utf-8'><title>Reply review packet</title>
+<style>body{font-family:Georgia,serif;max-width:900px;margin:2em auto;line-height:1.45;color:#1f2933}h2{border-top:3px solid #1f4e79;padding-top:.6em;color:#1f4e79}.box{background:#f4f7fa;border-left:4px solid #6c8ebf;padding:.6em 1em;margin:.6em 0;white-space:pre-wrap}.reply{border-left-color:#82b366;background:#f1f8f1}.art{border-left-color:#9673a6;background:#f7f2fa;font-size:.9em}small{color:#666}</style>
+<h1>Reply review packet</h1>
+<p>50 automatic replies. For each one decide: <b>does the reply state anything that the cited articles or the customer's message do not support?</b> Answer Y (hallucination) or N in <code>human_review_answers.csv</code>, with a short note when Y. Missing steps do not count; unsupported statements do.</p>
+<h2>1. VAL-0001</h2>
+<div class='box'><b>Customer ticket</b> <small>(forum)</small>
+Need to rotate an exposed key
+One of our production keys started returning 401 at around yesterday morning without any change on our side. Other keys against the same account are still working.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue with your production key returning 401 Unauthorized, check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]
+
+Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]
+
+To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]
+
+If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-004: API key rotation and scope management</b>
+# API key rotation and scope management
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A previously working key returns 401 Unauthorized
+- A key works for some endpoints and not others
+- A key needs replacing after accidental exposure
+
+## Common causes
+
+- The key was revoked or reached its configured expiry
+- The key was issued with a scope that excludes the endpoint being called
+- The key belongs to a deleted user and was removed with the account
+
+## Resolution
+
+1. Check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted.
+2. Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints.
+3. To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key.
+4. If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window.
+
+## Notes
+
+Keys issued to individual users are removed when that user is deleted. Use service accounts for anything running in production.</div>
+<h2>2. VAL-0004</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+MFA code keeps getting rejected
+my authenticator app codes are being rejected every time. i am having tried generating new ones several times.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue with your MFA code being rejected, please check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin. [DOC-AUTH-002]
+
+If the issue persists, please sign in with one of your recovery codes and then re-enrol a new device from the security page. [DOC-AUTH-002]
+
+If you do not have recovery codes available, an account administrator can reset multi-factor authentication for that user from the team members page. [DOC-AUTH-002]
+
+If you are the sole administrator and have no recovery codes, identity verification through support is required and takes up to one business day. [DOC-AUTH-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-002: Multi-factor authentication setup and recovery</b>
+# Multi-factor authentication setup and recovery
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The authenticator code is rejected as invalid
+- A user has lost the device holding their authenticator
+- Recovery codes were never downloaded
+
+## Common causes
+
+- Device clock drift of more than thirty seconds invalidates time-based codes
+- The authenticator was enrolled against a different account
+- Recovery codes were regenerated, invalidating the older set
+
+## Resolution
+
+1. Ask the user to check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin.
+2. If the device is lost, the user should sign in with one of their recovery codes and then re-enrol a new device from the security page.
+3. Where no recovery codes are available, an account administrator can reset multi-factor authentication for that user from the team members page.
+4. If the user is the sole administrator and has no recovery codes, identity verification through support is required and takes up to one business day.
+
+## Notes
+
+Support cannot disable multi-factor authentication without identity verification, regardless of urgency.</div>
+<h2>3. VAL-0006</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+MFA code keeps getting rejected
+I have been trying to sign in for the last two hours and keep getting an invalid credentials message. I am certain the password is correct because I use a password manager. Nothing has changed at our end that I am aware of.</div>
+<div class='box reply'><b>Reply sent</b>
+Check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin. [DOC-AUTH-002]
+If the device is lost, sign in with one of your recovery codes and then re-enrol a new device from the security page. [DOC-AUTH-002]
+Where no recovery codes are available, an account administrator can reset multi-factor authentication for that user from the team members page. [DOC-AUTH-002]
+If you are the sole administrator and have no recovery codes, identity verification through support is required and takes up to one business day. [DOC-AUTH-002]
+Support cannot disable multi-factor authentication without identity verification, regardless of urgency. [DOC-AUTH-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-002: Multi-factor authentication setup and recovery</b>
+# Multi-factor authentication setup and recovery
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The authenticator code is rejected as invalid
+- A user has lost the device holding their authenticator
+- Recovery codes were never downloaded
+
+## Common causes
+
+- Device clock drift of more than thirty seconds invalidates time-based codes
+- The authenticator was enrolled against a different account
+- Recovery codes were regenerated, invalidating the older set
+
+## Resolution
+
+1. Ask the user to check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin.
+2. If the device is lost, the user should sign in with one of their recovery codes and then re-enrol a new device from the security page.
+3. Where no recovery codes are available, an account administrator can reset multi-factor authentication for that user from the team members page.
+4. If the user is the sole administrator and has no recovery codes, identity verification through support is required and takes up to one business day.
+
+## Notes
+
+Support cannot disable multi-factor authentication without identity verification, regardless of urgency.</div>
+<h2>4. VAL-0008</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+We are tightening permissions after a review and I want to understand how group membership interacts with directly assigned roles.</div>
+<div class='box reply'><b>Reply sent</b>
+To understand how group membership interacts with directly assigned roles, check the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001]
+Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001]
+Prefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001]
+Remove a departing user rather than only changing their password, and revoke any API keys they created. [DOC-ACCT-001]
+Transfer ownership before removing the account, as removing the last account owner is not permitted. [DOC-ACCT-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-ACCT-001: Managing team members, roles and permissions</b>
+# Managing team members, roles and permissions
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A user cannot access a project they should be able to
+- A departing user needs removing
+- Permissions need narrowing after a review
+
+## Common causes
+
+- The role was granted at project scope rather than organisation scope
+- The invitation was never accepted and the account does not exist
+- A group membership grants broader access than the direct role suggests
+
+## Resolution
+
+1. Check the effective permissions view for the user, which resolves direct roles and group memberships together.
+2. Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days.
+3. Remove a departing user rather than only changing their password, and revoke any API keys they created.
+4. Prefer group membership to direct role assignment, so that access can be reviewed in one place.
+
+## Notes
+
+Removing the last account owner is not permitted. Transfer ownership before removing the account.</div>
+<h2>5. VAL-0010</h2>
+<div class='box'><b>Customer ticket</b> <small>(docs_comment)</small>
+Invoice higher than expected
+Our invoice this month is considerably higher than usual and I cannot see why from the summary. Could you help me understand what has driven the increase?</div>
+<div class='box reply'><b>Reply sent</b>
+To understand the increase in your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001] 
+Look for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]
+Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]
+Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-BILL-001: Understanding your invoice and usage breakdown</b>
+# Understanding your invoice and usage breakdown
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The invoice is higher than expected
+- Charges appear for a service that is not in use
+- The billing period does not align with the calendar month
+
+## Common causes
+
+- Usage-based charges accrued beyond the plan allowance
+- A resource was left running in a non-production environment
+- The billing period runs from the subscription date rather than the first of the month
+
+## Resolution
+
+1. Open the usage breakdown for the period, which itemises charges by service and by environment.
+2. Look for resources in staging or development environments, which are billed at the same rate as production.
+3. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date.
+4. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it.
+
+## Notes
+
+Invoices are finalised three days after the period ends. Adjustments requested before finalisation appear on the same invoice.</div>
+<h2>6. VAL-0011</h2>
+<div class='box'><b>Customer ticket</b> <small>(forum)</small>
+How do I revert to the previous revision
+We shipped a release yesterday morning that has broken checkout for a portion of our customers. We need to get back to the previous version quickly. What is the fastest safe route?</div>
+<div class='box reply'><b>Reply sent</b>
+To revert to the previous revision, follow these steps:
+
+1. Open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-002: Rolling back a failed release</b>
+# Rolling back a failed release
+
+**Applies to:** Container Service, Functions
+
+## Symptoms
+
+- A release has introduced errors and must be reverted
+- The previous revision is needed while a fix is prepared
+
+## Common causes
+
+- A defect reached production that testing did not catch
+- A configuration change had unintended effects
+
+## Resolution
+
+1. Open the revisions page for the service and identify the last revision that was healthy.
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place.
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect.
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh.
+
+## Notes
+
+Rollback restores the container image and its configuration together. It does not restore data.</div>
+<h2>7. VAL-0012</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Need to roll back the latest release
+How do I revert to an earlier revision? The release we put out this morning is causing errors and I would rather roll back than try to fix forward.</div>
+<div class='box reply'><b>Reply sent</b>
+To roll back the latest release, open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]
+Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]
+If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]
+Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-002: Rolling back a failed release</b>
+# Rolling back a failed release
+
+**Applies to:** Container Service, Functions
+
+## Symptoms
+
+- A release has introduced errors and must be reverted
+- The previous revision is needed while a fix is prepared
+
+## Common causes
+
+- A defect reached production that testing did not catch
+- A configuration change had unintended effects
+
+## Resolution
+
+1. Open the revisions page for the service and identify the last revision that was healthy.
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place.
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect.
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh.
+
+## Notes
+
+Rollback restores the container image and its configuration together. It does not restore data.</div>
+<h2>8. VAL-0013</h2>
+<div class='box'><b>Customer ticket</b> <small>(docs_comment)</small>
+Question about this month&#x27;s charges
+There are charges on our invoice for a service I do not believe we use. Could you explain what these relate to?</div>
+<div class='box reply'><b>Reply sent</b>
+To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]
+Look for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]
+Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]
+Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-BILL-001: Understanding your invoice and usage breakdown</b>
+# Understanding your invoice and usage breakdown
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The invoice is higher than expected
+- Charges appear for a service that is not in use
+- The billing period does not align with the calendar month
+
+## Common causes
+
+- Usage-based charges accrued beyond the plan allowance
+- A resource was left running in a non-production environment
+- The billing period runs from the subscription date rather than the first of the month
+
+## Resolution
+
+1. Open the usage breakdown for the period, which itemises charges by service and by environment.
+2. Look for resources in staging or development environments, which are billed at the same rate as production.
+3. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date.
+4. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it.
+
+## Notes
+
+Invoices are finalised three days after the period ends. Adjustments requested before finalisation appear on the same invoice.</div>
+<h2>9. VAL-0014</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Bad release in production
+we shipped a release around 14:00 yesterday that has broken checkout for portion of our customers. We need to get back to the previous version quickly. waiting for your reply.</div>
+<div class='box reply'><b>Reply sent</b>
+To roll back the release, open the revisions page for the service and identify the last revision that was healthy. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002] If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-002: Rolling back a failed release</b>
+# Rolling back a failed release
+
+**Applies to:** Container Service, Functions
+
+## Symptoms
+
+- A release has introduced errors and must be reverted
+- The previous revision is needed while a fix is prepared
+
+## Common causes
+
+- A defect reached production that testing did not catch
+- A configuration change had unintended effects
+
+## Resolution
+
+1. Open the revisions page for the service and identify the last revision that was healthy.
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place.
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect.
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh.
+
+## Notes
+
+Rollback restores the container image and its configuration together. It does not restore data.</div>
+<h2>10. VAL-0016</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+The service is noticeably slow during our afternoon peak and fine the rest of the day. We have autoscaling enabled so I expected it to cope.</div>
+<div class='box reply'><b>Reply sent</b>
+To diagnose the issue, compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service. [DOC-PERF-001]
+Check memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure. [DOC-PERF-001]
+Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another. [DOC-PERF-001]
+Adjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation. [DOC-PERF-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-PERF-001: Diagnosing elevated response latency</b>
+# Diagnosing elevated response latency
+
+**Applies to:** All compute services
+
+## Symptoms
+
+- Response times have increased without a code change
+- The 95th percentile is far above the median
+- Latency rises at predictable times of day
+
+## Common causes
+
+- The service is running close to its memory limit and spending time in garbage collection
+- A downstream dependency has slowed and the delay is propagating
+- Instance count is not scaling with the load pattern
+
+## Resolution
+
+1. Compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service.
+2. Check memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure.
+3. Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another.
+4. Adjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation.
+
+## Notes
+
+Cold starts affect the first request to a new instance. Frequent scaling events will therefore raise the 95th percentile even when the service itself is healthy.</div>
+<h2>11. VAL-0019</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Remove a departing team member
+my team member not able to open project. i give permission already two time. still not working.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue, check the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001]
+Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001]
+Remove a departing user rather than only changing their password, and revoke any API keys they created. [DOC-ACCT-001]
+Prefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-ACCT-001: Managing team members, roles and permissions</b>
+# Managing team members, roles and permissions
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A user cannot access a project they should be able to
+- A departing user needs removing
+- Permissions need narrowing after a review
+
+## Common causes
+
+- The role was granted at project scope rather than organisation scope
+- The invitation was never accepted and the account does not exist
+- A group membership grants broader access than the direct role suggests
+
+## Resolution
+
+1. Check the effective permissions view for the user, which resolves direct roles and group memberships together.
+2. Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days.
+3. Remove a departing user rather than only changing their password, and revoke any API keys they created.
+4. Prefer group membership to direct role assignment, so that access can be reviewed in one place.
+
+## Notes
+
+Removing the last account owner is not permitted. Transfer ownership before removing the account.</div>
+<h2>12. VAL-0021</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+We shipped a release earlier today that has broken checkout for a portion of our customers. We need to get back to the previous version quickly. What is the fastest safe route?</div>
+<div class='box reply'><b>Reply sent</b>
+To roll back to the previous version quickly, follow these steps:
+
+1. Open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-002: Rolling back a failed release</b>
+# Rolling back a failed release
+
+**Applies to:** Container Service, Functions
+
+## Symptoms
+
+- A release has introduced errors and must be reverted
+- The previous revision is needed while a fix is prepared
+
+## Common causes
+
+- A defect reached production that testing did not catch
+- A configuration change had unintended effects
+
+## Resolution
+
+1. Open the revisions page for the service and identify the last revision that was healthy.
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place.
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect.
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh.
+
+## Notes
+
+Rollback restores the container image and its configuration together. It does not restore data.</div>
+<h2>13. VAL-0022</h2>
+<div class='box'><b>Customer ticket</b> <small>(docs_comment)</small>
+Service slow at peak hours
+The service is noticeably slow during our afternoon peak and fine the rest of the day. We have autoscaling enabled so I expected it to cope.</div>
+<div class='box reply'><b>Reply sent</b>
+To diagnose the issue, compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service. [DOC-PERF-001]
+Check memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure. [DOC-PERF-001]
+Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another. [DOC-PERF-001]
+Adjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation. [DOC-PERF-001]
+Also, check whether the service is sitting at its configured maximum instance count, as scaling stops there regardless of load. [DOC-PERF-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-PERF-001: Diagnosing elevated response latency</b>
+# Diagnosing elevated response latency
+
+**Applies to:** All compute services
+
+## Symptoms
+
+- Response times have increased without a code change
+- The 95th percentile is far above the median
+- Latency rises at predictable times of day
+
+## Common causes
+
+- The service is running close to its memory limit and spending time in garbage collection
+- A downstream dependency has slowed and the delay is propagating
+- Instance count is not scaling with the load pattern
+
+## Resolution
+
+1. Compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service.
+2. Check memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure.
+3. Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another.
+4. Adjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation.
+
+## Notes
+
+Cold starts affect the first request to a new instance. Frequent scaling events will therefore raise the 95th percentile even when the service itself is healthy.</div>
+<div class='box art'><b>Cited article DOC-PERF-002: Autoscaling behaviour and instance limits</b>
+# Autoscaling behaviour and instance limits
+
+**Applies to:** Container Service
+
+## Symptoms
+
+- The service does not scale up under load
+- Scaling happens later than expected
+- Instance count oscillates
+
+## Common causes
+
+- The maximum instance count has been reached
+- The scaling metric responds more slowly than the load changes
+- The cooldown period is shorter than the time a new instance takes to become ready
+
+## Resolution
+
+1. Check whether the service is sitting at its configured maximum. Scaling stops there regardless of load.
+2. Choose a scaling metric that reflects the pressure you actually face. Request concurrency reacts faster than processor utilisation for request-bound services.
+3. Set the cooldown longer than your startup time so that new instances are counted before another scaling decision is taken.
+4. Set a minimum instance count above zero for latency-sensitive services to avoid cold starts on the first request.
+
+## Notes
+
+Scaling decisions are evaluated every fifteen seconds. Very short traffic spikes will finish before scaling responds.</div>
+<h2>14. VAL-0023</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Migrating our app across
+We have just signed up and I am not sure where to start. We have a containerised application and would like to get it deployed.</div>
+<div class='box reply'><b>Reply sent</b>
+To get your containerized application deployed on CloudServe, we recommend externalising configuration before migrating. This means moving any configuration read from a file on disk to environment variables or secrets. [DOC-ONB-002]
+Identify local state such as uploaded files or session data and move it to object storage or the managed database first. [DOC-ONB-002]
+Run in parallel with the existing deployment and shift a small share of traffic before committing to the move. [DOC-ONB-002]
+Plan the database migration separately from the application migration; attempting both at once makes any failure hard to diagnose. [DOC-ONB-002]
+Additionally, we suggest creating a project, then a service within it, and connecting a repository or pushing a container image to start the deployment process. [DOC-ONB-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-ONB-002: Migrating an existing application to CloudServe</b>
+# Migrating an existing application to CloudServe
+
+**Applies to:** All plans
+
+## Symptoms
+
+- An existing application needs moving with minimal downtime
+- The application depends on services not yet available
+
+## Common causes
+
+- Configuration is embedded in the application rather than externalised
+- The application depends on local state that will not survive scaling
+
+## Resolution
+
+1. Externalise configuration before migrating. Anything read from a file on disk should move to environment variables or secrets.
+2. Identify local state such as uploaded files or session data and move it to object storage or the managed database first.
+3. Run in parallel with the existing deployment and shift a small share of traffic before committing to the move.
+4. Plan the database migration separately from the application migration; attempting both at once makes any failure hard to diagnose.
+
+## Notes
+
+Applications that write to the local filesystem will lose that data on every deployment and every scaling event.</div>
+<div class='box art'><b>Cited article DOC-ONB-001: First deployment: a walkthrough</b>
+# First deployment: a walkthrough
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A new user does not know where to begin
+- The first deployment fails for unclear reasons
+
+## Common causes
+
+- Required configuration has not been set
+- The project structure does not match what the build expects
+
+## Resolution
+
+1. Create a project, then a service within it. Resources belong to services and services belong to projects.
+2. Connect a repository or push a container image. The build service detects common project layouts automatically.
+3. Set any environment variables the application needs before the first deployment rather than after it.
+4. Deploy, then watch the logs for the first sixty seconds. Most first-deployment problems are visible immediately in startup output.
+
+## Notes
+
+The free tier includes one service and is sufficient for evaluating the platform.</div>
+<h2>15. VAL-0024</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+A key can read fine but every write returns a permission error. I created it myself and I thought I gave it full access.</div>
+<div class='box reply'><b>Reply sent</b>
+Check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]
+Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]
+To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]
+If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-004: API key rotation and scope management</b>
+# API key rotation and scope management
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A previously working key returns 401 Unauthorized
+- A key works for some endpoints and not others
+- A key needs replacing after accidental exposure
+
+## Common causes
+
+- The key was revoked or reached its configured expiry
+- The key was issued with a scope that excludes the endpoint being called
+- The key belongs to a deleted user and was removed with the account
+
+## Resolution
+
+1. Check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted.
+2. Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints.
+3. To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key.
+4. If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window.
+
+## Notes
+
+Keys issued to individual users are removed when that user is deleted. Use service accounts for anything running in production.</div>
+<h2>16. VAL-0025</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+every deployment fails at health check stage. i am having increase timeout twice already and it makes no difference. kindly check and revert.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue with your deployments failing at the health check stage, please confirm that your container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. 
+
+Next, increase the initial delay if your application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches [DOC-DEPLOY-001]. 
+
+Compare the environment variables present in the deployment against those your application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. 
+
+Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-001: Container deployments failing during the health check phase</b>
+# Container deployments failing during the health check phase
+
+**Applies to:** Container Service
+
+## Symptoms
+
+- The deployment reaches running and then rolls back
+- Logs show repeated health check timeouts
+- The service works locally but not when deployed
+
+## Common causes
+
+- The health endpoint takes longer to respond than the configured timeout
+- The container listens on a different port than the service declares
+- A required environment variable is absent in the deployed environment
+
+## Resolution
+
+1. Confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout.
+2. Increase the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches.
+3. Compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure.
+4. Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default.
+
+## Notes
+
+A health check must return within the timeout using only local state. Endpoints that call a database will fail during a database incident and take the service down with them.</div>
+<h2>17. VAL-0026</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Need data to stay in the EU
+we need our data to remain within EU for contract we are signing. Our organisation created some time ago and i not sure which region it is in. please do the needful.</div>
+<div class='box reply'><b>Reply sent</b>
+To determine the region where your data is stored, please check the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. 
+
+Enable read replicas in additional regions to reduce latency for distant users without moving primary storage [DOC-DATA-003]. 
+
+Review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. 
+
+Metadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DATA-003: Data residency and regional storage</b>
+# Data residency and regional storage
+
+**Applies to:** Business and Enterprise plans
+
+## Symptoms
+
+- A customer requires data to remain in a specific region
+- Latency is high for users far from the primary region
+- A compliance review has asked where data is held
+
+## Common causes
+
+- The organisation was created in a region that no longer suits the requirement
+- Read traffic is being served from the primary region only
+- Backups are replicated to a second region by default
+
+## Resolution
+
+1. Check the region shown on the organisation settings page. This is fixed at creation and determines where primary data is stored.
+2. Enable read replicas in additional regions to reduce latency for distant users without moving primary storage.
+3. Review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default.
+4. Migrating an organisation between regions requires a planned migration with support and involves a maintenance window.
+
+## Notes
+
+Metadata such as account names and billing records is stored centrally regardless of the data region.</div>
+<h2>18. VAL-0027</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Usage allowance already consumed
+Overage charges appeared on our invoice that we were not expecting. We thought we were well inside our allowance.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the unexpected overage charges, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-BILL-001: Understanding your invoice and usage breakdown</b>
+# Understanding your invoice and usage breakdown
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The invoice is higher than expected
+- Charges appear for a service that is not in use
+- The billing period does not align with the calendar month
+
+## Common causes
+
+- Usage-based charges accrued beyond the plan allowance
+- A resource was left running in a non-production environment
+- The billing period runs from the subscription date rather than the first of the month
+
+## Resolution
+
+1. Open the usage breakdown for the period, which itemises charges by service and by environment.
+2. Look for resources in staging or development environments, which are billed at the same rate as production.
+3. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date.
+4. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it.
+
+## Notes
+
+Invoices are finalised three days after the period ends. Adjustments requested before finalisation appear on the same invoice.</div>
+<h2>19. VAL-0028</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Deployment rolls back every time
+builds that work last week are now fail during dependency resolution. we having not change our code at all.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue with your deployment rolling back every time, please follow these steps:
+
+1. Pin your dependencies with exact versions and commit the lock file, as unpinned dependencies are the cause in the large majority of cases of this kind [DOC-DEPLOY-003].
+2. Compare the runtime version declared in your build configuration against the version you use locally [DOC-DEPLOY-003].
+3. Clear the build cache from the settings page and trigger a fresh build to rule out a corrupted artefact [DOC-DEPLOY-003].
+4. If a specific dependency is failing to resolve, check whether its registry is reachable from the build network [DOC-DEPLOY-003].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-003: Build failures caused by dependency resolution</b>
+# Build failures caused by dependency resolution
+
+**Applies to:** Build Service
+
+## Symptoms
+
+- Builds that previously succeeded now fail without code changes
+- The build works locally but fails in the pipeline
+- Dependency resolution takes far longer than usual
+
+## Common causes
+
+- An unpinned dependency released a new incompatible version
+- The build environment uses a different language runtime than the local machine
+- The dependency cache holds a partially written artefact
+
+## Resolution
+
+1. Pin your dependencies with exact versions and commit the lock file. Unpinned dependencies are the cause in the large majority of cases of this kind.
+2. Compare the runtime version declared in your build configuration against the version you use locally.
+3. Clear the build cache from the settings page and trigger a fresh build to rule out a corrupted artefact.
+4. If a specific dependency is failing to resolve, check whether its registry is reachable from the build network.
+
+## Notes
+
+Build logs retain the full resolution output for thirty days, which is usually enough to identify which version changed.</div>
+<h2>20. VAL-0029</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+Could you point me at the right starting place? I have created an account but the console has more in it than I expected.</div>
+<div class='box reply'><b>Reply sent</b>
+To get started, we recommend checking the security page of the console to confirm whether your account is locked. A locked account displays a red banner and unlocks automatically after thirty minutes [DOC-AUTH-001]. 
+
+If your account is not locked, we suggest clearing cookies for the CloudServe domain, or opening a private browsing window, then attempting the login again [DOC-AUTH-001]. 
+
+If you&#x27;re still having trouble, please try opening the console in a private browsing window or clearing cookies for the CloudServe domain. 
+
+If you&#x27;re using the CLI, run `cloudserve auth logout` followed by `cloudserve auth login` to discard the cached token [DOC-AUTH-001]. 
+
+If you&#x27;re still unable to access the console, we recommend checking the documentation on managing team members, roles, and permissions to ensure you have the correct permissions [DOC-ACCT-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-001: Resolving invalid credential errors on login</b>
+# Resolving invalid credential errors on login
+
+**Applies to:** Console, CLI, SDK
+
+## Symptoms
+
+- The console returns &#x27;Invalid credentials&#x27; despite a correct password
+- Login succeeds in one browser but fails in another
+- The CLI reports authentication failure after a working period
+
+## Common causes
+
+- The account is locked after five consecutive failed attempts
+- A stale session cookie is being sent alongside new credentials
+- The password was changed in another session and the client cached the old one
+
+## Resolution
+
+1. Confirm whether the account is locked by checking the security page of the console. A locked account displays a red banner and unlocks automatically after thirty minutes.
+2. Clear cookies for the CloudServe domain, or open a private browsing window, then attempt the login again.
+3. If the CLI is failing, run `cloudserve auth logout` followed by `cloudserve auth login` to discard the cached token.
+4. Where the account remains locked and the customer needs immediate access, an administrator on the account can release the lock from the team members page.
+
+## Notes
+
+Repeated lockouts within a short period usually indicate an automated process still using an old password rather than a user error.</div>
+<div class='box art'><b>Cited article DOC-ACCT-001: Managing team members, roles and permissions</b>
+# Managing team members, roles and permissions
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A user cannot access a project they should be able to
+- A departing user needs removing
+- Permissions need narrowing after a review
+
+## Common causes
+
+- The role was granted at project scope rather than organisation scope
+- The invitation was never accepted and the account does not exist
+- A group membership grants broader access than the direct role suggests
+
+## Resolution
+
+1. Check the effective permissions view for the user, which resolves direct roles and group memberships together.
+2. Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days.
+3. Remove a departing user rather than only changing their password, and revoke any API keys they created.
+4. Prefer group membership to direct role assignment, so that access can be reviewed in one place.
+
+## Notes
+
+Removing the last account owner is not permitted. Transfer ownership before removing the account.</div>
+<h2>21. VAL-0031</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Bad release in production
+We shipped a release yesterday morning that has broken checkout for a portion of our customers. We need to get back to the previous version quickly. What is the fastest safe route?</div>
+<div class='box reply'><b>Reply sent</b>
+To safely roll back to the previous version, follow these steps:
+
+1. Open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-002: Rolling back a failed release</b>
+# Rolling back a failed release
+
+**Applies to:** Container Service, Functions
+
+## Symptoms
+
+- A release has introduced errors and must be reverted
+- The previous revision is needed while a fix is prepared
+
+## Common causes
+
+- A defect reached production that testing did not catch
+- A configuration change had unintended effects
+
+## Resolution
+
+1. Open the revisions page for the service and identify the last revision that was healthy.
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place.
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect.
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh.
+
+## Notes
+
+Rollback restores the container image and its configuration together. It does not restore data.</div>
+<h2>22. VAL-0033</h2>
+<div class='box'><b>Customer ticket</b> <small>(forum)</small>
+Duplicate webhook deliveries
+Signature verification fails for every delivery. We are computing the signature exactly as the documentation describes, over the parsed body.</div>
+<div class='box reply'><b>Reply sent</b>
+Check the webhook delivery log, which records every attempt with the response status and body for the last seven days. [DOC-API-003]
+Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. [DOC-API-003]
+Compute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature. [DOC-API-003]
+Make your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional. [DOC-API-003]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-API-003: Webhook delivery, retries and signature verification</b>
+# Webhook delivery, retries and signature verification
+
+**Applies to:** All plans
+
+## Symptoms
+
+- Webhooks are not arriving at the configured endpoint
+- The same event is delivered more than once
+- Signature verification fails
+
+## Common causes
+
+- The endpoint returned a non-2xx status and delivery is being retried
+- The endpoint responded too slowly and the delivery timed out
+- The signature was computed over a parsed body rather than the raw bytes
+
+## Resolution
+
+1. Check the webhook delivery log, which records every attempt with the response status and body for the last seven days.
+2. Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds.
+3. Compute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature.
+4. Make your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional.
+
+## Notes
+
+Failed deliveries are retried with backoff for twenty-four hours, after which the endpoint is disabled and the account is notified.</div>
+<h2>23. VAL-0034</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Need to roll back the latest release
+How do I revert to an earlier revision? The release we put out this morning is causing errors and I would rather roll back than try to fix forward.</div>
+<div class='box reply'><b>Reply sent</b>
+To roll back the latest release, open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]
+Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]
+If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]
+Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-002: Rolling back a failed release</b>
+# Rolling back a failed release
+
+**Applies to:** Container Service, Functions
+
+## Symptoms
+
+- A release has introduced errors and must be reverted
+- The previous revision is needed while a fix is prepared
+
+## Common causes
+
+- A defect reached production that testing did not catch
+- A configuration change had unintended effects
+
+## Resolution
+
+1. Open the revisions page for the service and identify the last revision that was healthy.
+2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place.
+3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect.
+4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh.
+
+## Notes
+
+Rollback restores the container image and its configuration together. It does not restore data.</div>
+<h2>24. VAL-0036</h2>
+<div class='box'><b>Customer ticket</b> <small>(forum)</small>
+Getting started with first deployment
+Could you point me at the right starting place? I have created an account but the console has more in it than I expected.</div>
+<div class='box reply'><b>Reply sent</b>
+To get started with your first deployment, create a project, then a service within it. Resources belong to services and services belong to projects [DOC-ONB-001]. 
+Connect a repository or push a container image. The build service detects common project layouts automatically [DOC-ONB-001]. 
+Set any environment variables the application needs before the first deployment rather than after it [DOC-ONB-001]. 
+Deploy, then watch the logs for the first sixty seconds. Most first-deployment problems are visible immediately in startup output [DOC-ONB-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-ONB-001: First deployment: a walkthrough</b>
+# First deployment: a walkthrough
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A new user does not know where to begin
+- The first deployment fails for unclear reasons
+
+## Common causes
+
+- Required configuration has not been set
+- The project structure does not match what the build expects
+
+## Resolution
+
+1. Create a project, then a service within it. Resources belong to services and services belong to projects.
+2. Connect a repository or push a container image. The build service detects common project layouts automatically.
+3. Set any environment variables the application needs before the first deployment rather than after it.
+4. Deploy, then watch the logs for the first sixty seconds. Most first-deployment problems are visible immediately in startup output.
+
+## Notes
+
+The free tier includes one service and is sufficient for evaluating the platform.</div>
+<h2>25. VAL-0037</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Question about backup regions
+Are backups replicated outside our primary region? A compliance review has raised this and I need a definite answer.</div>
+<div class='box reply'><b>Reply sent</b>
+Backups are replicated outside our primary region by default, as cross-region replication is enabled by default [DOC-DATA-003]. 
+However, this setting can be reviewed if a single-region requirement applies. 
+Review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. 
+Metadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003]. 
+The organisation settings page will show the region where primary data is stored, which is fixed at creation [DOC-DATA-003]. 
+Metadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DATA-003: Data residency and regional storage</b>
+# Data residency and regional storage
+
+**Applies to:** Business and Enterprise plans
+
+## Symptoms
+
+- A customer requires data to remain in a specific region
+- Latency is high for users far from the primary region
+- A compliance review has asked where data is held
+
+## Common causes
+
+- The organisation was created in a region that no longer suits the requirement
+- Read traffic is being served from the primary region only
+- Backups are replicated to a second region by default
+
+## Resolution
+
+1. Check the region shown on the organisation settings page. This is fixed at creation and determines where primary data is stored.
+2. Enable read replicas in additional regions to reduce latency for distant users without moving primary storage.
+3. Review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default.
+4. Migrating an organisation between regions requires a planned migration with support and involves a maintenance window.
+
+## Notes
+
+Metadata such as account names and billing records is stored centrally regardless of the data region.</div>
+<h2>26. VAL-0038</h2>
+<div class='box'><b>Customer ticket</b> <small>(forum)</small>
+p95 latency is very high
+Our response times have roughly doubled since two days ago with no deployment on our side. The median looks acceptable but the 95th percentile is far worse than it was.</div>
+<div class='box reply'><b>Reply sent</b>
+To diagnose the issue, compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service [DOC-PERF-001]. 
+Check memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure [DOC-PERF-001]. 
+Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another [DOC-PERF-001]. 
+Adjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation [DOC-PERF-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-PERF-001: Diagnosing elevated response latency</b>
+# Diagnosing elevated response latency
+
+**Applies to:** All compute services
+
+## Symptoms
+
+- Response times have increased without a code change
+- The 95th percentile is far above the median
+- Latency rises at predictable times of day
+
+## Common causes
+
+- The service is running close to its memory limit and spending time in garbage collection
+- A downstream dependency has slowed and the delay is propagating
+- Instance count is not scaling with the load pattern
+
+## Resolution
+
+1. Compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service.
+2. Check memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure.
+3. Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another.
+4. Adjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation.
+
+## Notes
+
+Cold starts affect the first request to a new instance. Frequent scaling events will therefore raise the 95th percentile even when the service itself is healthy.</div>
+<h2>27. VAL-0039</h2>
+<div class='box'><b>Customer ticket</b> <small>(forum)</small>
+API key returning 401
+One of our engineers pushed a key to a public repository by mistake. We need to replace it without taking the service down. What is the correct order of operations?</div>
+<div class='box reply'><b>Reply sent</b>
+To replace the API key without taking the service down, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]
+To ensure the new key is not exposed, revoke the old key immediately rather than waiting for the rotation window. [DOC-AUTH-004]
+Keys issued to individual users are removed when that user is deleted, so the exposed key will be removed automatically. [DOC-AUTH-004]
+Use service accounts for anything running in production to avoid this issue in the future. [DOC-AUTH-004]
+Review the scopes attached to the key to ensure the replacement key has the correct permissions. [DOC-AUTH-004]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-004: API key rotation and scope management</b>
+# API key rotation and scope management
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A previously working key returns 401 Unauthorized
+- A key works for some endpoints and not others
+- A key needs replacing after accidental exposure
+
+## Common causes
+
+- The key was revoked or reached its configured expiry
+- The key was issued with a scope that excludes the endpoint being called
+- The key belongs to a deleted user and was removed with the account
+
+## Resolution
+
+1. Check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted.
+2. Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints.
+3. To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key.
+4. If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window.
+
+## Notes
+
+Keys issued to individual users are removed when that user is deleted. Use service accounts for anything running in production.</div>
+<h2>28. VAL-0040</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Question about this month&#x27;s charges
+There are charges on our invoice for a service I do not believe we use. Could you explain what these relate to?</div>
+<div class='box reply'><b>Reply sent</b>
+To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]
+Look for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]
+Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]
+Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-BILL-001: Understanding your invoice and usage breakdown</b>
+# Understanding your invoice and usage breakdown
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The invoice is higher than expected
+- Charges appear for a service that is not in use
+- The billing period does not align with the calendar month
+
+## Common causes
+
+- Usage-based charges accrued beyond the plan allowance
+- A resource was left running in a non-production environment
+- The billing period runs from the subscription date rather than the first of the month
+
+## Resolution
+
+1. Open the usage breakdown for the period, which itemises charges by service and by environment.
+2. Look for resources in staging or development environments, which are billed at the same rate as production.
+3. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date.
+4. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it.
+
+## Notes
+
+Invoices are finalised three days after the period ends. Adjustments requested before finalisation appear on the same invoice.</div>
+<h2>29. VAL-0041</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Question about this month&#x27;s charges
+There are charges on our invoice for a service I do not believe we use. Could you explain what these relate to?</div>
+<div class='box reply'><b>Reply sent</b>
+To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]
+Look for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]
+Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]
+Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-BILL-001: Understanding your invoice and usage breakdown</b>
+# Understanding your invoice and usage breakdown
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The invoice is higher than expected
+- Charges appear for a service that is not in use
+- The billing period does not align with the calendar month
+
+## Common causes
+
+- Usage-based charges accrued beyond the plan allowance
+- A resource was left running in a non-production environment
+- The billing period runs from the subscription date rather than the first of the month
+
+## Resolution
+
+1. Open the usage breakdown for the period, which itemises charges by service and by environment.
+2. Look for resources in staging or development environments, which are billed at the same rate as production.
+3. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date.
+4. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it.
+
+## Notes
+
+Invoices are finalised three days after the period ends. Adjustments requested before finalisation appear on the same invoice.</div>
+<h2>30. VAL-0042</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+Our staging environment is picking up production configuration values. I cannot work out where the override is coming from.</div>
+<div class='box reply'><b>Reply sent</b>
+To troubleshoot the issue with your staging environment picking up production configuration values, please check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults [DOC-DEPLOY-004]. 
+
+Next, review the environment overrides page, which lists values that differ from the defaults for each environment [DOC-DEPLOY-004]. 
+
+Also, consider storing anything sensitive as a secret rather than a variable, as secrets are masked in logs and are not readable through the API after creation [DOC-DEPLOY-004]. 
+
+Finally, redeploy after changing configuration, as running containers do not pick up new values without a restart [DOC-DEPLOY-004].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-004: Configuring environment variables and secrets</b>
+# Configuring environment variables and secrets
+
+**Applies to:** All compute services
+
+## Symptoms
+
+- The application cannot read a variable that appears to be set
+- A secret value appears in plain text in the logs
+- Configuration differs between environments unexpectedly
+
+## Common causes
+
+- The variable was set at project scope but read at service scope
+- The application logs its configuration at startup
+- An environment override exists that is not visible on the main settings page
+
+## Resolution
+
+1. Check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults.
+2. Store anything sensitive as a secret rather than a variable. Secrets are masked in logs and are not readable through the API after creation.
+3. Review the environment overrides page, which lists values that differ from the defaults for each environment.
+4. Redeploy after changing configuration. Running containers do not pick up new values without a restart.
+
+## Notes
+
+A secret that has been printed to logs should be treated as exposed and rotated, even if the logs are private.</div>
+<h2>31. VAL-0044</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+There are charges on our invoice for a service I do not believe we use. Could you explain what these relate to?</div>
+<div class='box reply'><b>Reply sent</b>
+To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]
+Look for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]
+Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]
+Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-BILL-001: Understanding your invoice and usage breakdown</b>
+# Understanding your invoice and usage breakdown
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The invoice is higher than expected
+- Charges appear for a service that is not in use
+- The billing period does not align with the calendar month
+
+## Common causes
+
+- Usage-based charges accrued beyond the plan allowance
+- A resource was left running in a non-production environment
+- The billing period runs from the subscription date rather than the first of the month
+
+## Resolution
+
+1. Open the usage breakdown for the period, which itemises charges by service and by environment.
+2. Look for resources in staging or development environments, which are billed at the same rate as production.
+3. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date.
+4. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it.
+
+## Notes
+
+Invoices are finalised three days after the period ends. Adjustments requested before finalisation appear on the same invoice.</div>
+<h2>32. VAL-0045</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Export missing recent records
+I started an export over the weekend and it is still showing as queued. It covers about two million records. Should I cancel and try again?</div>
+<div class='box reply'><b>Reply sent</b>
+We recommend checking the exports page for job status. Jobs covering more than a million records commonly take several minutes. [DOC-DATA-001] The export has not completed yet, so it&#x27;s not necessary to cancel and try again. [DOC-DATA-001] 
+
+We also suggest requesting a fresh link from the exports page if the original has expired. The underlying file is retained for seven days. [DOC-DATA-001] 
+
+Note that the export reflects the moment the job began, so records created during processing are not included. [DOC-DATA-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DATA-001: Exporting account data and scheduled extracts</b>
+# Exporting account data and scheduled extracts
+
+**Applies to:** All plans
+
+## Symptoms
+
+- An export has not completed
+- The download link has expired
+- The export is missing recent records
+
+## Common causes
+
+- Large exports are queued and processed asynchronously
+- Download links are valid for twenty-four hours
+- The export captured a snapshot taken when the job started
+
+## Resolution
+
+1. Check the exports page for job status. Jobs covering more than a million records commonly take several minutes.
+2. Request a fresh link from the exports page if the original has expired. The underlying file is retained for seven days.
+3. Note that the export reflects the moment the job began, so records created during processing are not included.
+4. For recurring needs, configure a scheduled export delivered to object storage rather than generating them manually.
+
+## Notes
+
+Exports containing personal data are logged in the audit trail with the requesting user and the fields included.</div>
+<h2>33. VAL-0046</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+How do I page through large results
+when i do pagination some record coming two time and some missing. what is correct way?</div>
+<div class='box reply'><b>Reply sent</b>
+To avoid missing or duplicating records, use cursor pagination for large result sets. Use cursor pagination for anything that may change while you iterate. Offset pagination will skip or repeat records when items are inserted mid-iteration. [DOC-API-002] Pass the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null. Keep page size at or below two hundred. Larger requests are rejected rather than truncated. [DOC-API-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-API-002: Pagination and handling large result sets</b>
+# Pagination and handling large result sets
+
+**Applies to:** All plans
+
+## Symptoms
+
+- Only the first page of results is returned
+- Iterating through results misses or duplicates records
+- Large queries time out
+
+## Common causes
+
+- The cursor from the previous response was not passed to the next request
+- Offset pagination was used against a changing collection
+- The page size requested exceeds the maximum
+
+## Resolution
+
+1. Use cursor pagination for anything that may change while you iterate. Offset pagination will skip or repeat records when items are inserted mid-iteration.
+2. Pass the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null.
+3. Keep page size at or below two hundred. Larger requests are rejected rather than truncated.
+4. For very large extracts, use the export endpoint, which runs asynchronously and returns a download link.
+
+## Notes
+
+Cursors expire after one hour. Long-running iterations should handle expiry by restarting from a recorded checkpoint.</div>
+<h2>34. VAL-0047</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+Are the search endpoints limited differently from the rest? Our read traffic is fine but search is being rejected constantly.</div>
+<div class='box reply'><b>Reply sent</b>
+Confirm whether the endpoint has a specific limit. Search and export endpoints are more expensive and are limited more tightly than reads. [DOC-API-001]
+Implement exponential backoff with jitter on 429 responses rather than retrying immediately, which prolongs the throttling. [DOC-API-001]
+Where sustained higher throughput is genuinely required, the limit can be raised on Business and Enterprise plans through an account request. [DOC-API-001]
+Note that limits are enforced per organisation. Issuing more keys does not increase the available quota. [DOC-API-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-API-001: Understanding API rate limits and quota tiers</b>
+# Understanding API rate limits and quota tiers
+
+**Applies to:** All plans
+
+## Symptoms
+
+- Requests return 429 Too Many Requests
+- Throughput drops sharply at a predictable point
+- Limits appear lower than the documented figure
+
+## Common causes
+
+- The limit applies per organisation rather than per key
+- Burst capacity was consumed and the sustained rate now applies
+- The endpoint being called has a lower limit than the general one
+
+## Resolution
+
+1. Read the rate limit headers returned with every response. They give the limit, the remaining allowance and the reset time, which is more reliable than inferring the limit from behaviour.
+2. Confirm whether the endpoint has a specific limit. Search and export endpoints are more expensive and are limited more tightly than reads.
+3. Implement exponential backoff with jitter on 429 responses rather than retrying immediately, which prolongs the throttling.
+4. Where sustained higher throughput is genuinely required, the limit can be raised on Business and Enterprise plans through an account request.
+
+## Notes
+
+Limits are enforced per organisation. Issuing more keys does not increase the available quota.</div>
+<h2>35. VAL-0049</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Need to rotate an exposed key
+key can read fine but every write returns permission error. I created it myself and I thought I gave it full access. please help fast.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue, check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]
+
+Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]
+
+To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]
+
+If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]
+
+Please follow the steps above to resolve the issue.
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-004: API key rotation and scope management</b>
+# API key rotation and scope management
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A previously working key returns 401 Unauthorized
+- A key works for some endpoints and not others
+- A key needs replacing after accidental exposure
+
+## Common causes
+
+- The key was revoked or reached its configured expiry
+- The key was issued with a scope that excludes the endpoint being called
+- The key belongs to a deleted user and was removed with the account
+
+## Resolution
+
+1. Check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted.
+2. Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints.
+3. To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key.
+4. If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window.
+
+## Notes
+
+Keys issued to individual users are removed when that user is deleted. Use service accounts for anything running in production.</div>
+<h2>36. VAL-0050</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Getting started with first deployment
+We have just signed up and I am not sure where to start. We have a containerised application and would like to get it deployed.</div>
+<div class='box reply'><b>Reply sent</b>
+To get started with your first deployment, create a project, then a service within it. Resources belong to services and services belong to projects [DOC-ONB-001]. Connect a repository or push a container image. The build service detects common project layouts automatically [DOC-ONB-001]. Set any environment variables the application needs before the first deployment rather than after it [DOC-ONB-001]. Deploy, then watch the logs for the first sixty seconds. Most first-deployment problems are visible immediately in startup output [DOC-ONB-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-ONB-001: First deployment: a walkthrough</b>
+# First deployment: a walkthrough
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A new user does not know where to begin
+- The first deployment fails for unclear reasons
+
+## Common causes
+
+- Required configuration has not been set
+- The project structure does not match what the build expects
+
+## Resolution
+
+1. Create a project, then a service within it. Resources belong to services and services belong to projects.
+2. Connect a repository or push a container image. The build service detects common project layouts automatically.
+3. Set any environment variables the application needs before the first deployment rather than after it.
+4. Deploy, then watch the logs for the first sixty seconds. Most first-deployment problems are visible immediately in startup output.
+
+## Notes
+
+The free tier includes one service and is sufficient for evaluating the platform.</div>
+<h2>37. VAL-0051</h2>
+<div class='box'><b>Customer ticket</b> <small>(forum)</small>
+Log forwarding stopped working
+log forwarding to our external system stop two days ago and not resumed by itself. destination is healthy as we know. kindly check and revert.</div>
+<div class='box reply'><b>Reply sent</b>
+We&#x27;ve checked the forwarding status page, which shows the last successful delivery and any error returned by the destination. [DOC-INT-002]
+Expect a delay of up to two minutes on metrics, since they are aggregated before being sent. [DOC-INT-002]
+Apply a level filter at source so that debug output is not forwarded, which is usually the reason volume is higher than expected. [DOC-INT-002]
+Verify the destination credential separately if delivery has stopped entirely, as expired credentials are the most common cause. [DOC-INT-002]
+Forwarding pauses after one hour of consecutive failures and must be resumed manually once the destination is healthy. [DOC-INT-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-INT-002: Third party monitoring and log forwarding</b>
+# Third party monitoring and log forwarding
+
+**Applies to:** Business and Enterprise plans
+
+## Symptoms
+
+- Logs are not arriving at the external destination
+- Metrics are delayed compared with the console
+- Forwarded volume is higher than expected
+
+## Common causes
+
+- The destination rejected the payload and forwarding paused
+- Aggregation introduces a delay before metrics are forwarded
+- Debug-level logs are being forwarded along with the rest
+
+## Resolution
+
+1. Check the forwarding status page, which shows the last successful delivery and any error returned by the destination.
+2. Expect a delay of up to two minutes on metrics, since they are aggregated before being sent.
+3. Apply a level filter at source so that debug output is not forwarded, which is usually the reason volume is higher than expected.
+4. Verify the destination credential separately if delivery has stopped entirely, as expired credentials are the most common cause.
+
+## Notes
+
+Forwarding pauses after one hour of consecutive failures and must be resumed manually once the destination is healthy.</div>
+<h2>38. VAL-0052</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+Since late last night I cannot get into the console at all. My colleague on the same team signs in without any trouble, so it does not appear to be a general outage. Could you check whether something is wrong with my account specifically?</div>
+<div class='box reply'><b>Reply sent</b>
+To troubleshoot the issue, please check the security page of the console to confirm whether your account is locked. A locked account displays a red banner and unlocks automatically after thirty minutes. [DOC-AUTH-001]
+If your account is locked, clear cookies for the CloudServe domain, or open a private browsing window, then attempt the login again. [DOC-AUTH-001]
+If the issue persists, run `cloudserve auth logout` followed by `cloudserve auth login` to discard the cached token. [DOC-AUTH-001]
+If you still cannot access the console, an administrator on the account can release the lock from the team members page. [DOC-AUTH-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-001: Resolving invalid credential errors on login</b>
+# Resolving invalid credential errors on login
+
+**Applies to:** Console, CLI, SDK
+
+## Symptoms
+
+- The console returns &#x27;Invalid credentials&#x27; despite a correct password
+- Login succeeds in one browser but fails in another
+- The CLI reports authentication failure after a working period
+
+## Common causes
+
+- The account is locked after five consecutive failed attempts
+- A stale session cookie is being sent alongside new credentials
+- The password was changed in another session and the client cached the old one
+
+## Resolution
+
+1. Confirm whether the account is locked by checking the security page of the console. A locked account displays a red banner and unlocks automatically after thirty minutes.
+2. Clear cookies for the CloudServe domain, or open a private browsing window, then attempt the login again.
+3. If the CLI is failing, run `cloudserve auth logout` followed by `cloudserve auth login` to discard the cached token.
+4. Where the account remains locked and the customer needs immediate access, an administrator on the account can release the lock from the team members page.
+
+## Notes
+
+Repeated lockouts within a short period usually indicate an automated process still using an old password rather than a user error.</div>
+<h2>39. VAL-0053</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+There are charges on our invoice for a service I do not believe we use. Could you explain what these relate to?</div>
+<div class='box reply'><b>Reply sent</b>
+To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]
+Look for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]
+Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]
+Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-BILL-001: Understanding your invoice and usage breakdown</b>
+# Understanding your invoice and usage breakdown
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The invoice is higher than expected
+- Charges appear for a service that is not in use
+- The billing period does not align with the calendar month
+
+## Common causes
+
+- Usage-based charges accrued beyond the plan allowance
+- A resource was left running in a non-production environment
+- The billing period runs from the subscription date rather than the first of the month
+
+## Resolution
+
+1. Open the usage breakdown for the period, which itemises charges by service and by environment.
+2. Look for resources in staging or development environments, which are billed at the same rate as production.
+3. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date.
+4. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it.
+
+## Notes
+
+Invoices are finalised three days after the period ends. Adjustments requested before finalisation appear on the same invoice.</div>
+<h2>40. VAL-0054</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Where is our data stored
+One of our customers has asked for written confirmation of where their data is physically stored. Could you point me to something I can share with them?</div>
+<div class='box reply'><b>Reply sent</b>
+We store data in the region where the organisation was created, which can be found on the organisation settings page. This region determines where primary data is stored [DOC-DATA-003]. 
+
+To reduce latency for distant users without moving primary storage, enable read replicas in additional regions [DOC-DATA-003]. 
+
+Metadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DATA-003: Data residency and regional storage</b>
+# Data residency and regional storage
+
+**Applies to:** Business and Enterprise plans
+
+## Symptoms
+
+- A customer requires data to remain in a specific region
+- Latency is high for users far from the primary region
+- A compliance review has asked where data is held
+
+## Common causes
+
+- The organisation was created in a region that no longer suits the requirement
+- Read traffic is being served from the primary region only
+- Backups are replicated to a second region by default
+
+## Resolution
+
+1. Check the region shown on the organisation settings page. This is fixed at creation and determines where primary data is stored.
+2. Enable read replicas in additional regions to reduce latency for distant users without moving primary storage.
+3. Review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default.
+4. Migrating an organisation between regions requires a planned migration with support and involves a maintenance window.
+
+## Notes
+
+Metadata such as account names and billing records is stored centrally regardless of the data region.</div>
+<h2>41. VAL-0055</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+we connecting our CI pipeline and not are sure whether to use personal key or something else. What is recommended approach for automation? please tell what to do.</div>
+<div class='box reply'><b>Reply sent</b>
+Create a service account for the pipeline rather than using a personal key, so that access survives staff changes [DOC-INT-001].
+Grant the service account only the projects and permissions the pipeline needs, and review that grant when the pipeline changes [DOC-INT-001].
+Store the credential as an encrypted secret in your pipeline provider, never in the repository [DOC-INT-001].
+Test the pipeline credential separately from the deployment logic, so that authentication failures are distinguishable from deployment failures [DOC-INT-001].
+Set an expiry and rotate the service account key on a schedule [DOC-INT-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-INT-001: Connecting continuous integration pipelines</b>
+# Connecting continuous integration pipelines
+
+**Applies to:** All plans
+
+## Symptoms
+
+- The pipeline cannot authenticate against CloudServe
+- Deployments succeed manually but fail from the pipeline
+- The pipeline has broader access than intended
+
+## Common causes
+
+- A personal key was used rather than a service account
+- The pipeline environment lacks the configuration present locally
+- The service account was granted an organisation-wide role
+
+## Resolution
+
+1. Create a service account for the pipeline rather than using a personal key, so that access survives staff changes.
+2. Grant the service account only the projects and permissions the pipeline needs, and review that grant when the pipeline changes.
+3. Store the credential as an encrypted secret in your pipeline provider, never in the repository.
+4. Test the pipeline credential separately from the deployment logic, so that authentication failures are distinguishable from deployment failures.
+
+## Notes
+
+Service account keys do not expire by default. Set an expiry and rotate on a schedule.</div>
+<h2>42. VAL-0056</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Build fails in the pipeline
+Every deployment fails at the health check stage. I have increased the timeout twice already and it makes no difference.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue with your deployment failing at the health check stage, confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. 
+
+Increase the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches [DOC-DEPLOY-001]. 
+
+Compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. 
+
+Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-001: Container deployments failing during the health check phase</b>
+# Container deployments failing during the health check phase
+
+**Applies to:** Container Service
+
+## Symptoms
+
+- The deployment reaches running and then rolls back
+- Logs show repeated health check timeouts
+- The service works locally but not when deployed
+
+## Common causes
+
+- The health endpoint takes longer to respond than the configured timeout
+- The container listens on a different port than the service declares
+- A required environment variable is absent in the deployed environment
+
+## Resolution
+
+1. Confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout.
+2. Increase the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches.
+3. Compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure.
+4. Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default.
+
+## Notes
+
+A health check must return within the timeout using only local state. Endpoints that call a database will fail during a database incident and take the service down with them.</div>
+<h2>43. VAL-0057</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Deployment rolls back every time
+Our deployment reaches running and then rolls back after about a minute. The logs mention a health check timeout. It runs perfectly on my machine and in staging.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue with your deployment rolling back every time, confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. 
+
+Increase the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches [DOC-DEPLOY-001]. 
+
+Compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. 
+
+Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001].
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-001: Container deployments failing during the health check phase</b>
+# Container deployments failing during the health check phase
+
+**Applies to:** Container Service
+
+## Symptoms
+
+- The deployment reaches running and then rolls back
+- Logs show repeated health check timeouts
+- The service works locally but not when deployed
+
+## Common causes
+
+- The health endpoint takes longer to respond than the configured timeout
+- The container listens on a different port than the service declares
+- A required environment variable is absent in the deployed environment
+
+## Resolution
+
+1. Confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout.
+2. Increase the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches.
+3. Compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure.
+4. Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default.
+
+## Notes
+
+A health check must return within the timeout using only local state. Endpoints that call a database will fail during a database incident and take the service down with them.</div>
+<h2>44. VAL-0058</h2>
+<div class='box'><b>Customer ticket</b> <small>(docs_comment)</small>
+Need to rotate an exposed key
+one of our production keys start returning 401 at around last Friday without any change on our side. Other keys against same account still working. waiting for your reply.</div>
+<div class='box reply'><b>Reply sent</b>
+To resolve the issue with the exposed key, check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]
+Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]
+To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]
+If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-AUTH-004: API key rotation and scope management</b>
+# API key rotation and scope management
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A previously working key returns 401 Unauthorized
+- A key works for some endpoints and not others
+- A key needs replacing after accidental exposure
+
+## Common causes
+
+- The key was revoked or reached its configured expiry
+- The key was issued with a scope that excludes the endpoint being called
+- The key belongs to a deleted user and was removed with the account
+
+## Resolution
+
+1. Check the API keys page for the key&#x27;s status and expiry. Revoked and expired keys are listed with the date and the user who acted.
+2. Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints.
+3. To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key.
+4. If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window.
+
+## Notes
+
+Keys issued to individual users are removed when that user is deleted. Use service accounts for anything running in production.</div>
+<h2>45. VAL-0059</h2>
+<div class='box'><b>Customer ticket</b> <small>(docs_comment)</small>
+Config differs between environments
+Where should secrets be stored so they do not appear in the logs? At the moment ours are being printed at startup and I am not comfortable with that.</div>
+<div class='box reply'><b>Reply sent</b>
+To store secrets so they do not appear in the logs, store them as secrets rather than variables. Secrets are masked in logs and are not readable through the API after creation. [DOC-DEPLOY-004] 
+Review the environment overrides page, which lists values that differ from the defaults for each environment. [DOC-DEPLOY-004]
+Redeploy after changing configuration. Running containers do not pick up new values without a restart. [DOC-DEPLOY-004]
+A secret that has been printed to logs should be treated as exposed and rotated, even if the logs are private. [DOC-DEPLOY-004]
+Never send a live credential to support. Support will never ask for one, and any credential shared in a ticket must be treated as exposed. [DOC-SEC-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-DEPLOY-004: Configuring environment variables and secrets</b>
+# Configuring environment variables and secrets
+
+**Applies to:** All compute services
+
+## Symptoms
+
+- The application cannot read a variable that appears to be set
+- A secret value appears in plain text in the logs
+- Configuration differs between environments unexpectedly
+
+## Common causes
+
+- The variable was set at project scope but read at service scope
+- The application logs its configuration at startup
+- An environment override exists that is not visible on the main settings page
+
+## Resolution
+
+1. Check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults.
+2. Store anything sensitive as a secret rather than a variable. Secrets are masked in logs and are not readable through the API after creation.
+3. Review the environment overrides page, which lists values that differ from the defaults for each environment.
+4. Redeploy after changing configuration. Running containers do not pick up new values without a restart.
+
+## Notes
+
+A secret that has been printed to logs should be treated as exposed and rotated, even if the logs are private.</div>
+<div class='box art'><b>Cited article DOC-SEC-002: Handling exposed secrets and credential rotation</b>
+# Handling exposed secrets and credential rotation
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A key has been committed to a repository
+- A secret appears in application logs
+- A third party has reported finding a credential
+
+## Common causes
+
+- Configuration was committed rather than referenced from the environment
+- The application prints its configuration during startup
+- A key was shared in a support ticket or a chat message
+
+## Resolution
+
+1. Revoke the exposed credential first. Removing it from the repository does not help, because it remains in the history.
+2. Issue a replacement with the narrowest scope that still works, rather than recreating the original permissions by default.
+3. Search the audit log for use of the exposed credential from unfamiliar addresses during the exposure window.
+4. Add secret scanning to your pipeline so that the next occurrence is caught before it reaches a remote branch.
+
+## Notes
+
+Never send a live credential to support. Support will never ask for one, and any credential shared in a ticket must be treated as exposed.</div>
+<h2>46. VAL-0060</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Webhooks not arriving
+Signature verification fails for every delivery. We are computing the signature exactly as the documentation describes, over the parsed body.</div>
+<div class='box reply'><b>Reply sent</b>
+We recommend checking the webhook delivery log, which records every attempt with the response status and body for the last seven days. [DOC-API-003]
+Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. [DOC-API-003]
+Compute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature. [DOC-API-003]
+Make your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional. [DOC-API-003]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-API-003: Webhook delivery, retries and signature verification</b>
+# Webhook delivery, retries and signature verification
+
+**Applies to:** All plans
+
+## Symptoms
+
+- Webhooks are not arriving at the configured endpoint
+- The same event is delivered more than once
+- Signature verification fails
+
+## Common causes
+
+- The endpoint returned a non-2xx status and delivery is being retried
+- The endpoint responded too slowly and the delivery timed out
+- The signature was computed over a parsed body rather than the raw bytes
+
+## Resolution
+
+1. Check the webhook delivery log, which records every attempt with the response status and body for the last seven days.
+2. Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds.
+3. Compute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature.
+4. Make your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional.
+
+## Notes
+
+Failed deliveries are retried with backoff for twenty-four hours, after which the endpoint is disabled and the account is notified.</div>
+<h2>47. VAL-0061</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Webhooks not arriving
+Signature verification fails for every delivery. We are computing the signature exactly as the documentation describes, over the parsed body.</div>
+<div class='box reply'><b>Reply sent</b>
+We recommend checking the webhook delivery log, which records every attempt with the response status and body for the last seven days. [DOC-API-003]
+Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. [DOC-API-003]
+Compute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature. [DOC-API-003]
+Make your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional. [DOC-API-003]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-API-003: Webhook delivery, retries and signature verification</b>
+# Webhook delivery, retries and signature verification
+
+**Applies to:** All plans
+
+## Symptoms
+
+- Webhooks are not arriving at the configured endpoint
+- The same event is delivered more than once
+- Signature verification fails
+
+## Common causes
+
+- The endpoint returned a non-2xx status and delivery is being retried
+- The endpoint responded too slowly and the delivery timed out
+- The signature was computed over a parsed body rather than the raw bytes
+
+## Resolution
+
+1. Check the webhook delivery log, which records every attempt with the response status and body for the last seven days.
+2. Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds.
+3. Compute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature.
+4. Make your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional.
+
+## Notes
+
+Failed deliveries are retried with backoff for twenty-four hours, after which the endpoint is disabled and the account is notified.</div>
+<h2>48. VAL-0062</h2>
+<div class='box'><b>Customer ticket</b> <small>(docs_comment)</small>
+Connecting our CI pipeline
+log forwarding to our external system stop over weekend and not resumed by itself. destination healthy as we know.</div>
+<div class='box reply'><b>Reply sent</b>
+Check the forwarding status page, which shows the last successful delivery and any error returned by the destination. [DOC-INT-002]
+Expect a delay of up to two minutes on metrics, since they are aggregated before being sent. [DOC-INT-002]
+Apply a level filter at source so that debug output is not forwarded, which is usually the reason volume is higher than expected. [DOC-INT-002]
+Verify the destination credential separately if delivery has stopped entirely, as expired credentials are the most common cause. [DOC-INT-002]
+Forwarding pauses after one hour of consecutive failures and must be resumed manually once the destination is healthy. [DOC-INT-002]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-INT-002: Third party monitoring and log forwarding</b>
+# Third party monitoring and log forwarding
+
+**Applies to:** Business and Enterprise plans
+
+## Symptoms
+
+- Logs are not arriving at the external destination
+- Metrics are delayed compared with the console
+- Forwarded volume is higher than expected
+
+## Common causes
+
+- The destination rejected the payload and forwarding paused
+- Aggregation introduces a delay before metrics are forwarded
+- Debug-level logs are being forwarded along with the rest
+
+## Resolution
+
+1. Check the forwarding status page, which shows the last successful delivery and any error returned by the destination.
+2. Expect a delay of up to two minutes on metrics, since they are aggregated before being sent.
+3. Apply a level filter at source so that debug output is not forwarded, which is usually the reason volume is higher than expected.
+4. Verify the destination credential separately if delivery has stopped entirely, as expired credentials are the most common cause.
+
+## Notes
+
+Forwarding pauses after one hour of consecutive failures and must be resumed manually once the destination is healthy.</div>
+<h2>49. VAL-0063</h2>
+<div class='box'><b>Customer ticket</b> <small>(email)</small>
+Permission changes not taking effect
+One of our developers cannot see a project she should have access to. I have granted her the role twice and it does not seem to take effect.</div>
+<div class='box reply'><b>Reply sent</b>
+The role was granted at project scope rather than organisation scope. [DOC-ACCT-001]
+Check the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001]
+Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001]
+Prefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-ACCT-001: Managing team members, roles and permissions</b>
+# Managing team members, roles and permissions
+
+**Applies to:** All plans
+
+## Symptoms
+
+- A user cannot access a project they should be able to
+- A departing user needs removing
+- Permissions need narrowing after a review
+
+## Common causes
+
+- The role was granted at project scope rather than organisation scope
+- The invitation was never accepted and the account does not exist
+- A group membership grants broader access than the direct role suggests
+
+## Resolution
+
+1. Check the effective permissions view for the user, which resolves direct roles and group memberships together.
+2. Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days.
+3. Remove a departing user rather than only changing their password, and revoke any API keys they created.
+4. Prefer group membership to direct role assignment, so that access can be reviewed in one place.
+
+## Notes
+
+Removing the last account owner is not permitted. Transfer ownership before removing the account.</div>
+<h2>50. VAL-0064</h2>
+<div class='box'><b>Customer ticket</b> <small>(chat)</small>
+What is the right way to pull a very large extract? Requesting a big page size gets rejected and iterating page by page takes hours.</div>
+<div class='box reply'><b>Reply sent</b>
+To pull a very large extract, we recommend using the export endpoint, which runs asynchronously and returns a download link. This is suitable for very large extracts. [DOC-API-002]
+Keep in mind that exports are queued and processed asynchronously. [DOC-DATA-001]
+For very large extracts, use the export endpoint. [DOC-API-002]
+For recurring needs, consider configuring a scheduled export delivered to object storage rather than generating them manually. [DOC-DATA-001]
+Exports containing personal data are logged in the audit trail with the requesting user and the fields included. [DOC-DATA-001]
+
+This reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.</div>
+<div class='box art'><b>Cited article DOC-API-002: Pagination and handling large result sets</b>
+# Pagination and handling large result sets
+
+**Applies to:** All plans
+
+## Symptoms
+
+- Only the first page of results is returned
+- Iterating through results misses or duplicates records
+- Large queries time out
+
+## Common causes
+
+- The cursor from the previous response was not passed to the next request
+- Offset pagination was used against a changing collection
+- The page size requested exceeds the maximum
+
+## Resolution
+
+1. Use cursor pagination for anything that may change while you iterate. Offset pagination will skip or repeat records when items are inserted mid-iteration.
+2. Pass the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null.
+3. Keep page size at or below two hundred. Larger requests are rejected rather than truncated.
+4. For very large extracts, use the export endpoint, which runs asynchronously and returns a download link.
+
+## Notes
+
+Cursors expire after one hour. Long-running iterations should handle expiry by restarting from a recorded checkpoint.</div>
+<div class='box art'><b>Cited article DOC-DATA-001: Exporting account data and scheduled extracts</b>
+# Exporting account data and scheduled extracts
+
+**Applies to:** All plans
+
+## Symptoms
+
+- An export has not completed
+- The download link has expired
+- The export is missing recent records
+
+## Common causes
+
+- Large exports are queued and processed asynchronously
+- Download links are valid for twenty-four hours
+- The export captured a snapshot taken when the job started
+
+## Resolution
+
+1. Check the exports page for job status. Jobs covering more than a million records commonly take several minutes.
+2. Request a fresh link from the exports page if the original has expired. The underlying file is retained for seven days.
+3. Note that the export reflects the moment the job began, so records created during processing are not included.
+4. For recurring needs, configure a scheduled export delivered to object storage rather than generating them manually.
+
+## Notes
+
+Exports containing personal data are logged in the audit trail with the requesting user and the fields included.</div>

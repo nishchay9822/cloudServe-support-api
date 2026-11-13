@@ -111,7 +111,10 @@ def build(r, figs, ctx):
         ["openai/gpt-4o-mini (independent)", "50 validation replies", "0 hallucinated, 0 prohibited", "The reference figure for validation."],
         ["openai/gpt-4o-mini, with reference answers", "100 development replies", "0% hallucinated, 0% prohibited, 95% required-point coverage", "Coverage was 80% under the earlier prompt and rose to 95% under v3."],
         ["openai/gpt-oss-120b (on Groq)", "50 validation replies", "0 hallucinated, 0 prohibited", "Agreement with the OpenRouter judge from a third model family."],
-        ["Human second assessor", "none yet", "pending", "Required by NFR-03. A review sheet is written by the harness for this purpose."],
+        (["Human second assessor", f"{c['human']['n_compared']} validation replies",
+          f"{c['human']['human_hallucinations']} hallucinated (95% upper bound {c['human']['human_rate_upper95']*100:.1f}%); agreement with the model judge {c['human']['agreement']*100:.0f}%" + (f", kappa {c['human']['cohens_kappa']}" if c['human']['cohens_kappa'] is not None else " (kappa undefined: no variation)"),
+          "Blind review with the full cited articles (evaluation/make_review_packet.py, review_agreement.py)."] if c.get("human") else
+         ["Human second assessor", "none yet", "pending", "Required by NFR-03. A blind review packet and answer sheet are ready (evaluation/results/human_review_packet.html)."]),
     ], [38, 32, 42, 58])
     r.h3("Calibration and the threshold")
     sel = c["sel"]
@@ -234,7 +237,7 @@ def build(r, figs, ctx):
 
     # ------------------------------------------------------------------ 9 Requirements revision
     r.h1("9  The requirements revision", key="s9")
-    r.p("The build forced 13 changes to the PRD: 11 requirements changed and 2 were added; none were removed. After re-reading the brief's design figures I made four further changes (the last four rows of Table 15). These are in the code, the tests and this report but are <b>not yet in the PRD v2.0 document or its revision log</b>, which should become v2.1. Version 1.0 is untouched and version 2.0 carries a revision log in the "
+    r.p("The build forced 13 changes to the PRD: 11 requirements changed and 2 were added; none were removed. After re-reading the brief's design figures I made four further changes (the last four rows of Table 15). They are recorded in <b>PRD v2.1</b> (docs/Stage_2_PRD_v2_1.docx) and appended to the revision log (docs/Stage_5_PRD_Revision_Log.docx). Version 1.0 is untouched and version 2.0 carries a revision log in the "
         "official template (docs/Stage_5_PRD_Revision_Log.docx). Table 15 lists the substantive changes; every one was triggered by a specific observation made during the build, not by "
         "a preference.")
     r.table("changes", "Substantive requirement changes between PRD v1.0 and v2.0.", [
@@ -252,8 +255,8 @@ def build(r, figs, ctx):
         ["NFR-01", "Verification records the provider setting.", "11 s versus 0.4 s depending on provider routing."],
         ["FR-19 (new)", "Configurable provider; exhausted credit is a non-transient failure.", "OpenRouter credit ran out; the free tier was rate-limited."],
         ["FR-20 (new)", "Kill switch.", "Required by the governance framework; absent from v1."],
-        ["FR-21 (proposed)", "Feedback loop: POST /feedback; a correction changes the neighbour index and is counted on the dashboard.", "The brief's high-level design lists the feedback loop as a cross-cutting concern; the PRD and my first build omitted it."],
-        ["FR-22 (proposed)", "Security-wording screen and safety-proximity rule in routing.", "With unseen wording 3 of 87 restricted tickets were auto-answered with high confidence."],
+        ["FR-21 (new, v2.1)", "Feedback loop: POST /feedback; a correction changes the neighbour index and is counted on the dashboard.", "The brief's high-level design lists the feedback loop as a cross-cutting concern; the PRD and my first build omitted it."],
+        ["FR-22 (new, v2.1)", "Security-wording screen and safety-proximity rule in routing.", "With unseen wording 3 of 87 restricted tickets were auto-answered with high confidence."],
         ["FR-03, FR-07 (revised again)", "Confidence calibrated on unseen wording; threshold 0.85 chosen from data; routing order confidence, then evidence.", "Replaying routing showed the 0.80 threshold changed nothing; the brief's decision tree puts confidence before evidence."],
         ["FR-04, FR-15 (revised again)", "Hybrid dense plus BM25 search; LangGraph orchestrator; /tickets endpoint; response formatter.", "The brief's low-level design names each of them."],
     ], [20, 76, 74])
@@ -327,5 +330,5 @@ def build(r, figs, ctx):
         "The fairness audit is python evaluation/fairness_audit.py --run evaluation/results/dev_run.json --tickets data/development_tickets.json --out evaluation/results/fairness_dev. "
         "The monitoring stack is started with docker compose -f monitoring/docker-compose.yml up -d after the API is running. Python 3.9 to 3.11 is required.")
     r.h2("Appendix E  Other deliverables")
-    r.p("Stage workbooks in docs/: Stage_1_Discovery_Workbook_Filled.docx, Stage_2_PRD_v1.docx and Stage_2_PRD_v2_0.docx, Stage_3_Prompt_Library.docx, Stage_4_Sprint_Plan.docx, "
+    r.p("Stage workbooks in docs/: Stage_1_Discovery_Workbook_Filled.docx, Stage_2_PRD_v1.docx, Stage_2_PRD_v2_0.docx and Stage_2_PRD_v2_1.docx, Stage_3_Prompt_Library.docx, Stage_4_Sprint_Plan.docx, "
         "Stage_5_PRD_Revision_Log.docx, Governance_Framework.docx, and the effort log. Architecture notes: docs/architecture.md and docs/architecture.drawio.")

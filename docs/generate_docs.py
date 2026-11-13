@@ -293,7 +293,7 @@ def build_discovery_workbook():
     make_table(doc,
         ["Measure", "Who watches it", "Current value", "What they would call success", "Confidence"],
         [
-            ["First contact resolution (FCR)", "Marcus (primary), executive team", "43.8% (data) / 42% (Marcus)", "60%+ (industry benchmark 65%). Marcus: 'FCR, if I am being honest, more than response time.'", "High — both interview and data consistent"],
+            ["First contact resolution (FCR)", "Marcus (primary), executive team", "43.8% (data) / 42% (Marcus)", "60%+ (industry benchmark 65%). Marcus: 'First contact resolution, if I am being honest, more than response time.'", "High — both interview and data consistent"],
             ["Average first response time", "Marcus, customers (SLA)", "8–12 hours", "Under 2 hours (SLA target). Ravi would accept sub-1-hour for doc queries.", "High — consistent across Marcus and Ravi"],
             ["Escalation rate", "Marcus (indirectly, via cost)", "56.2%", "30% or lower. At 4× cost per escalation, each percentage point is financially material.", "Medium — Marcus cited cost ratio, not a target rate"],
             ["Customer satisfaction (CSAT)", "Marcus (reports to exec team)", "2.97/5.0 (data) / 3.2/5.0 (Marcus)", "4.0+ for meaningful improvement. Marcus's exact threshold unstated.", "Medium — Marcus's figure is slightly optimistic vs data"],
@@ -314,7 +314,7 @@ def build_discovery_workbook():
             ["We will know it did not work if we see...",
              "A confidently wrong automated answer screenshotted and circulated publicly by an engineer-customer; or if agent workload increases because they are handling corrections to auto-responses; or if escalation rate rises rather than falls."],
             ["The measure the client will actually be judged on internally is...",
-             "First contact resolution. Marcus: 'FCR, if I am being honest, more than response time. Response time is what is in the agreement so it is what gets reported.'"],
+             "First contact resolution. Marcus: 'First contact resolution, if I am being honest, more than response time. Response time is what is in the agreement so it is what gets reported.'"],
         ],
         col_widths=[2.5, 5.6]
     )

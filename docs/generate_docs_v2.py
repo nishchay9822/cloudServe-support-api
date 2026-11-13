@@ -290,7 +290,7 @@ def build_discovery_v2():
             ["We will know it did not work if...",
              "A confidently wrong automated answer is screenshotted and circulated publicly; agent workload increases from handling corrections; escalation rate rises; or the system's accuracy does not improve over the first 60 days of operation."],
             ["The measure Marcus will actually be judged on internally is...",
-             "First contact resolution. Marcus: 'FCR, if I am being honest, more than response time. Response time is what is in the agreement so it is what gets reported.'"],
+             "First contact resolution. Marcus: 'First contact resolution, if I am being honest, more than response time. Response time is what is in the agreement so it is what gets reported.'"],
         ],
         col_widths=[2.5, 5.6])
 

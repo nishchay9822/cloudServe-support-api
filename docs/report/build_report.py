@@ -64,6 +64,7 @@ def context():
     return {
         "dv": facts("dev_run", "development_tickets"), "dn": facts("dev_run_novel090", "development_tickets"), "vl": facts("gate_run_validation", "validation_tickets"),
         "sel": sel,
+        "human": (J("human_review_agreement.json") if os.path.exists(os.path.join(RES, "human_review_agreement.json")) else None),
         "fair_dn": J("fairness_dev_novel.json")["segments"],
         "gaps": {k: v["max_gap_pp_route_accuracy"] for k, v in J("fairness_dev.json")["segments"].items()},
         "dev_date": "11 November 2026", "gate_date": "12 November 2026", "model": "meta-llama/llama-3.1-8b-instruct (OpenRouter)",
