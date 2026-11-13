@@ -54,6 +54,7 @@ class State(TypedDict, total=False):
     route_dec: dict
     gen: dict
     done: bool         # True once the ticket must go straight to finalize
+    sec_hit: Optional[dict]   # security wording found: still classified and retrieved (so the packet carries sources), then forced to escalate
 
 
 def _node(fn):
@@ -98,9 +99,9 @@ def n_screen(s: State) -> dict:
         return {"done": True}
     sec = guardrails.check_security_language(t["subject"] + "\n" + t["body"])
     if sec["status"] == "block":
-        s["r"].update(reason=f"Security-related wording ('{sec['matched']}'): handled by a human regardless of classification.",
-                      reason_code="safety_keyword", guardrails={"security_language": sec, "blocked_by": ["security_language"]})
-        return {"done": True}
+        # Do NOT stop here: classify and retrieve still run so the human receives the relevant articles with the ticket.
+        s["r"]["guardrails"] = {"security_language": sec, "blocked_by": ["security_language"]}
+        return {"sec_hit": sec}
     return {}
 
 
@@ -134,6 +135,10 @@ def n_retrieve(s: State) -> dict:
 @_node
 def n_route(s: State) -> dict:
     d = route.route_ticket(s["ticket"], s["cls"], s["passages"])
+    sec = s.get("sec_hit")
+    if sec:   # security wording overrides every other outcome
+        d = dict(d, decision="escalate", reason_code="safety_keyword",
+                 reason=f"Security-related wording ('{sec['matched']}'): handled by a human regardless of classification.")
     s["r"].update(decision=d["decision"], reason=d["reason"], reason_code=d["reason_code"])
     return {"route_dec": d, "done": d["decision"] != "auto_respond"}
 

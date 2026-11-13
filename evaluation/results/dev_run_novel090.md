@@ -1,6 +1,6 @@
-# Evaluation report - dev-novel090-final
+# Evaluation report - dev-novel090-final4
 
-- Input: `data/development_tickets.json`  |  tickets: **500**  |  finished: 2026-11-13T07:15:27+00:00  |  wall time: 1511.0s
+- Input: `data/development_tickets.json`  |  tickets: **500**  |  finished: 2026-11-13T20:57:49+00:00  |  wall time: 235.5s
 - Model: `meta-llama/llama-3.1-8b-instruct`  |  confidence threshold: 0.85  |  labelled input: True
 
 ## Gate: unattended run
@@ -12,7 +12,7 @@
 
 - Escalation rate: system **0.24** vs baseline 0.562
 - Auto-resolution proxy (auto-replied and docs can answer it): **0.606** vs baseline FCR 0.438
-- Median time to first reply on auto-replies: **0.41 s** vs baseline median resolution 216 min
+- Median time to first reply on auto-replies: **0.37 s** vs baseline median resolution 216 min
 - Baseline repeat-contact rate 0.216; baseline CSAT 2.972; system CSAT: not measurable offline
 
 ## 2. Routing
@@ -23,29 +23,29 @@
 
 ## 3. Classification
 
-- Intent accuracy **0.9896** (n=479); urgency accuracy 0.4656
-- Classes with precision below 85%: ['configuration_help']; methods used: {'knn': 402, 'llm+knn': 77}
-- Top confusions: [{'true': 'onboarding', 'pred': 'configuration_help', 'count': 4}, {'true': 'rate_limit', 'pred': 'performance_degradation', 'count': 1}]
+- Intent accuracy **0.984** (n=500); urgency accuracy 0.478
+- Classes with precision below 85%: ['configuration_help']; methods used: {'knn': 419, 'llm+knn': 81}
+- Top confusions: [{'true': 'onboarding', 'pred': 'configuration_help', 'count': 4}, {'true': 'security_incident', 'pred': 'account_access', 'count': 3}, {'true': 'rate_limit', 'pred': 'performance_degradation', 'count': 1}]
 
 ## 4. Retrieval
 
-- hit@1 0.8739, hit@3 0.93, hit@5 0.9412 (n=357 answerable tickets)
+- hit@1 0.902, hit@3 0.958, hit@5 0.9692 (n=357 answerable tickets)
 
 ## 5. Confidence calibration (stated vs observed intent accuracy)
 
 | band | n | stated | observed | gap (pp) | within 5pp |
 |---|---|---|---|---|---|
-| 0.8-0.9 | 24 | 0.869 | 0.792 | 7.7 | False |
-| 0.9-1.0 | 455 | 0.994 | 1.0 | 0.6 | True |
+| 0.8-0.9 | 28 | 0.872 | 0.821 | 5.1 | False |
+| 0.9-1.0 | 472 | 0.994 | 0.994 | 0.0 | True |
 
 ## 6. Latency
 
-- All tickets: p50 426 ms, p95 927 ms. Auto-replies: p50 415 ms, **p95 884 ms** (target < 3000 ms: True)
-- Model provider: 590 calls, 1 retries, 0 failures, 547913 tokens
+- All tickets: p50 373 ms, p95 866 ms. Auto-replies: p50 366 ms, **p95 760 ms** (target < 3000 ms: True)
+- Model provider: 594 calls, 0 retries, 0 failures, 557243 tokens
 
 ## 7. Citations and answer quality
 
-- Auto-replies 380; with a citation 1.0; citations that resolve 1.0; cited the expected article 0.8809
+- Auto-replies 380; with a citation 1.0; citations that resolve 1.0; cited the expected article 0.8781
 - Model-assessed hallucination check not run (use --judge N).
 
 ## 8. Governance
@@ -58,23 +58,23 @@
 
 ## 9. Fairness by segment (groups with n < 15 are flagged)
 
-**customer_tier**  - max gap (pp): {'auto_rate': 3.3, 'route_accuracy': 16.7, 'intent_accuracy': 0.6, 'retrieval_hit@1': 7.9}
-- business: n=164, auto rate 0.7805, route acc 0.8537, intent acc 0.9936, retrieval hit@1 0.8537
-- enterprise: n=83, auto rate 0.759, route acc 0.6867, intent acc 0.9875, retrieval hit@1 0.9322
-- standard: n=253, auto rate 0.747, route acc 0.7431, intent acc 0.9876, retrieval hit@1 0.8686
+**customer_tier**  - max gap (pp): {'auto_rate': 3.3, 'route_accuracy': 16.7, 'intent_accuracy': 1.8, 'retrieval_hit@1': 6.3}
+- business: n=164, auto rate 0.7805, route acc 0.8537, intent acc 0.9939, retrieval hit@1 0.8862
+- enterprise: n=83, auto rate 0.759, route acc 0.6867, intent acc 0.9759, retrieval hit@1 0.9492
+- standard: n=253, auto rate 0.747, route acc 0.7431, intent acc 0.9802, retrieval hit@1 0.8971
 
-**language_fluency**  - max gap (pp): {'auto_rate': 4.6, 'route_accuracy': 2.8, 'intent_accuracy': 2.1, 'retrieval_hit@1': 7.6}
-- fluent: n=380, auto rate 0.7711, route acc 0.7632, intent acc 0.9946, retrieval hit@1 0.8926
-- non_fluent: n=120, auto rate 0.725, route acc 0.7917, intent acc 0.9732, retrieval hit@1 0.8161
+**language_fluency**  - max gap (pp): {'auto_rate': 4.6, 'route_accuracy': 2.8, 'intent_accuracy': 3.4, 'retrieval_hit@1': 5.3}
+- fluent: n=380, auto rate 0.7711, route acc 0.7632, intent acc 0.9921, retrieval hit@1 0.9148
+- non_fluent: n=120, auto rate 0.725, route acc 0.7917, intent acc 0.9583, retrieval hit@1 0.8621
 
-**region**  - max gap (pp): {'auto_rate': 14.4, 'route_accuracy': 8.0, 'intent_accuracy': 1.9, 'retrieval_hit@1': 3.4}
-- asia_pacific: n=119, auto rate 0.7059, route acc 0.7143, intent acc 0.9913, retrieval hit@1 0.8947
-- europe: n=151, auto rate 0.7616, route acc 0.7881, intent acc 1.0, retrieval hit@1 0.8609
-- latin_america: n=60, auto rate 0.85, route acc 0.7667, intent acc 0.9828, retrieval hit@1 0.8837
-- north_america: n=170, auto rate 0.7647, route acc 0.7941, intent acc 0.9812, retrieval hit@1 0.8699
+**region**  - max gap (pp): {'auto_rate': 14.4, 'route_accuracy': 8.0, 'intent_accuracy': 3.3, 'retrieval_hit@1': 2.4}
+- asia_pacific: n=119, auto rate 0.7059, route acc 0.7143, intent acc 0.9832, retrieval hit@1 0.9079
+- europe: n=151, auto rate 0.7616, route acc 0.7881, intent acc 1.0, retrieval hit@1 0.887
+- latin_america: n=60, auto rate 0.85, route acc 0.7667, intent acc 0.9667, retrieval hit@1 0.907
+- north_america: n=170, auto rate 0.7647, route acc 0.7941, intent acc 0.9765, retrieval hit@1 0.9106
 
-**channel**  - max gap (pp): {'auto_rate': 12.6, 'route_accuracy': 5.2, 'intent_accuracy': 2.7, 'retrieval_hit@1': 9.4}
-- chat: n=155, auto rate 0.8129, route acc 0.7742, intent acc 0.9732, retrieval hit@1 0.8908
-- docs_comment: n=78, auto rate 0.6923, route acc 0.7308, intent acc 0.987, retrieval hit@1 0.9375
-- email: n=212, auto rate 0.7311, route acc 0.783, intent acc 1.0, retrieval hit@1 0.8431
-- forum: n=55, auto rate 0.8182, route acc 0.7636, intent acc 1.0, retrieval hit@1 0.8649
+**channel**  - max gap (pp): {'auto_rate': 12.6, 'route_accuracy': 5.2, 'intent_accuracy': 4.5, 'retrieval_hit@1': 4.9}
+- chat: n=155, auto rate 0.8129, route acc 0.7742, intent acc 0.9548, retrieval hit@1 0.8992
+- docs_comment: n=78, auto rate 0.6923, route acc 0.7308, intent acc 0.9872, retrieval hit@1 0.9375
+- email: n=212, auto rate 0.7311, route acc 0.783, intent acc 1.0, retrieval hit@1 0.8889
+- forum: n=55, auto rate 0.8182, route acc 0.7636, intent acc 1.0, retrieval hit@1 0.9189

@@ -1,12 +1,12 @@
 {
   "metrics": {
     "run": {
-      "run_id": "gate-final3",
+      "run_id": "gate-final4",
       "input": "data/validation_tickets.json",
       "tickets": 80,
       "labelled": true,
-      "wall_seconds": 38.2,
-      "finished_at": "2026-11-13T07:16:14+00:00",
+      "wall_seconds": 34.9,
+      "finished_at": "2026-11-13T20:58:31+00:00",
       "model": "meta-llama/llama-3.1-8b-instruct",
       "threshold": 0.85,
       "ticket_errors": 0
@@ -26,7 +26,7 @@
       "safety_violation_ids": []
     },
     "classification": {
-      "n": 76,
+      "n": 80,
       "intent_accuracy": 1.0,
       "per_class": {
         "account_access": {
@@ -119,6 +119,11 @@
           "precision": 1.0,
           "recall": 1.0
         },
+        "security_incident": {
+          "support": 4,
+          "precision": 1.0,
+          "recall": 1.0
+        },
         "sso_configuration": {
           "support": 1,
           "precision": 1.0,
@@ -137,22 +142,22 @@
       },
       "classes_below_85pct_precision": [],
       "top_confusions": [],
-      "urgency_accuracy": 0.4342,
+      "urgency_accuracy": 0.45,
       "methods": {
-        "knn": 74,
+        "knn": 78,
         "llm+knn": 2
       }
     },
     "retrieval": {
       "n": 53,
-      "hit@1": 0.8868,
-      "hit@3": 0.9245,
-      "hit@5": 0.9245
+      "hit@1": 0.9434,
+      "hit@3": 0.9811,
+      "hit@5": 0.9811
     },
     "calibration": [
       {
         "band": "0.9-1.0",
-        "n": 76,
+        "n": 80,
         "stated": 0.994,
         "observed": 1.0,
         "gap_pp": 0.6,
@@ -160,21 +165,21 @@
       }
     ],
     "latency": {
-      "all_mean_ms": 471.6,
-      "all_p50_ms": 387,
-      "all_p95_ms": 874,
-      "all_max_ms": 1586,
-      "auto_mean_ms": 454.1,
-      "auto_p50_ms": 389,
-      "auto_p95_ms": 682,
+      "all_mean_ms": 430.6,
+      "all_p50_ms": 356,
+      "all_p95_ms": 732,
+      "all_max_ms": 2197,
+      "auto_mean_ms": 414.3,
+      "auto_p50_ms": 356,
+      "auto_p95_ms": 567,
       "p95_under_3s": true
     },
     "citations": {
       "n_auto": 63,
-      "n_citations": 69,
+      "n_citations": 68,
       "responses_with_citation": 1.0,
       "citation_resolves_rate": 1.0,
-      "cited_expected_doc_rate": 0.88
+      "cited_expected_doc_rate": 0.898
     },
     "business": {
       "note": "proxy measures on labelled tickets, not live customer outcomes",
@@ -185,8 +190,8 @@
       "baseline_median_resolution_minutes": 227,
       "auto_resolution_proxy": 0.575,
       "system_escalation_rate": 0.2125,
-      "median_time_to_first_reply_seconds_auto": 0.39,
-      "mean_time_to_first_reply_seconds_auto": 0.45,
+      "median_time_to_first_reply_seconds_auto": 0.36,
+      "mean_time_to_first_reply_seconds_auto": 0.41,
       "fcr_brief_formula": 0.7875,
       "csat": "not measurable offline"
     },
@@ -198,7 +203,7 @@
             "auto_rate": 0.9,
             "route_accuracy": 0.7333,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.9545,
+            "retrieval_hit@1": 1.0,
             "low_n": false
           },
           "enterprise": {
@@ -214,7 +219,7 @@
             "auto_rate": 0.7143,
             "route_accuracy": 0.7381,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.84,
+            "retrieval_hit@1": 0.92,
             "low_n": false
           }
         },
@@ -222,7 +227,7 @@
           "auto_rate": 18.6,
           "route_accuracy": 0.5,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 11.5
+          "retrieval_hit@1": 8.0
         }
       },
       "language_fluency": {
@@ -232,7 +237,7 @@
             "auto_rate": 0.7869,
             "route_accuracy": 0.8033,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.8864,
+            "retrieval_hit@1": 0.9318,
             "low_n": false
           },
           "non_fluent": {
@@ -240,7 +245,7 @@
             "auto_rate": 0.7895,
             "route_accuracy": 0.5263,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.8889,
+            "retrieval_hit@1": 1.0,
             "low_n": false
           }
         },
@@ -248,7 +253,7 @@
           "auto_rate": 0.3,
           "route_accuracy": 27.7,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 0.3
+          "retrieval_hit@1": 6.8
         }
       },
       "region": {
@@ -258,7 +263,7 @@
             "auto_rate": 0.8095,
             "route_accuracy": 0.7143,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.9412,
+            "retrieval_hit@1": 1.0,
             "low_n": false
           },
           "europe": {
@@ -266,7 +271,7 @@
             "auto_rate": 0.84,
             "route_accuracy": 0.8,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.7895,
+            "retrieval_hit@1": 0.8947,
             "low_n": false
           },
           "latin_america": {
@@ -290,7 +295,7 @@
           "auto_rate": 6.2,
           "route_accuracy": 13.3,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 15.2
+          "retrieval_hit@1": 10.5
         }
       },
       "channel": {
@@ -308,7 +313,7 @@
             "auto_rate": 0.6875,
             "route_accuracy": 0.6875,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.9,
+            "retrieval_hit@1": 1.0,
             "low_n": false
           },
           "email": {
@@ -316,7 +321,7 @@
             "auto_rate": 0.871,
             "route_accuracy": 0.7419,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.9091,
+            "retrieval_hit@1": 0.9545,
             "low_n": false
           },
           "forum": {
@@ -324,7 +329,7 @@
             "auto_rate": 0.8182,
             "route_accuracy": 0.7273,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.875,
+            "retrieval_hit@1": 1.0,
             "low_n": true
           }
         },
@@ -332,7 +337,7 @@
           "auto_rate": 18.4,
           "route_accuracy": 8.5,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 6.3
+          "retrieval_hit@1": 15.4
         }
       }
     },
@@ -361,8 +366,8 @@
       "calls": 85,
       "retries": 0,
       "failures": 0,
-      "tokens": 65500,
-      "seconds": 35.23342490196228
+      "tokens": 65808,
+      "seconds": 31.86309313774109
     },
     "judge": {
       "n_judged": 50,
@@ -482,7 +487,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0016": {
           "covers_required_points": true,
@@ -686,7 +691,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0039": {
           "covers_required_points": true,
@@ -878,7 +883,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0057": {
           "covers_required_points": true,
@@ -902,7 +907,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 0.95
+          "assessor_confidence": 1.0
         },
         "VAL-0059": {
           "covers_required_points": true,
@@ -1010,7 +1015,7 @@
           "score": 0.4056
         }
       ],
-      "response_text": "To resolve the issue with your production key returning 401 Unauthorized, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\n\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\n\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\n\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve the issue with your production key returning 401 Unauthorized, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\n\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\n\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\n\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nPlease follow the steps above to resolve the issue.\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -1048,18 +1053,18 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 947,
+      "tokens": 957,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 7,
         "retrieve": 7,
-        "generate": 1094
+        "generate": 762
       },
       "knn_share": 1.0,
-      "latency_ms": 1116,
+      "latency_ms": 784,
       "threshold_applied": 0.85,
-      "decision_id": "223081a8-d813-4071-bc91-2f48ec58273c"
+      "decision_id": "ae59bf09-9000-419e-8dbf-031de9404663"
     },
     {
       "ticket_id": "VAL-0002",
@@ -1107,13 +1112,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 530,
-        "retrieve": 24
+        "classify": 275,
+        "retrieve": 20
       },
       "knn_share": 0.8252,
-      "latency_ms": 1147,
+      "latency_ms": 626,
       "threshold_applied": 0.85,
-      "decision_id": "32e389c5-7530-41ec-bdca-dfdd2fc534b5"
+      "decision_id": "95c935d3-f10e-4743-bcfa-6641f348b4a4"
     },
     {
       "ticket_id": "VAL-0003",
@@ -1145,13 +1150,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14
+        "classify": 15,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 299,
+      "latency_ms": 291,
       "threshold_applied": 0.85,
-      "decision_id": "05487a56-27d7-4357-a059-4d7c3b98d39f"
+      "decision_id": "e578dd30-7463-4aad-a5c9-a86c6eb59857"
     },
     {
       "ticket_id": "VAL-0004",
@@ -1225,14 +1230,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
+        "classify": 17,
         "retrieve": 14,
-        "generate": 905
+        "generate": 314
       },
       "knn_share": 1.0,
-      "latency_ms": 941,
+      "latency_ms": 352,
       "threshold_applied": 0.85,
-      "decision_id": "ff7f1164-854d-4687-a8e7-0749fdbf2625"
+      "decision_id": "acce8012-1cb7-473c-af80-f9b8c713e4ec"
     },
     {
       "ticket_id": "VAL-0005",
@@ -1329,14 +1334,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 14,
-        "generate": 467
+        "classify": 12,
+        "retrieve": 11,
+        "generate": 332
       },
       "knn_share": 1.0,
-      "latency_ms": 874,
+      "latency_ms": 711,
       "threshold_applied": 0.85,
-      "decision_id": "7775c6bd-22cb-4482-a9a2-b1caac9f5d49"
+      "decision_id": "3b972e11-3fa0-467a-b886-f800a70b94eb"
     },
     {
       "ticket_id": "VAL-0006",
@@ -1414,14 +1419,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 20,
+        "classify": 17,
         "retrieve": 14,
-        "generate": 363
+        "generate": 323
       },
       "knn_share": 1.0,
-      "latency_ms": 404,
+      "latency_ms": 361,
       "threshold_applied": 0.85,
-      "decision_id": "b6607c8e-8782-4f17-83e5-379aba53f781"
+      "decision_id": "7a72f247-efa7-4aa3-a81c-94979135b25c"
     },
     {
       "ticket_id": "VAL-0007",
@@ -1453,13 +1458,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 14
+        "classify": 13,
+        "retrieve": 12
       },
       "knn_share": 1.0,
-      "latency_ms": 327,
+      "latency_ms": 303,
       "threshold_applied": 0.85,
-      "decision_id": "36b28b02-fb47-4d12-b412-dc029855d2f4"
+      "decision_id": "194643bf-bbcb-4ad1-8e8f-15f1deba5f40"
     },
     {
       "ticket_id": "VAL-0008",
@@ -1521,14 +1526,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 14,
-        "generate": 349
+        "classify": 18,
+        "retrieve": 12,
+        "generate": 450
       },
       "knn_share": 1.0,
-      "latency_ms": 386,
+      "latency_ms": 486,
       "threshold_applied": 0.85,
-      "decision_id": "13582183-ea59-4f03-996b-c0d892083385"
+      "decision_id": "0e10f67e-28e7-4f12-aec4-e0c26ac1db8d"
     },
     {
       "ticket_id": "VAL-0009",
@@ -1597,13 +1602,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10
+        "classify": 15,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 378,
+      "latency_ms": 385,
       "threshold_applied": 0.85,
-      "decision_id": "d1dcfe08-aa01-4673-a4f3-606f083633d7"
+      "decision_id": "633a189c-a9c1-4efd-b673-f1248b137b0a"
     },
     {
       "ticket_id": "VAL-0010",
@@ -1635,7 +1640,7 @@
           "score": 0.3472
         }
       ],
-      "response_text": "To understand the increase in your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001] \nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand the increase in your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -1673,18 +1678,18 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 954,
+      "tokens": 953,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 14,
-        "generate": 343
+        "classify": 16,
+        "retrieve": 13,
+        "generate": 388
       },
       "knn_share": 1.0,
-      "latency_ms": 378,
+      "latency_ms": 423,
       "threshold_applied": 0.85,
-      "decision_id": "19b3e801-132c-41e4-8972-ea237b2a3809"
+      "decision_id": "bfa909b6-e07b-4401-b3d7-84f2ed8e7417"
     },
     {
       "ticket_id": "VAL-0011",
@@ -1763,13 +1768,13 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 15,
-        "generate": 342
+        "retrieve": 14,
+        "generate": 487
       },
       "knn_share": 1.0,
-      "latency_ms": 379,
+      "latency_ms": 522,
       "threshold_applied": 0.85,
-      "decision_id": "64132c41-6cce-4132-b483-01491423586c"
+      "decision_id": "1c0854d5-da06-40cc-8bd7-79cd53c4f402"
     },
     {
       "ticket_id": "VAL-0012",
@@ -1835,14 +1840,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 9,
-        "generate": 392
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 323
       },
       "knn_share": 1.0,
-      "latency_ms": 416,
+      "latency_ms": 356,
       "threshold_applied": 0.85,
-      "decision_id": "34d7be40-ffea-4bd7-9e7e-73439c254746"
+      "decision_id": "fa5395e7-1b6b-4f41-9e31-84442d1a1879"
     },
     {
       "ticket_id": "VAL-0013",
@@ -1914,12 +1919,12 @@
         "ingest": 0,
         "classify": 16,
         "retrieve": 14,
-        "generate": 420
+        "generate": 276
       },
       "knn_share": 1.0,
-      "latency_ms": 456,
+      "latency_ms": 312,
       "threshold_applied": 0.85,
-      "decision_id": "ccc44d54-4a51-4b97-b5b3-109eaf5cc256"
+      "decision_id": "211e91b6-e97b-47bd-9c12-cfd5ecc63bca"
     },
     {
       "ticket_id": "VAL-0014",
@@ -1989,14 +1994,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
-        "retrieve": 13,
-        "generate": 325
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 381
       },
       "knn_share": 1.0,
-      "latency_ms": 357,
+      "latency_ms": 417,
       "threshold_applied": 0.85,
-      "decision_id": "b5de9bd4-706e-4095-a7d3-db9e4cc26cc2"
+      "decision_id": "039ac27b-c08f-4f6d-92f3-234cfa03864c"
     },
     {
       "ticket_id": "VAL-0015",
@@ -2032,9 +2037,9 @@
         "retrieve": 9
       },
       "knn_share": 1.0,
-      "latency_ms": 326,
+      "latency_ms": 282,
       "threshold_applied": 0.85,
-      "decision_id": "dc208a32-84ee-4c27-92ec-84b78136bb6b"
+      "decision_id": "3ec30b37-767b-4288-b414-791cf5a6f2f3"
     },
     {
       "ticket_id": "VAL-0016",
@@ -2112,14 +2117,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 388
+        "classify": 11,
+        "retrieve": 10,
+        "generate": 417
       },
       "knn_share": 1.0,
-      "latency_ms": 424,
+      "latency_ms": 443,
       "threshold_applied": 0.85,
-      "decision_id": "be20aa35-edf4-4add-b245-e1b612bc3b93"
+      "decision_id": "8e5a86d1-ae82-4175-b0a7-b537e8aa1679"
     },
     {
       "ticket_id": "VAL-0017",
@@ -2152,12 +2157,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 14,
-        "retrieve": 13
+        "retrieve": 12
       },
       "knn_share": 1.0,
-      "latency_ms": 327,
+      "latency_ms": 290,
       "threshold_applied": 0.85,
-      "decision_id": "d37b3b63-6192-4f7f-999c-2ae4531e7b55"
+      "decision_id": "bf064fd1-8b61-4f1e-b273-1a0da0652ce0"
     },
     {
       "ticket_id": "VAL-0018",
@@ -2241,14 +2246,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
+        "classify": 17,
         "retrieve": 14,
-        "generate": 363
+        "generate": 848
       },
       "knn_share": 1.0,
-      "latency_ms": 769,
+      "latency_ms": 1219,
       "threshold_applied": 0.85,
-      "decision_id": "55dbafd2-5097-45f5-8332-922b49c54f3c"
+      "decision_id": "bb72a964-77a3-4ffe-84f3-7d43e9db7564"
     },
     {
       "ticket_id": "VAL-0019",
@@ -2322,14 +2327,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13,
-        "generate": 648
+        "classify": 12,
+        "retrieve": 11,
+        "generate": 303
       },
       "knn_share": 1.0,
-      "latency_ms": 682,
+      "latency_ms": 332,
       "threshold_applied": 0.85,
-      "decision_id": "95c82271-2d7c-4d44-a9d6-7a76d7de86dd"
+      "decision_id": "0b817937-62da-452c-a4d2-6a3e402c8b29"
     },
     {
       "ticket_id": "VAL-0020",
@@ -2385,9 +2390,9 @@
         "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 372,
+      "latency_ms": 392,
       "threshold_applied": 0.85,
-      "decision_id": "a7a9a5de-bb0f-40f2-8145-dbc0048bb849"
+      "decision_id": "c56306bb-e331-45d0-8b2c-1e1c21304d9f"
     },
     {
       "ticket_id": "VAL-0021",
@@ -2461,14 +2466,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 12,
-        "retrieve": 11,
-        "generate": 342
+        "classify": 19,
+        "retrieve": 14,
+        "generate": 304
       },
       "knn_share": 1.0,
-      "latency_ms": 371,
+      "latency_ms": 342,
       "threshold_applied": 0.85,
-      "decision_id": "c8c9d73c-eee9-4881-99a9-8ca23380f59d"
+      "decision_id": "5e633bd9-5536-4078-9a48-70569a8407ac"
     },
     {
       "ticket_id": "VAL-0022",
@@ -2551,14 +2556,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
+        "classify": 16,
         "retrieve": 14,
-        "generate": 416
+        "generate": 409
       },
       "knn_share": 1.0,
-      "latency_ms": 452,
+      "latency_ms": 445,
       "threshold_applied": 0.85,
-      "decision_id": "30b2d1f7-f3af-4961-b5c4-01e20eaba15e"
+      "decision_id": "26b64633-5d07-41a0-9be4-46c67409121a"
     },
     {
       "ticket_id": "VAL-0023",
@@ -2637,14 +2642,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
+        "classify": 17,
         "retrieve": 14,
-        "generate": 558
+        "generate": 444
       },
       "knn_share": 1.0,
-      "latency_ms": 597,
+      "latency_ms": 480,
       "threshold_applied": 0.85,
-      "decision_id": "8ede8509-91f8-4444-8268-67b8276b7042"
+      "decision_id": "9f3bab71-50b3-4faa-b62b-7b2c59e4069f"
     },
     {
       "ticket_id": "VAL-0024",
@@ -2715,14 +2720,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 291,
-        "retrieve": 17,
-        "generate": 319
+        "classify": 325,
+        "retrieve": 22,
+        "generate": 299
       },
       "knn_share": 0.846,
-      "latency_ms": 634,
+      "latency_ms": 652,
       "threshold_applied": 0.85,
-      "decision_id": "803a9111-36e7-42f1-a979-db667b2b62f6"
+      "decision_id": "1a5bb83f-361a-48cd-a054-454bbadf1bde"
     },
     {
       "ticket_id": "VAL-0025",
@@ -2800,14 +2805,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
+        "classify": 16,
         "retrieve": 13,
-        "generate": 401
+        "generate": 374
       },
       "knn_share": 1.0,
-      "latency_ms": 435,
+      "latency_ms": 409,
       "threshold_applied": 0.85,
-      "decision_id": "1aaefbc1-3cbd-42ff-80e1-2c254f4e7b33"
+      "decision_id": "eb002d91-bc78-4915-bc6e-49fb94ada777"
     },
     {
       "ticket_id": "VAL-0026",
@@ -2877,14 +2882,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
+        "classify": 17,
         "retrieve": 14,
-        "generate": 464
+        "generate": 290
       },
       "knn_share": 1.0,
-      "latency_ms": 500,
+      "latency_ms": 327,
       "threshold_applied": 0.85,
-      "decision_id": "0c71f134-8c83-4889-a097-dc0df40249f4"
+      "decision_id": "7b2a7f80-a216-4a53-ae9b-1d122d88072d"
     },
     {
       "ticket_id": "VAL-0027",
@@ -2958,14 +2963,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 12,
-        "generate": 457
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 374
       },
       "knn_share": 1.0,
-      "latency_ms": 489,
+      "latency_ms": 407,
       "threshold_applied": 0.85,
-      "decision_id": "682632f6-ea51-4c18-82a3-67b2342467c8"
+      "decision_id": "1987becb-da39-45aa-9ae6-b3b59ed9edd1"
     },
     {
       "ticket_id": "VAL-0028",
@@ -3043,14 +3048,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
+        "classify": 15,
         "retrieve": 13,
-        "generate": 432
+        "generate": 318
       },
       "knn_share": 1.0,
-      "latency_ms": 466,
+      "latency_ms": 352,
       "threshold_applied": 0.85,
-      "decision_id": "df8ba128-45b1-423c-8455-226967e8df0f"
+      "decision_id": "be022aea-e8f9-4bee-be94-9950cee719e0"
     },
     {
       "ticket_id": "VAL-0029",
@@ -3122,13 +3127,13 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 10,
-        "retrieve": 11,
-        "generate": 465
+        "retrieve": 10,
+        "generate": 532
       },
       "knn_share": 1.0,
-      "latency_ms": 492,
+      "latency_ms": 559,
       "threshold_applied": 0.85,
-      "decision_id": "c4ce45a1-c596-4e05-8f47-75f2b33d09fd"
+      "decision_id": "b214c405-ffd4-4c46-be33-367b52d9a617"
     },
     {
       "ticket_id": "VAL-0030",
@@ -3171,13 +3176,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 11,
-        "retrieve": 11
+        "classify": 16,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 342,
+      "latency_ms": 390,
       "threshold_applied": 0.85,
-      "decision_id": "db6cbdd5-989a-4ff1-8e51-3151949f4a7a"
+      "decision_id": "f0c7a7c9-66d8-47b1-a595-97f119956680"
     },
     {
       "ticket_id": "VAL-0031",
@@ -3253,12 +3258,12 @@
         "ingest": 0,
         "classify": 18,
         "retrieve": 14,
-        "generate": 330
+        "generate": 319
       },
       "knn_share": 1.0,
-      "latency_ms": 369,
+      "latency_ms": 357,
       "threshold_applied": 0.85,
-      "decision_id": "d0c94ba5-4045-4ef5-a403-2e5c010889f1"
+      "decision_id": "7e334c20-92d7-489f-89c0-322396620b13"
     },
     {
       "ticket_id": "VAL-0032",
@@ -3323,13 +3328,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 11
+        "classify": 15,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 850,
+      "latency_ms": 423,
       "threshold_applied": 0.85,
-      "decision_id": "f8af83e3-c629-48d7-b716-85d159e30537"
+      "decision_id": "ffdd7979-920d-4636-bf91-32f5fad57cbb"
     },
     {
       "ticket_id": "VAL-0033",
@@ -3399,14 +3404,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
+        "classify": 15,
         "retrieve": 13,
-        "generate": 498
+        "generate": 274
       },
       "knn_share": 1.0,
-      "latency_ms": 532,
+      "latency_ms": 308,
       "threshold_applied": 0.85,
-      "decision_id": "a4fa6c8a-d456-419a-a893-fd2383f64604"
+      "decision_id": "20bcda6e-9d1a-4f6e-9f00-d83739ce0245"
     },
     {
       "ticket_id": "VAL-0034",
@@ -3472,14 +3477,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 304
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 275
       },
       "knn_share": 1.0,
-      "latency_ms": 340,
+      "latency_ms": 308,
       "threshold_applied": 0.85,
-      "decision_id": "c71cdae5-1cf7-45dd-9b14-424023f443aa"
+      "decision_id": "0ffce53a-d356-467f-a01e-99ce87a2f7c0"
     },
     {
       "ticket_id": "VAL-0035",
@@ -3516,13 +3521,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10
+        "classify": 15,
+        "retrieve": 13
       },
       "knn_share": 0.9193,
-      "latency_ms": 339,
+      "latency_ms": 287,
       "threshold_applied": 0.85,
-      "decision_id": "4e136456-6320-4098-a7de-9aa4660e729f"
+      "decision_id": "57c0dd2c-8250-4c09-a1a7-927c0b35de1a"
     },
     {
       "ticket_id": "VAL-0036",
@@ -3584,14 +3589,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
+        "classify": 18,
         "retrieve": 14,
-        "generate": 337
+        "generate": 295
       },
       "knn_share": 1.0,
-      "latency_ms": 374,
+      "latency_ms": 333,
       "threshold_applied": 0.85,
-      "decision_id": "912b15b7-e6bd-4feb-9abc-37c6039950fa"
+      "decision_id": "41b253ab-d560-4a27-b016-7868d0f13274"
     },
     {
       "ticket_id": "VAL-0037",
@@ -3661,14 +3666,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10,
-        "generate": 482
+        "classify": 14,
+        "retrieve": 12,
+        "generate": 392
       },
       "knn_share": 1.0,
-      "latency_ms": 507,
+      "latency_ms": 424,
       "threshold_applied": 0.85,
-      "decision_id": "a89f3e97-1826-456c-941e-d16e72b59839"
+      "decision_id": "ff0a91b2-1535-469d-800d-c84f1308527f"
     },
     {
       "ticket_id": "VAL-0038",
@@ -3742,14 +3747,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
+        "classify": 17,
         "retrieve": 14,
-        "generate": 366
+        "generate": 320
       },
       "knn_share": 1.0,
-      "latency_ms": 401,
+      "latency_ms": 356,
       "threshold_applied": 0.85,
-      "decision_id": "c0921dcc-1f41-49ad-a007-7233fd627622"
+      "decision_id": "d3f4c6ea-edb0-42ad-a7aa-d5e62d284713"
     },
     {
       "ticket_id": "VAL-0039",
@@ -3785,7 +3790,7 @@
           "score": 0.3894
         }
       ],
-      "response_text": "To replace the API key without taking the service down, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nTo ensure the new key is not exposed, revoke the old key immediately rather than waiting for the rotation window. [DOC-AUTH-004]\nKeys issued to individual users are removed when that user is deleted, so the exposed key will be removed automatically. [DOC-AUTH-004]\nUse service accounts for anything running in production to avoid this issue in the future. [DOC-AUTH-004]\nReview the scopes attached to the key to ensure the replacement key has the correct permissions. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To replace the API key without taking the service down, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nTo ensure the new key is properly configured, review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\nKeys issued to individual users are removed when that user is deleted, so the exposed key should be revoked immediately rather than waiting for the rotation window. [DOC-AUTH-004]\nTo confirm the replacement key is working correctly, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\nFinally, to prevent similar incidents in the future, use service accounts for anything running in production. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -3823,18 +3828,18 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 950,
+      "tokens": 992,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 14,
-        "generate": 476
+        "classify": 16,
+        "retrieve": 13,
+        "generate": 474
       },
       "knn_share": 1.0,
-      "latency_ms": 513,
+      "latency_ms": 509,
       "threshold_applied": 0.85,
-      "decision_id": "c2817a0e-0f1e-45d4-a4d8-54d4066ef5cb"
+      "decision_id": "60811321-0090-473a-b2b1-4d7dee11de2c"
     },
     {
       "ticket_id": "VAL-0040",
@@ -3862,7 +3867,7 @@
           "score": 0.3685
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. \nLook for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. \nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. \nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3900,18 +3905,18 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 693,
+      "tokens": 692,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 339
+        "classify": 11,
+        "retrieve": 10,
+        "generate": 311
       },
       "knn_share": 1.0,
-      "latency_ms": 375,
+      "latency_ms": 338,
       "threshold_applied": 0.85,
-      "decision_id": "82b3ce20-eb7c-4845-9cbf-3abfdda88417"
+      "decision_id": "f6058bfb-22b7-407e-acf5-19ae5b782064"
     },
     {
       "ticket_id": "VAL-0041",
@@ -3939,7 +3944,7 @@
           "score": 0.3685
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. \nLook for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. \nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. \nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3977,18 +3982,18 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 693,
+      "tokens": 692,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 11,
-        "retrieve": 11,
-        "generate": 460
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 263
       },
       "knn_share": 1.0,
-      "latency_ms": 487,
+      "latency_ms": 300,
       "threshold_applied": 0.85,
-      "decision_id": "de856122-ab49-4bbd-bd6f-a68e327d5a95"
+      "decision_id": "cb737ce7-6d04-400f-a907-f0c3e512a0f6"
     },
     {
       "ticket_id": "VAL-0042",
@@ -4066,14 +4071,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 13,
-        "generate": 380
+        "classify": 10,
+        "retrieve": 10,
+        "generate": 357
       },
       "knn_share": 1.0,
-      "latency_ms": 413,
+      "latency_ms": 382,
       "threshold_applied": 0.85,
-      "decision_id": "453f9056-839d-4d89-8187-35ecb1e906ec"
+      "decision_id": "631f177a-b427-4b2f-8809-f3695ab7db8a"
     },
     {
       "ticket_id": "VAL-0043",
@@ -4082,23 +4087,60 @@
       "decision": "escalate",
       "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
       "reason_code": "safety_keyword",
-      "intent": null,
-      "urgency": null,
-      "confidence": null,
-      "classify_method": null,
+      "intent": "security_incident",
+      "urgency": "high",
+      "confidence": 0.994,
+      "classify_method": "knn",
       "alternatives": [],
-      "passages": [],
+      "passages": [
+        {
+          "doc_id": "DOC-SEC-001",
+          "score": 0.62
+        },
+        {
+          "doc_id": "DOC-SEC-002",
+          "score": 0.5722
+        },
+        {
+          "doc_id": "DOC-SEC-003",
+          "score": 0.4536
+        },
+        {
+          "doc_id": "DOC-DEPLOY-004",
+          "score": 0.3841
+        },
+        {
+          "doc_id": "DOC-DATA-001",
+          "score": 0.3781
+        }
+      ],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is reporting suspicious activity in their audit log, potentially related to a breach at another service, and is seeking immediate guidance on next steps. They are concerned about the security of their credentials and want to know what actions to take right now.",
+        "summary": "The customer is reporting suspicious activity in their audit log, potentially indicating a security incident, and is seeking immediate guidance on next steps. They suspect a breach at another service may have exposed their engineer's credentials.",
         "summary_source": "llm",
-        "predicted_intent": null,
-        "predicted_urgency": null,
-        "confidence": null,
-        "retrieved_sources": [],
+        "predicted_intent": "security_incident",
+        "predicted_urgency": "high",
+        "confidence": 0.994,
+        "retrieved_sources": [
+          {
+            "doc_id": "DOC-SEC-001",
+            "title": "Responding to a suspected account compromise",
+            "score": 0.62
+          },
+          {
+            "doc_id": "DOC-SEC-002",
+            "title": "Handling exposed secrets and credential rotation",
+            "score": 0.5722
+          },
+          {
+            "doc_id": "DOC-SEC-003",
+            "title": "Audit logging and compliance evidence",
+            "score": 0.4536
+          }
+        ],
         "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
-        "tokens": 408
+        "tokens": 484
       },
       "guardrails": {
         "security_language": {
@@ -4110,14 +4152,17 @@
           "security_language"
         ]
       },
-      "tokens": 408,
+      "tokens": 484,
       "error": null,
       "stage_ms": {
-        "ingest": 0
+        "ingest": 0,
+        "classify": 16,
+        "retrieve": 13
       },
-      "latency_ms": 340,
+      "knn_share": 1.0,
+      "latency_ms": 989,
       "threshold_applied": 0.85,
-      "decision_id": "d3b26f60-18e9-4ce6-aa0f-fd40ea6ebe67"
+      "decision_id": "d55a6787-7703-47ea-a43d-bd78ea261ea9"
     },
     {
       "ticket_id": "VAL-0044",
@@ -4187,14 +4232,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13,
-        "generate": 338
+        "classify": 18,
+        "retrieve": 14,
+        "generate": 295
       },
       "knn_share": 1.0,
-      "latency_ms": 373,
+      "latency_ms": 332,
       "threshold_applied": 0.85,
-      "decision_id": "26fe814d-907d-4ebb-802e-65968a89aecf"
+      "decision_id": "d0249084-97c5-4a17-930c-b3d904a97e1d"
     },
     {
       "ticket_id": "VAL-0045",
@@ -4274,12 +4319,12 @@
         "ingest": 0,
         "classify": 16,
         "retrieve": 13,
-        "generate": 346
+        "generate": 354
       },
       "knn_share": 1.0,
-      "latency_ms": 381,
+      "latency_ms": 389,
       "threshold_applied": 0.85,
-      "decision_id": "82cfe630-44b9-46e1-ba57-a26cc0e4fcdc"
+      "decision_id": "4f875d0c-0502-4a36-ad9c-54be4f050226"
     },
     {
       "ticket_id": "VAL-0046",
@@ -4341,14 +4386,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 11,
-        "retrieve": 11,
-        "generate": 298
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 259
       },
       "knn_share": 1.0,
-      "latency_ms": 325,
+      "latency_ms": 293,
       "threshold_applied": 0.85,
-      "decision_id": "369afc03-09e0-4b4f-b786-f81e7fa99d3e"
+      "decision_id": "7fec3734-be53-4f01-8632-1d9ccc143a70"
     },
     {
       "ticket_id": "VAL-0047",
@@ -4422,14 +4467,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
+        "classify": 16,
         "retrieve": 13,
-        "generate": 322
+        "generate": 293
       },
       "knn_share": 1.0,
-      "latency_ms": 355,
+      "latency_ms": 328,
       "threshold_applied": 0.85,
-      "decision_id": "7e4d728e-041f-4185-9583-2a6e0e52758c"
+      "decision_id": "db8589d3-09ff-4f73-b1ce-9dc19147fb48"
     },
     {
       "ticket_id": "VAL-0048",
@@ -4438,23 +4483,56 @@
       "decision": "escalate",
       "reason": "Security-related wording ('breach'): handled by a human regardless of classification.",
       "reason_code": "safety_keyword",
-      "intent": null,
-      "urgency": null,
-      "confidence": null,
-      "classify_method": null,
+      "intent": "security_incident",
+      "urgency": "high",
+      "confidence": 0.994,
+      "classify_method": "knn",
       "alternatives": [],
-      "passages": [],
+      "passages": [
+        {
+          "doc_id": "DOC-SEC-001",
+          "score": 0.5199
+        },
+        {
+          "doc_id": "DOC-SEC-002",
+          "score": 0.5159
+        },
+        {
+          "doc_id": "DOC-AUTH-002",
+          "score": 0.3244
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.382
+        }
+      ],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is seeking immediate guidance on how to respond to a potential breach of an engineer's credentials at another service. They are asking for urgent advice on what actions to take right now.",
+        "summary": "The customer is seeking immediate guidance on how to respond to a suspected security incident where an engineer's credentials may have been exposed in a breach at another service. They are asking for urgent instructions on what actions to take right now.",
         "summary_source": "llm",
-        "predicted_intent": null,
-        "predicted_urgency": null,
-        "confidence": null,
-        "retrieved_sources": [],
+        "predicted_intent": "security_incident",
+        "predicted_urgency": "high",
+        "confidence": 0.994,
+        "retrieved_sources": [
+          {
+            "doc_id": "DOC-SEC-001",
+            "title": "Responding to a suspected account compromise",
+            "score": 0.5199
+          },
+          {
+            "doc_id": "DOC-SEC-002",
+            "title": "Handling exposed secrets and credential rotation",
+            "score": 0.5159
+          },
+          {
+            "doc_id": "DOC-AUTH-002",
+            "title": "Multi-factor authentication setup and recovery",
+            "score": 0.3244
+          }
+        ],
         "uncertainty_reason": "Security-related wording ('breach'): handled by a human regardless of classification.",
-        "tokens": 419
+        "tokens": 491
       },
       "guardrails": {
         "security_language": {
@@ -4466,14 +4544,17 @@
           "security_language"
         ]
       },
-      "tokens": 419,
+      "tokens": 491,
       "error": null,
       "stage_ms": {
-        "ingest": 0
+        "ingest": 0,
+        "classify": 15,
+        "retrieve": 13
       },
-      "latency_ms": 315,
+      "knn_share": 1.0,
+      "latency_ms": 350,
       "threshold_applied": 0.85,
-      "decision_id": "57bbfd62-ca70-46f0-83ef-dc1d7892ad1d"
+      "decision_id": "f420be54-135b-4350-8952-320eafa30f1e"
     },
     {
       "ticket_id": "VAL-0049",
@@ -4539,14 +4620,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 13,
-        "generate": 341
+        "classify": 12,
+        "retrieve": 11,
+        "generate": 364
       },
       "knn_share": 1.0,
-      "latency_ms": 374,
+      "latency_ms": 393,
       "threshold_applied": 0.85,
-      "decision_id": "74012086-feb7-4927-b45a-b0a4cdd8e74f"
+      "decision_id": "dfa77291-4ad0-4b73-8978-d2a0ce524efb"
     },
     {
       "ticket_id": "VAL-0050",
@@ -4616,14 +4697,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 9,
-        "generate": 329
+        "classify": 11,
+        "retrieve": 10,
+        "generate": 297
       },
       "knn_share": 1.0,
-      "latency_ms": 354,
+      "latency_ms": 323,
       "threshold_applied": 0.85,
-      "decision_id": "1e979492-c39b-4664-9905-31d12aea9d80"
+      "decision_id": "8519de10-e1d4-4d3f-9476-f81ffdfce05f"
     },
     {
       "ticket_id": "VAL-0051",
@@ -4701,14 +4782,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 15,
-        "generate": 358
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 301
       },
       "knn_share": 1.0,
-      "latency_ms": 395,
+      "latency_ms": 337,
       "threshold_applied": 0.85,
-      "decision_id": "0d3b3863-3d79-47ab-9fd5-5c53a6cc889a"
+      "decision_id": "66ae1450-70ce-41a6-b8aa-3a6c319925a7"
     },
     {
       "ticket_id": "VAL-0052",
@@ -4786,14 +4867,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 14,
-        "generate": 386
+        "classify": 10,
+        "retrieve": 9,
+        "generate": 366
       },
       "knn_share": 1.0,
-      "latency_ms": 422,
+      "latency_ms": 391,
       "threshold_applied": 0.85,
-      "decision_id": "523e52e5-e0ba-4137-88ff-c29a034e3018"
+      "decision_id": "5dcee312-14b2-4dbf-8689-3d799e29ff75"
     },
     {
       "ticket_id": "VAL-0053",
@@ -4863,14 +4944,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 13,
-        "generate": 337
+        "classify": 12,
+        "retrieve": 12,
+        "generate": 381
       },
       "knn_share": 1.0,
-      "latency_ms": 373,
+      "latency_ms": 410,
       "threshold_applied": 0.85,
-      "decision_id": "efd5ba82-b2c3-4809-b6ce-236ee8e92d19"
+      "decision_id": "fc566e2f-da5f-421e-bd94-43eb0fa9c093"
     },
     {
       "ticket_id": "VAL-0054",
@@ -4944,14 +5025,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 12,
-        "retrieve": 10,
-        "generate": 330
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 279
       },
       "knn_share": 1.0,
-      "latency_ms": 357,
+      "latency_ms": 314,
       "threshold_applied": 0.85,
-      "decision_id": "49b77978-1865-47b1-b74d-2c1a5858f8ca"
+      "decision_id": "a0edf864-ded4-4816-bbca-755d404640d5"
     },
     {
       "ticket_id": "VAL-0055",
@@ -5013,14 +5094,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13,
-        "generate": 300
+        "classify": 11,
+        "retrieve": 10,
+        "generate": 276
       },
       "knn_share": 1.0,
-      "latency_ms": 334,
+      "latency_ms": 301,
       "threshold_applied": 0.85,
-      "decision_id": "658a417f-0d7c-406f-aa0d-a968a10d547a"
+      "decision_id": "d5abe9e0-1fcf-41bd-aa56-f6d9bd43ab80"
     },
     {
       "ticket_id": "VAL-0056",
@@ -5056,7 +5137,7 @@
           "score": 0.306
         }
       ],
-      "response_text": "To resolve the issue with your deployment failing at the health check stage, confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. \n\nIncrease the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches [DOC-DEPLOY-001]. \n\nCompare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. \n\nInspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve the issue with your deployment failing at the health check stage, please confirm that your container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. \n\nNext, inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001]. \n\nAlso, compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. \n\nFinally, ensure that a health check must return within the timeout using only local state. Endpoints that call a database will fail during a database incident and take the service down with them [DOC-DEPLOY-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -5094,18 +5175,18 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 974,
+      "tokens": 985,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
+        "classify": 16,
         "retrieve": 13,
-        "generate": 440
+        "generate": 350
       },
       "knn_share": 1.0,
-      "latency_ms": 474,
+      "latency_ms": 386,
       "threshold_applied": 0.85,
-      "decision_id": "3ef42114-fc64-4cde-a6f4-4847dbfee696"
+      "decision_id": "c8a23d01-e10e-4e8e-aee7-17c8283ddb0a"
     },
     {
       "ticket_id": "VAL-0057",
@@ -5183,14 +5264,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 14,
-        "generate": 346
+        "classify": 10,
+        "retrieve": 9,
+        "generate": 542
       },
       "knn_share": 1.0,
-      "latency_ms": 379,
+      "latency_ms": 567,
       "threshold_applied": 0.85,
-      "decision_id": "69c10882-aff1-47b4-ae37-c84fb7ae9ce8"
+      "decision_id": "c20994ff-f408-4bd0-a756-91d4ac389f8c"
     },
     {
       "ticket_id": "VAL-0058",
@@ -5269,13 +5350,13 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
-        "retrieve": 14,
-        "generate": 353
+        "retrieve": 13,
+        "generate": 313
       },
       "knn_share": 1.0,
-      "latency_ms": 387,
+      "latency_ms": 347,
       "threshold_applied": 0.85,
-      "decision_id": "2bfb7de8-224d-4da0-921e-2f735c8b8338"
+      "decision_id": "ab22f899-5b20-4c46-a0fc-1254e1f89156"
     },
     {
       "ticket_id": "VAL-0059",
@@ -5311,17 +5392,12 @@
           "score": 0.3107
         }
       ],
-      "response_text": "To store secrets so they do not appear in the logs, store them as secrets rather than variables. Secrets are masked in logs and are not readable through the API after creation. [DOC-DEPLOY-004] \nReview the environment overrides page, which lists values that differ from the defaults for each environment. [DOC-DEPLOY-004]\nRedeploy after changing configuration. Running containers do not pick up new values without a restart. [DOC-DEPLOY-004]\nA secret that has been printed to logs should be treated as exposed and rotated, even if the logs are private. [DOC-DEPLOY-004]\nNever send a live credential to support. Support will never ask for one, and any credential shared in a ticket must be treated as exposed. [DOC-SEC-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Store anything sensitive as a secret rather than a variable. Secrets are masked in logs and are not readable through the API after creation. [DOC-DEPLOY-004] Check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults. [DOC-DEPLOY-004] Review the environment overrides page, which lists values that differ from the defaults for each environment. [DOC-DEPLOY-004] Redeploy after changing configuration. Running containers do not pick up new values without a restart. [DOC-DEPLOY-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-004",
           "resolves": true,
           "passage_excerpt": "Configuring environment variables and secrets ## Notes  A secret that has been printed to logs should be treated as exposed and rotated, even if the logs are pr"
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "resolves": true,
-          "passage_excerpt": "Handling exposed secrets and credential rotation ## Common causes  - Configuration was committed rather than referenced from the environment - The application p"
         }
       ],
       "escalation_context": null,
@@ -5354,18 +5430,18 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 963,
+      "tokens": 899,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 383
+        "classify": 14,
+        "retrieve": 13,
+        "generate": 2164
       },
       "knn_share": 1.0,
-      "latency_ms": 420,
+      "latency_ms": 2197,
       "threshold_applied": 0.85,
-      "decision_id": "00090113-6f15-43c6-83a8-6ec83f7ee851"
+      "decision_id": "760d0d5e-d69a-4833-b9be-4d337ec2dd15"
     },
     {
       "ticket_id": "VAL-0060",
@@ -5439,14 +5515,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10,
-        "generate": 426
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 275
       },
       "knn_share": 1.0,
-      "latency_ms": 451,
+      "latency_ms": 308,
       "threshold_applied": 0.85,
-      "decision_id": "a480f915-2c01-490c-a2ca-289f76fa602d"
+      "decision_id": "1813045a-f308-4b4c-b5c9-d494c2b1b91c"
     },
     {
       "ticket_id": "VAL-0061",
@@ -5520,14 +5596,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
-        "retrieve": 12,
-        "generate": 317
+        "classify": 16,
+        "retrieve": 13,
+        "generate": 284
       },
       "knn_share": 1.0,
-      "latency_ms": 348,
+      "latency_ms": 320,
       "threshold_applied": 0.85,
-      "decision_id": "f95f1b4f-c78f-4734-a8c2-ad578c86e2f7"
+      "decision_id": "952fa745-1a4f-4378-bb61-db7133259ce6"
     },
     {
       "ticket_id": "VAL-0062",
@@ -5605,14 +5681,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 13,
-        "generate": 341
+        "classify": 11,
+        "retrieve": 11,
+        "generate": 431
       },
       "knn_share": 1.0,
-      "latency_ms": 376,
+      "latency_ms": 459,
       "threshold_applied": 0.85,
-      "decision_id": "99c82e40-eb16-4c88-8580-9c134643a325"
+      "decision_id": "4c380316-7f0f-4f8f-af17-2dcbe30b9bdb"
     },
     {
       "ticket_id": "VAL-0063",
@@ -5622,7 +5698,7 @@
       "reason": "Confidence 0.99 meets threshold 0.85, intent 'account_access' is not safety-restricted, and 2 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "account_access",
-      "urgency": "high",
+      "urgency": "medium",
       "confidence": 0.994,
       "classify_method": "knn",
       "alternatives": [],
@@ -5679,13 +5755,13 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 14,
-        "generate": 313
+        "retrieve": 13,
+        "generate": 253
       },
       "knn_share": 1.0,
-      "latency_ms": 348,
+      "latency_ms": 288,
       "threshold_applied": 0.85,
-      "decision_id": "9e3bd760-98be-45b0-b05a-03a50e943f7a"
+      "decision_id": "d79d9240-0f76-4103-a19e-47e4a4792e94"
     },
     {
       "ticket_id": "VAL-0064",
@@ -5760,14 +5836,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
+        "classify": 15,
         "retrieve": 12,
-        "generate": 356
+        "generate": 338
       },
       "knn_share": 1.0,
-      "latency_ms": 387,
+      "latency_ms": 371,
       "threshold_applied": 0.85,
-      "decision_id": "10f6c935-adfc-428f-95da-0feca4eab360"
+      "decision_id": "4de1a1bf-e006-4519-bbde-c2ccbf5d4d3e"
     },
     {
       "ticket_id": "VAL-0065",
@@ -5847,12 +5923,12 @@
         "ingest": 0,
         "classify": 15,
         "retrieve": 13,
-        "generate": 335
+        "generate": 285
       },
       "knn_share": 1.0,
-      "latency_ms": 369,
+      "latency_ms": 318,
       "threshold_applied": 0.85,
-      "decision_id": "5d0bc1ec-c1e7-4dea-8ca8-75f0d889fd84"
+      "decision_id": "15ae3617-7f7a-47d7-8894-628a52e5240f"
     },
     {
       "ticket_id": "VAL-0066",
@@ -5935,14 +6011,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 14,
-        "generate": 1547
+        "classify": 14,
+        "retrieve": 12,
+        "generate": 401
       },
       "knn_share": 1.0,
-      "latency_ms": 1586,
+      "latency_ms": 434,
       "threshold_applied": 0.85,
-      "decision_id": "eb69d82a-d6fa-40a3-87b1-956f88640962"
+      "decision_id": "1bd75757-12d0-4744-84fb-3359e487a07e"
     },
     {
       "ticket_id": "VAL-0067",
@@ -5951,23 +6027,60 @@
       "decision": "escalate",
       "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
       "reason_code": "safety_keyword",
-      "intent": null,
-      "urgency": null,
-      "confidence": null,
-      "classify_method": null,
+      "intent": "security_incident",
+      "urgency": "high",
+      "confidence": 0.994,
+      "classify_method": "knn",
       "alternatives": [],
-      "passages": [],
+      "passages": [
+        {
+          "doc_id": "DOC-SEC-001",
+          "score": 0.6777
+        },
+        {
+          "doc_id": "DOC-SEC-003",
+          "score": 0.4712
+        },
+        {
+          "doc_id": "DOC-DATA-001",
+          "score": 0.4131
+        },
+        {
+          "doc_id": "DOC-INT-002",
+          "score": 0.3416
+        },
+        {
+          "doc_id": "DOC-SEC-002",
+          "score": 0.3234
+        }
+      ],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is reporting suspicious activity in their audit log, with unknown IP addresses creating resources that team members do not recognize. They are requesting urgent assistance to investigate and resolve the issue.",
+        "summary": "The customer is reporting suspicious activity in their audit log, including unknown IP addresses and unclaimed resource creations, and is requesting urgent assistance. They are concerned about potential security incidents and need help resolving the issue quickly.",
         "summary_source": "llm",
-        "predicted_intent": null,
-        "predicted_urgency": null,
-        "confidence": null,
-        "retrieved_sources": [],
+        "predicted_intent": "security_incident",
+        "predicted_urgency": "high",
+        "confidence": 0.994,
+        "retrieved_sources": [
+          {
+            "doc_id": "DOC-SEC-001",
+            "title": "Responding to a suspected account compromise",
+            "score": 0.6777
+          },
+          {
+            "doc_id": "DOC-SEC-003",
+            "title": "Audit logging and compliance evidence",
+            "score": 0.4712
+          },
+          {
+            "doc_id": "DOC-DATA-001",
+            "title": "Exporting account data and scheduled extracts",
+            "score": 0.4131
+          }
+        ],
         "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
-        "tokens": 406
+        "tokens": 484
       },
       "guardrails": {
         "security_language": {
@@ -5979,14 +6092,17 @@
           "security_language"
         ]
       },
-      "tokens": 406,
+      "tokens": 484,
       "error": null,
       "stage_ms": {
-        "ingest": 0
+        "ingest": 0,
+        "classify": 13,
+        "retrieve": 12
       },
-      "latency_ms": 706,
+      "knn_share": 1.0,
+      "latency_ms": 335,
       "threshold_applied": 0.85,
-      "decision_id": "7516beb4-81ce-4416-8e2a-fd92148889a1"
+      "decision_id": "7105bb91-915f-443a-8a33-d1329890463b"
     },
     {
       "ticket_id": "VAL-0068",
@@ -5995,23 +6111,60 @@
       "decision": "escalate",
       "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
       "reason_code": "safety_keyword",
-      "intent": null,
-      "urgency": null,
-      "confidence": null,
-      "classify_method": null,
+      "intent": "security_incident",
+      "urgency": "high",
+      "confidence": 0.994,
+      "classify_method": "knn",
       "alternatives": [],
-      "passages": [],
+      "passages": [
+        {
+          "doc_id": "DOC-SEC-001",
+          "score": 0.6957
+        },
+        {
+          "doc_id": "DOC-SEC-003",
+          "score": 0.4733
+        },
+        {
+          "doc_id": "DOC-DATA-001",
+          "score": 0.4225
+        },
+        {
+          "doc_id": "DOC-INT-002",
+          "score": 0.3823
+        },
+        {
+          "doc_id": "DOC-ACCT-001",
+          "score": 0.329
+        }
+      ],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is reporting suspicious activity in their audit log, with unknown addresses creating resources that team members do not recognize. The activity started around 14:00 yesterday and is causing concern.",
+        "summary": "The customer is reporting suspicious activity in their audit log, including unrecognized addresses and unclaimed resource creations, which they suspect may be a security incident. They are requesting assistance to investigate and resolve the issue as soon as possible.",
         "summary_source": "llm",
-        "predicted_intent": null,
-        "predicted_urgency": null,
-        "confidence": null,
-        "retrieved_sources": [],
+        "predicted_intent": "security_incident",
+        "predicted_urgency": "high",
+        "confidence": 0.994,
+        "retrieved_sources": [
+          {
+            "doc_id": "DOC-SEC-001",
+            "title": "Responding to a suspected account compromise",
+            "score": 0.6957
+          },
+          {
+            "doc_id": "DOC-SEC-003",
+            "title": "Audit logging and compliance evidence",
+            "score": 0.4733
+          },
+          {
+            "doc_id": "DOC-DATA-001",
+            "title": "Exporting account data and scheduled extracts",
+            "score": 0.4225
+          }
+        ],
         "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
-        "tokens": 437
+        "tokens": 497
       },
       "guardrails": {
         "security_language": {
@@ -6023,14 +6176,17 @@
           "security_language"
         ]
       },
-      "tokens": 437,
+      "tokens": 497,
       "error": null,
       "stage_ms": {
-        "ingest": 0
+        "ingest": 0,
+        "classify": 18,
+        "retrieve": 14
       },
-      "latency_ms": 616,
+      "knn_share": 1.0,
+      "latency_ms": 346,
       "threshold_applied": 0.85,
-      "decision_id": "9a7ddadc-aa6d-407b-81b5-1f5f7c6d3887"
+      "decision_id": "62efd45b-8421-41a7-9c40-f1a91d38433a"
     },
     {
       "ticket_id": "VAL-0069",
@@ -6108,14 +6264,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 14,
-        "generate": 472
+        "classify": 9,
+        "retrieve": 9,
+        "generate": 327
       },
       "knn_share": 1.0,
-      "latency_ms": 509,
+      "latency_ms": 351,
       "threshold_applied": 0.85,
-      "decision_id": "9713228c-10c7-45cc-aee2-c6fa027fc8c3"
+      "decision_id": "20da3379-4de9-4f80-b05c-572dc277bed1"
     },
     {
       "ticket_id": "VAL-0070",
@@ -6195,12 +6351,12 @@
         "ingest": 0,
         "classify": 16,
         "retrieve": 14,
-        "generate": 362
+        "generate": 290
       },
       "knn_share": 1.0,
-      "latency_ms": 397,
+      "latency_ms": 326,
       "threshold_applied": 0.85,
-      "decision_id": "8d9957d2-d43e-4606-a498-7dba6c7ce302"
+      "decision_id": "b6f873e3-e6f1-4b8f-bd60-eba450ed60c5"
     },
     {
       "ticket_id": "VAL-0071",
@@ -6276,12 +6432,12 @@
         "ingest": 0,
         "classify": 16,
         "retrieve": 14,
-        "generate": 353
+        "generate": 314
       },
       "knn_share": 1.0,
-      "latency_ms": 389,
+      "latency_ms": 351,
       "threshold_applied": 0.85,
-      "decision_id": "c0439b5e-3a6d-4c54-a54e-deb0c8290476"
+      "decision_id": "ba1108c8-bafc-4d62-928b-aaf249f7df0c"
     },
     {
       "ticket_id": "VAL-0072",
@@ -6355,14 +6511,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 405
+        "classify": 10,
+        "retrieve": 10,
+        "generate": 281
       },
       "knn_share": 1.0,
-      "latency_ms": 441,
+      "latency_ms": 306,
       "threshold_applied": 0.85,
-      "decision_id": "0dbb14fe-4cef-4ac0-a999-739914e9f886"
+      "decision_id": "ce5aae0b-0c51-41f1-beec-e6728cb37163"
     },
     {
       "ticket_id": "VAL-0073",
@@ -6433,13 +6589,13 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 14,
-        "generate": 338
+        "retrieve": 13,
+        "generate": 289
       },
       "knn_share": 1.0,
-      "latency_ms": 374,
+      "latency_ms": 324,
       "threshold_applied": 0.85,
-      "decision_id": "8e02dfb9-6037-41bb-bd88-6e7b728d0502"
+      "decision_id": "c163b39b-366a-4e59-932a-9a020de52206"
     },
     {
       "ticket_id": "VAL-0074",
@@ -6509,14 +6665,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
-        "retrieve": 12,
-        "generate": 348
+        "classify": 10,
+        "retrieve": 10,
+        "generate": 276
       },
       "knn_share": 1.0,
-      "latency_ms": 379,
+      "latency_ms": 301,
       "threshold_applied": 0.85,
-      "decision_id": "c56da9a7-8f2a-4bd8-8a18-32118b6a228f"
+      "decision_id": "3115d93e-c8dd-4cec-a968-b096ef4aa4d8"
     },
     {
       "ticket_id": "VAL-0075",
@@ -6594,14 +6750,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10,
-        "generate": 321
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 285
       },
       "knn_share": 1.0,
-      "latency_ms": 348,
+      "latency_ms": 318,
       "threshold_applied": 0.85,
-      "decision_id": "55269164-887b-455f-91f3-36cd145f4add"
+      "decision_id": "181f622d-faeb-491f-be52-65b38dc22243"
     },
     {
       "ticket_id": "VAL-0076",
@@ -6671,14 +6827,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 12,
-        "retrieve": 11,
-        "generate": 388
+        "classify": 16,
+        "retrieve": 10,
+        "generate": 393
       },
       "knn_share": 1.0,
-      "latency_ms": 417,
+      "latency_ms": 424,
       "threshold_applied": 0.85,
-      "decision_id": "e93e3d3d-48ec-4966-b79b-37ec146b980c"
+      "decision_id": "855eaa79-5d4d-4a21-8740-2d94e0ad984a"
     },
     {
       "ticket_id": "VAL-0077",
@@ -6748,14 +6904,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10,
-        "generate": 338
+        "classify": 12,
+        "retrieve": 9,
+        "generate": 318
       },
       "knn_share": 1.0,
-      "latency_ms": 364,
+      "latency_ms": 345,
       "threshold_applied": 0.85,
-      "decision_id": "71b97f3e-7df6-40b9-b60b-5ecd95506053"
+      "decision_id": "50ce0c49-7037-44f5-a71f-e0c4d8c997f1"
     },
     {
       "ticket_id": "VAL-0078",
@@ -6856,14 +7012,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 15,
-        "generate": 425
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 401
       },
       "knn_share": 1.0,
-      "latency_ms": 795,
+      "latency_ms": 732,
       "threshold_applied": 0.85,
-      "decision_id": "023831bd-25e4-4fd3-97a3-dbf14b617c4f"
+      "decision_id": "ff99c730-1714-4c1e-9315-9f7a5df4d0f2"
     },
     {
       "ticket_id": "VAL-0079",
@@ -6899,7 +7055,7 @@
           "score": 0.3534
         }
       ],
-      "response_text": "We can confirm that data residency and regional storage are primarily determined by the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \nTo ensure data remains in a specific region, check the region shown on the organisation settings page. \nEnable read replicas in additional regions to reduce latency for distant users without moving primary storage [DOC-DATA-003]. \nReview the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "We can confirm that data residency and regional storage are primarily determined by the region where the organisation was created. This is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \n\nTo ensure data remains in a specific region, you can check the region shown on the organisation settings page. This is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \n\nAdditionally, enabling read replicas in additional regions can reduce latency for distant users without moving primary storage [DOC-DATA-003]. \n\nReviewing the backup replication setting is also recommended if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \n\nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
@@ -6937,18 +7093,18 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 710,
+      "tokens": 736,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
+        "classify": 19,
         "retrieve": 15,
-        "generate": 346
+        "generate": 357
       },
       "knn_share": 1.0,
-      "latency_ms": 384,
+      "latency_ms": 398,
       "threshold_applied": 0.85,
-      "decision_id": "4db68043-4871-4a13-8e29-d11a3d75001a"
+      "decision_id": "056a4fbd-ca99-4948-b9d9-1b9a52c40635"
     },
     {
       "ticket_id": "VAL-0080",
@@ -7022,14 +7178,14 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 21,
-        "retrieve": 14,
-        "generate": 309
+        "classify": 18,
+        "retrieve": 15,
+        "generate": 434
       },
       "knn_share": 1.0,
-      "latency_ms": 351,
+      "latency_ms": 473,
       "threshold_applied": 0.85,
-      "decision_id": "9c424229-5b87-4094-8804-c2e8b7276874"
+      "decision_id": "f33bc056-5807-45b5-ab66-5a1d88e021fe"
     }
   ]
 }

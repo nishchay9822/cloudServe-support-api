@@ -97,9 +97,11 @@ def test_customer_name_is_never_in_the_outbound_reply(monkeypatch):
     assert r["decision"] == "escalate" and "pii" in r["guardrails"]["blocked_by"]
 
 
-def test_security_wording_escalates_without_calling_a_model(monkeypatch):
-    from src import llm, pipeline
-    monkeypatch.setattr(llm, "chat", lambda *a, **k: (_ for _ in ()).throw(AssertionError("model must not be called")))
-    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
-    r = pipeline.process_ticket({"ticket_id": "S1", "channel": "email", "subject": "Access", "body": "A former employee still has access to our console"}, log=False)
+def test_security_wording_escalates_and_still_carries_sources(fake_llm):
+    from src import pipeline
+    r = pipeline.process_ticket({"ticket_id": "S1", "channel": "email", "subject": "Access",
+                                 "body": "A former employee still has access to our API keys and console, we need to revoke API key access"}, log=False)
     assert r["decision"] == "escalate" and r["reason_code"] == "safety_keyword" and r["response_text"] is None
+    assert r["passages"], "the human should receive the related articles"
+    assert r["escalation_context"]["retrieved_sources"], "the escalation packet must list the sources"
+    assert "security_language" in r["guardrails"]["blocked_by"]

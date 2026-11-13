@@ -12,7 +12,7 @@
           "auto_rate": 0.7805,
           "resolution_rate": 0.6402,
           "false_auto_rate": 0.1402,
-          "quality_hit_at_1": 0.8537,
+          "quality_hit_at_1": 0.8862,
           "quality_n": 123,
           "route_accuracy": 0.8537,
           "route_ci95": [
@@ -24,8 +24,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 7.9,
-          "quality_p_vs_best": 0.1281,
+          "quality_gap_pp": 6.3,
+          "quality_p_vs_best": 0.1718,
           "quality_finding": false
         },
         "enterprise": {
@@ -34,7 +34,7 @@
           "auto_rate": 0.759,
           "resolution_rate": 0.5301,
           "false_auto_rate": 0.2289,
-          "quality_hit_at_1": 0.9322,
+          "quality_hit_at_1": 0.9492,
           "quality_n": 59,
           "route_accuracy": 0.6867,
           "route_ci95": [
@@ -56,7 +56,7 @@
           "auto_rate": 0.747,
           "resolution_rate": 0.5494,
           "false_auto_rate": 0.1976,
-          "quality_hit_at_1": 0.8686,
+          "quality_hit_at_1": 0.8971,
           "quality_n": 175,
           "route_accuracy": 0.7431,
           "route_ci95": [
@@ -68,8 +68,8 @@
           "significant": true,
           "finding": true,
           "suggestive": false,
-          "quality_gap_pp": 6.4,
-          "quality_p_vs_best": 0.1858,
+          "quality_gap_pp": 5.2,
+          "quality_p_vs_best": 0.2268,
           "quality_finding": false
         }
       },
@@ -86,7 +86,7 @@
           "auto_rate": 0.7711,
           "resolution_rate": 0.5711,
           "false_auto_rate": 0.2,
-          "quality_hit_at_1": 0.8926,
+          "quality_hit_at_1": 0.9148,
           "quality_n": 270,
           "route_accuracy": 0.7632,
           "route_ci95": [
@@ -108,7 +108,7 @@
           "auto_rate": 0.725,
           "resolution_rate": 0.5917,
           "false_auto_rate": 0.1333,
-          "quality_hit_at_1": 0.8161,
+          "quality_hit_at_1": 0.8621,
           "quality_n": 87,
           "route_accuracy": 0.7917,
           "route_ci95": [
@@ -120,8 +120,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 7.6,
-          "quality_p_vs_best": 0.0615,
+          "quality_gap_pp": 5.3,
+          "quality_p_vs_best": 0.1502,
           "quality_finding": false
         }
       },
@@ -138,7 +138,7 @@
           "auto_rate": 0.8062,
           "resolution_rate": 0.5947,
           "false_auto_rate": 0.2115,
-          "quality_hit_at_1": 0.8957,
+          "quality_hit_at_1": 0.9387,
           "quality_n": 163,
           "route_accuracy": 0.7621,
           "route_ci95": [
@@ -160,7 +160,7 @@
           "auto_rate": 0.7216,
           "resolution_rate": 0.5604,
           "false_auto_rate": 0.1612,
-          "quality_hit_at_1": 0.8557,
+          "quality_hit_at_1": 0.8711,
           "quality_n": 194,
           "route_accuracy": 0.7766,
           "route_ci95": [
@@ -172,9 +172,9 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 4.0,
-          "quality_p_vs_best": 0.2563,
-          "quality_finding": false
+          "quality_gap_pp": 6.8,
+          "quality_p_vs_best": 0.0326,
+          "quality_finding": true
         }
       },
       "all_segments_low_n": false,
@@ -190,7 +190,7 @@
           "auto_rate": 0.7059,
           "resolution_rate": 0.479,
           "false_auto_rate": 0.2269,
-          "quality_hit_at_1": 0.8947,
+          "quality_hit_at_1": 0.9079,
           "quality_n": 76,
           "route_accuracy": 0.7143,
           "route_ci95": [
@@ -202,8 +202,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 0.0,
-          "quality_p_vs_best": 1.0,
+          "quality_gap_pp": 0.3,
+          "quality_p_vs_best": 0.949,
           "quality_finding": false
         },
         "europe": {
@@ -212,7 +212,7 @@
           "auto_rate": 0.7616,
           "resolution_rate": 0.6159,
           "false_auto_rate": 0.1457,
-          "quality_hit_at_1": 0.8609,
+          "quality_hit_at_1": 0.887,
           "quality_n": 115,
           "route_accuracy": 0.7881,
           "route_ci95": [
@@ -224,8 +224,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 3.4,
-          "quality_p_vs_best": 0.4895,
+          "quality_gap_pp": 2.4,
+          "quality_p_vs_best": 0.5455,
           "quality_finding": false
         },
         "latin_america": {
@@ -234,7 +234,7 @@
           "auto_rate": 0.85,
           "resolution_rate": 0.6333,
           "false_auto_rate": 0.2167,
-          "quality_hit_at_1": 0.8837,
+          "quality_hit_at_1": 0.907,
           "quality_n": 43,
           "route_accuracy": 0.7667,
           "route_ci95": [
@@ -246,8 +246,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 1.1,
-          "quality_p_vs_best": 0.8532,
+          "quality_gap_pp": 0.4,
+          "quality_p_vs_best": 0.9436,
           "quality_finding": false
         },
         "north_america": {
@@ -256,7 +256,7 @@
           "auto_rate": 0.7647,
           "resolution_rate": 0.5882,
           "false_auto_rate": 0.1765,
-          "quality_hit_at_1": 0.8699,
+          "quality_hit_at_1": 0.9106,
           "quality_n": 123,
           "route_accuracy": 0.7941,
           "route_ci95": [
@@ -268,8 +268,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 2.5,
-          "quality_p_vs_best": 0.6015,
+          "quality_gap_pp": 0.0,
+          "quality_p_vs_best": 1.0,
           "quality_finding": false
         }
       },
@@ -286,7 +286,7 @@
           "auto_rate": 0.8129,
           "resolution_rate": 0.6323,
           "false_auto_rate": 0.1806,
-          "quality_hit_at_1": 0.8908,
+          "quality_hit_at_1": 0.8992,
           "quality_n": 119,
           "route_accuracy": 0.7742,
           "route_ci95": [
@@ -298,8 +298,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 4.7,
-          "quality_p_vs_best": 0.353,
+          "quality_gap_pp": 3.8,
+          "quality_p_vs_best": 0.4329,
           "quality_finding": false
         },
         "docs_comment": {
@@ -330,7 +330,7 @@
           "auto_rate": 0.7311,
           "resolution_rate": 0.5708,
           "false_auto_rate": 0.1604,
-          "quality_hit_at_1": 0.8431,
+          "quality_hit_at_1": 0.8889,
           "quality_n": 153,
           "route_accuracy": 0.783,
           "route_ci95": [
@@ -342,8 +342,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 9.4,
-          "quality_p_vs_best": 0.0944,
+          "quality_gap_pp": 4.9,
+          "quality_p_vs_best": 0.3263,
           "quality_finding": false
         },
         "forum": {
@@ -352,7 +352,7 @@
           "auto_rate": 0.8182,
           "resolution_rate": 0.5818,
           "false_auto_rate": 0.2364,
-          "quality_hit_at_1": 0.8649,
+          "quality_hit_at_1": 0.9189,
           "quality_n": 37,
           "route_accuracy": 0.7636,
           "route_ci95": [
@@ -364,8 +364,8 @@
           "significant": false,
           "finding": false,
           "suggestive": false,
-          "quality_gap_pp": 7.3,
-          "quality_p_vs_best": 0.2555,
+          "quality_gap_pp": 1.9,
+          "quality_p_vs_best": 0.7402,
           "quality_finding": false
         }
       },
