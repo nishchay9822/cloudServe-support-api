@@ -12,43 +12,52 @@ flowchart LR
         A["docs_comment"]
         F["Forum"]
     end
-    subgraph Pipeline["Processing Pipeline (src/pipeline.py)"]
+    subgraph Graph["LangGraph state machine (src/pipeline.py)"]
         KS{"Kill switch?"}
-        IN["Ingest + injection screen"]
-        CL["Classify: kNN first, LLM if vote < 0.85"]
-        RT["Retrieve: Chroma, min score 0.30"]
-        RO["Route: deterministic"]
+        IN["Ingest + injection and security-wording screen"]
+        CL["Classify: nearest tickets first, LLM if unsure"]
+        RT["Retrieve: hybrid dense + BM25, min score 0.30"]
+        RO["Route: deterministic code"]
         GN["Generate: full top article, NO_ANSWER sentinel"]
-        VL["Guardrails: PII, grounding, figures, injection, tone"]
+        VL["Validate: PII, grounding, figures, injection, tone"]
+        FIN["Finalize: escalation packet, metrics, decision log"]
     end
+    FMT["Response formatter"]
     subgraph Outputs["Outputs"]
         OUT["Auto reply with citations"]
         ESC["Escalation packet"]
     end
     subgraph Store["Persistence"]
         LOG[("SQLite decision log")]
-        VEC[("Chroma: docs + dev_tickets_v3")]
-        RES[("Resolution records FR-13")]
+        VEC[("Chroma: articles + labelled-ticket neighbours")]
+        RES[("Resolution records")]
     end
     LLM["LLM provider (OpenRouter / any OpenAI-compatible)"]
-    MON["Prometheus /metrics"]
+    MON["Prometheus /metrics, Grafana"]
+    FB["Feedback loop: POST /feedback"]
 
     E & C & A & F --> KS
-    KS -->|off| IN
-    KS -->|on| ESC
-    IN --> CL --> RT --> RO
-    RO -->|"safe intent, passages, confidence >= 0.80"| GN
-    RO -->|"safety intent, no passages, low confidence"| ESC
-    GN --> VL
-    VL -->|pass| OUT
-    VL -->|"blocked or NO_ANSWER"| ESC
+    KS -->|off| IN --> CL --> RT --> RO
+    KS -->|on| FIN
+    IN -->|"injection or security wording"| FIN
+    RO -->|"safe intent, confidence >= 0.85, evidence"| GN --> VL
+    RO -->|"safety intent or proximity, low confidence, no evidence"| FIN
+    GN -->|NO_ANSWER| FIN
+    VL -->|pass| FIN
+    VL -->|blocked| FIN
+    FIN --> FMT
+    FMT --> OUT
+    FMT --> ESC
     CL <-.-> VEC
     RT <-.-> VEC
     CL -.-> LLM
     GN -.-> LLM
-    Pipeline -.->|every decision| LOG
-    Pipeline -.-> MON
-    OUT & ESC -.-> RES
+    FIN -.->|every decision| LOG
+    FIN -.-> MON
+    FIN -.-> RES
+    FB -.->|corrections| LOG
+    FB -.->|"corrected intent joins neighbours"| VEC
+    FB -.->|feedback_total| MON
 ```
 
 ## Orchestration
