@@ -9,6 +9,11 @@ import pytest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
+# Tests must never touch the real vector store: feedback tests add and delete neighbours, and Chroma keeps a log of every delete.
+import atexit, shutil, tempfile
+_CHROMA_TMP = tempfile.mkdtemp(prefix="chroma_test_")
+os.environ["CHROMA_PATH"] = _CHROMA_TMP
+atexit.register(shutil.rmtree, _CHROMA_TMP, ignore_errors=True)
 
 
 def val_tickets():
