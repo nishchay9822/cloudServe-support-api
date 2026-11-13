@@ -8,7 +8,7 @@ from tests.conftest import ROOT, find_ticket
 from src.api import app
 MON = os.path.join(ROOT, "monitoring")
 METRIC = re.compile(r"\b(tickets_processed_total|ticket_latency_seconds(?:_bucket)?|guardrail_blocks_total|"
-                    r"classification_confidence(?:_bucket)?|routing_reason_total)\b")
+                    r"classification_confidence(?:_bucket)?|routing_reason_total|feedback_total)\b")
 def _exprs():
     d = json.load(open(os.path.join(MON, "grafana", "dashboards", "cloudserve.json")))
     out = [t["expr"] for p in d["panels"] for t in p["targets"]]

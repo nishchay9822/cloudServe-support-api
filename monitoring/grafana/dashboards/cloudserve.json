@@ -295,6 +295,42 @@
         },
         "overrides": []
       }
+    },
+    {
+      "id": 8,
+      "title": "Human corrections returned (feedback loop)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Corrections people send to POST /feedback: intent corrections, route corrections, and confirmations. A rising share of corrections is the early sign the system is drifting.",
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 24,
+        "h": 7
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum by (kind) (increase(feedback_total[1h]))",
+          "legendFormat": "{{kind}}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 10
+          }
+        },
+        "overrides": []
+      }
     }
   ]
 }

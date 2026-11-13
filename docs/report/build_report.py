@@ -30,6 +30,21 @@ TABLE_ORDER = ["asked", "findings", "disagree", "reqs", "alts", "modules", "bugs
 FIG_ORDER = ["disc", "arch", "signals", "outcomes", "latency", "risk", "fair"]
 
 
+def facts(name, tickets_file):
+    d = J(name + ".json")
+    m = d["metrics"]
+    r, g, l, b, ret, c = m["routing"], m["governance"], m["latency"], m["business"], m["retrieval"], m["citations"]
+    return {"n": r["n"], "auto": r["auto_respond"], "esc": r["escalated"], "auto_pct": r["auto_rate"] * 100, "esc_pct": r["escalation_rate"] * 100,
+            "route": r["route_accuracy"] * 100, "prec": r["precision_of_auto_respond"] * 100, "fa": r["false_auto_respond"], "oe": r["over_escalation"],
+            "viol": r["safety_violations"], "safe_n": r["safety_flagged_tickets"], "intent": m["classification"]["intent_accuracy"] * 100,
+            "hit1": ret["hit@1"] * 100, "hit3": ret["hit@3"] * 100, "hit5": ret["hit@5"] * 100, "cite": c["cited_expected_doc_rate"] * 100,
+            "blocks": sum(g["guardrail_blocks_by_type"].values()), "blocks_txt": ", ".join(f"{v} {k.replace('_', ' ')}" for k, v in g["guardrail_blocks_by_type"].items()) or "none",
+            "ctx_n": g["escalations_with_complete_context"] if "escalations_with_complete_context" in g else g.get("escalations"),
+            "esc_n": g.get("escalations"), "resrec": g.get("resolution_records_written"), "p50": l["auto_p50_ms"], "p95": l["auto_p95_ms"], "mean": l["auto_mean_ms"],
+            "tok": round(m["llm"]["tokens"] / r["n"]), "proxy": b["auto_resolution_proxy"] * 100, "brief": b["fcr_brief_formula"] * 100,
+            "minprec": min(v["precision"] for v in m["classification"]["per_class"].values()) * 100, "reasons": g["decision_reason_counts"]}
+
+
 def context():
     dev, val = J("dev_run.json"), J("gate_run_validation.json")
     dm, vm = dev["metrics"], val["metrics"]
@@ -45,15 +60,19 @@ def context():
     fd, fv = dm["business"]["auto_resolution_proxy"], vm["business"]["auto_resolution_proxy"]
     ci = lambda p, n: (lambda lo_hi: f"{lo_hi[0]*100:.0f} to {lo_hi[1]*100:.0f}%")(wilson(round(p * n), n))
     minp = lambda m: min(v["precision"] for v in m["classification"]["per_class"].values()) * 100
+    sel = J("threshold_selection.json")
     return {
+        "dv": facts("dev_run", "development_tickets"), "dn": facts("dev_run_novel090", "development_tickets"), "vl": facts("gate_run_validation", "validation_tickets"),
+        "sel": sel,
+        "fair_dn": J("fairness_dev_novel.json")["segments"],
+        "gaps": {k: v["max_gap_pp_route_accuracy"] for k, v in J("fairness_dev.json")["segments"].items()},
         "dev_date": "11 November 2026", "gate_date": "12 November 2026", "model": "meta-llama/llama-3.1-8b-instruct (OpenRouter)",
         "commit": "0297e25",
         "p95_val_ms": vm["latency"]["auto_p95_ms"], "p95_dev_ms": dm["latency"]["auto_p95_ms"],
         "med_val_ms": vm["latency"]["auto_p50_ms"], "med_dev_ms": dm["latency"]["auto_p50_ms"],
         "mean_val_ms": vm["latency"]["auto_mean_ms"], "mean_dev_ms": dm["latency"]["auto_mean_ms"],
         "brief_fcr_dev": dm["business"]["fcr_brief_formula"] * 100, "brief_fcr_val": vm["business"]["fcr_brief_formula"] * 100,
-        "sweep_dev": J("threshold_sweep_dev.json"), "sweep_val": J("threshold_sweep_val.json"),
-        "med_dev": dm["business"]["median_time_to_first_reply_seconds_auto"], "med_val": vm["business"]["median_time_to_first_reply_seconds_auto"],
+                "med_dev": dm["business"]["median_time_to_first_reply_seconds_auto"], "med_val": vm["business"]["median_time_to_first_reply_seconds_auto"],
         "fcr_dev": fd * 100, "fcr_val": fv * 100, "fcr_dev_ci": ci(fd, nd), "fcr_val_ci": ci(fv, nv),
         "esc_dev": dm["business"]["system_escalation_rate"] * 100, "esc_val": vm["business"]["system_escalation_rate"] * 100,
         "auto_dev": ad, "auto_val": av, "unans_dev": ud, "unans_val": uv,
@@ -125,7 +144,7 @@ def main():
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "NishchayGupta_Capstone_Report.pdf"))
     a = ap.parse_args()
     figs = figures.make_all()
-    figs["arch"] = os.path.join(figures.OUT, "architecture_fig.png")
+    figs["arch"] = os.path.join(figures.OUT, "architecture_fig2.png")
     r = Report(a.out, TABLE_ORDER, FIG_ORDER, "CloudServe Intelligent Support System: Capstone Report", "Nishchay Gupta")
     ctx = context()
     title_page(r)

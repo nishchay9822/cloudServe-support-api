@@ -37,6 +37,9 @@ def parse_args():
     p.add_argument("--ground-truth", default=os.path.join(ROOT, "data", "ground_truth_responses.json"),
                    help="reference answers keyed by ticket_id (used only for tickets that appear in it)")
     p.add_argument("--run-id", default=None)
+    p.add_argument("--novel-cap", type=float, default=None,
+                   help="evaluation only: classify each ticket as if its wording were new, by removing from the neighbour index every ticket "
+                        "with the same text and every neighbour more similar than this cosine value (e.g. 0.90). Omit for a normal run.")
     p.add_argument("--verbose", action="store_true")
     return p.parse_args()
 
@@ -48,13 +51,23 @@ def load_ground_truth(path: str) -> dict:
         return {}
 
 
-def run_tickets(tickets: list, run_id: str, verbose: bool = False) -> list:
+def _norm(t) -> str:
+    import re
+    return re.sub(r"\s+", " ", (((t or {}).get("subject") or "") + " " + ((t or {}).get("body") or "")).lower()).strip() if isinstance(t, dict) else ""
+
+
+def run_tickets(tickets: list, run_id: str, verbose: bool = False, novel_cap: float = None) -> list:
     rows = []
+    twins = {}
+    if novel_cap:
+        for t in tickets:
+            twins.setdefault(_norm(t), set()).add((t or {}).get("ticket_id") if isinstance(t, dict) else None)
     for i, raw in enumerate(tickets):
         hist = (raw.get("history") or {}) if isinstance(raw, dict) else {}
         try:
             r = pipeline.process_ticket(raw, run_id=run_id, outcome_fcr=bool(hist.get("first_contact_resolution")),
-                                        exclude_id=raw.get("ticket_id") if isinstance(raw, dict) else None)
+                                        exclude_id=raw.get("ticket_id") if isinstance(raw, dict) else None,
+                                        ban_ids=(twins.get(_norm(raw)) if novel_cap else None), sim_cap=novel_cap)
         except Exception as e:  # pipeline.process_ticket should never raise; this is the last safety net
             r = {"ticket_id": (raw or {}).get("ticket_id", f"index-{i}") if isinstance(raw, dict) else f"index-{i}",
                  "status": "error", "decision": "escalate", "reason": "harness caught an unexpected exception",
@@ -169,7 +182,7 @@ def main() -> int:
     llm.reset_breaker()
 
     t0 = time.time()
-    rows = run_tickets(tickets, run_id, args.verbose)
+    rows = run_tickets(tickets, run_id, args.verbose, args.novel_cap)
     wall = round(time.time() - t0, 1)
 
     results = [r for r, _ in rows]

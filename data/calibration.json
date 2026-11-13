@@ -1,8 +1,30 @@
 {
- "intercept": -1.5554874535791148,
- "w_llm": 0.0,
- "w_agree": 3.8573133238409807,
- "w_knn": 3.7482764152593813,
- "n_fit": 300,
- "fit_on": "development_tickets (leave-one-out kNN)"
+ "intercept": 0.605878901488468,
+ "w_llm": 1.6818690617240648,
+ "w_agree": 2.0695435205232093,
+ "w_knn": 1.4078775173448141,
+ "n_fit": 234,
+ "knn_bins": [
+  [
+   0.85,
+   0.994
+  ],
+  [
+   0.75,
+   0.981
+  ],
+  [
+   0.6,
+   0.766
+  ],
+  [
+   0.45,
+   0.421
+  ],
+  [
+   0.0,
+   0.333
+  ]
+ ],
+ "fit_on": "development tickets, same-text twins removed, similarity caps [0.97, 0.9, 0.85] (evaluation/calibrate.py)"
 }

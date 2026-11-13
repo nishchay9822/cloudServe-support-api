@@ -3,7 +3,8 @@ HTTP interface for the CloudServe support system (FastAPI).
 
     uvicorn src.api:app --port 8000
 
-POST /process  runs the full pipeline on one ticket and logs the decision.
+POST /tickets  (alias /process) runs the full pipeline on one ticket and logs the decision.
+POST /feedback  a human correction returns to the system; GET /feedback/summary counts them.
 GET  /health   liveness plus readiness of the parts the pipeline needs.
 GET  /decisions/{ticket_id}  the logged decisions for a ticket (audit trail).
 GET  /metrics  Prometheus metrics.
@@ -16,7 +17,7 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel, Field
 
-from src import llm, logging_store, pipeline, telemetry
+from src import formatter, feedback_loop, llm, logging_store, pipeline, telemetry
 
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 
@@ -45,27 +46,54 @@ class TicketRequest(BaseModel):
     received_at: Optional[str] = None
 
 
+class FeedbackRequest(BaseModel):
+    ticket_id: str = Field(..., min_length=1)
+    decision_id: Optional[str] = None
+    subject: Optional[str] = ""
+    body: Optional[str] = ""
+    corrected_intent: Optional[str] = None
+    corrected_urgency: Optional[str] = None
+    corrected_route: Optional[str] = None
+    resolved: Optional[bool] = None
+    note: Optional[str] = None
 @app.get("/health")
 def health():
     return {"status": "healthy", "version": app.version, "model_provider_configured": llm.is_available(),
             "kill_switch": pipeline.kill_switch_on()}
 
 
-@app.post("/process")
-def process(req: TicketRequest):
+def _handle(req: TicketRequest):
     """Always returns a decision. Provider trouble becomes an escalation, never a 500."""
     result = pipeline.process_ticket(req.model_dump(), run_id="api")
     if result["status"] == "error" and result["reason_code"] == "pipeline_error" and result.get("error", "").startswith("ValueError"):
         raise HTTPException(status_code=422, detail=result["error"])
-    return {
-        "ticket_id": result["ticket_id"], "decision": result["decision"], "reason": result["reason"],
-        "reason_code": result["reason_code"], "intent": result["intent"], "urgency": result["urgency"],
-        "confidence": result["confidence"], "response": result["response_text"], "citations": result["citations"],
-        "escalation_context": result["escalation_context"], "decision_id": result.get("decision_id"),
-        "latency_ms": result["latency_ms"],
-    }
+    return formatter.format_response(result)
 
 
+@app.post("/tickets")
+def tickets(req: TicketRequest):
+    """Primary endpoint from the design: submit one ticket, get the routing decision and reply or escalation packet."""
+    return _handle(req)
+
+
+@app.post("/process")
+def process(req: TicketRequest):
+    """Older name for POST /tickets, kept so existing callers keep working."""
+    return _handle(req)
+
+
+@app.post("/feedback")
+def feedback(req: FeedbackRequest):
+    """Feedback loop: a human corrects a decision. Stored, and fed back into the classifier's neighbour index."""
+    try:
+        return feedback_loop.record_feedback(req.model_dump())
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+
+
+@app.get("/feedback/summary")
+def feedback_summary():
+    return logging_store.feedback_summary()
 @app.get("/decisions/{ticket_id}")
 def decisions(ticket_id: str):
     rows = logging_store.get_decisions_for_ticket(ticket_id)

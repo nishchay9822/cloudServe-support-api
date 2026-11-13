@@ -75,7 +75,7 @@ AG = "Owners are proposed roles from the discovery interviews and the author; th
 fill(risk, [
     ["R-01", "The system answers confidently and incorrectly", "Medium",
      "Very high",
-     "Replies are written only from the full text of the top retrieved article(s) (src/generate.py, prompt PR-GN-01 v3.0). The model may answer NO_ANSWER, which escalates. Grounding and figure checks block any number or claim not in the shown articles (src/guardrails.py). Confidence floor 0.80 from classifier agreement, not model self-report. Measured: 0 of 150 judged replies hallucinated (50 validation, 100 dev; independent model), citations resolve 100%. Known gap: 25-28% of auto-replies go to tickets whose label says escalate (R-09), and the human second assessment is still pending. Alerts: AutoRateDrift, LowConfidenceShift (defined; the Grafana stack has not been run, see report).",
+     "Replies are written only from the full text of the top retrieved article(s) (src/generate.py, prompt PR-GN-01 v3.0). The model may answer NO_ANSWER, which escalates. Grounding and figure checks block any number or claim not in the shown articles (src/guardrails.py). Confidence floor 0.85, calibrated on simulated unseen wording (error 0.3 pp), from classifier agreement, not model self-report. Measured: 0 of 150 judged replies hallucinated (50 validation, 100 dev; independent model), citations resolve 100%. Known gap: 25-28% of auto-replies go to tickets whose label says escalate (R-09), and the human second assessment is still pending. Alerts: AutoRateDrift, LowConfidenceShift (defined; the Grafana stack has not been run, see report).",
      "Marcus Adeyemi, Head of Support (accepts residual risk); engineering owner Nishchay Gupta"],
     ["R-02", "Private data appears in an outbound response", "Low",
      "Very high",
@@ -87,7 +87,7 @@ fill(risk, [
      "Nishchay Gupta (engineering)"],
     ["R-04", "Some customer groups receive worse answers", "Medium",
      "High",
-     "Fairness audit (section 3) run on 500 dev and 80 validation tickets by tier, fluency, length, region and channel, with confidence intervals and significance tests (evaluation/fairness_audit.py). Findings: one borderline confirmed gap (short tickets retrieve worse); several directional gaps the sample cannot confirm. Dashboard can be sliced by channel. Mitigation still needed: per-segment live monitoring with a larger sample.",
+     "Fairness audit (section 3) run on 500 dev and 80 validation tickets by tier, fluency, length, region and channel, with confidence intervals and significance tests (evaluation/fairness_audit.py). Findings: one CONFIRMED tier disparity (enterprise and standard below business, above the 5-point target); other dimensions not significant, but the sample is underpowered. Dashboard can be sliced by channel. Mitigation still needed: per-segment live monitoring with a larger sample.",
      "Marcus Adeyemi, Head of Support"],
     ["R-05", "The documentation the system relies on goes stale", "High over time",
      "High",
@@ -99,7 +99,7 @@ fill(risk, [
      "Nishchay Gupta (engineering)"],
     ["R-07", "Latency degrades under load", "Medium",
      "Medium",
-     "Measured p95 for auto-replies: 673 ms on OpenRouter (target under 3 s). On the Groq free tier p95 was 11 s because of rate limits, so that fallback misses the target. Provider routing sorted by throughput. Alert: LatencyP95High. Not done: the harness runs tickets one at a time; no concurrent load test, so behaviour at 500+ tickets a week at peak is unmeasured.",
+     "Measured p95 for auto-replies: about 0.7 to 1.1 s on OpenRouter (target under 3 s). On the Groq free tier p95 was 11 s because of rate limits, so that fallback misses the target. Provider routing sorted by throughput. Alert: LatencyP95High. Not done: the harness runs tickets one at a time; no concurrent load test, so behaviour at 500+ tickets a week at peak is unmeasured.",
      "Nishchay Gupta (engineering)"],
     ["R-08", "Costs rise unexpectedly with volume", "Low",
      "Low",
@@ -107,7 +107,7 @@ fill(risk, [
      "Marcus Adeyemi, Head of Support (budget); Nishchay Gupta (monitoring)"],
     ["R-09", "Auto-replies go to tickets that should have gone to a human (routing labels are partly unpredictable)", "High (observed)",
      "Medium to high",
-     "Measured: auto-reply precision 71.9% on validation and 75% on dev; 18 and 98 false auto-responds. Five signals were tried to predict 'should escalate' for non-safety tickets and none worked (retrieval score AUC 0.51/0.47; LLM answerability AUC 0.46/0.42); identical ticket text carries the same route label only 87.8% of the time, so part of the label is not recoverable. Mitigation in the design: safety intents always escalate (0 violations of 101), replies must be grounded, and the first deployment should be draft-for-agent, not autonomous.",
+     "Measured: auto-reply precision about 71% on validation and 75% on dev; 18 and 99 false auto-responds. Five signals were tried to predict 'should escalate' for non-safety tickets and none worked (retrieval score AUC 0.51/0.47; LLM answerability AUC 0.46/0.42); identical ticket text carries the same route label only 87.8% of the time, so part of the label is not recoverable. Mitigation in the design: safety intents always escalate (0 violations of 101), replies must be grounded, and the first deployment should be draft-for-agent, not autonomous.",
      "Marcus Adeyemi, Head of Support"],
     ["R-10", "A credential is exposed", "Medium (an API key was pasted in chat once)",
      "High",
@@ -139,41 +139,42 @@ def row(label, dim, g, expl):
     return [label, str(s["n"]), pct(s["resolution_rate"]), pct(s["quality_hit_at_1"]), res_gap(dim, g), expl]
 
 
+dn = json.load(open(os.path.join(RES, "fairness_dev_novel.json")))["segments"]
 short_k = next(k for k in dev["ticket_length"]["groups"] if k.startswith("short"))
 long_k = next(k for k in dev["ticket_length"]["groups"] if k.startswith("long"))
+
+
+def row(label, dim, g, note):
+    s_, n_ = D(dim, g), dn[dim]["groups"][g]
+    expl = (f"Route accuracy {s_['route_accuracy']*100:.1f}% ({s_['gap_pp']:.1f} pp below the best segment, p = {s_['p_vs_best']:.3f}); "
+            f"false-automatic-reply rate {s_['false_auto_rate']*100:.1f}%; retrieval hit@1 {s_['quality_hit_at_1']*100:.1f}% "
+            f"(gap {s_['quality_gap_pp']:.1f} pp, p = {s_['quality_p_vs_best']:.3f}). With unseen wording: route accuracy {n_['route_accuracy']*100:.1f}% "
+            f"({n_['gap_pp']:.1f} pp, p = {n_['p_vs_best']:.3f}). " + note)
+    return [label, str(s_["n"]), pct(s_["resolution_rate"]), pct(s_["quality_hit_at_1"]), res_gap(dim, g), expl]
+
+
 fill(fair, [
-    row("Enterprise customers", "customer_tier", "enterprise",
-        "Highest auto-reply rate (83.1%) but the lowest route accuracy (73.5% vs 82.9% for business, gap 9.4 pp, p = 0.08, not significant) and the highest false-auto rate (24.1% vs 16.5%). Retrieval quality is the best of the tiers. The cause is not identified: enterprise tickets are not labelled 'escalate' more often (38.6% vs 35.4% for business), so it is not simply a label mix effect. With 83 tickets the gap cannot be confirmed or chased."),
-    row("Small business customers", "customer_tier", "business",
-        "Best tier on resolution (64.0%) and route accuracy (82.9%), but the lowest retrieval hit@1 (88.6%). No significant difference from other tiers."),
-    row("Tickets in fluent English", "language_fluency", "fluent",
-        "Reference group: route accuracy 77.1%, retrieval hit@1 91.9%."),
-    row("Tickets in non-fluent English", "language_fluency", "non_fluent",
-        "Retrieval hit@1 is 5.6 pp lower (86.2% vs 91.9%, p = 0.12, not significant), the direction the framework predicts for retrieval systems. Route accuracy is not lower (80.8% vs 77.1%). On the 80-ticket validation set the non-fluent group looked much worse (19 tickets, route accuracy 52.6%, 29 pp gap, p = 0.01) but this reversed on the 120 non-fluent dev tickets, so it is treated as small-sample noise. Pooled over both sets (139 non-fluent vs 441 fluent tickets) route accuracy is 77.0% vs 77.8%: no gap. The retrieval gap should be rechecked on live data."),
-    row("Short tickets", "ticket_length", short_k,
-        "CONFIRMED FINDING (borderline): retrieval hit@1 87.6% vs 93.9% for long tickets, a 6.2 pp gap, p = 0.046 before correcting for the roughly ten group comparisons made, so one chance result at this level is plausible. Short tickets give the retriever less text to match. They are escalated slightly more often (auto rate 75.8% vs 83.7%), which is the safe direction."),
-    row("Long or complex tickets", "ticket_length", long_k,
-        "Higher retrieval quality (93.9%) but a higher false-auto rate (23.4% vs 16.5%) and lower route accuracy (74.9% vs 80.6%, p = 0.13). Long and short tickets carry the same share of 'escalate' labels (37.9% vs 37.7%), so the difference is that long tickets are auto-answered more often (83.7% vs 75.8%): more text gives the retriever and classifier more to be confident about, including on tickets a human should have taken."),
-    row("Standard customers", "customer_tier", "standard",
-        "Lowest resolution proxy of the three tiers (57.3% vs 64.0% for business) and 6.7 pp below business on route accuracy (p = 0.10, not significant). Largest group (253)."),
-    row("Asia-Pacific region (lowest resolution)", "region", "asia_pacific",
-        "Lowest resolution proxy of any region (50.4% vs 65.0% best), 7.7 pp lower route accuracy than Europe (p = 0.13, not significant) and a 23.5% false-auto rate. Retrieval quality is normal (90.8%), so this is routing, not retrieval: 46.2% of Asia-Pacific tickets carry an 'escalate' label against 31.8% in Europe, so more of them are tickets the system should not have answered. The 21 Asia-Pacific validation tickets are too few to confirm or contradict it."),
-    row("Docs-comment channel (lowest resolution)", "channel", "docs_comment",
-        "Lowest resolution proxy of any channel (50.0%) and 7.1 pp lower route accuracy than email (p = 0.19, not significant). Retrieval quality is the best of any channel (93.8%), so documentation-comment tickets are matched well but 47.4% of them carry an 'escalate' label (32-42% in other channels): the system finds an article for tickets a human was expected to take."),
+    row("Enterprise customers", "customer_tier", "enterprise", "CONFIRMED disparity versus business customers, above the 5-point target in both settings. Cause not identified: enterprise tickets are not labelled 'escalate' more often (38.6% vs 35.4%), but they are auto-answered more often when a human was expected."),
+    row("Small business customers", "customer_tier", "business", "Best tier on route accuracy and the reference for the tier comparison."),
+    row("Tickets in fluent English", "language_fluency", "fluent", "Not significantly different from non-fluent tickets."),
+    row("Tickets in non-fluent English", "language_fluency", "non_fluent", "Retrieval is weaker, the direction the framework predicts, but only borderline. On the 80-ticket validation set this group (19 tickets) looked about 28 points worse; that did not replicate on the 120 development tickets, so it is treated as small-sample noise."),
+    row("Short tickets", "ticket_length", short_k, "No significant gap in the final system. An earlier run showed a borderline retrieval gap for short tickets that did not persist."),
+    row("Long or complex tickets", "ticket_length", long_k, "Long and short tickets carry the same share of 'escalate' labels; long tickets are auto-answered more often."),
+    row("Standard customers", "customer_tier", "standard", "CONFIRMED disparity versus business customers (significant, above target)."),
+    row("Asia-Pacific region (lowest resolution)", "region", "asia_pacific", "Not significant. 46.2% of its tickets carry an 'escalate' label against 31.8% in Europe, so the system answers more tickets it should not."),
+    row("Docs-comment channel (lowest resolution)", "channel", "docs_comment", "Not significant. 47.4% of its tickets carry an 'escalate' label (32 to 42% in other channels)."),
 ])
 fair_note = para_after(fair._tbl,
-    "Method. evaluation/fairness_audit.py segments a finished run and reports, per segment: auto-reply rate; resolution rate (an offline proxy: "
-    "the system auto-replied and the labelled route was auto_respond; it is not a measure of customer outcomes); false-auto rate; quality "
-    "(retrieval hit@1 on tickets answerable from the documentation); and route accuracy with a 95% Wilson interval, with the gap to the best "
-    "segment and a two-proportion z-test. The table above uses the 500 development tickets (leave-one-out run). The same audit on the 80 "
-    "validation tickets is in evaluation/results/fairness_val.md, and all segments (tier, fluency, length, region, channel) are in fairness_dev.md. "
-    "Findings. (1) No route-accuracy gap is statistically significant on 500 tickets, but the 95% intervals span roughly 10 to 20 pp, so the audit "
-    "could only detect gaps of about 10 pp or more: 'not significant' is not the same as 'fair'. The largest directional gaps are enterprise "
-    "(9.4 pp), Asia-Pacific (7.7 pp) and docs-comment (7.1 pp). (2) One confirmed retrieval-quality gap: short tickets. (3) The non-fluent "
-    "retrieval gap the framework warns about is present in direction (5.6 pp) but not significant. (4) The PRD target of under 5 pp variation "
-    "(NFR-06) is met for fluent vs non-fluent route accuracy (3.7 pp, in favour of non-fluent) but not met for tier (9.4 pp) or region (7.7 pp) as point estimates; "
-    "the evidence is too thin to call either a breach or a pass. (5) Ticket content, not demographics, drives some of this: the labels were generated, "
-    "so a real deployment needs live per-segment monitoring before claiming parity.",
+    "Method. evaluation/fairness_audit.py segments a finished run and reports, per segment: auto-reply rate; resolution rate (an offline proxy: the system "
+    "auto-replied and the labelled route was auto_respond; it is not a measure of customer outcomes); false-automatic-reply rate; quality (retrieval hit@1 on tickets "
+    "answerable from the documentation); and route accuracy with a 95% Wilson interval, with the gap to the best segment and a two-proportion z-test. The table uses the 500 "
+    "development tickets with plain leave-one-out, and also quotes the harder setting where each ticket is classified as if its wording were new. Validation results are in "
+    "evaluation/results/fairness_val.md. Findings. (1) One CONFIRMED disparity: enterprise and standard customers receive less accurate routing than business customers, "
+    "by more than the 5-point target in both settings, so the tier condition is not met. With roughly ten comparisons, only the unseen-wording enterprise result survives a Bonferroni "
+    "correction. (2) No other dimension shows a significant gap, but the 95% intervals span roughly 10 to 20 pp, so the audit could only detect gaps of about 10 pp or more: "
+    "'not significant' is not the same as 'fair'. (3) The non-fluent retrieval gap the framework warns about is present in direction but borderline. (4) Part of the apparent "
+    "unequal treatment is label mix: segments differ in how many of their tickets carry an escalate label. A real deployment needs live per-segment monitoring and a stricter "
+    "policy for the affected tiers before claiming parity.",
     body_like)
 
 # ------------------------------------------------------------------ 5 incident response
@@ -220,8 +221,8 @@ for r in kill.rows[1:]:
 # ------------------------------------------------------------------ declaration
 dc = {
     "This system must never ...": "...send an automated reply to a ticket whose predicted intent is a security incident, compliance or data-residency request, feature request or unclear request, or send any reply that contains personal data, a figure or claim not in the cited article, or a promise about refunds or timelines.",
-    "The mechanism that enforces that is ...": "Routing in deterministic code on the predicted intent (src/route.py), not on a model's say-so, with outbound guardrails that block and escalate (src/guardrails.py), and a kill switch. Evidence: 0 safety violations out of 101 safety tickets (87 dev, 14 validation) and 0 PII findings in 580 tickets.",
-    "The most likely way it could still cause harm is ...": "A well-written, grounded reply that is incomplete or wrong for the customer's actual situation, sent to a ticket that needed a human: 25-28% of auto-replies in the evaluation went to tickets labelled 'escalate', and about half the route and urgency labels cannot be predicted from the text. Also: a safety ticket misclassified as an ordinary one. Both measurements come from synthetic, templated data, so real performance is probably lower.",
+    "The mechanism that enforces that is ...": "Routing in deterministic code on the predicted intent (src/route.py), not on a model's say-so, with outbound guardrails that block and escalate (src/guardrails.py), and a kill switch. Evidence: 0 safety violations out of 101 safety tickets (87 dev, 14 validation, and 87 more with unseen wording) and 0 PII findings in 580 tickets.",
+    "The most likely way it could still cause harm is ...": "A well-written, grounded reply that is incomplete or wrong for the customer's actual situation, sent to a ticket that needed a human: 25-29% of auto-replies in the evaluation went to tickets labelled 'escalate', and about half the route and urgency labels cannot be predicted from the text. Also: a safety ticket misclassified as an ordinary one. Both measurements come from synthetic, templated data, so real performance is probably lower.",
     "We would not deploy this without first ...": "running it in draft mode on live tickets, where agents see and edit the suggested reply, for several weeks while measuring acceptance and real accuracy; completing the human second assessment of replies; load testing on production hardware; agreeing named owners and the admin token holders; rotating all keys; setting provider spend caps; and deciding, with the Head of Support, whether to restrict auto-reply to the intents with the strongest measured precision.",
 }
 for r in decl.rows[1:]:

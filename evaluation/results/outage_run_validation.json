@@ -1,14 +1,14 @@
 {
   "metrics": {
     "run": {
-      "run_id": "run-20261111T193521-f1f70b",
+      "run_id": "outage-final3",
       "input": "data/validation_tickets.json",
       "tickets": 80,
       "labelled": true,
       "wall_seconds": 1.1,
-      "finished_at": "2026-11-11T19:35:29+00:00",
+      "finished_at": "2026-11-13T07:35:50+00:00",
       "model": "meta-llama/llama-3.1-8b-instruct",
-      "threshold": 0.8,
+      "threshold": 0.85,
       "ticket_errors": 0
     },
     "routing": {
@@ -26,7 +26,7 @@
       "safety_violation_ids": []
     },
     "classification": {
-      "n": 80,
+      "n": 76,
       "intent_accuracy": 1.0,
       "per_class": {
         "account_access": {
@@ -119,11 +119,6 @@
           "precision": 1.0,
           "recall": 1.0
         },
-        "security_incident": {
-          "support": 4,
-          "precision": 1.0,
-          "recall": 1.0
-        },
         "sso_configuration": {
           "support": 1,
           "precision": 1.0,
@@ -142,32 +137,34 @@
       },
       "classes_below_85pct_precision": [],
       "top_confusions": [],
-      "urgency_accuracy": 0.45,
+      "urgency_accuracy": 0.4474,
       "methods": {
-        "knn": 78,
+        "knn": 74,
         "knn_fallback": 2
       }
     },
     "retrieval": {
       "n": 53,
-      "hit@1": 0.9434,
-      "hit@3": 0.9623,
-      "hit@5": 0.9811
+      "hit@1": 0.8868,
+      "hit@3": 0.9245,
+      "hit@5": 0.9245
     },
     "calibration": [
       {
         "band": "0.9-1.0",
-        "n": 80,
-        "stated": 0.989,
+        "n": 76,
+        "stated": 0.994,
         "observed": 1.0,
-        "gap_pp": 1.1,
+        "gap_pp": 0.6,
         "within_5pp": true
       }
     ],
     "latency": {
-      "all_p50_ms": 12,
-      "all_p95_ms": 13,
-      "all_max_ms": 17,
+      "all_mean_ms": 12.8,
+      "all_p50_ms": 13,
+      "all_p95_ms": 14,
+      "all_max_ms": 18,
+      "auto_mean_ms": null,
       "auto_p50_ms": null,
       "auto_p95_ms": null,
       "p95_under_3s": null
@@ -185,6 +182,8 @@
       "auto_resolution_proxy": 0.0,
       "system_escalation_rate": 1.0,
       "median_time_to_first_reply_seconds_auto": null,
+      "mean_time_to_first_reply_seconds_auto": null,
+      "fcr_brief_formula": 0.0,
       "csat": "not measurable offline"
     },
     "segments": {
@@ -195,7 +194,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.3,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.9545,
             "low_n": false
           },
           "enterprise": {
@@ -211,7 +210,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.5,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.92,
+            "retrieval_hit@1": 0.84,
             "low_n": false
           }
         },
@@ -219,7 +218,7 @@
           "auto_rate": 0.0,
           "route_accuracy": 20.0,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 8.0
+          "retrieval_hit@1": 11.5
         }
       },
       "language_fluency": {
@@ -229,7 +228,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.3443,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.9318,
+            "retrieval_hit@1": 0.8864,
             "low_n": false
           },
           "non_fluent": {
@@ -237,7 +236,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.5789,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.8889,
             "low_n": false
           }
         },
@@ -245,7 +244,7 @@
           "auto_rate": 0.0,
           "route_accuracy": 23.5,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 6.8
+          "retrieval_hit@1": 0.3
         }
       },
       "region": {
@@ -255,7 +254,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.2857,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.9412,
             "low_n": false
           },
           "europe": {
@@ -263,7 +262,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.36,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.8947,
+            "retrieval_hit@1": 0.7895,
             "low_n": false
           },
           "latin_america": {
@@ -287,7 +286,7 @@
           "auto_rate": 0.0,
           "route_accuracy": 19.6,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 10.5
+          "retrieval_hit@1": 15.2
         }
       },
       "channel": {
@@ -305,7 +304,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.5,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.9,
             "low_n": false
           },
           "email": {
@@ -313,7 +312,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.3226,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.9545,
+            "retrieval_hit@1": 0.9091,
             "low_n": false
           },
           "forum": {
@@ -321,7 +320,7 @@
             "auto_rate": 0.0,
             "route_accuracy": 0.4545,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.875,
             "low_n": true
           }
         },
@@ -329,17 +328,20 @@
           "auto_rate": 0.0,
           "route_accuracy": 17.7,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 15.4
+          "retrieval_hit@1": 6.3
         }
       }
     },
     "governance": {
       "outbound_pii_findings": [],
       "pii_violations": 0,
-      "guardrail_blocks_by_type": {},
+      "guardrail_blocks_by_type": {
+        "security_language": 4
+      },
       "decision_reason_counts": {
         "provider_unavailable": 66,
-        "safety_intent": 14
+        "safety_intent": 10,
+        "safety_keyword": 4
       },
       "decisions_logged": 80,
       "tickets_processed": 80,
@@ -367,8 +369,9 @@
       "reason_code": "provider_unavailable",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -379,12 +382,12 @@
           "score": 0.449
         },
         {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.4056
-        },
-        {
           "doc_id": "DOC-INT-001",
           "score": 0.399
+        },
+        {
+          "doc_id": "DOC-SEC-001",
+          "score": 0.4056
         }
       ],
       "response_text": null,
@@ -394,7 +397,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_key_issue",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-004",
@@ -407,9 +410,9 @@
             "score": 0.449
           },
           {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.4056
+            "doc_id": "DOC-INT-001",
+            "title": "Connecting continuous integration pipelines",
+            "score": 0.399
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -420,13 +423,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 9,
+        "classify": 7,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 17,
-      "threshold_applied": 0.8,
-      "decision_id": "5f4f8846-93ee-40a8-a623-4aaf7ed019a4"
+      "latency_ms": 18,
+      "threshold_applied": 0.85,
+      "decision_id": "34984290-e572-4d27-9853-f17c62eac3e5"
     },
     {
       "ticket_id": "VAL-0002",
@@ -437,8 +440,14 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.947,
+      "confidence": 0.981,
       "classify_method": "knn_fallback",
+      "alternatives": [
+        {
+          "intent": "performance_degradation",
+          "confidence": 0.1748
+        }
+      ],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -452,7 +461,7 @@
         "summary_source": "extract",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.947,
+        "confidence": 0.981,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-002",
@@ -468,13 +477,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 6
       },
       "knn_share": 0.8252,
       "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "4946236e-8457-44bf-bfcf-26b67618b33d"
+      "threshold_applied": 0.85,
+      "decision_id": "9941d52b-727a-45e1-a3fc-0b85a7a0cfb8"
     },
     {
       "ticket_id": "VAL-0003",
@@ -485,8 +494,9 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -495,7 +505,7 @@
         "summary_source": "extract",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
         "tokens": 0
@@ -505,13 +515,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 6
       },
       "knn_share": 1.0,
       "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "dbf84c34-1c2f-4d4c-ac49-7cd9b9a46eff"
+      "threshold_applied": 0.85,
+      "decision_id": "006eff2e-0a4f-445f-8da2-f4357903e3ef"
     },
     {
       "ticket_id": "VAL-0004",
@@ -522,8 +532,9 @@
       "reason_code": "provider_unavailable",
       "intent": "authentication_failure",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-002",
@@ -531,15 +542,15 @@
         },
         {
           "doc_id": "DOC-AUTH-001",
-          "score": 0.3554
-        },
-        {
-          "doc_id": "DOC-AUTH-004",
-          "score": 0.3221
+          "score": 0.3065
         },
         {
           "doc_id": "DOC-AUTH-003",
           "score": 0.3034
+        },
+        {
+          "doc_id": "DOC-AUTH-004",
+          "score": 0.3221
         }
       ],
       "response_text": null,
@@ -549,7 +560,7 @@
         "summary_source": "extract",
         "predicted_intent": "authentication_failure",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-002",
@@ -559,12 +570,12 @@
           {
             "doc_id": "DOC-AUTH-001",
             "title": "Resolving invalid credential errors on login",
-            "score": 0.3554
+            "score": 0.3065
           },
           {
-            "doc_id": "DOC-AUTH-004",
-            "title": "API key rotation and scope management",
-            "score": 0.3221
+            "doc_id": "DOC-AUTH-003",
+            "title": "Single sign-on configuration with SAML providers",
+            "score": 0.3034
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -579,9 +590,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "ac37dac5-7dd6-4725-a537-92983dc56878"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "2dc62d21-599a-4c6c-b90d-a539d4930ab1"
     },
     {
       "ticket_id": "VAL-0005",
@@ -592,8 +603,9 @@
       "reason_code": "provider_unavailable",
       "intent": "api_usage_question",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-002",
@@ -619,7 +631,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_usage_question",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-002",
@@ -645,13 +657,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
+        "classify": 5,
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "2dd3a516-a359-4bca-913d-6e9342e32fc2"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "220d365a-add4-437f-b976-6497548cddbb"
     },
     {
       "ticket_id": "VAL-0006",
@@ -662,8 +674,9 @@
       "reason_code": "provider_unavailable",
       "intent": "authentication_failure",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-002",
@@ -693,7 +706,7 @@
         "summary_source": "extract",
         "predicted_intent": "authentication_failure",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-002",
@@ -719,13 +732,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 7,
-        "retrieve": 6
+        "classify": 6,
+        "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
-      "threshold_applied": 0.8,
-      "decision_id": "8e806361-c43f-41ca-9474-e664f22c1b66"
+      "threshold_applied": 0.85,
+      "decision_id": "030cea9c-781a-4139-b6bb-f6fe23abe401"
     },
     {
       "ticket_id": "VAL-0007",
@@ -736,8 +749,9 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -746,7 +760,7 @@
         "summary_source": "extract",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
         "tokens": 0
@@ -757,12 +771,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "a5f8353a-c2b9-49ba-876c-4d8cab1e2a20"
+      "latency_ms": 12,
+      "threshold_applied": 0.85,
+      "decision_id": "0505a203-0668-4a48-8918-54c462f45b27"
     },
     {
       "ticket_id": "VAL-0008",
@@ -773,8 +787,9 @@
       "reason_code": "provider_unavailable",
       "intent": "account_access",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -788,7 +803,7 @@
         "summary_source": "extract",
         "predicted_intent": "account_access",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ACCT-001",
@@ -804,13 +819,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 6
       },
       "knn_share": 1.0,
       "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "649173d8-1ce3-481d-8885-d6a6e384b60a"
+      "threshold_applied": 0.85,
+      "decision_id": "1abb6889-d182-4f16-9ccd-e0b4cac023aa"
     },
     {
       "ticket_id": "VAL-0009",
@@ -821,20 +836,21 @@
       "reason_code": "safety_intent",
       "intent": "compliance_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-SEC-003",
           "score": 0.7144
         },
         {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.5421
-        },
-        {
           "doc_id": "DOC-DATA-001",
           "score": 0.4628
+        },
+        {
+          "doc_id": "DOC-SEC-001",
+          "score": 0.5421
         },
         {
           "doc_id": "DOC-BILL-001",
@@ -852,7 +868,7 @@
         "summary_source": "extract",
         "predicted_intent": "compliance_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-SEC-003",
@@ -860,14 +876,14 @@
             "score": 0.7144
           },
           {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.5421
-          },
-          {
             "doc_id": "DOC-DATA-001",
             "title": "Exporting account data and scheduled extracts",
             "score": 0.4628
+          },
+          {
+            "doc_id": "DOC-SEC-001",
+            "title": "Responding to a suspected account compromise",
+            "score": 0.5421
           }
         ],
         "uncertainty_reason": "Intent 'compliance_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
@@ -878,13 +894,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 6
       },
       "knn_share": 1.0,
       "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "18c96a1e-eea2-4872-8aaa-5ced86c5121e"
+      "threshold_applied": 0.85,
+      "decision_id": "0cc31d12-d14c-4884-bed9-86700f27e4e6"
     },
     {
       "ticket_id": "VAL-0010",
@@ -895,8 +911,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -907,16 +924,12 @@
           "score": 0.4452
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.3472
-        },
-        {
           "doc_id": "DOC-BILL-003",
           "score": 0.3348
         },
         {
-          "doc_id": "DOC-PERF-001",
-          "score": 0.33
+          "doc_id": "DOC-API-001",
+          "score": 0.3472
         }
       ],
       "response_text": null,
@@ -926,7 +939,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -939,9 +952,9 @@
             "score": 0.4452
           },
           {
-            "doc_id": "DOC-API-001",
-            "title": "Understanding API rate limits and quota tiers",
-            "score": 0.3472
+            "doc_id": "DOC-BILL-003",
+            "title": "Usage limits, overage and spend controls",
+            "score": 0.3348
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -952,13 +965,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 7,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
-      "threshold_applied": 0.8,
-      "decision_id": "b1df7853-8549-4910-b4cf-53bf000eebb7"
+      "threshold_applied": 0.85,
+      "decision_id": "c7576f0f-a0c8-4d9b-bd4c-fa61b3932ebc"
     },
     {
       "ticket_id": "VAL-0011",
@@ -969,8 +982,9 @@
       "reason_code": "provider_unavailable",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -985,12 +999,12 @@
           "score": 0.3566
         },
         {
-          "doc_id": "DOC-API-003",
-          "score": 0.354
-        },
-        {
           "doc_id": "DOC-DATA-002",
           "score": 0.3435
+        },
+        {
+          "doc_id": "DOC-API-003",
+          "score": 0.354
         }
       ],
       "response_text": null,
@@ -1000,7 +1014,7 @@
         "summary_source": "extract",
         "predicted_intent": "rollback_request",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-002",
@@ -1027,12 +1041,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 6,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "94d6445a-2896-4f27-9911-d095b74484de"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "67ea079c-1876-4694-8f20-7229210182dc"
     },
     {
       "ticket_id": "VAL-0012",
@@ -1043,16 +1057,13 @@
       "reason_code": "provider_unavailable",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.7633
-        },
-        {
-          "doc_id": "DOC-DEPLOY-003",
-          "score": 0.4065
         },
         {
           "doc_id": "DOC-BILL-002",
@@ -1066,17 +1077,12 @@
         "summary_source": "extract",
         "predicted_intent": "rollback_request",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-002",
             "title": "Rolling back a failed release",
             "score": 0.7633
-          },
-          {
-            "doc_id": "DOC-DEPLOY-003",
-            "title": "Build failures caused by dependency resolution",
-            "score": 0.4065
           },
           {
             "doc_id": "DOC-BILL-002",
@@ -1092,13 +1098,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "fb8f80f9-488c-4d23-9c8a-b95b9a1b4c3c"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "30f322c3-65e2-42e8-8ad8-794198c411b0"
     },
     {
       "ticket_id": "VAL-0013",
@@ -1109,8 +1115,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -1132,7 +1139,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -1158,13 +1165,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "ecb936d2-b703-4a51-a302-1a47dc0e0fb0"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "eb1fbe3f-1e91-4448-ac07-02d200ed52be"
     },
     {
       "ticket_id": "VAL-0014",
@@ -1175,8 +1182,9 @@
       "reason_code": "provider_unavailable",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -1198,7 +1206,7 @@
         "summary_source": "extract",
         "predicted_intent": "rollback_request",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-002",
@@ -1224,13 +1232,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "a5b78570-c8c4-45e8-8f22-1b633c14e1f6"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "77c266f0-1b2a-4fe6-8cad-5ad227835215"
     },
     {
       "ticket_id": "VAL-0015",
@@ -1241,8 +1249,9 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -1251,7 +1260,7 @@
         "summary_source": "extract",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
         "tokens": 0
@@ -1262,12 +1271,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "fd225b8d-8723-4f70-80e5-d8318be688be"
+      "latency_ms": 12,
+      "threshold_applied": 0.85,
+      "decision_id": "933bf644-6f7d-44f6-be7c-581e9961b874"
     },
     {
       "ticket_id": "VAL-0016",
@@ -1278,8 +1287,9 @@
       "reason_code": "provider_unavailable",
       "intent": "performance_degradation",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-PERF-001",
@@ -1287,19 +1297,19 @@
         },
         {
           "doc_id": "DOC-PERF-002",
-          "score": 0.5533
-        },
-        {
-          "doc_id": "DOC-BILL-003",
-          "score": 0.3661
+          "score": 0.5497
         },
         {
           "doc_id": "DOC-BILL-001",
           "score": 0.3629
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.339
+          "doc_id": "DOC-BILL-003",
+          "score": 0.3661
+        },
+        {
+          "doc_id": "DOC-INT-002",
+          "score": 0.3213
         }
       ],
       "response_text": null,
@@ -1309,7 +1319,7 @@
         "summary_source": "extract",
         "predicted_intent": "performance_degradation",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-PERF-001",
@@ -1319,12 +1329,12 @@
           {
             "doc_id": "DOC-PERF-002",
             "title": "Autoscaling behaviour and instance limits",
-            "score": 0.5533
+            "score": 0.5497
           },
           {
-            "doc_id": "DOC-BILL-003",
-            "title": "Usage limits, overage and spend controls",
-            "score": 0.3661
+            "doc_id": "DOC-BILL-001",
+            "title": "Understanding your invoice and usage breakdown",
+            "score": 0.3629
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -1335,13 +1345,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
+        "classify": 5,
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "c83d10ce-5e2b-43f6-9388-562150028de0"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "0d6a358a-bf3a-4194-853e-2ff09e17c123"
     },
     {
       "ticket_id": "VAL-0017",
@@ -1352,8 +1362,9 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -1362,7 +1373,7 @@
         "summary_source": "extract",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
         "tokens": 0
@@ -1373,12 +1384,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "3e539e65-4373-40b4-9a06-c7ac54fa6f55"
+      "latency_ms": 12,
+      "threshold_applied": 0.85,
+      "decision_id": "9a4bd389-6c06-4c13-93f3-fa78c82538c2"
     },
     {
       "ticket_id": "VAL-0018",
@@ -1389,8 +1400,9 @@
       "reason_code": "provider_unavailable",
       "intent": "api_usage_question",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-002",
@@ -1408,7 +1420,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_usage_question",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-002",
@@ -1429,13 +1441,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "2986b81f-803d-4df1-b952-8186d02c6176"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "8c23a1ad-7edf-4d5e-b5b9-fc8f4f036062"
     },
     {
       "ticket_id": "VAL-0019",
@@ -1446,8 +1458,9 @@
       "reason_code": "provider_unavailable",
       "intent": "account_access",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -1473,7 +1486,7 @@
         "summary_source": "extract",
         "predicted_intent": "account_access",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ACCT-001",
@@ -1499,13 +1512,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "7a3aa85a-cb40-49a3-816e-8d4997767e8b"
+      "latency_ms": 12,
+      "threshold_applied": 0.85,
+      "decision_id": "b9af97f4-ebb2-4d7d-bdf8-7c42f232225f"
     },
     {
       "ticket_id": "VAL-0020",
@@ -1516,8 +1529,9 @@
       "reason_code": "safety_intent",
       "intent": "feature_request",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-002",
@@ -1526,10 +1540,6 @@
         {
           "doc_id": "DOC-SEC-003",
           "score": 0.3433
-        },
-        {
-          "doc_id": "DOC-BILL-002",
-          "score": 0.3115
         }
       ],
       "response_text": null,
@@ -1539,7 +1549,7 @@
         "summary_source": "extract",
         "predicted_intent": "feature_request",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-002",
@@ -1550,11 +1560,6 @@
             "doc_id": "DOC-SEC-003",
             "title": "Audit logging and compliance evidence",
             "score": 0.3433
-          },
-          {
-            "doc_id": "DOC-BILL-002",
-            "title": "Changing plans, and how proration is calculated",
-            "score": 0.3115
           }
         ],
         "uncertainty_reason": "Intent 'feature_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
@@ -1565,13 +1570,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
+        "classify": 5,
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "b8231a36-d4b0-456f-8b45-244a60f9eeb9"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "933c05fe-a08f-46be-9a81-ab68da896463"
     },
     {
       "ticket_id": "VAL-0021",
@@ -1582,20 +1587,21 @@
       "reason_code": "provider_unavailable",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.509
         },
         {
-          "doc_id": "DOC-API-003",
-          "score": 0.404
-        },
-        {
           "doc_id": "DOC-DATA-002",
           "score": 0.3511
+        },
+        {
+          "doc_id": "DOC-API-003",
+          "score": 0.404
         },
         {
           "doc_id": "DOC-INT-002",
@@ -1609,7 +1615,7 @@
         "summary_source": "extract",
         "predicted_intent": "rollback_request",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-002",
@@ -1617,14 +1623,14 @@
             "score": 0.509
           },
           {
-            "doc_id": "DOC-API-003",
-            "title": "Webhook delivery, retries and signature verification",
-            "score": 0.404
-          },
-          {
             "doc_id": "DOC-DATA-002",
             "title": "Backups, retention and point-in-time restore",
             "score": 0.3511
+          },
+          {
+            "doc_id": "DOC-API-003",
+            "title": "Webhook delivery, retries and signature verification",
+            "score": 0.404
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -1635,13 +1641,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "805786e0-3fa1-45b6-bb7c-6ae687273e3f"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "371bb834-8336-48ca-92ca-8f54b7875c69"
     },
     {
       "ticket_id": "VAL-0022",
@@ -1652,8 +1658,9 @@
       "reason_code": "provider_unavailable",
       "intent": "performance_degradation",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-PERF-001",
@@ -1661,15 +1668,15 @@
         },
         {
           "doc_id": "DOC-PERF-002",
-          "score": 0.5301
-        },
-        {
-          "doc_id": "DOC-BILL-003",
-          "score": 0.3735
+          "score": 0.5281
         },
         {
           "doc_id": "DOC-BILL-001",
           "score": 0.3671
+        },
+        {
+          "doc_id": "DOC-BILL-003",
+          "score": 0.3735
         },
         {
           "doc_id": "DOC-API-001",
@@ -1683,7 +1690,7 @@
         "summary_source": "extract",
         "predicted_intent": "performance_degradation",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-PERF-001",
@@ -1693,12 +1700,12 @@
           {
             "doc_id": "DOC-PERF-002",
             "title": "Autoscaling behaviour and instance limits",
-            "score": 0.5301
+            "score": 0.5281
           },
           {
-            "doc_id": "DOC-BILL-003",
-            "title": "Usage limits, overage and spend controls",
-            "score": 0.3735
+            "doc_id": "DOC-BILL-001",
+            "title": "Understanding your invoice and usage breakdown",
+            "score": 0.3671
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -1710,12 +1717,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "1f8734f6-06fb-4e07-b5df-cae464be41db"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "872c413d-2402-4131-bdbd-5bbf7e915f9a"
     },
     {
       "ticket_id": "VAL-0023",
@@ -1726,8 +1733,9 @@
       "reason_code": "provider_unavailable",
       "intent": "onboarding",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ONB-002",
@@ -1753,7 +1761,7 @@
         "summary_source": "extract",
         "predicted_intent": "onboarding",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ONB-002",
@@ -1780,12 +1788,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 6,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "8630838c-7c38-46fa-a3cb-cff6b1ea7212"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "a4335692-6dad-4230-81dd-7225ba4135ff"
     },
     {
       "ticket_id": "VAL-0024",
@@ -1796,8 +1804,14 @@
       "reason_code": "provider_unavailable",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.947,
+      "confidence": 0.981,
       "classify_method": "knn_fallback",
+      "alternatives": [
+        {
+          "intent": "account_access",
+          "confidence": 0.154
+        }
+      ],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -1806,10 +1820,6 @@
         {
           "doc_id": "DOC-API-001",
           "score": 0.3425
-        },
-        {
-          "doc_id": "DOC-ACCT-001",
-          "score": 0.3272
         }
       ],
       "response_text": null,
@@ -1819,7 +1829,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_key_issue",
         "predicted_urgency": "medium",
-        "confidence": 0.947,
+        "confidence": 0.981,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-004",
@@ -1830,11 +1840,6 @@
             "doc_id": "DOC-API-001",
             "title": "Understanding API rate limits and quota tiers",
             "score": 0.3425
-          },
-          {
-            "doc_id": "DOC-ACCT-001",
-            "title": "Managing team members, roles and permissions",
-            "score": 0.3272
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -1845,13 +1850,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 0.846,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "a8416696-6c0d-4eb7-b5fb-9aa94199bc7d"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "678164b2-3089-4afe-835b-2b8016b779ef"
     },
     {
       "ticket_id": "VAL-0025",
@@ -1862,8 +1867,9 @@
       "reason_code": "provider_unavailable",
       "intent": "deployment_failure",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -1878,12 +1884,12 @@
           "score": 0.3883
         },
         {
-          "doc_id": "DOC-PERF-003",
-          "score": 0.3787
-        },
-        {
           "doc_id": "DOC-API-003",
           "score": 0.3664
+        },
+        {
+          "doc_id": "DOC-DEPLOY-003",
+          "score": 0.3544
         }
       ],
       "response_text": null,
@@ -1893,7 +1899,7 @@
         "summary_source": "extract",
         "predicted_intent": "deployment_failure",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-001",
@@ -1919,13 +1925,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "605fe9ab-264a-40ee-aa67-1d146954ace6"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "3aef6a66-288c-4d2a-89e7-9c700dfac25e"
     },
     {
       "ticket_id": "VAL-0026",
@@ -1936,8 +1942,9 @@
       "reason_code": "provider_unavailable",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -1959,7 +1966,7 @@
         "summary_source": "extract",
         "predicted_intent": "data_residency",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-003",
@@ -1986,12 +1993,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 6,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "81680e20-6c53-44a6-a1da-b8ff44fcf836"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "79cafa98-ce28-4701-a120-c71a2eb153f6"
     },
     {
       "ticket_id": "VAL-0027",
@@ -2002,8 +2009,9 @@
       "reason_code": "provider_unavailable",
       "intent": "quota_or_overage",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -2019,7 +2027,7 @@
         },
         {
           "doc_id": "DOC-API-001",
-          "score": 0.3128
+          "score": 0.3005
         }
       ],
       "response_text": null,
@@ -2029,7 +2037,7 @@
         "summary_source": "extract",
         "predicted_intent": "quota_or_overage",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -2055,13 +2063,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
+        "classify": 5,
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "1520a802-55ea-419e-a77e-24ed63623c0f"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "dd8b6be8-f1bb-4f6d-b99f-70e7eb96a39c"
     },
     {
       "ticket_id": "VAL-0028",
@@ -2072,28 +2080,29 @@
       "reason_code": "provider_unavailable",
       "intent": "deployment_failure",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-003",
           "score": 0.7094
         },
         {
-          "doc_id": "DOC-ONB-001",
-          "score": 0.5941
-        },
-        {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.497
+        },
+        {
+          "doc_id": "DOC-ONB-001",
+          "score": 0.5941
         },
         {
           "doc_id": "DOC-DEPLOY-001",
           "score": 0.458
         },
         {
-          "doc_id": "DOC-DEPLOY-004",
-          "score": 0.395
+          "doc_id": "DOC-INT-001",
+          "score": 0.3081
         }
       ],
       "response_text": null,
@@ -2103,7 +2112,7 @@
         "summary_source": "extract",
         "predicted_intent": "deployment_failure",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-003",
@@ -2111,14 +2120,14 @@
             "score": 0.7094
           },
           {
-            "doc_id": "DOC-ONB-001",
-            "title": "First deployment: a walkthrough",
-            "score": 0.5941
-          },
-          {
             "doc_id": "DOC-DEPLOY-002",
             "title": "Rolling back a failed release",
             "score": 0.497
+          },
+          {
+            "doc_id": "DOC-ONB-001",
+            "title": "First deployment: a walkthrough",
+            "score": 0.5941
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -2129,13 +2138,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "744a7086-69df-48c8-a32f-df8802f0d169"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "9d43a95a-0af9-4df9-8060-f5d44dff727f"
     },
     {
       "ticket_id": "VAL-0029",
@@ -2146,8 +2155,9 @@
       "reason_code": "provider_unavailable",
       "intent": "onboarding",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-001",
@@ -2165,7 +2175,7 @@
         "summary_source": "extract",
         "predicted_intent": "onboarding",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-001",
@@ -2187,12 +2197,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "f017940e-5dd6-43ea-b9a4-4d054649f4a2"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "5551ae7a-5a52-48fc-acf2-8ca098a42246"
     },
     {
       "ticket_id": "VAL-0030",
@@ -2203,8 +2213,9 @@
       "reason_code": "safety_intent",
       "intent": "feature_request",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ONB-001",
@@ -2218,7 +2229,7 @@
         "summary_source": "extract",
         "predicted_intent": "feature_request",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ONB-001",
@@ -2238,9 +2249,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "c2e61cdd-ad80-43d6-94e2-b93d64ec5a81"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "639be334-8ec0-4fcc-8c8f-c9fdaefe0078"
     },
     {
       "ticket_id": "VAL-0031",
@@ -2251,20 +2262,21 @@
       "reason_code": "provider_unavailable",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.5562
         },
         {
-          "doc_id": "DOC-API-003",
-          "score": 0.3748
-        },
-        {
           "doc_id": "DOC-DEPLOY-003",
           "score": 0.3426
+        },
+        {
+          "doc_id": "DOC-API-003",
+          "score": 0.3748
         },
         {
           "doc_id": "DOC-INT-002",
@@ -2278,7 +2290,7 @@
         "summary_source": "extract",
         "predicted_intent": "rollback_request",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-002",
@@ -2286,14 +2298,14 @@
             "score": 0.5562
           },
           {
-            "doc_id": "DOC-API-003",
-            "title": "Webhook delivery, retries and signature verification",
-            "score": 0.3748
-          },
-          {
             "doc_id": "DOC-DEPLOY-003",
             "title": "Build failures caused by dependency resolution",
             "score": 0.3426
+          },
+          {
+            "doc_id": "DOC-API-003",
+            "title": "Webhook delivery, retries and signature verification",
+            "score": 0.3748
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -2304,13 +2316,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "8381819e-c8d1-404a-9fa8-6ca9b492cae0"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "4aa9059a-0d3f-4a14-9958-fdc836dbc754"
     },
     {
       "ticket_id": "VAL-0032",
@@ -2321,8 +2333,9 @@
       "reason_code": "safety_intent",
       "intent": "feature_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-003",
@@ -2348,7 +2361,7 @@
         "summary_source": "extract",
         "predicted_intent": "feature_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-003",
@@ -2374,13 +2387,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "04e67b4d-9206-4ae8-b039-1d6da3c86f48"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "2c7425e5-c8f0-47f2-9f75-0d3e16742e4d"
     },
     {
       "ticket_id": "VAL-0033",
@@ -2391,8 +2404,9 @@
       "reason_code": "provider_unavailable",
       "intent": "webhook_issue",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-003",
@@ -2400,7 +2414,7 @@
         },
         {
           "doc_id": "DOC-AUTH-003",
-          "score": 0.3932
+          "score": 0.3303
         },
         {
           "doc_id": "DOC-INT-001",
@@ -2414,7 +2428,7 @@
         "summary_source": "extract",
         "predicted_intent": "webhook_issue",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-003",
@@ -2424,7 +2438,7 @@
           {
             "doc_id": "DOC-AUTH-003",
             "title": "Single sign-on configuration with SAML providers",
-            "score": 0.3932
+            "score": 0.3303
           },
           {
             "doc_id": "DOC-INT-001",
@@ -2440,13 +2454,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 5
+        "classify": 5,
+        "retrieve": 6
       },
       "knn_share": 1.0,
       "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "50beef73-c4b2-49b6-8b46-7a71195b036d"
+      "threshold_applied": 0.85,
+      "decision_id": "4d7413c7-9351-4740-a988-a6b084298939"
     },
     {
       "ticket_id": "VAL-0034",
@@ -2457,16 +2471,13 @@
       "reason_code": "provider_unavailable",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.7633
-        },
-        {
-          "doc_id": "DOC-DEPLOY-003",
-          "score": 0.4065
         },
         {
           "doc_id": "DOC-BILL-002",
@@ -2480,17 +2491,12 @@
         "summary_source": "extract",
         "predicted_intent": "rollback_request",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-002",
             "title": "Rolling back a failed release",
             "score": 0.7633
-          },
-          {
-            "doc_id": "DOC-DEPLOY-003",
-            "title": "Build failures caused by dependency resolution",
-            "score": 0.4065
           },
           {
             "doc_id": "DOC-BILL-002",
@@ -2506,13 +2512,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "ca55f477-27fc-4cff-ac70-13b5eb15e094"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "041a7ae8-3fd0-408b-893a-c54626c0b90e"
     },
     {
       "ticket_id": "VAL-0035",
@@ -2523,8 +2529,14 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [
+        {
+          "intent": "authentication_failure",
+          "confidence": 0.0807
+        }
+      ],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -2533,7 +2545,7 @@
         "summary_source": "extract",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
         "tokens": 0
@@ -2544,12 +2556,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 0.9193,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "740dc6d5-8528-4686-b9a1-7be841db871b"
+      "latency_ms": 12,
+      "threshold_applied": 0.85,
+      "decision_id": "6d1b6d04-4006-4bc0-b817-da93f1837d73"
     },
     {
       "ticket_id": "VAL-0036",
@@ -2560,8 +2572,9 @@
       "reason_code": "provider_unavailable",
       "intent": "onboarding",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ONB-001",
@@ -2575,7 +2588,7 @@
         "summary_source": "extract",
         "predicted_intent": "onboarding",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ONB-001",
@@ -2592,12 +2605,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "85618eb6-036d-4358-b876-d6cfa8462e2b"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "f68fde93-01ad-4a0b-b2d3-75511876d9dc"
     },
     {
       "ticket_id": "VAL-0037",
@@ -2608,8 +2621,9 @@
       "reason_code": "provider_unavailable",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -2631,7 +2645,7 @@
         "summary_source": "extract",
         "predicted_intent": "data_residency",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-003",
@@ -2658,12 +2672,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "9762caa0-1037-49da-ae88-930142662e6d"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "dc05447b-c73b-45f9-b53d-313504dc928d"
     },
     {
       "ticket_id": "VAL-0038",
@@ -2674,20 +2688,21 @@
       "reason_code": "provider_unavailable",
       "intent": "performance_degradation",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-PERF-001",
           "score": 0.6555
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.3607
-        },
-        {
           "doc_id": "DOC-INT-002",
           "score": 0.3521
+        },
+        {
+          "doc_id": "DOC-API-001",
+          "score": 0.3607
         },
         {
           "doc_id": "DOC-API-003",
@@ -2701,7 +2716,7 @@
         "summary_source": "extract",
         "predicted_intent": "performance_degradation",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-PERF-001",
@@ -2709,14 +2724,14 @@
             "score": 0.6555
           },
           {
-            "doc_id": "DOC-API-001",
-            "title": "Understanding API rate limits and quota tiers",
-            "score": 0.3607
-          },
-          {
             "doc_id": "DOC-INT-002",
             "title": "Third party monitoring and log forwarding",
             "score": 0.3521
+          },
+          {
+            "doc_id": "DOC-API-001",
+            "title": "Understanding API rate limits and quota tiers",
+            "score": 0.3607
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -2728,12 +2743,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 6,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "4086ddb5-9caf-4994-a7d4-565d9f0d339c"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "87e4597e-0ed1-44f0-82bb-ae760decb4f4"
     },
     {
       "ticket_id": "VAL-0039",
@@ -2744,8 +2759,9 @@
       "reason_code": "provider_unavailable",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -2761,11 +2777,11 @@
         },
         {
           "doc_id": "DOC-INT-001",
-          "score": 0.4393
+          "score": 0.4208
         },
         {
-          "doc_id": "DOC-API-003",
-          "score": 0.3999
+          "doc_id": "DOC-API-001",
+          "score": 0.3894
         }
       ],
       "response_text": null,
@@ -2775,7 +2791,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_key_issue",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-004",
@@ -2801,13 +2817,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "f751bdf3-9b51-46cb-a48b-2e842234eaeb"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "5c2c5c9c-6b96-43e8-8700-9700deb75d9c"
     },
     {
       "ticket_id": "VAL-0040",
@@ -2818,8 +2834,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -2841,7 +2858,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -2867,13 +2884,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "f98c7c1c-123b-40b1-a4cc-6be5d3fd8b5c"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "6ca6893e-75dd-43c3-a107-feeb4a616bf1"
     },
     {
       "ticket_id": "VAL-0041",
@@ -2884,8 +2901,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -2907,7 +2925,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -2933,13 +2951,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "f617860d-fd2a-4558-8801-98f3b06be8ff"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "f3831edf-bec1-4f33-9587-e3059e5684d8"
     },
     {
       "ticket_id": "VAL-0042",
@@ -2950,8 +2968,9 @@
       "reason_code": "provider_unavailable",
       "intent": "configuration_help",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-004",
@@ -2971,7 +2990,7 @@
         },
         {
           "doc_id": "DOC-BILL-003",
-          "score": 0.3281
+          "score": 0.32
         }
       ],
       "response_text": null,
@@ -2981,7 +3000,7 @@
         "summary_source": "extract",
         "predicted_intent": "configuration_help",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-004",
@@ -3007,87 +3026,57 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
+        "classify": 5,
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "72bab468-978b-4947-98dd-e75b49aba244"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "02512c79-2dec-4877-81cd-e00a0440ecd2"
     },
     {
       "ticket_id": "VAL-0043",
       "channel": "forum",
       "status": "ok",
       "decision": "escalate",
-      "reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-      "reason_code": "safety_intent",
-      "intent": "security_incident",
-      "urgency": "high",
-      "confidence": 0.99,
-      "classify_method": "knn",
-      "passages": [
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.62
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "score": 0.5722
-        },
-        {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.4536
-        },
-        {
-          "doc_id": "DOC-DEPLOY-004",
-          "score": 0.3841
-        },
-        {
-          "doc_id": "DOC-DATA-001",
-          "score": 0.3781
-        }
-      ],
+      "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+      "reason_code": "safety_keyword",
+      "intent": null,
+      "urgency": null,
+      "confidence": null,
+      "classify_method": null,
+      "alternatives": [],
+      "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
         "summary": "Suspicious activity in audit log. One of our engineers believes their credentials may have been exposed in a breach at another service. What should we be doing right now?",
         "summary_source": "extract",
-        "predicted_intent": "security_incident",
-        "predicted_urgency": "high",
-        "confidence": 0.99,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.62
-          },
-          {
-            "doc_id": "DOC-SEC-002",
-            "title": "Handling exposed secrets and credential rotation",
-            "score": 0.5722
-          },
-          {
-            "doc_id": "DOC-SEC-003",
-            "title": "Audit logging and compliance evidence",
-            "score": 0.4536
-          }
-        ],
-        "uncertainty_reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
+        "predicted_intent": null,
+        "predicted_urgency": null,
+        "confidence": null,
+        "retrieved_sources": [],
+        "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
         "tokens": 0
       },
-      "guardrails": null,
+      "guardrails": {
+        "security_language": {
+          "status": "block",
+          "matched": "suspicious",
+          "reason": "security-related wording: always handled by a human"
+        },
+        "blocked_by": [
+          "security_language"
+        ]
+      },
       "tokens": 0,
       "error": null,
       "stage_ms": {
-        "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "ingest": 0
       },
-      "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "79f9afb8-0fc4-42e4-b074-bed2107bd144"
+      "latency_ms": 0,
+      "threshold_applied": 0.85,
+      "decision_id": "b93f2a32-5ba8-4df0-b0b8-710055f431f9"
     },
     {
       "ticket_id": "VAL-0044",
@@ -3098,8 +3087,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3121,7 +3111,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -3151,9 +3141,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "8a30a1ff-e676-46ea-8908-d4c70b5a25ef"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "7eb22222-b1f4-4571-b819-58cf05dc767a"
     },
     {
       "ticket_id": "VAL-0045",
@@ -3164,20 +3154,21 @@
       "reason_code": "provider_unavailable",
       "intent": "data_export",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-001",
           "score": 0.6298
         },
         {
-          "doc_id": "DOC-DEPLOY-002",
-          "score": 0.4378
-        },
-        {
           "doc_id": "DOC-API-002",
           "score": 0.4238
+        },
+        {
+          "doc_id": "DOC-DEPLOY-002",
+          "score": 0.4378
         },
         {
           "doc_id": "DOC-SEC-001",
@@ -3195,7 +3186,7 @@
         "summary_source": "extract",
         "predicted_intent": "data_export",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-001",
@@ -3203,14 +3194,14 @@
             "score": 0.6298
           },
           {
-            "doc_id": "DOC-DEPLOY-002",
-            "title": "Rolling back a failed release",
-            "score": 0.4378
-          },
-          {
             "doc_id": "DOC-API-002",
             "title": "Pagination and handling large result sets",
             "score": 0.4238
+          },
+          {
+            "doc_id": "DOC-DEPLOY-002",
+            "title": "Rolling back a failed release",
+            "score": 0.4378
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -3221,13 +3212,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "c690bc90-9fe1-4b27-8ec2-9580d49ca84d"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "69893e31-c21b-4a44-b5f2-4d2c0eba4638"
     },
     {
       "ticket_id": "VAL-0046",
@@ -3238,8 +3229,9 @@
       "reason_code": "provider_unavailable",
       "intent": "api_usage_question",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-002",
@@ -3253,7 +3245,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_usage_question",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-002",
@@ -3270,12 +3262,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "479552d5-697a-47cc-a88d-1f5cd47ed23c"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "b03f0880-11f9-40ee-8576-c9377ac6fb7b"
     },
     {
       "ticket_id": "VAL-0047",
@@ -3286,24 +3278,25 @@
       "reason_code": "provider_unavailable",
       "intent": "rate_limit",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-001",
-          "score": 0.4534
+          "score": 0.3839
         },
         {
-          "doc_id": "DOC-API-002",
-          "score": 0.37
+          "doc_id": "DOC-DATA-003",
+          "score": 0.319
         },
         {
           "doc_id": "DOC-PERF-003",
           "score": 0.3412
         },
         {
-          "doc_id": "DOC-DATA-003",
-          "score": 0.319
+          "doc_id": "DOC-API-002",
+          "score": 0.37
         }
       ],
       "response_text": null,
@@ -3313,17 +3306,17 @@
         "summary_source": "extract",
         "predicted_intent": "rate_limit",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-001",
             "title": "Understanding API rate limits and quota tiers",
-            "score": 0.4534
+            "score": 0.3839
           },
           {
-            "doc_id": "DOC-API-002",
-            "title": "Pagination and handling large result sets",
-            "score": 0.37
+            "doc_id": "DOC-DATA-003",
+            "title": "Data residency and regional storage",
+            "score": 0.319
           },
           {
             "doc_id": "DOC-PERF-003",
@@ -3343,83 +3336,53 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "e0655c65-a961-4af1-84d4-2606d97ce087"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "0a0799d8-ddea-4afc-8dc5-e0b6c2fb5b8f"
     },
     {
       "ticket_id": "VAL-0048",
       "channel": "chat",
       "status": "ok",
       "decision": "escalate",
-      "reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-      "reason_code": "safety_intent",
-      "intent": "security_incident",
-      "urgency": "high",
-      "confidence": 0.99,
-      "classify_method": "knn",
-      "passages": [
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.5199
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "score": 0.5159
-        },
-        {
-          "doc_id": "DOC-INT-001",
-          "score": 0.382
-        },
-        {
-          "doc_id": "DOC-AUTH-001",
-          "score": 0.353
-        },
-        {
-          "doc_id": "DOC-AUTH-002",
-          "score": 0.3244
-        }
-      ],
+      "reason": "Security-related wording ('breach'): handled by a human regardless of classification.",
+      "reason_code": "safety_keyword",
+      "intent": null,
+      "urgency": null,
+      "confidence": null,
+      "classify_method": null,
+      "alternatives": [],
+      "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
         "summary": ". one of our engineers believes their credentials may have been exposed in breach at another service. What should we be doing right now? please tell what to do.",
         "summary_source": "extract",
-        "predicted_intent": "security_incident",
-        "predicted_urgency": "high",
-        "confidence": 0.99,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.5199
-          },
-          {
-            "doc_id": "DOC-SEC-002",
-            "title": "Handling exposed secrets and credential rotation",
-            "score": 0.5159
-          },
-          {
-            "doc_id": "DOC-INT-001",
-            "title": "Connecting continuous integration pipelines",
-            "score": 0.382
-          }
-        ],
-        "uncertainty_reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
+        "predicted_intent": null,
+        "predicted_urgency": null,
+        "confidence": null,
+        "retrieved_sources": [],
+        "uncertainty_reason": "Security-related wording ('breach'): handled by a human regardless of classification.",
         "tokens": 0
       },
-      "guardrails": null,
+      "guardrails": {
+        "security_language": {
+          "status": "block",
+          "matched": "breach",
+          "reason": "security-related wording: always handled by a human"
+        },
+        "blocked_by": [
+          "security_language"
+        ]
+      },
       "tokens": 0,
       "error": null,
       "stage_ms": {
-        "ingest": 0,
-        "classify": 5,
-        "retrieve": 6
+        "ingest": 0
       },
-      "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "e59e270c-5f59-4975-9159-fb644aa52d05"
+      "latency_ms": 0,
+      "threshold_applied": 0.85,
+      "decision_id": "98cc9a5a-3c77-4b93-8759-48b84a6f1923"
     },
     {
       "ticket_id": "VAL-0049",
@@ -3430,8 +3393,9 @@
       "reason_code": "provider_unavailable",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -3440,14 +3404,6 @@
         {
           "doc_id": "DOC-SEC-002",
           "score": 0.3703
-        },
-        {
-          "doc_id": "DOC-ACCT-001",
-          "score": 0.3302
-        },
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.3188
         }
       ],
       "response_text": null,
@@ -3457,7 +3413,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_key_issue",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-004",
@@ -3468,11 +3424,6 @@
             "doc_id": "DOC-SEC-002",
             "title": "Handling exposed secrets and credential rotation",
             "score": 0.3703
-          },
-          {
-            "doc_id": "DOC-ACCT-001",
-            "title": "Managing team members, roles and permissions",
-            "score": 0.3302
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -3483,13 +3434,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "f72f9874-a51a-4037-9bd9-70e2f8b715c8"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "3bad0ee9-8e04-4cd9-9af1-c67170c03bb5"
     },
     {
       "ticket_id": "VAL-0050",
@@ -3500,8 +3451,9 @@
       "reason_code": "provider_unavailable",
       "intent": "onboarding",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ONB-001",
@@ -3523,7 +3475,7 @@
         "summary_source": "extract",
         "predicted_intent": "onboarding",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ONB-001",
@@ -3549,13 +3501,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "f8ef7930-2cf0-45af-bfd5-2a9ff7556cc6"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "72eaf225-ee28-4681-a246-48166ef9a168"
     },
     {
       "ticket_id": "VAL-0051",
@@ -3566,20 +3518,21 @@
       "reason_code": "provider_unavailable",
       "intent": "integration_help",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-INT-002",
           "score": 0.6406
         },
         {
-          "doc_id": "DOC-AUTH-001",
-          "score": 0.37
-        },
-        {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.3285
+        },
+        {
+          "doc_id": "DOC-AUTH-001",
+          "score": 0.3042
         },
         {
           "doc_id": "DOC-SEC-003",
@@ -3597,7 +3550,7 @@
         "summary_source": "extract",
         "predicted_intent": "integration_help",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-INT-002",
@@ -3605,14 +3558,14 @@
             "score": 0.6406
           },
           {
-            "doc_id": "DOC-AUTH-001",
-            "title": "Resolving invalid credential errors on login",
-            "score": 0.37
-          },
-          {
             "doc_id": "DOC-DEPLOY-002",
             "title": "Rolling back a failed release",
             "score": 0.3285
+          },
+          {
+            "doc_id": "DOC-AUTH-001",
+            "title": "Resolving invalid credential errors on login",
+            "score": 0.3042
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -3623,13 +3576,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "3f32cf57-d407-459b-a264-a61cf9be0e85"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "f558b504-ca35-4cad-9030-069a6afede48"
     },
     {
       "ticket_id": "VAL-0052",
@@ -3640,12 +3593,13 @@
       "reason_code": "provider_unavailable",
       "intent": "authentication_failure",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-001",
-          "score": 0.4451
+          "score": 0.4292
         },
         {
           "doc_id": "DOC-SEC-001",
@@ -3671,12 +3625,12 @@
         "summary_source": "extract",
         "predicted_intent": "authentication_failure",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-001",
             "title": "Resolving invalid credential errors on login",
-            "score": 0.4451
+            "score": 0.4292
           },
           {
             "doc_id": "DOC-SEC-001",
@@ -3698,12 +3652,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 6,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "2a0f8bea-671b-40ca-87ee-48e7c5f19a27"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "291c6a5b-92fe-49b3-9b3a-f2e414573463"
     },
     {
       "ticket_id": "VAL-0053",
@@ -3714,8 +3668,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3737,7 +3692,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -3767,9 +3722,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "dfaa4c04-9c9c-4a2b-aa4e-7336357083ed"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "bbce1b20-e8d0-4e78-88a4-289aa830a348"
     },
     {
       "ticket_id": "VAL-0054",
@@ -3780,8 +3735,9 @@
       "reason_code": "provider_unavailable",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -3807,7 +3763,7 @@
         "summary_source": "extract",
         "predicted_intent": "data_residency",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-003",
@@ -3833,13 +3789,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "2deeee26-357b-4870-bd21-50cce1974c2d"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "ed441b6a-05e1-4386-b1cc-faf1c859dbe1"
     },
     {
       "ticket_id": "VAL-0055",
@@ -3850,16 +3806,13 @@
       "reason_code": "provider_unavailable",
       "intent": "integration_help",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-INT-001",
           "score": 0.6054
-        },
-        {
-          "doc_id": "DOC-AUTH-004",
-          "score": 0.3071
         }
       ],
       "response_text": null,
@@ -3869,17 +3822,12 @@
         "summary_source": "extract",
         "predicted_intent": "integration_help",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-INT-001",
             "title": "Connecting continuous integration pipelines",
             "score": 0.6054
-          },
-          {
-            "doc_id": "DOC-AUTH-004",
-            "title": "API key rotation and scope management",
-            "score": 0.3071
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -3890,13 +3838,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "fd00e8be-49c9-42d6-bb09-22157d983a6a"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "08d7b636-1fbc-42fd-af17-89931ed047cd"
     },
     {
       "ticket_id": "VAL-0056",
@@ -3907,8 +3855,9 @@
       "reason_code": "provider_unavailable",
       "intent": "deployment_failure",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -3928,7 +3877,7 @@
         },
         {
           "doc_id": "DOC-DEPLOY-002",
-          "score": 0.3668
+          "score": 0.306
         }
       ],
       "response_text": null,
@@ -3938,7 +3887,7 @@
         "summary_source": "extract",
         "predicted_intent": "deployment_failure",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-001",
@@ -3965,12 +3914,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "41df26ba-6f61-499f-9ee2-4677b4d7732a"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "8ddda0ca-144f-4f4e-b058-26d7d023e578"
     },
     {
       "ticket_id": "VAL-0057",
@@ -3981,24 +3930,25 @@
       "reason_code": "provider_unavailable",
       "intent": "deployment_failure",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-001",
           "score": 0.7858
         },
         {
-          "doc_id": "DOC-DEPLOY-002",
-          "score": 0.4728
-        },
-        {
           "doc_id": "DOC-ONB-001",
           "score": 0.4627
         },
         {
+          "doc_id": "DOC-DEPLOY-002",
+          "score": 0.4728
+        },
+        {
           "doc_id": "DOC-API-003",
-          "score": 0.3948
+          "score": 0.3909
         },
         {
           "doc_id": "DOC-INT-002",
@@ -4012,7 +3962,7 @@
         "summary_source": "extract",
         "predicted_intent": "deployment_failure",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-001",
@@ -4020,14 +3970,14 @@
             "score": 0.7858
           },
           {
-            "doc_id": "DOC-DEPLOY-002",
-            "title": "Rolling back a failed release",
-            "score": 0.4728
-          },
-          {
             "doc_id": "DOC-ONB-001",
             "title": "First deployment: a walkthrough",
             "score": 0.4627
+          },
+          {
+            "doc_id": "DOC-DEPLOY-002",
+            "title": "Rolling back a failed release",
+            "score": 0.4728
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -4038,13 +3988,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "7043c612-b955-4d12-9db0-87495c718564"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "99ae575e-ee01-4f24-bf6d-192c8cee0e4f"
     },
     {
       "ticket_id": "VAL-0058",
@@ -4055,8 +4005,9 @@
       "reason_code": "provider_unavailable",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -4086,7 +4037,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_key_issue",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-004",
@@ -4112,13 +4063,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "4b98b378-a7fc-4e9a-b368-eb581b12e659"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "9a3d7b42-ba9c-4a04-b0de-3c3a3009a38f"
     },
     {
       "ticket_id": "VAL-0059",
@@ -4129,8 +4080,9 @@
       "reason_code": "provider_unavailable",
       "intent": "configuration_help",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-004",
@@ -4141,12 +4093,12 @@
           "score": 0.6779
         },
         {
-          "doc_id": "DOC-INT-001",
-          "score": 0.3429
-        },
-        {
           "doc_id": "DOC-SEC-001",
           "score": 0.3166
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.3429
         },
         {
           "doc_id": "DOC-SEC-003",
@@ -4160,7 +4112,7 @@
         "summary_source": "extract",
         "predicted_intent": "configuration_help",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-004",
@@ -4173,9 +4125,9 @@
             "score": 0.6779
           },
           {
-            "doc_id": "DOC-INT-001",
-            "title": "Connecting continuous integration pipelines",
-            "score": 0.3429
+            "doc_id": "DOC-SEC-001",
+            "title": "Responding to a suspected account compromise",
+            "score": 0.3166
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -4186,13 +4138,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "4ef512da-c0f2-4ab8-af1e-e12958cb2cf1"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "f02a78b1-491d-4140-aa54-7abee00b25ce"
     },
     {
       "ticket_id": "VAL-0060",
@@ -4203,8 +4155,9 @@
       "reason_code": "provider_unavailable",
       "intent": "webhook_issue",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-003",
@@ -4212,15 +4165,15 @@
         },
         {
           "doc_id": "DOC-AUTH-003",
-          "score": 0.4065
-        },
-        {
-          "doc_id": "DOC-INT-001",
-          "score": 0.3452
+          "score": 0.3382
         },
         {
           "doc_id": "DOC-INT-002",
           "score": 0.3015
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.3452
         }
       ],
       "response_text": null,
@@ -4230,7 +4183,7 @@
         "summary_source": "extract",
         "predicted_intent": "webhook_issue",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-003",
@@ -4240,12 +4193,12 @@
           {
             "doc_id": "DOC-AUTH-003",
             "title": "Single sign-on configuration with SAML providers",
-            "score": 0.4065
+            "score": 0.3382
           },
           {
-            "doc_id": "DOC-INT-001",
-            "title": "Connecting continuous integration pipelines",
-            "score": 0.3452
+            "doc_id": "DOC-INT-002",
+            "title": "Third party monitoring and log forwarding",
+            "score": 0.3015
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -4257,12 +4210,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "8abb5a16-6da6-4bf5-b2e7-ff48c822961c"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "4205cb73-522d-41cb-b159-a7c8d083390f"
     },
     {
       "ticket_id": "VAL-0061",
@@ -4273,8 +4226,9 @@
       "reason_code": "provider_unavailable",
       "intent": "webhook_issue",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-003",
@@ -4282,15 +4236,15 @@
         },
         {
           "doc_id": "DOC-AUTH-003",
-          "score": 0.4065
-        },
-        {
-          "doc_id": "DOC-INT-001",
-          "score": 0.3452
+          "score": 0.3382
         },
         {
           "doc_id": "DOC-INT-002",
           "score": 0.3015
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.3452
         }
       ],
       "response_text": null,
@@ -4300,7 +4254,7 @@
         "summary_source": "extract",
         "predicted_intent": "webhook_issue",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-003",
@@ -4310,12 +4264,12 @@
           {
             "doc_id": "DOC-AUTH-003",
             "title": "Single sign-on configuration with SAML providers",
-            "score": 0.4065
+            "score": 0.3382
           },
           {
-            "doc_id": "DOC-INT-001",
-            "title": "Connecting continuous integration pipelines",
-            "score": 0.3452
+            "doc_id": "DOC-INT-002",
+            "title": "Third party monitoring and log forwarding",
+            "score": 0.3015
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -4327,12 +4281,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "cfa47b58-4c00-4ac3-a029-25a601979917"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "0037cbce-c377-4910-adc4-5858fbb2ee02"
     },
     {
       "ticket_id": "VAL-0062",
@@ -4343,8 +4297,9 @@
       "reason_code": "provider_unavailable",
       "intent": "integration_help",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-INT-002",
@@ -4355,16 +4310,16 @@
           "score": 0.4921
         },
         {
-          "doc_id": "DOC-DEPLOY-001",
-          "score": 0.3459
-        },
-        {
           "doc_id": "DOC-SEC-003",
           "score": 0.3397
         },
         {
-          "doc_id": "DOC-DATA-001",
-          "score": 0.3378
+          "doc_id": "DOC-DEPLOY-002",
+          "score": 0.3177
+        },
+        {
+          "doc_id": "DOC-DEPLOY-001",
+          "score": 0.3459
         }
       ],
       "response_text": null,
@@ -4374,7 +4329,7 @@
         "summary_source": "extract",
         "predicted_intent": "integration_help",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-INT-002",
@@ -4387,9 +4342,9 @@
             "score": 0.4921
           },
           {
-            "doc_id": "DOC-DEPLOY-001",
-            "title": "Container deployments failing during the health check phase",
-            "score": 0.3459
+            "doc_id": "DOC-SEC-003",
+            "title": "Audit logging and compliance evidence",
+            "score": 0.3397
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -4401,12 +4356,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "0ff78771-b83d-427c-9a3c-a3931221aa60"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "ad1f0293-0481-4b6a-99b9-0a54a3e7966b"
     },
     {
       "ticket_id": "VAL-0063",
@@ -4417,8 +4372,9 @@
       "reason_code": "provider_unavailable",
       "intent": "account_access",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -4427,10 +4383,6 @@
         {
           "doc_id": "DOC-SEC-002",
           "score": 0.3207
-        },
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.3163
         }
       ],
       "response_text": null,
@@ -4440,7 +4392,7 @@
         "summary_source": "extract",
         "predicted_intent": "account_access",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ACCT-001",
@@ -4451,11 +4403,6 @@
             "doc_id": "DOC-SEC-002",
             "title": "Handling exposed secrets and credential rotation",
             "score": 0.3207
-          },
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.3163
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -4466,13 +4413,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "6ce4fb9b-fd08-4fbc-b356-c7d0f08ab924"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "6750b468-a500-440a-ba1a-cf9d46d52ab5"
     },
     {
       "ticket_id": "VAL-0064",
@@ -4483,8 +4430,9 @@
       "reason_code": "provider_unavailable",
       "intent": "api_usage_question",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-002",
@@ -4506,7 +4454,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_usage_question",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-002",
@@ -4533,12 +4481,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "501e606e-8620-4300-be69-5f53fc3db069"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "b2a34f18-edae-4a40-b845-8bf056a8d825"
     },
     {
       "ticket_id": "VAL-0065",
@@ -4549,8 +4497,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -4565,12 +4514,12 @@
           "score": 0.3949
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.3199
-        },
-        {
           "doc_id": "DOC-ACCT-002",
           "score": 0.3017
+        },
+        {
+          "doc_id": "DOC-API-001",
+          "score": 0.3199
         }
       ],
       "response_text": null,
@@ -4580,7 +4529,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -4610,9 +4559,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "b98eacbd-96a4-4d3c-a542-3efe5034e112"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "9875e2ea-9e32-4421-8f23-3ed1c514a99f"
     },
     {
       "ticket_id": "VAL-0066",
@@ -4623,8 +4572,9 @@
       "reason_code": "provider_unavailable",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -4639,12 +4589,12 @@
           "score": 0.3593
         },
         {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.3349
-        },
-        {
           "doc_id": "DOC-DATA-001",
           "score": 0.3291
+        },
+        {
+          "doc_id": "DOC-SEC-003",
+          "score": 0.3349
         }
       ],
       "response_text": null,
@@ -4654,7 +4604,7 @@
         "summary_source": "extract",
         "predicted_intent": "data_residency",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-003",
@@ -4680,161 +4630,101 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "696a6326-4503-482a-b482-8de5c0d78845"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "1bc75377-7ab1-42ee-bf7d-88454d4cea47"
     },
     {
       "ticket_id": "VAL-0067",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "escalate",
-      "reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-      "reason_code": "safety_intent",
-      "intent": "security_incident",
-      "urgency": "high",
-      "confidence": 0.99,
-      "classify_method": "knn",
-      "passages": [
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.6777
-        },
-        {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.4712
-        },
-        {
-          "doc_id": "DOC-DATA-001",
-          "score": 0.4131
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "score": 0.3913
-        },
-        {
-          "doc_id": "DOC-DEPLOY-004",
-          "score": 0.3489
-        }
-      ],
+      "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+      "reason_code": "safety_keyword",
+      "intent": null,
+      "urgency": null,
+      "confidence": null,
+      "classify_method": null,
+      "alternatives": [],
+      "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
         "summary": "Suspicious activity in audit log. We have found activity in our audit log from an address none of us recognise, going back to yesterday morning. Resources were created that nobody on the team claims. We need help urgently.",
         "summary_source": "extract",
-        "predicted_intent": "security_incident",
-        "predicted_urgency": "high",
-        "confidence": 0.99,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.6777
-          },
-          {
-            "doc_id": "DOC-SEC-003",
-            "title": "Audit logging and compliance evidence",
-            "score": 0.4712
-          },
-          {
-            "doc_id": "DOC-DATA-001",
-            "title": "Exporting account data and scheduled extracts",
-            "score": 0.4131
-          }
-        ],
-        "uncertainty_reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
+        "predicted_intent": null,
+        "predicted_urgency": null,
+        "confidence": null,
+        "retrieved_sources": [],
+        "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
         "tokens": 0
       },
-      "guardrails": null,
+      "guardrails": {
+        "security_language": {
+          "status": "block",
+          "matched": "suspicious",
+          "reason": "security-related wording: always handled by a human"
+        },
+        "blocked_by": [
+          "security_language"
+        ]
+      },
       "tokens": 0,
       "error": null,
       "stage_ms": {
-        "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "ingest": 0
       },
-      "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "1c336ad1-7d22-40d3-9c7f-2e40c2bb5cb4"
+      "latency_ms": 0,
+      "threshold_applied": 0.85,
+      "decision_id": "e43b41b3-3287-426d-bae7-7dc8213f3895"
     },
     {
       "ticket_id": "VAL-0068",
       "channel": "email",
       "status": "ok",
       "decision": "escalate",
-      "reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-      "reason_code": "safety_intent",
-      "intent": "security_incident",
-      "urgency": "high",
-      "confidence": 0.99,
-      "classify_method": "knn",
-      "passages": [
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.6957
-        },
-        {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.4733
-        },
-        {
-          "doc_id": "DOC-DATA-001",
-          "score": 0.4225
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "score": 0.3901
-        },
-        {
-          "doc_id": "DOC-INT-002",
-          "score": 0.3823
-        }
-      ],
+      "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+      "reason_code": "safety_keyword",
+      "intent": null,
+      "urgency": null,
+      "confidence": null,
+      "classify_method": null,
+      "alternatives": [],
+      "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
         "summary": "Suspicious activity in audit log. we having found activity in our audit log from address none of us recognise, going back to around 14:00 yesterday. Resources created that nobody on the team claims.",
         "summary_source": "extract",
-        "predicted_intent": "security_incident",
-        "predicted_urgency": "high",
-        "confidence": 0.99,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.6957
-          },
-          {
-            "doc_id": "DOC-SEC-003",
-            "title": "Audit logging and compliance evidence",
-            "score": 0.4733
-          },
-          {
-            "doc_id": "DOC-DATA-001",
-            "title": "Exporting account data and scheduled extracts",
-            "score": 0.4225
-          }
-        ],
-        "uncertainty_reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
+        "predicted_intent": null,
+        "predicted_urgency": null,
+        "confidence": null,
+        "retrieved_sources": [],
+        "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
         "tokens": 0
       },
-      "guardrails": null,
+      "guardrails": {
+        "security_language": {
+          "status": "block",
+          "matched": "suspicious",
+          "reason": "security-related wording: always handled by a human"
+        },
+        "blocked_by": [
+          "security_language"
+        ]
+      },
       "tokens": 0,
       "error": null,
       "stage_ms": {
-        "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "ingest": 0
       },
-      "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "470a4b63-e6de-4c66-b9ac-6862582c7645"
+      "latency_ms": 0,
+      "threshold_applied": 0.85,
+      "decision_id": "455aeb07-eb24-402a-a7f7-f11fdd67ff03"
     },
     {
       "ticket_id": "VAL-0069",
@@ -4845,8 +4735,9 @@
       "reason_code": "provider_unavailable",
       "intent": "configuration_help",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-004",
@@ -4866,7 +4757,7 @@
         },
         {
           "doc_id": "DOC-BILL-003",
-          "score": 0.3281
+          "score": 0.32
         }
       ],
       "response_text": null,
@@ -4876,7 +4767,7 @@
         "summary_source": "extract",
         "predicted_intent": "configuration_help",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-004",
@@ -4903,12 +4794,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "b78ecaa5-dd5b-4be7-a61c-e31c47237c8e"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "85a88dc3-6797-487f-824a-698307ea555c"
     },
     {
       "ticket_id": "VAL-0070",
@@ -4919,28 +4810,29 @@
       "reason_code": "provider_unavailable",
       "intent": "sso_configuration",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-003",
           "score": 0.6457
         },
         {
-          "doc_id": "DOC-AUTH-002",
-          "score": 0.4034
-        },
-        {
           "doc_id": "DOC-AUTH-001",
           "score": 0.3322
+        },
+        {
+          "doc_id": "DOC-AUTH-002",
+          "score": 0.3514
         },
         {
           "doc_id": "DOC-ACCT-001",
           "score": 0.3322
         },
         {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.3274
+          "doc_id": "DOC-ACCT-002",
+          "score": 0.3169
         }
       ],
       "response_text": null,
@@ -4950,7 +4842,7 @@
         "summary_source": "extract",
         "predicted_intent": "sso_configuration",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-003",
@@ -4958,14 +4850,14 @@
             "score": 0.6457
           },
           {
-            "doc_id": "DOC-AUTH-002",
-            "title": "Multi-factor authentication setup and recovery",
-            "score": 0.4034
-          },
-          {
             "doc_id": "DOC-AUTH-001",
             "title": "Resolving invalid credential errors on login",
             "score": 0.3322
+          },
+          {
+            "doc_id": "DOC-AUTH-002",
+            "title": "Multi-factor authentication setup and recovery",
+            "score": 0.3514
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -4977,12 +4869,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 6,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "ffd9ccec-1eee-486a-9bcc-65b3edf0290d"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "d5e808c3-6194-4968-9659-2f7de7576557"
     },
     {
       "ticket_id": "VAL-0071",
@@ -4993,8 +4885,9 @@
       "reason_code": "provider_unavailable",
       "intent": "quota_or_overage",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-003",
@@ -5020,7 +4913,7 @@
         "summary_source": "extract",
         "predicted_intent": "quota_or_overage",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-003",
@@ -5046,13 +4939,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "0931a4a1-0fa0-4fc9-8bec-6e82a8de6c22"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "81fe8fca-d8c9-4589-94ad-73b22fbcab2d"
     },
     {
       "ticket_id": "VAL-0072",
@@ -5063,8 +4956,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -5090,7 +4984,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -5116,13 +5010,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "f96d36c5-9187-4c75-b0fe-3b496609bdfd"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "dfa94492-184c-41af-9255-2d5f824bf044"
     },
     {
       "ticket_id": "VAL-0073",
@@ -5133,8 +5027,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -5143,10 +5038,6 @@
         {
           "doc_id": "DOC-BILL-002",
           "score": 0.4248
-        },
-        {
-          "doc_id": "DOC-BILL-003",
-          "score": 0.3394
         },
         {
           "doc_id": "DOC-API-001",
@@ -5160,7 +5051,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -5173,9 +5064,9 @@
             "score": 0.4248
           },
           {
-            "doc_id": "DOC-BILL-003",
-            "title": "Usage limits, overage and spend controls",
-            "score": 0.3394
+            "doc_id": "DOC-API-001",
+            "title": "Understanding API rate limits and quota tiers",
+            "score": 0.3194
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -5190,9 +5081,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "772c5c44-229f-46f6-9e81-58e296d339d9"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "d9aa72b5-ecd9-4fcf-9d90-20138dfe0e9d"
     },
     {
       "ticket_id": "VAL-0074",
@@ -5203,8 +5094,9 @@
       "reason_code": "provider_unavailable",
       "intent": "account_access",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -5226,7 +5118,7 @@
         "summary_source": "extract",
         "predicted_intent": "account_access",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ACCT-001",
@@ -5253,12 +5145,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "f65da23c-6b0b-4e87-b552-934c51a7aa15"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "bfa8bc2e-85e4-40b0-b647-2a199934af87"
     },
     {
       "ticket_id": "VAL-0075",
@@ -5269,28 +5161,29 @@
       "reason_code": "provider_unavailable",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
           "score": 0.6163
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.4556
-        },
-        {
           "doc_id": "DOC-SEC-001",
           "score": 0.4237
         },
         {
-          "doc_id": "DOC-INT-001",
-          "score": 0.3136
+          "doc_id": "DOC-API-001",
+          "score": 0.4556
         },
         {
           "doc_id": "DOC-ACCT-001",
-          "score": 0.3118
+          "score": 0.303
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.3136
         }
       ],
       "response_text": null,
@@ -5300,7 +5193,7 @@
         "summary_source": "extract",
         "predicted_intent": "api_key_issue",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-AUTH-004",
@@ -5308,14 +5201,14 @@
             "score": 0.6163
           },
           {
-            "doc_id": "DOC-API-001",
-            "title": "Understanding API rate limits and quota tiers",
-            "score": 0.4556
-          },
-          {
             "doc_id": "DOC-SEC-001",
             "title": "Responding to a suspected account compromise",
             "score": 0.4237
+          },
+          {
+            "doc_id": "DOC-API-001",
+            "title": "Understanding API rate limits and quota tiers",
+            "score": 0.4556
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -5330,9 +5223,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "b6583436-3a64-47bb-ac64-d7c58082f79e"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "fb1968b5-fda5-40cf-9224-00ad7dc325cb"
     },
     {
       "ticket_id": "VAL-0076",
@@ -5343,8 +5236,9 @@
       "reason_code": "provider_unavailable",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -5366,7 +5260,7 @@
         "summary_source": "extract",
         "predicted_intent": "data_residency",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-003",
@@ -5393,12 +5287,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 6,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
-      "threshold_applied": 0.8,
-      "decision_id": "76dbffca-d2fb-4a9e-b74c-2371fe6a095f"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "093be7f9-6a58-441e-ab2e-d9d650d85f22"
     },
     {
       "ticket_id": "VAL-0077",
@@ -5409,8 +5303,9 @@
       "reason_code": "provider_unavailable",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -5432,7 +5327,7 @@
         "summary_source": "extract",
         "predicted_intent": "billing_query",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-001",
@@ -5462,9 +5357,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "365f30c6-6dda-4050-8332-e2d66cb944ba"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "012947ef-60b1-41c6-946f-45c7add9b79d"
     },
     {
       "ticket_id": "VAL-0078",
@@ -5475,8 +5370,9 @@
       "reason_code": "provider_unavailable",
       "intent": "database_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-PERF-003",
@@ -5491,12 +5387,12 @@
           "score": 0.3839
         },
         {
-          "doc_id": "DOC-PERF-001",
-          "score": 0.351
-        },
-        {
           "doc_id": "DOC-DEPLOY-001",
           "score": 0.3386
+        },
+        {
+          "doc_id": "DOC-PERF-001",
+          "score": 0.351
         }
       ],
       "response_text": null,
@@ -5506,7 +5402,7 @@
         "summary_source": "extract",
         "predicted_intent": "database_issue",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-PERF-003",
@@ -5533,12 +5429,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 5
+        "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
-      "threshold_applied": 0.8,
-      "decision_id": "551fb81f-3d4d-4402-a7f2-f1f35019d02b"
+      "latency_ms": 13,
+      "threshold_applied": 0.85,
+      "decision_id": "236da099-4382-42a6-9628-ea83eea26c66"
     },
     {
       "ticket_id": "VAL-0079",
@@ -5549,28 +5445,29 @@
       "reason_code": "provider_unavailable",
       "intent": "data_residency",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
           "score": 0.5973
         },
         {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.3534
+          "doc_id": "DOC-DATA-002",
+          "score": 0.3407
         },
         {
           "doc_id": "DOC-DATA-001",
           "score": 0.3504
         },
         {
-          "doc_id": "DOC-DATA-002",
-          "score": 0.3407
-        },
-        {
           "doc_id": "DOC-ONB-002",
           "score": 0.3019
+        },
+        {
+          "doc_id": "DOC-SEC-003",
+          "score": 0.3534
         }
       ],
       "response_text": null,
@@ -5580,7 +5477,7 @@
         "summary_source": "extract",
         "predicted_intent": "data_residency",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-003",
@@ -5588,9 +5485,9 @@
             "score": 0.5973
           },
           {
-            "doc_id": "DOC-SEC-003",
-            "title": "Audit logging and compliance evidence",
-            "score": 0.3534
+            "doc_id": "DOC-DATA-002",
+            "title": "Backups, retention and point-in-time restore",
+            "score": 0.3407
           },
           {
             "doc_id": "DOC-DATA-001",
@@ -5607,12 +5504,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 6,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "e3a63cb5-6556-4fed-b8de-f8e2996ea878"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "6348c985-6569-492e-8106-b43f08c12f47"
     },
     {
       "ticket_id": "VAL-0080",
@@ -5623,16 +5520,13 @@
       "reason_code": "provider_unavailable",
       "intent": "deployment_failure",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-003",
           "score": 0.7538
-        },
-        {
-          "doc_id": "DOC-ONB-001",
-          "score": 0.6117
         },
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -5641,6 +5535,10 @@
         {
           "doc_id": "DOC-DEPLOY-001",
           "score": 0.3163
+        },
+        {
+          "doc_id": "DOC-ONB-001",
+          "score": 0.3225
         }
       ],
       "response_text": null,
@@ -5650,7 +5548,7 @@
         "summary_source": "extract",
         "predicted_intent": "deployment_failure",
         "predicted_urgency": "high",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-003",
@@ -5658,14 +5556,14 @@
             "score": 0.7538
           },
           {
-            "doc_id": "DOC-ONB-001",
-            "title": "First deployment: a walkthrough",
-            "score": 0.6117
-          },
-          {
             "doc_id": "DOC-DEPLOY-002",
             "title": "Rolling back a failed release",
             "score": 0.4243
+          },
+          {
+            "doc_id": "DOC-DEPLOY-001",
+            "title": "Container deployments failing during the health check phase",
+            "score": 0.3163
           }
         ],
         "uncertainty_reason": "The model provider was unavailable, so the ticket goes to a human.",
@@ -5676,13 +5574,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
-        "retrieve": 6
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
-      "threshold_applied": 0.8,
-      "decision_id": "81684633-959f-4880-a847-5b99eeb6f56c"
+      "latency_ms": 14,
+      "threshold_applied": 0.85,
+      "decision_id": "c4f2167d-af2b-4b69-b6ad-6f6d8ef5dafb"
     }
   ]
 }

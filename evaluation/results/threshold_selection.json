@@ -1,0 +1,90 @@
+{
+ "rule": "lowest threshold with intent accuracy of auto-answered >= 99%",
+ "chosen": 0.85,
+ "ece_pp": 0.28,
+ "reliability": [
+  {
+   "band": "0.8-0.9",
+   "n": 79,
+   "stated": 0.874,
+   "observed": 0.861
+  },
+  {
+   "band": "0.97-1.0",
+   "n": 1421,
+   "stated": 0.994,
+   "observed": 0.996
+  }
+ ],
+ "sweep": [
+  {
+   "threshold": 0.5,
+   "auto_rate": 1.0,
+   "intent_accuracy_of_auto": 0.9887,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  },
+  {
+   "threshold": 0.6,
+   "auto_rate": 1.0,
+   "intent_accuracy_of_auto": 0.9887,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  },
+  {
+   "threshold": 0.7,
+   "auto_rate": 1.0,
+   "intent_accuracy_of_auto": 0.9887,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  },
+  {
+   "threshold": 0.75,
+   "auto_rate": 1.0,
+   "intent_accuracy_of_auto": 0.9887,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  },
+  {
+   "threshold": 0.8,
+   "auto_rate": 1.0,
+   "intent_accuracy_of_auto": 0.9887,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  },
+  {
+   "threshold": 0.85,
+   "auto_rate": 0.994,
+   "intent_accuracy_of_auto": 0.9913,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  },
+  {
+   "threshold": 0.9,
+   "auto_rate": 0.9473,
+   "intent_accuracy_of_auto": 0.9958,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  },
+  {
+   "threshold": 0.95,
+   "auto_rate": 0.9473,
+   "intent_accuracy_of_auto": 0.9958,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  },
+  {
+   "threshold": 0.99,
+   "auto_rate": 0.94,
+   "intent_accuracy_of_auto": 0.9957,
+   "restricted_leaks": 6,
+   "restricted_leak_rate": 0.023
+  }
+ ],
+ "samples": 1500,
+ "caps": [
+  0.97,
+  0.9,
+  0.85
+ ]
+}

@@ -1,0 +1,377 @@
+{
+  "run": "evaluation/results/dev_run_novel090.json",
+  "n": 500,
+  "target_gap_pp": 5.0,
+  "segments": {
+    "customer_tier": {
+      "best_segment": "business",
+      "groups": {
+        "business": {
+          "n": 164,
+          "low_n": false,
+          "auto_rate": 0.7805,
+          "resolution_rate": 0.6402,
+          "false_auto_rate": 0.1402,
+          "quality_hit_at_1": 0.8537,
+          "quality_n": 123,
+          "route_accuracy": 0.8537,
+          "route_ci95": [
+            0.7915,
+            0.8996
+          ],
+          "gap_pp": 0.0,
+          "p_vs_best": 1.0,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 7.9,
+          "quality_p_vs_best": 0.1281,
+          "quality_finding": false
+        },
+        "enterprise": {
+          "n": 83,
+          "low_n": false,
+          "auto_rate": 0.759,
+          "resolution_rate": 0.5301,
+          "false_auto_rate": 0.2289,
+          "quality_hit_at_1": 0.9322,
+          "quality_n": 59,
+          "route_accuracy": 0.6867,
+          "route_ci95": [
+            0.5806,
+            0.7764
+          ],
+          "gap_pp": 16.7,
+          "p_vs_best": 0.002,
+          "significant": true,
+          "finding": true,
+          "suggestive": false,
+          "quality_gap_pp": 0.0,
+          "quality_p_vs_best": 1.0,
+          "quality_finding": false
+        },
+        "standard": {
+          "n": 253,
+          "low_n": false,
+          "auto_rate": 0.747,
+          "resolution_rate": 0.5494,
+          "false_auto_rate": 0.1976,
+          "quality_hit_at_1": 0.8686,
+          "quality_n": 175,
+          "route_accuracy": 0.7431,
+          "route_ci95": [
+            0.6859,
+            0.793
+          ],
+          "gap_pp": 11.1,
+          "p_vs_best": 0.0071,
+          "significant": true,
+          "finding": true,
+          "suggestive": false,
+          "quality_gap_pp": 6.4,
+          "quality_p_vs_best": 0.1858,
+          "quality_finding": false
+        }
+      },
+      "all_segments_low_n": false,
+      "max_gap_pp_route_accuracy": 16.7,
+      "max_gap_pp_auto_rate": 3.3
+    },
+    "language_fluency": {
+      "best_segment": "non_fluent",
+      "groups": {
+        "fluent": {
+          "n": 380,
+          "low_n": false,
+          "auto_rate": 0.7711,
+          "resolution_rate": 0.5711,
+          "false_auto_rate": 0.2,
+          "quality_hit_at_1": 0.8926,
+          "quality_n": 270,
+          "route_accuracy": 0.7632,
+          "route_ci95": [
+            0.7179,
+            0.8031
+          ],
+          "gap_pp": 2.8,
+          "p_vs_best": 0.5177,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 0.0,
+          "quality_p_vs_best": 1.0,
+          "quality_finding": false
+        },
+        "non_fluent": {
+          "n": 120,
+          "low_n": false,
+          "auto_rate": 0.725,
+          "resolution_rate": 0.5917,
+          "false_auto_rate": 0.1333,
+          "quality_hit_at_1": 0.8161,
+          "quality_n": 87,
+          "route_accuracy": 0.7917,
+          "route_ci95": [
+            0.7105,
+            0.8547
+          ],
+          "gap_pp": 0.0,
+          "p_vs_best": 1.0,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 7.6,
+          "quality_p_vs_best": 0.0615,
+          "quality_finding": false
+        }
+      },
+      "all_segments_low_n": false,
+      "max_gap_pp_route_accuracy": 2.8,
+      "max_gap_pp_auto_rate": 4.6
+    },
+    "ticket_length": {
+      "best_segment": "short (<= 28 words)",
+      "groups": {
+        "long (> 28 words)": {
+          "n": 227,
+          "low_n": false,
+          "auto_rate": 0.8062,
+          "resolution_rate": 0.5947,
+          "false_auto_rate": 0.2115,
+          "quality_hit_at_1": 0.8957,
+          "quality_n": 163,
+          "route_accuracy": 0.7621,
+          "route_ci95": [
+            0.7027,
+            0.8129
+          ],
+          "gap_pp": 1.4,
+          "p_vs_best": 0.7024,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 0.0,
+          "quality_p_vs_best": 1.0,
+          "quality_finding": false
+        },
+        "short (<= 28 words)": {
+          "n": 273,
+          "low_n": false,
+          "auto_rate": 0.7216,
+          "resolution_rate": 0.5604,
+          "false_auto_rate": 0.1612,
+          "quality_hit_at_1": 0.8557,
+          "quality_n": 194,
+          "route_accuracy": 0.7766,
+          "route_ci95": [
+            0.7235,
+            0.8219
+          ],
+          "gap_pp": 0.0,
+          "p_vs_best": 1.0,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 4.0,
+          "quality_p_vs_best": 0.2563,
+          "quality_finding": false
+        }
+      },
+      "all_segments_low_n": false,
+      "max_gap_pp_route_accuracy": 1.4,
+      "max_gap_pp_auto_rate": 8.5
+    },
+    "region": {
+      "best_segment": "north_america",
+      "groups": {
+        "asia_pacific": {
+          "n": 119,
+          "low_n": false,
+          "auto_rate": 0.7059,
+          "resolution_rate": 0.479,
+          "false_auto_rate": 0.2269,
+          "quality_hit_at_1": 0.8947,
+          "quality_n": 76,
+          "route_accuracy": 0.7143,
+          "route_ci95": [
+            0.6274,
+            0.7878
+          ],
+          "gap_pp": 8.0,
+          "p_vs_best": 0.1172,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 0.0,
+          "quality_p_vs_best": 1.0,
+          "quality_finding": false
+        },
+        "europe": {
+          "n": 151,
+          "low_n": false,
+          "auto_rate": 0.7616,
+          "resolution_rate": 0.6159,
+          "false_auto_rate": 0.1457,
+          "quality_hit_at_1": 0.8609,
+          "quality_n": 115,
+          "route_accuracy": 0.7881,
+          "route_ci95": [
+            0.7162,
+            0.8457
+          ],
+          "gap_pp": 0.6,
+          "p_vs_best": 0.8943,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 3.4,
+          "quality_p_vs_best": 0.4895,
+          "quality_finding": false
+        },
+        "latin_america": {
+          "n": 60,
+          "low_n": false,
+          "auto_rate": 0.85,
+          "resolution_rate": 0.6333,
+          "false_auto_rate": 0.2167,
+          "quality_hit_at_1": 0.8837,
+          "quality_n": 43,
+          "route_accuracy": 0.7667,
+          "route_ci95": [
+            0.6456,
+            0.8556
+          ],
+          "gap_pp": 2.7,
+          "p_vs_best": 0.6553,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 1.1,
+          "quality_p_vs_best": 0.8532,
+          "quality_finding": false
+        },
+        "north_america": {
+          "n": 170,
+          "low_n": false,
+          "auto_rate": 0.7647,
+          "resolution_rate": 0.5882,
+          "false_auto_rate": 0.1765,
+          "quality_hit_at_1": 0.8699,
+          "quality_n": 123,
+          "route_accuracy": 0.7941,
+          "route_ci95": [
+            0.7272,
+            0.8481
+          ],
+          "gap_pp": 0.0,
+          "p_vs_best": 1.0,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 2.5,
+          "quality_p_vs_best": 0.6015,
+          "quality_finding": false
+        }
+      },
+      "all_segments_low_n": false,
+      "max_gap_pp_route_accuracy": 8.0,
+      "max_gap_pp_auto_rate": 14.4
+    },
+    "channel": {
+      "best_segment": "email",
+      "groups": {
+        "chat": {
+          "n": 155,
+          "low_n": false,
+          "auto_rate": 0.8129,
+          "resolution_rate": 0.6323,
+          "false_auto_rate": 0.1806,
+          "quality_hit_at_1": 0.8908,
+          "quality_n": 119,
+          "route_accuracy": 0.7742,
+          "route_ci95": [
+            0.7022,
+            0.8329
+          ],
+          "gap_pp": 0.9,
+          "p_vs_best": 0.8404,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 4.7,
+          "quality_p_vs_best": 0.353,
+          "quality_finding": false
+        },
+        "docs_comment": {
+          "n": 78,
+          "low_n": false,
+          "auto_rate": 0.6923,
+          "resolution_rate": 0.4744,
+          "false_auto_rate": 0.2179,
+          "quality_hit_at_1": 0.9375,
+          "quality_n": 48,
+          "route_accuracy": 0.7308,
+          "route_ci95": [
+            0.6232,
+            0.8166
+          ],
+          "gap_pp": 5.2,
+          "p_vs_best": 0.3492,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 0.0,
+          "quality_p_vs_best": 1.0,
+          "quality_finding": false
+        },
+        "email": {
+          "n": 212,
+          "low_n": false,
+          "auto_rate": 0.7311,
+          "resolution_rate": 0.5708,
+          "false_auto_rate": 0.1604,
+          "quality_hit_at_1": 0.8431,
+          "quality_n": 153,
+          "route_accuracy": 0.783,
+          "route_ci95": [
+            0.7228,
+            0.8332
+          ],
+          "gap_pp": 0.0,
+          "p_vs_best": 1.0,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 9.4,
+          "quality_p_vs_best": 0.0944,
+          "quality_finding": false
+        },
+        "forum": {
+          "n": 55,
+          "low_n": false,
+          "auto_rate": 0.8182,
+          "resolution_rate": 0.5818,
+          "false_auto_rate": 0.2364,
+          "quality_hit_at_1": 0.8649,
+          "quality_n": 37,
+          "route_accuracy": 0.7636,
+          "route_ci95": [
+            0.6365,
+            0.8563
+          ],
+          "gap_pp": 1.9,
+          "p_vs_best": 0.7575,
+          "significant": false,
+          "finding": false,
+          "suggestive": false,
+          "quality_gap_pp": 7.3,
+          "quality_p_vs_best": 0.2555,
+          "quality_finding": false
+        }
+      },
+      "all_segments_low_n": false,
+      "max_gap_pp_route_accuracy": 5.2,
+      "max_gap_pp_auto_rate": 12.6
+    }
+  }
+}

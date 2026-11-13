@@ -73,6 +73,23 @@ def init_db() -> None:
                 language_fluency TEXT
             )"""
         )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS feedback (
+                feedback_id TEXT PRIMARY KEY,
+                timestamp TEXT NOT NULL,
+                ticket_id TEXT NOT NULL,
+                decision_id TEXT,
+                original_decision TEXT,
+                original_intent TEXT,
+                corrected_intent TEXT,
+                corrected_urgency TEXT,
+                corrected_route TEXT,
+                resolved INTEGER,
+                note TEXT,
+                applied_to_index INTEGER DEFAULT 0
+            )"""
+        )
 
 
 def log_decision(decision: dict) -> str:
@@ -167,3 +184,28 @@ def count_resolutions(run_id: Optional[str] = None) -> int:
         if run_id:
             return int(conn.execute("SELECT COUNT(*) FROM resolution_records WHERE run_id = ?", (run_id,)).fetchone()[0])
         return int(conn.execute("SELECT COUNT(*) FROM resolution_records").fetchone()[0])
+
+
+def log_feedback(fb: dict) -> str:
+    init_db()
+    fid = str(uuid.uuid4())
+    with _connect() as conn:
+        conn.execute(
+            "INSERT INTO feedback VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            (fid, datetime.now(timezone.utc).isoformat(), fb["ticket_id"], fb.get("decision_id"), fb.get("original_decision"),
+             fb.get("original_intent"), fb.get("corrected_intent"), fb.get("corrected_urgency"), fb.get("corrected_route"),
+             None if fb.get("resolved") is None else int(bool(fb["resolved"])), (fb.get("note") or "")[:500],
+             int(bool(fb.get("applied_to_index")))))
+    return fid
+
+
+def feedback_summary() -> dict:
+    init_db()
+    with _connect() as conn:
+        q = lambda sql: conn.execute(sql).fetchone()[0]
+        return {"total": q("SELECT COUNT(*) FROM feedback"),
+                "intent_corrections": q("SELECT COUNT(*) FROM feedback WHERE corrected_intent IS NOT NULL AND corrected_intent != COALESCE(original_intent,'')"),
+                "route_corrections": q("SELECT COUNT(*) FROM feedback WHERE corrected_route IS NOT NULL AND corrected_route != COALESCE(original_decision,'')"),
+                "applied_to_index": q("SELECT COUNT(*) FROM feedback WHERE applied_to_index = 1"),
+                "auto_replies_humans_say_should_escalate": q("SELECT COUNT(*) FROM feedback WHERE original_decision='auto_respond' AND corrected_route='escalate'")}
+

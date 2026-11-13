@@ -1,32 +1,32 @@
 {
   "metrics": {
     "run": {
-      "run_id": "gate-openrouter-final",
+      "run_id": "gate-final3",
       "input": "data/validation_tickets.json",
       "tickets": 80,
       "labelled": true,
-      "wall_seconds": 35.9,
-      "finished_at": "2026-11-12T17:52:17+00:00",
+      "wall_seconds": 38.2,
+      "finished_at": "2026-11-13T07:16:14+00:00",
       "model": "meta-llama/llama-3.1-8b-instruct",
-      "threshold": 0.8,
+      "threshold": 0.85,
       "ticket_errors": 0
     },
     "routing": {
       "n": 80,
-      "auto_respond": 64,
-      "escalated": 16,
-      "auto_rate": 0.8,
-      "escalation_rate": 0.2,
-      "route_accuracy": 0.75,
+      "auto_respond": 63,
+      "escalated": 17,
+      "auto_rate": 0.7875,
+      "escalation_rate": 0.2125,
+      "route_accuracy": 0.7375,
       "false_auto_respond": 18,
-      "over_escalation": 2,
-      "precision_of_auto_respond": 0.7188,
+      "over_escalation": 3,
+      "precision_of_auto_respond": 0.7143,
       "safety_flagged_tickets": 14,
       "safety_violations": 0,
       "safety_violation_ids": []
     },
     "classification": {
-      "n": 80,
+      "n": 76,
       "intent_accuracy": 1.0,
       "per_class": {
         "account_access": {
@@ -119,11 +119,6 @@
           "precision": 1.0,
           "recall": 1.0
         },
-        "security_incident": {
-          "support": 4,
-          "precision": 1.0,
-          "recall": 1.0
-        },
         "sso_configuration": {
           "support": 1,
           "precision": 1.0,
@@ -142,44 +137,44 @@
       },
       "classes_below_85pct_precision": [],
       "top_confusions": [],
-      "urgency_accuracy": 0.4375,
+      "urgency_accuracy": 0.4342,
       "methods": {
-        "knn": 78,
+        "knn": 74,
         "llm+knn": 2
       }
     },
     "retrieval": {
       "n": 53,
-      "hit@1": 0.9434,
-      "hit@3": 0.9623,
-      "hit@5": 0.9811
+      "hit@1": 0.8868,
+      "hit@3": 0.9245,
+      "hit@5": 0.9245
     },
     "calibration": [
       {
         "band": "0.9-1.0",
-        "n": 80,
-        "stated": 0.99,
+        "n": 76,
+        "stated": 0.994,
         "observed": 1.0,
-        "gap_pp": 1.0,
+        "gap_pp": 0.6,
         "within_5pp": true
       }
     ],
     "latency": {
-      "all_mean_ms": 443.0,
-      "all_p50_ms": 409,
-      "all_p95_ms": 735,
-      "all_max_ms": 954,
-      "auto_mean_ms": 434.4,
-      "auto_p50_ms": 417,
-      "auto_p95_ms": 673,
+      "all_mean_ms": 471.6,
+      "all_p50_ms": 387,
+      "all_p95_ms": 874,
+      "all_max_ms": 1586,
+      "auto_mean_ms": 454.1,
+      "auto_p50_ms": 389,
+      "auto_p95_ms": 682,
       "p95_under_3s": true
     },
     "citations": {
-      "n_auto": 64,
-      "n_citations": 70,
+      "n_auto": 63,
+      "n_citations": 69,
       "responses_with_citation": 1.0,
       "citation_resolves_rate": 1.0,
-      "cited_expected_doc_rate": 0.8654
+      "cited_expected_doc_rate": 0.88
     },
     "business": {
       "note": "proxy measures on labelled tickets, not live customer outcomes",
@@ -188,11 +183,11 @@
       "baseline_repeat_contact_rate": 0.2125,
       "baseline_csat": 2.6,
       "baseline_median_resolution_minutes": 227,
-      "auto_resolution_proxy": 0.5875,
-      "system_escalation_rate": 0.2,
-      "median_time_to_first_reply_seconds_auto": 0.42,
-      "mean_time_to_first_reply_seconds_auto": 0.43,
-      "fcr_brief_formula": 0.8,
+      "auto_resolution_proxy": 0.575,
+      "system_escalation_rate": 0.2125,
+      "median_time_to_first_reply_seconds_auto": 0.39,
+      "mean_time_to_first_reply_seconds_auto": 0.45,
+      "fcr_brief_formula": 0.7875,
       "csat": "not measurable offline"
     },
     "segments": {
@@ -203,7 +198,7 @@
             "auto_rate": 0.9,
             "route_accuracy": 0.7333,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.9545,
             "low_n": false
           },
           "enterprise": {
@@ -216,28 +211,28 @@
           },
           "standard": {
             "n": 42,
-            "auto_rate": 0.7381,
-            "route_accuracy": 0.7619,
+            "auto_rate": 0.7143,
+            "route_accuracy": 0.7381,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.92,
+            "retrieval_hit@1": 0.84,
             "low_n": false
           }
         },
         "max_gap_pp": {
-          "auto_rate": 16.2,
-          "route_accuracy": 2.9,
+          "auto_rate": 18.6,
+          "route_accuracy": 0.5,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 8.0
+          "retrieval_hit@1": 11.5
         }
       },
       "language_fluency": {
         "groups": {
           "fluent": {
             "n": 61,
-            "auto_rate": 0.8033,
-            "route_accuracy": 0.8197,
+            "auto_rate": 0.7869,
+            "route_accuracy": 0.8033,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.9318,
+            "retrieval_hit@1": 0.8864,
             "low_n": false
           },
           "non_fluent": {
@@ -245,25 +240,25 @@
             "auto_rate": 0.7895,
             "route_accuracy": 0.5263,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.8889,
             "low_n": false
           }
         },
         "max_gap_pp": {
-          "auto_rate": 1.4,
-          "route_accuracy": 29.3,
+          "auto_rate": 0.3,
+          "route_accuracy": 27.7,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 6.8
+          "retrieval_hit@1": 0.3
         }
       },
       "region": {
         "groups": {
           "asia_pacific": {
             "n": 21,
-            "auto_rate": 0.8571,
-            "route_accuracy": 0.7619,
+            "auto_rate": 0.8095,
+            "route_accuracy": 0.7143,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.9412,
             "low_n": false
           },
           "europe": {
@@ -271,7 +266,7 @@
             "auto_rate": 0.84,
             "route_accuracy": 0.8,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.8947,
+            "retrieval_hit@1": 0.7895,
             "low_n": false
           },
           "latin_america": {
@@ -292,18 +287,18 @@
           }
         },
         "max_gap_pp": {
-          "auto_rate": 7.9,
+          "auto_rate": 6.2,
           "route_accuracy": 13.3,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 10.5
+          "retrieval_hit@1": 15.2
         }
       },
       "channel": {
         "groups": {
           "chat": {
             "n": 22,
-            "auto_rate": 0.7727,
-            "route_accuracy": 0.8182,
+            "auto_rate": 0.7273,
+            "route_accuracy": 0.7727,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 0.8462,
             "low_n": false
@@ -313,7 +308,7 @@
             "auto_rate": 0.6875,
             "route_accuracy": 0.6875,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.9,
             "low_n": false
           },
           "email": {
@@ -321,7 +316,7 @@
             "auto_rate": 0.871,
             "route_accuracy": 0.7419,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 0.9545,
+            "retrieval_hit@1": 0.9091,
             "low_n": false
           },
           "forum": {
@@ -329,15 +324,15 @@
             "auto_rate": 0.8182,
             "route_accuracy": 0.7273,
             "intent_accuracy": 1.0,
-            "retrieval_hit@1": 1.0,
+            "retrieval_hit@1": 0.875,
             "low_n": true
           }
         },
         "max_gap_pp": {
           "auto_rate": 18.4,
-          "route_accuracy": 13.1,
+          "route_accuracy": 8.5,
           "intent_accuracy": 0.0,
-          "retrieval_hit@1": 15.4
+          "retrieval_hit@1": 6.3
         }
       }
     },
@@ -345,27 +340,29 @@
       "outbound_pii_findings": [],
       "pii_violations": 0,
       "guardrail_blocks_by_type": {
-        "grounding": 2
+        "grounding": 3,
+        "security_language": 4
       },
       "decision_reason_counts": {
-        "confident_and_grounded": 64,
-        "safety_intent": 14,
-        "guardrail_block": 2
+        "confident_and_grounded": 63,
+        "safety_intent": 10,
+        "guardrail_block": 3,
+        "safety_keyword": 4
       },
       "decisions_logged": 80,
       "tickets_processed": 80,
       "log_reconciles": true,
-      "resolution_records_written": 35,
-      "escalations": 16,
-      "escalations_with_complete_context": 16,
+      "resolution_records_written": 34,
+      "escalations": 17,
+      "escalations_with_complete_context": 17,
       "escalation_context_completeness": 1.0
     },
     "llm": {
-      "calls": 84,
+      "calls": 85,
       "retries": 0,
       "failures": 0,
-      "tokens": 65691,
-      "seconds": 32.991971492767334
+      "tokens": 65500,
+      "seconds": 35.23342490196228
     },
     "judge": {
       "n_judged": 50,
@@ -392,18 +389,6 @@
           "assessor_confidence": 1.0
         },
         "VAL-0004": {
-          "covers_required_points": true,
-          "missing_points": [],
-          "makes_prohibited_claims": false,
-          "prohibited_claims_found": [],
-          "hallucinations_detected": false,
-          "hallucinated_facts": [],
-          "all_citations_resolve": true,
-          "unresolved_citations": [],
-          "overall_verdict": "pass",
-          "assessor_confidence": 1.0
-        },
-        "VAL-0005": {
           "covers_required_points": true,
           "missing_points": [],
           "makes_prohibited_claims": false,
@@ -593,7 +578,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 0.95
+          "assessor_confidence": 1.0
         },
         "VAL-0027": {
           "covers_required_points": true,
@@ -785,7 +770,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0047": {
           "covers_required_points": true,
@@ -893,7 +878,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 0.95
+          "assessor_confidence": 1.0
         },
         "VAL-0057": {
           "covers_required_points": true,
@@ -917,7 +902,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0059": {
           "covers_required_points": true,
@@ -978,6 +963,18 @@
           "unresolved_citations": [],
           "overall_verdict": "pass",
           "assessor_confidence": 1.0
+        },
+        "VAL-0064": {
+          "covers_required_points": true,
+          "missing_points": [],
+          "makes_prohibited_claims": false,
+          "prohibited_claims_found": [],
+          "hallucinations_detected": false,
+          "hallucinated_facts": [],
+          "all_citations_resolve": true,
+          "unresolved_citations": [],
+          "overall_verdict": "pass",
+          "assessor_confidence": 1.0
         }
       }
     }
@@ -988,12 +985,13 @@
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_key_issue' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_key_issue' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -1004,12 +1002,12 @@
           "score": 0.449
         },
         {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.4056
-        },
-        {
           "doc_id": "DOC-INT-001",
           "score": 0.399
+        },
+        {
+          "doc_id": "DOC-SEC-001",
+          "score": 0.4056
         }
       ],
       "response_text": "To resolve the issue with your production key returning 401 Unauthorized, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\n\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\n\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\n\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -1047,21 +1045,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 947,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 9,
-        "retrieve": 6,
-        "generate": 717
+        "classify": 7,
+        "retrieve": 7,
+        "generate": 1094
       },
       "knn_share": 1.0,
-      "latency_ms": 735,
-      "threshold_applied": 0.8,
-      "decision_id": "618163ce-e902-490f-8f6b-b816df0fce56"
+      "latency_ms": 1116,
+      "threshold_applied": 0.85,
+      "decision_id": "223081a8-d813-4071-bc91-2f48ec58273c"
     },
     {
       "ticket_id": "VAL-0002",
@@ -1072,8 +1070,14 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.9891,
       "classify_method": "llm+knn",
+      "alternatives": [
+        {
+          "intent": "onboarding",
+          "confidence": null
+        }
+      ],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -1083,11 +1087,11 @@
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is inquiring about the status of their previous message, but the intent is unclear. They are seeking an update, but the context is lacking.",
+        "summary": "The customer is inquiring about the status of their previous message, indicating a need for an update on their issue. However, the customer's request is unclear, and they do not provide any context about the issue they are referring to.",
         "summary_source": "llm",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.9891,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DEPLOY-002",
@@ -1096,20 +1100,20 @@
           }
         ],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 390
+        "tokens": 416
       },
       "guardrails": null,
-      "tokens": 2470,
+      "tokens": 2496,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 545,
-        "retrieve": 17
+        "classify": 530,
+        "retrieve": 24
       },
       "knn_share": 0.8252,
-      "latency_ms": 954,
-      "threshold_applied": 0.8,
-      "decision_id": "9c3873fa-3d98-4b0e-89c3-1793575ada6e"
+      "latency_ms": 1147,
+      "threshold_applied": 0.85,
+      "decision_id": "32e389c5-7530-41ec-bdca-dfdd2fc534b5"
     },
     {
       "ticket_id": "VAL-0003",
@@ -1120,8 +1124,9 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -1130,7 +1135,7 @@
         "summary_source": "llm",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
         "tokens": 383
@@ -1140,25 +1145,26 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 12
+        "classify": 16,
+        "retrieve": 14
       },
       "knn_share": 1.0,
-      "latency_ms": 406,
-      "threshold_applied": 0.8,
-      "decision_id": "84a5a376-bf08-46f8-b1ef-9db0d3859fd9"
+      "latency_ms": 299,
+      "threshold_applied": 0.85,
+      "decision_id": "05487a56-27d7-4357-a059-4d7c3b98d39f"
     },
     {
       "ticket_id": "VAL-0004",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'authentication_failure' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'authentication_failure' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "authentication_failure",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-002",
@@ -1166,15 +1172,15 @@
         },
         {
           "doc_id": "DOC-AUTH-001",
-          "score": 0.3554
-        },
-        {
-          "doc_id": "DOC-AUTH-004",
-          "score": 0.3221
+          "score": 0.3065
         },
         {
           "doc_id": "DOC-AUTH-003",
           "score": 0.3034
+        },
+        {
+          "doc_id": "DOC-AUTH-004",
+          "score": 0.3221
         }
       ],
       "response_text": "To resolve the issue with your MFA code being rejected, please check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin. [DOC-AUTH-002]\n\nIf the issue persists, please sign in with one of your recovery codes and then re-enrol a new device from the security page. [DOC-AUTH-002]\n\nIf you do not have recovery codes available, an account administrator can reset multi-factor authentication for that user from the team members page. [DOC-AUTH-002]\n\nIf you are the sole administrator and have no recovery codes, identity verification through support is required and takes up to one business day. [DOC-AUTH-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -1212,7 +1218,7 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 726,
@@ -1220,25 +1226,26 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 11,
-        "generate": 419
+        "retrieve": 14,
+        "generate": 905
       },
       "knn_share": 1.0,
-      "latency_ms": 448,
-      "threshold_applied": 0.8,
-      "decision_id": "392dc5c1-6bec-4d24-a68d-822ab43492ff"
+      "latency_ms": 941,
+      "threshold_applied": 0.85,
+      "decision_id": "ff7f1164-854d-4687-a8e7-0749fdbf2625"
     },
     {
       "ticket_id": "VAL-0005",
       "channel": "chat",
       "status": "ok",
-      "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_usage_question' is not safety-restricted, and 4 relevant passage(s) were found.",
-      "reason_code": "confident_and_grounded",
+      "decision": "escalate",
+      "reason": "Draft blocked by guardrail(s): grounding.",
+      "reason_code": "guardrail_block",
       "intent": "api_usage_question",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-002",
@@ -1257,28 +1264,51 @@
           "score": 0.3023
         }
       ],
-      "response_text": "To prevent your cursor from expiring, you should handle expiry by restarting from a recorded checkpoint. Cursors expire after one hour [DOC-API-002]. \n\nPass the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null [DOC-API-002]. \n\nKeep page size at or below two hundred to avoid larger requests being rejected rather than truncated [DOC-API-002]. \n\nFor very large extracts, use the export endpoint, which runs asynchronously and returns a download link [DOC-API-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
-      "citations": [
-        {
-          "doc_id": "DOC-API-002",
-          "resolves": true,
-          "passage_excerpt": "Pagination and handling large result sets ## Notes  Cursors expire after one hour. Long-running iterations should handle expiry by restarting from a recorded ch"
-        }
-      ],
-      "escalation_context": null,
+      "response_text": null,
+      "citations": [],
+      "escalation_context": {
+        "summary": "The customer is experiencing issues with their cursor stopping to work partway through a long iteration and is asking if there's an expiry they should be handling. They're looking for guidance on how to handle large result sets.",
+        "summary_source": "llm",
+        "predicted_intent": "api_usage_question",
+        "predicted_urgency": "low",
+        "confidence": 0.994,
+        "retrieved_sources": [
+          {
+            "doc_id": "DOC-API-002",
+            "title": "Pagination and handling large result sets",
+            "score": 0.6164
+          },
+          {
+            "doc_id": "DOC-DATA-002",
+            "title": "Backups, retention and point-in-time restore",
+            "score": 0.3233
+          },
+          {
+            "doc_id": "DOC-INT-002",
+            "title": "Third party monitoring and log forwarding",
+            "score": 0.3187
+          }
+        ],
+        "uncertainty_reason": "Draft blocked by guardrail(s): grounding.",
+        "tokens": 466
+      },
       "guardrails": {
-        "overall_status": "pass",
-        "action": "send_response",
-        "blocked_by": [],
+        "overall_status": "block",
+        "action": "block_and_escalate",
+        "blocked_by": [
+          "grounding"
+        ],
         "pii": {
           "status": "pass",
           "reason": "no PII detected",
           "detected_patterns": []
         },
         "grounding": {
-          "status": "pass",
-          "reason": "citations resolve and claims are supported",
-          "ungrounded_claims": []
+          "status": "block",
+          "reason": "figures not present in the cited documentation",
+          "ungrounded_claims": [
+            "['5'] in: 5."
+          ]
         },
         "injection": {
           "status": "pass",
@@ -1292,33 +1322,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 656,
+      "tokens": 1176,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 10,
-        "generate": 334
+        "classify": 18,
+        "retrieve": 14,
+        "generate": 467
       },
       "knn_share": 1.0,
-      "latency_ms": 360,
-      "threshold_applied": 0.8,
-      "decision_id": "100cd2a4-dc7e-417f-b6b0-b6c1ded51f0b"
+      "latency_ms": 874,
+      "threshold_applied": 0.85,
+      "decision_id": "7775c6bd-22cb-4482-a9a2-b1caac9f5d49"
     },
     {
       "ticket_id": "VAL-0006",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'authentication_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'authentication_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "authentication_failure",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-002",
@@ -1376,21 +1407,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 1014,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 12,
-        "generate": 374
+        "classify": 20,
+        "retrieve": 14,
+        "generate": 363
       },
       "knn_share": 1.0,
-      "latency_ms": 405,
-      "threshold_applied": 0.8,
-      "decision_id": "cf1da4d1-a14d-4482-87ee-516bd085c1e5"
+      "latency_ms": 404,
+      "threshold_applied": 0.85,
+      "decision_id": "b6607c8e-8782-4f17-83e5-379aba53f781"
     },
     {
       "ticket_id": "VAL-0007",
@@ -1401,45 +1432,47 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is experiencing a problem and requires urgent assistance, but the nature of the issue is unclear. They have requested a phone call to resolve the matter.",
+        "summary": "The customer is requesting urgent assistance with a problem, but the nature of the issue is unclear. They are requesting a phone call to resolve the matter.",
         "summary_source": "llm",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 375
+        "tokens": 374
       },
       "guardrails": null,
-      "tokens": 375,
+      "tokens": 374,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 11
+        "classify": 18,
+        "retrieve": 14
       },
       "knn_share": 1.0,
-      "latency_ms": 335,
-      "threshold_applied": 0.8,
-      "decision_id": "f1fc12a7-535a-47f5-8220-3cc54f599e4c"
+      "latency_ms": 327,
+      "threshold_applied": 0.85,
+      "decision_id": "36b28b02-fb47-4d12-b412-dc029855d2f4"
     },
     {
       "ticket_id": "VAL-0008",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'account_access' is not safety-restricted, and 1 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'account_access' is not safety-restricted, and 1 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "account_access",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -1481,21 +1514,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 683,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12,
-        "generate": 335
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 349
       },
       "knn_share": 1.0,
-      "latency_ms": 368,
-      "threshold_applied": 0.8,
-      "decision_id": "537039e0-0157-4b9f-bfab-abb427ade887"
+      "latency_ms": 386,
+      "threshold_applied": 0.85,
+      "decision_id": "13582183-ea59-4f03-996b-c0d892083385"
     },
     {
       "ticket_id": "VAL-0009",
@@ -1506,20 +1539,21 @@
       "reason_code": "safety_intent",
       "intent": "compliance_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-SEC-003",
           "score": 0.7144
         },
         {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.5421
-        },
-        {
           "doc_id": "DOC-DATA-001",
           "score": 0.4628
+        },
+        {
+          "doc_id": "DOC-SEC-001",
+          "score": 0.5421
         },
         {
           "doc_id": "DOC-BILL-001",
@@ -1533,11 +1567,11 @@
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is requesting information on how to demonstrate read access to customer records is logged, as they cannot find these events in the audit log. They need to provide compliance evidence for this.",
+        "summary": "The customer is requesting information on how to demonstrate read access to customer records is logged, as they cannot find these events in the audit log. They need to provide compliance evidence for this requirement.",
         "summary_source": "llm",
         "predicted_intent": "compliance_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-SEC-003",
@@ -1545,43 +1579,44 @@
             "score": 0.7144
           },
           {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.5421
-          },
-          {
             "doc_id": "DOC-DATA-001",
             "title": "Exporting account data and scheduled extracts",
             "score": 0.4628
+          },
+          {
+            "doc_id": "DOC-SEC-001",
+            "title": "Responding to a suspected account compromise",
+            "score": 0.5421
           }
         ],
         "uncertainty_reason": "Intent 'compliance_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 477
+        "tokens": 481
       },
       "guardrails": null,
-      "tokens": 477,
+      "tokens": 481,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12
+        "classify": 10,
+        "retrieve": 10
       },
       "knn_share": 1.0,
-      "latency_ms": 427,
-      "threshold_applied": 0.8,
-      "decision_id": "395d1021-18ad-4679-8a4b-c3b66ea49eb9"
+      "latency_ms": 378,
+      "threshold_applied": 0.85,
+      "decision_id": "d1dcfe08-aa01-4673-a4f3-606f083633d7"
     },
     {
       "ticket_id": "VAL-0010",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -1592,16 +1627,12 @@
           "score": 0.4452
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.3472
-        },
-        {
           "doc_id": "DOC-BILL-003",
           "score": 0.3348
         },
         {
-          "doc_id": "DOC-PERF-001",
-          "score": 0.33
+          "doc_id": "DOC-API-001",
+          "score": 0.3472
         }
       ],
       "response_text": "To understand the increase in your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001] \nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -1639,33 +1670,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 954,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 21,
-        "retrieve": 13,
-        "generate": 372
+        "classify": 15,
+        "retrieve": 14,
+        "generate": 343
       },
       "knn_share": 1.0,
-      "latency_ms": 408,
-      "threshold_applied": 0.8,
-      "decision_id": "5dde90d8-4017-4627-bd68-d4cfd599581d"
+      "latency_ms": 378,
+      "threshold_applied": 0.85,
+      "decision_id": "19b3e801-132c-41e4-8972-ea237b2a3809"
     },
     {
       "ticket_id": "VAL-0011",
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'rollback_request' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'rollback_request' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -1680,12 +1712,12 @@
           "score": 0.3566
         },
         {
-          "doc_id": "DOC-API-003",
-          "score": 0.354
-        },
-        {
           "doc_id": "DOC-DATA-002",
           "score": 0.3435
+        },
+        {
+          "doc_id": "DOC-API-003",
+          "score": 0.354
         }
       ],
       "response_text": "To revert to the previous revision, follow these steps:\n\n1. Open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]\n2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]\n3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]\n4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -1723,41 +1755,38 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 939,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 11,
-        "generate": 391
+        "classify": 16,
+        "retrieve": 15,
+        "generate": 342
       },
       "knn_share": 1.0,
-      "latency_ms": 418,
-      "threshold_applied": 0.8,
-      "decision_id": "f77e7114-4cd3-4668-a821-2b938c4561aa"
+      "latency_ms": 379,
+      "threshold_applied": 0.85,
+      "decision_id": "64132c41-6cce-4132-b483-01491423586c"
     },
     {
       "ticket_id": "VAL-0012",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'rollback_request' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'rollback_request' is not safety-restricted, and 2 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.7633
-        },
-        {
-          "doc_id": "DOC-DEPLOY-003",
-          "score": 0.4065
         },
         {
           "doc_id": "DOC-BILL-002",
@@ -1799,33 +1828,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 666,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 11,
-        "generate": 431
+        "classify": 10,
+        "retrieve": 9,
+        "generate": 392
       },
       "knn_share": 1.0,
-      "latency_ms": 459,
-      "threshold_applied": 0.8,
-      "decision_id": "79146214-ef9b-4a25-b1ce-75d15961d47b"
+      "latency_ms": 416,
+      "threshold_applied": 0.85,
+      "decision_id": "34d7be40-ffea-4bd7-9e7e-73439c254746"
     },
     {
       "ticket_id": "VAL-0013",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -1875,33 +1905,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 694,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 12,
-        "generate": 397
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 420
       },
       "knn_share": 1.0,
-      "latency_ms": 429,
-      "threshold_applied": 0.8,
-      "decision_id": "05d41167-4dee-4246-8971-d6b473f00ec7"
+      "latency_ms": 456,
+      "threshold_applied": 0.85,
+      "decision_id": "ccc44d54-4a51-4b97-b5b3-109eaf5cc256"
     },
     {
       "ticket_id": "VAL-0014",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'rollback_request' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'rollback_request' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -1951,21 +1982,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 877,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 19,
-        "retrieve": 12,
-        "generate": 371
+        "classify": 13,
+        "retrieve": 13,
+        "generate": 325
       },
       "knn_share": 1.0,
-      "latency_ms": 405,
-      "threshold_applied": 0.8,
-      "decision_id": "e52976b8-6455-43b1-abb4-4a33df613692"
+      "latency_ms": 357,
+      "threshold_applied": 0.85,
+      "decision_id": "b5de9bd4-706e-4095-a7d3-db9e4cc26cc2"
     },
     {
       "ticket_id": "VAL-0015",
@@ -1976,8 +2007,9 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -1986,35 +2018,36 @@
         "summary_source": "llm",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 377
+        "tokens": 379
       },
       "guardrails": null,
-      "tokens": 377,
+      "tokens": 379,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 11
+        "classify": 10,
+        "retrieve": 9
       },
       "knn_share": 1.0,
-      "latency_ms": 328,
-      "threshold_applied": 0.8,
-      "decision_id": "418078c4-38c1-454d-9009-9d837031249f"
+      "latency_ms": 326,
+      "threshold_applied": 0.85,
+      "decision_id": "dc208a32-84ee-4c27-92ec-84b78136bb6b"
     },
     {
       "ticket_id": "VAL-0016",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'performance_degradation' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'performance_degradation' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "performance_degradation",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-PERF-001",
@@ -2022,19 +2055,19 @@
         },
         {
           "doc_id": "DOC-PERF-002",
-          "score": 0.5533
-        },
-        {
-          "doc_id": "DOC-BILL-003",
-          "score": 0.3661
+          "score": 0.5497
         },
         {
           "doc_id": "DOC-BILL-001",
           "score": 0.3629
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.339
+          "doc_id": "DOC-BILL-003",
+          "score": 0.3661
+        },
+        {
+          "doc_id": "DOC-INT-002",
+          "score": 0.3213
         }
       ],
       "response_text": "To diagnose the issue, compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service. [DOC-PERF-001]\nCheck memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure. [DOC-PERF-001]\nReview the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another. [DOC-PERF-001]\nAdjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation. [DOC-PERF-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -2072,21 +2105,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 956,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12,
-        "generate": 349
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 388
       },
       "knn_share": 1.0,
-      "latency_ms": 383,
-      "threshold_applied": 0.8,
-      "decision_id": "a0418e2a-5aeb-4dc2-b9b9-16f3fce2720f"
+      "latency_ms": 424,
+      "threshold_applied": 0.85,
+      "decision_id": "be20aa35-edf4-4add-b245-e1b612bc3b93"
     },
     {
       "ticket_id": "VAL-0017",
@@ -2097,8 +2130,9 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -2107,23 +2141,23 @@
         "summary_source": "llm",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 373
+        "tokens": 374
       },
       "guardrails": null,
-      "tokens": 373,
+      "tokens": 374,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12
+        "classify": 14,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 306,
-      "threshold_applied": 0.8,
-      "decision_id": "d4f06026-0ab5-4215-bc31-9ae6f3695231"
+      "latency_ms": 327,
+      "threshold_applied": 0.85,
+      "decision_id": "d37b3b63-6192-4f7f-999c-2ae4531e7b55"
     },
     {
       "ticket_id": "VAL-0018",
@@ -2134,8 +2168,9 @@
       "reason_code": "guardrail_block",
       "intent": "api_usage_question",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-002",
@@ -2153,7 +2188,7 @@
         "summary_source": "llm",
         "predicted_intent": "api_usage_question",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-API-002",
@@ -2199,33 +2234,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 1175,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 12,
-        "generate": 413
+        "classify": 18,
+        "retrieve": 14,
+        "generate": 363
       },
       "knn_share": 1.0,
-      "latency_ms": 848,
-      "threshold_applied": 0.8,
-      "decision_id": "2eff2faa-571d-477b-844b-b96a3eaac345"
+      "latency_ms": 769,
+      "threshold_applied": 0.85,
+      "decision_id": "55dbafd2-5097-45f5-8332-922b49c54f3c"
     },
     {
       "ticket_id": "VAL-0019",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'account_access' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'account_access' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "account_access",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -2279,21 +2315,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 876,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 11,
-        "generate": 460
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 648
       },
       "knn_share": 1.0,
-      "latency_ms": 490,
-      "threshold_applied": 0.8,
-      "decision_id": "1855f999-bb16-4eb5-ac21-54e182ee2cab"
+      "latency_ms": 682,
+      "threshold_applied": 0.85,
+      "decision_id": "95c82271-2d7c-4d44-a9d6-7a76d7de86dd"
     },
     {
       "ticket_id": "VAL-0020",
@@ -2304,8 +2340,9 @@
       "reason_code": "safety_intent",
       "intent": "feature_request",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-002",
@@ -2314,20 +2351,16 @@
         {
           "doc_id": "DOC-SEC-003",
           "score": 0.3433
-        },
-        {
-          "doc_id": "DOC-BILL-002",
-          "score": 0.3115
         }
       ],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is inquiring about the possibility of custom retention and staged rollouts for their service, expressing a preference for gradual traffic movement. They are currently on a standard tier plan.",
+        "summary": "The customer is inquiring about the possibility of custom retention and staged rollouts for their service, expressing a preference for gradual traffic movement. They are seeking this feature to manage their service more effectively.",
         "summary_source": "llm",
         "predicted_intent": "feature_request",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-DATA-002",
@@ -2338,52 +2371,48 @@
             "doc_id": "DOC-SEC-003",
             "title": "Audit logging and compliance evidence",
             "score": 0.3433
-          },
-          {
-            "doc_id": "DOC-BILL-002",
-            "title": "Changing plans, and how proration is calculated",
-            "score": 0.3115
           }
         ],
         "uncertainty_reason": "Intent 'feature_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 466
+        "tokens": 450
       },
       "guardrails": null,
-      "tokens": 466,
+      "tokens": 450,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 11
+        "classify": 15,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 336,
-      "threshold_applied": 0.8,
-      "decision_id": "c1daad5e-149f-4f3d-9526-29502a71d0e5"
+      "latency_ms": 372,
+      "threshold_applied": 0.85,
+      "decision_id": "a7a9a5de-bb0f-40f2-8145-dbc0048bb849"
     },
     {
       "ticket_id": "VAL-0021",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'rollback_request' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'rollback_request' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.509
         },
         {
-          "doc_id": "DOC-API-003",
-          "score": 0.404
-        },
-        {
           "doc_id": "DOC-DATA-002",
           "score": 0.3511
+        },
+        {
+          "doc_id": "DOC-API-003",
+          "score": 0.404
         },
         {
           "doc_id": "DOC-INT-002",
@@ -2425,33 +2454,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 921,
+      "tokens": 905,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 18,
-        "generate": 355
+        "classify": 12,
+        "retrieve": 11,
+        "generate": 342
       },
       "knn_share": 1.0,
-      "latency_ms": 392,
-      "threshold_applied": 0.8,
-      "decision_id": "c72461da-24bb-4cba-9839-3945a0fc6fa5"
+      "latency_ms": 371,
+      "threshold_applied": 0.85,
+      "decision_id": "c8c9d73c-eee9-4881-99a9-8ca23380f59d"
     },
     {
       "ticket_id": "VAL-0022",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'performance_degradation' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'performance_degradation' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "performance_degradation",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-PERF-001",
@@ -2459,15 +2489,15 @@
         },
         {
           "doc_id": "DOC-PERF-002",
-          "score": 0.5301
-        },
-        {
-          "doc_id": "DOC-BILL-003",
-          "score": 0.3735
+          "score": 0.5281
         },
         {
           "doc_id": "DOC-BILL-001",
           "score": 0.3671
+        },
+        {
+          "doc_id": "DOC-BILL-003",
+          "score": 0.3735
         },
         {
           "doc_id": "DOC-API-001",
@@ -2484,7 +2514,7 @@
         {
           "doc_id": "DOC-PERF-002",
           "resolves": true,
-          "passage_excerpt": "Autoscaling behaviour and instance limits ## Resolution  1. Check whether the service is sitting at its configured maximum. Scaling stops there regardless of lo"
+          "passage_excerpt": "Autoscaling behaviour and instance limits ## Symptoms  - The service does not scale up under load - Scaling happens later than expected - Instance count oscilla"
         }
       ],
       "escalation_context": null,
@@ -2514,7 +2544,7 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 993,
@@ -2522,25 +2552,26 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 17,
-        "retrieve": 13,
-        "generate": 407
+        "retrieve": 14,
+        "generate": 416
       },
       "knn_share": 1.0,
-      "latency_ms": 440,
-      "threshold_applied": 0.8,
-      "decision_id": "2d044b04-256b-4890-ab3c-fac66d3a33bb"
+      "latency_ms": 452,
+      "threshold_applied": 0.85,
+      "decision_id": "30b2d1f7-f3af-4961-b5c4-01e20eaba15e"
     },
     {
       "ticket_id": "VAL-0023",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'onboarding' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'onboarding' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "onboarding",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ONB-002",
@@ -2559,7 +2590,7 @@
           "score": 0.307
         }
       ],
-      "response_text": "To get your containerized application deployed on CloudServe, we recommend externalizing configuration before migrating. This means moving any configuration read from a file on disk to environment variables or secrets. [DOC-ONB-002]\nIdentify local state such as uploaded files or session data and move it to object storage or the managed database first. [DOC-ONB-002]\nRun in parallel with the existing deployment and shift a small share of traffic before committing to the move. [DOC-ONB-002]\nPlan the database migration separately from the application migration; attempting both at once makes any failure hard to diagnose. [DOC-ONB-002]\nAdditionally, we suggest creating a project, then a service within it, and connecting a repository or pushing a container image to start the deployment process. [DOC-ONB-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To get your containerized application deployed on CloudServe, we recommend externalising configuration before migrating. This means moving any configuration read from a file on disk to environment variables or secrets. [DOC-ONB-002]\nIdentify local state such as uploaded files or session data and move it to object storage or the managed database first. [DOC-ONB-002]\nRun in parallel with the existing deployment and shift a small share of traffic before committing to the move. [DOC-ONB-002]\nPlan the database migration separately from the application migration; attempting both at once makes any failure hard to diagnose. [DOC-ONB-002]\nAdditionally, we suggest creating a project, then a service within it, and connecting a repository or pushing a container image to start the deployment process. [DOC-ONB-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-ONB-002",
@@ -2599,33 +2630,39 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 899,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 20,
-        "retrieve": 13,
-        "generate": 416
+        "classify": 18,
+        "retrieve": 14,
+        "generate": 558
       },
       "knn_share": 1.0,
-      "latency_ms": 450,
-      "threshold_applied": 0.8,
-      "decision_id": "f37a3f06-8d20-491f-8d5a-2a1ebc6084e1"
+      "latency_ms": 597,
+      "threshold_applied": 0.85,
+      "decision_id": "8ede8509-91f8-4444-8268-67b8276b7042"
     },
     {
       "ticket_id": "VAL-0024",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_key_issue' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_key_issue' is not safety-restricted, and 2 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "api_key_issue",
       "urgency": "medium",
       "confidence": 0.99,
       "classify_method": "llm+knn",
+      "alternatives": [
+        {
+          "intent": "account_access",
+          "confidence": null
+        }
+      ],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -2634,10 +2671,6 @@
         {
           "doc_id": "DOC-API-001",
           "score": 0.3425
-        },
-        {
-          "doc_id": "DOC-ACCT-001",
-          "score": 0.3272
         }
       ],
       "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -2675,33 +2708,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 3035,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 313,
-        "retrieve": 19,
-        "generate": 339
+        "classify": 291,
+        "retrieve": 17,
+        "generate": 319
       },
       "knn_share": 0.846,
-      "latency_ms": 673,
-      "threshold_applied": 0.8,
-      "decision_id": "dfc3b71c-e155-4204-9eb3-3d28152d84cc"
+      "latency_ms": 634,
+      "threshold_applied": 0.85,
+      "decision_id": "803a9111-36e7-42f1-a979-db667b2b62f6"
     },
     {
       "ticket_id": "VAL-0025",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'deployment_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'deployment_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "deployment_failure",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -2716,12 +2750,12 @@
           "score": 0.3883
         },
         {
-          "doc_id": "DOC-PERF-003",
-          "score": 0.3787
-        },
-        {
           "doc_id": "DOC-API-003",
           "score": 0.3664
+        },
+        {
+          "doc_id": "DOC-DEPLOY-003",
+          "score": 0.3544
         }
       ],
       "response_text": "To resolve the issue with your deployments failing at the health check stage, please confirm that your container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. \n\nNext, increase the initial delay if your application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches [DOC-DEPLOY-001]. \n\nCompare the environment variables present in the deployment against those your application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. \n\nInspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -2759,7 +2793,7 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 751,
@@ -2767,25 +2801,26 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
-        "retrieve": 10,
-        "generate": 435
+        "retrieve": 13,
+        "generate": 401
       },
       "knn_share": 1.0,
-      "latency_ms": 462,
-      "threshold_applied": 0.8,
-      "decision_id": "f465ecdc-73f4-4d16-bfc6-acf82b078717"
+      "latency_ms": 435,
+      "threshold_applied": 0.85,
+      "decision_id": "1aaefbc1-3cbd-42ff-80e1-2c254f4e7b33"
     },
     {
       "ticket_id": "VAL-0026",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'data_residency' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'data_residency' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -2835,33 +2870,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 690,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 19,
-        "retrieve": 13,
-        "generate": 541
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 464
       },
       "knn_share": 1.0,
-      "latency_ms": 575,
-      "threshold_applied": 0.8,
-      "decision_id": "277dc251-403f-43be-98c4-4ebca236a236"
+      "latency_ms": 500,
+      "threshold_applied": 0.85,
+      "decision_id": "0c71f134-8c83-4889-a097-dc0df40249f4"
     },
     {
       "ticket_id": "VAL-0027",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'quota_or_overage' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'quota_or_overage' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "quota_or_overage",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -2877,7 +2913,7 @@
         },
         {
           "doc_id": "DOC-API-001",
-          "score": 0.3128
+          "score": 0.3005
         }
       ],
       "response_text": "To resolve the unexpected overage charges, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -2915,53 +2951,54 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 911,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 13,
-        "generate": 385
+        "classify": 14,
+        "retrieve": 12,
+        "generate": 457
       },
       "knn_share": 1.0,
-      "latency_ms": 417,
-      "threshold_applied": 0.8,
-      "decision_id": "e1007b37-8e6c-43fe-b083-3a89a9404fb1"
+      "latency_ms": 489,
+      "threshold_applied": 0.85,
+      "decision_id": "682632f6-ea51-4c18-82a3-67b2342467c8"
     },
     {
       "ticket_id": "VAL-0028",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'deployment_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'deployment_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "deployment_failure",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-003",
           "score": 0.7094
         },
         {
-          "doc_id": "DOC-ONB-001",
-          "score": 0.5941
-        },
-        {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.497
+        },
+        {
+          "doc_id": "DOC-ONB-001",
+          "score": 0.5941
         },
         {
           "doc_id": "DOC-DEPLOY-001",
           "score": 0.458
         },
         {
-          "doc_id": "DOC-DEPLOY-004",
-          "score": 0.395
+          "doc_id": "DOC-INT-001",
+          "score": 0.3081
         }
       ],
       "response_text": "To resolve the issue with your deployment rolling back every time, please follow these steps:\n\n1. Pin your dependencies with exact versions and commit the lock file, as unpinned dependencies are the cause in the large majority of cases of this kind [DOC-DEPLOY-003].\n2. Compare the runtime version declared in your build configuration against the version you use locally [DOC-DEPLOY-003].\n3. Clear the build cache from the settings page and trigger a fresh build to rule out a corrupted artefact [DOC-DEPLOY-003].\n4. If a specific dependency is failing to resolve, check whether its registry is reachable from the build network [DOC-DEPLOY-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -2999,33 +3036,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 881,
+      "tokens": 895,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12,
-        "generate": 557
+        "classify": 14,
+        "retrieve": 13,
+        "generate": 432
       },
       "knn_share": 1.0,
-      "latency_ms": 589,
-      "threshold_applied": 0.8,
-      "decision_id": "eefaa0d5-560a-46fd-86bd-af24d48f11d2"
+      "latency_ms": 466,
+      "threshold_applied": 0.85,
+      "decision_id": "df8ba128-45b1-423c-8455-226967e8df0f"
     },
     {
       "ticket_id": "VAL-0029",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'onboarding' is not safety-restricted, and 2 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'onboarding' is not safety-restricted, and 2 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "onboarding",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-001",
@@ -3076,21 +3114,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 982,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
+        "classify": 10,
         "retrieve": 11,
-        "generate": 536
+        "generate": 465
       },
       "knn_share": 1.0,
-      "latency_ms": 564,
-      "threshold_applied": 0.8,
-      "decision_id": "86fba94a-ea7f-4935-8da5-9426e06b4b93"
+      "latency_ms": 492,
+      "threshold_applied": 0.85,
+      "decision_id": "c4ce45a1-c596-4e05-8f47-75f2b33d09fd"
     },
     {
       "ticket_id": "VAL-0030",
@@ -3101,8 +3139,9 @@
       "reason_code": "safety_intent",
       "intent": "feature_request",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ONB-001",
@@ -3116,7 +3155,7 @@
         "summary_source": "llm",
         "predicted_intent": "feature_request",
         "predicted_urgency": "low",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-ONB-001",
@@ -3132,37 +3171,38 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 12
+        "classify": 11,
+        "retrieve": 11
       },
       "knn_share": 1.0,
-      "latency_ms": 340,
-      "threshold_applied": 0.8,
-      "decision_id": "6923848f-85a5-4e10-9d07-a9282fd974c8"
+      "latency_ms": 342,
+      "threshold_applied": 0.85,
+      "decision_id": "db6cbdd5-989a-4ff1-8e51-3151949f4a7a"
     },
     {
       "ticket_id": "VAL-0031",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'rollback_request' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'rollback_request' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.5562
         },
         {
-          "doc_id": "DOC-API-003",
-          "score": 0.3748
-        },
-        {
           "doc_id": "DOC-DEPLOY-003",
           "score": 0.3426
+        },
+        {
+          "doc_id": "DOC-API-003",
+          "score": 0.3748
         },
         {
           "doc_id": "DOC-INT-002",
@@ -3204,21 +3244,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 925,
+      "tokens": 907,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 22,
+        "classify": 18,
         "retrieve": 14,
-        "generate": 351
+        "generate": 330
       },
       "knn_share": 1.0,
-      "latency_ms": 389,
-      "threshold_applied": 0.8,
-      "decision_id": "bf22bb6a-c44c-456f-9c65-81aa5c1e2b3b"
+      "latency_ms": 369,
+      "threshold_applied": 0.85,
+      "decision_id": "d0c94ba5-4045-4ef5-a403-2e5c010889f1"
     },
     {
       "ticket_id": "VAL-0032",
@@ -3229,8 +3269,9 @@
       "reason_code": "safety_intent",
       "intent": "feature_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-003",
@@ -3256,7 +3297,7 @@
         "summary_source": "llm",
         "predicted_intent": "feature_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-BILL-003",
@@ -3282,25 +3323,26 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
+        "classify": 10,
         "retrieve": 11
       },
       "knn_share": 1.0,
-      "latency_ms": 488,
-      "threshold_applied": 0.8,
-      "decision_id": "b9a30f2b-5946-4d2e-973b-6e0e8b6f28a8"
+      "latency_ms": 850,
+      "threshold_applied": 0.85,
+      "decision_id": "f8af83e3-c629-48d7-b716-85d159e30537"
     },
     {
       "ticket_id": "VAL-0033",
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'webhook_issue' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'webhook_issue' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "webhook_issue",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-003",
@@ -3308,7 +3350,7 @@
         },
         {
           "doc_id": "DOC-AUTH-003",
-          "score": 0.3932
+          "score": 0.3303
         },
         {
           "doc_id": "DOC-INT-001",
@@ -3350,41 +3392,38 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 697,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12,
-        "generate": 304
+        "classify": 16,
+        "retrieve": 13,
+        "generate": 498
       },
       "knn_share": 1.0,
-      "latency_ms": 336,
-      "threshold_applied": 0.8,
-      "decision_id": "09b247b9-5850-484e-bdd1-1eabcf32e75c"
+      "latency_ms": 532,
+      "threshold_applied": 0.85,
+      "decision_id": "a4fa6c8a-d456-419a-a893-fd2383f64604"
     },
     {
       "ticket_id": "VAL-0034",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'rollback_request' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'rollback_request' is not safety-restricted, and 2 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "rollback_request",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.7633
-        },
-        {
-          "doc_id": "DOC-DEPLOY-003",
-          "score": 0.4065
         },
         {
           "doc_id": "DOC-BILL-002",
@@ -3426,21 +3465,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 666,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 13,
-        "generate": 434
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 304
       },
       "knn_share": 1.0,
-      "latency_ms": 468,
-      "threshold_applied": 0.8,
-      "decision_id": "be73c9c1-196a-437f-84f6-edeb13aff474"
+      "latency_ms": 340,
+      "threshold_applied": 0.85,
+      "decision_id": "c71cdae5-1cf7-45dd-9b14-424023f443aa"
     },
     {
       "ticket_id": "VAL-0035",
@@ -3451,8 +3490,14 @@
       "reason_code": "safety_intent",
       "intent": "unclear_request",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [
+        {
+          "intent": "authentication_failure",
+          "confidence": 0.0807
+        }
+      ],
       "passages": [],
       "response_text": null,
       "citations": [],
@@ -3461,35 +3506,36 @@
         "summary_source": "llm",
         "predicted_intent": "unclear_request",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [],
         "uncertainty_reason": "Intent 'unclear_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 379
+        "tokens": 380
       },
       "guardrails": null,
-      "tokens": 379,
+      "tokens": 380,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12
+        "classify": 10,
+        "retrieve": 10
       },
       "knn_share": 0.9193,
-      "latency_ms": 497,
-      "threshold_applied": 0.8,
-      "decision_id": "5d23efdf-b897-4156-9ced-53472b492cd2"
+      "latency_ms": 339,
+      "threshold_applied": 0.85,
+      "decision_id": "4e136456-6320-4098-a7de-9aa4660e729f"
     },
     {
       "ticket_id": "VAL-0036",
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'onboarding' is not safety-restricted, and 1 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'onboarding' is not safety-restricted, and 1 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "onboarding",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ONB-001",
@@ -3531,33 +3577,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 638,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 12,
-        "generate": 312
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 337
       },
       "knn_share": 1.0,
-      "latency_ms": 342,
-      "threshold_applied": 0.8,
-      "decision_id": "b2c65060-3f7e-4c22-b992-0dba91971561"
+      "latency_ms": 374,
+      "threshold_applied": 0.85,
+      "decision_id": "912b15b7-e6bd-4feb-9abc-37c6039950fa"
     },
     {
       "ticket_id": "VAL-0037",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'data_residency' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'data_residency' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -3607,45 +3654,46 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 700,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12,
-        "generate": 438
+        "classify": 10,
+        "retrieve": 10,
+        "generate": 482
       },
       "knn_share": 1.0,
-      "latency_ms": 470,
-      "threshold_applied": 0.8,
-      "decision_id": "bfc65690-8671-4aaf-809e-d56340fa68fd"
+      "latency_ms": 507,
+      "threshold_applied": 0.85,
+      "decision_id": "a89f3e97-1826-456c-941e-d16e72b59839"
     },
     {
       "ticket_id": "VAL-0038",
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'performance_degradation' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'performance_degradation' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "performance_degradation",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-PERF-001",
           "score": 0.6555
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.3607
-        },
-        {
           "doc_id": "DOC-INT-002",
           "score": 0.3521
+        },
+        {
+          "doc_id": "DOC-API-001",
+          "score": 0.3607
         },
         {
           "doc_id": "DOC-API-003",
@@ -3687,7 +3735,7 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 751,
@@ -3695,25 +3743,26 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
-        "retrieve": 10,
-        "generate": 345
+        "retrieve": 14,
+        "generate": 366
       },
       "knn_share": 1.0,
-      "latency_ms": 371,
-      "threshold_applied": 0.8,
-      "decision_id": "2262496f-74d5-4c37-8e8c-2db4a4aaeeaf"
+      "latency_ms": 401,
+      "threshold_applied": 0.85,
+      "decision_id": "c0921dcc-1f41-49ad-a007-7233fd627622"
     },
     {
       "ticket_id": "VAL-0039",
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_key_issue' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_key_issue' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -3729,11 +3778,11 @@
         },
         {
           "doc_id": "DOC-INT-001",
-          "score": 0.4393
+          "score": 0.4208
         },
         {
-          "doc_id": "DOC-API-003",
-          "score": 0.3999
+          "doc_id": "DOC-API-001",
+          "score": 0.3894
         }
       ],
       "response_text": "To replace the API key without taking the service down, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nTo ensure the new key is not exposed, revoke the old key immediately rather than waiting for the rotation window. [DOC-AUTH-004]\nKeys issued to individual users are removed when that user is deleted, so the exposed key will be removed automatically. [DOC-AUTH-004]\nUse service accounts for anything running in production to avoid this issue in the future. [DOC-AUTH-004]\nReview the scopes attached to the key to ensure the replacement key has the correct permissions. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -3771,33 +3820,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 950,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 13,
-        "generate": 412
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 476
       },
       "knn_share": 1.0,
-      "latency_ms": 445,
-      "threshold_applied": 0.8,
-      "decision_id": "eca6af62-c2cc-4333-9385-c5ccb651e33a"
+      "latency_ms": 513,
+      "threshold_applied": 0.85,
+      "decision_id": "c2817a0e-0f1e-45d4-a4d8-54d4066ef5cb"
     },
     {
       "ticket_id": "VAL-0040",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3812,7 +3862,7 @@
           "score": 0.3685
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3847,33 +3897,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 689,
+      "tokens": 693,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 13,
-        "generate": 294
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 339
       },
       "knn_share": 1.0,
-      "latency_ms": 327,
-      "threshold_applied": 0.8,
-      "decision_id": "952d3821-6174-427d-8b41-a4e04a616eb2"
+      "latency_ms": 375,
+      "threshold_applied": 0.85,
+      "decision_id": "82b3ce20-eb7c-4845-9cbf-3abfdda88417"
     },
     {
       "ticket_id": "VAL-0041",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3888,7 +3939,7 @@
           "score": 0.3685
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3923,33 +3974,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 689,
+      "tokens": 693,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 12,
-        "generate": 398
+        "classify": 11,
+        "retrieve": 11,
+        "generate": 460
       },
       "knn_share": 1.0,
-      "latency_ms": 428,
-      "threshold_applied": 0.8,
-      "decision_id": "5409df43-8843-4365-98df-f32d7081478e"
+      "latency_ms": 487,
+      "threshold_applied": 0.85,
+      "decision_id": "de856122-ab49-4bbd-bd6f-a68e327d5a95"
     },
     {
       "ticket_id": "VAL-0042",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'configuration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'configuration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "configuration_help",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-004",
@@ -3969,7 +4021,7 @@
         },
         {
           "doc_id": "DOC-BILL-003",
-          "score": 0.3281
+          "score": 0.32
         }
       ],
       "response_text": "To troubleshoot the issue with your staging environment picking up production configuration values, please check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults [DOC-DEPLOY-004]. \n\nNext, review the environment overrides page, which lists values that differ from the defaults for each environment [DOC-DEPLOY-004]. \n\nAlso, consider storing anything sensitive as a secret rather than a variable, as secrets are masked in logs and are not readable through the API after creation [DOC-DEPLOY-004]. \n\nFinally, redeploy after changing configuration, as running containers do not pick up new values without a restart [DOC-DEPLOY-004].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -4007,107 +4059,78 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 898,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 11,
-        "generate": 425
+        "classify": 14,
+        "retrieve": 13,
+        "generate": 380
       },
       "knn_share": 1.0,
-      "latency_ms": 454,
-      "threshold_applied": 0.8,
-      "decision_id": "2ad58314-5971-4385-b382-59f9c90df158"
+      "latency_ms": 413,
+      "threshold_applied": 0.85,
+      "decision_id": "453f9056-839d-4d89-8187-35ecb1e906ec"
     },
     {
       "ticket_id": "VAL-0043",
       "channel": "forum",
       "status": "ok",
       "decision": "escalate",
-      "reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-      "reason_code": "safety_intent",
-      "intent": "security_incident",
-      "urgency": "high",
-      "confidence": 0.99,
-      "classify_method": "knn",
-      "passages": [
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.62
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "score": 0.5722
-        },
-        {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.4536
-        },
-        {
-          "doc_id": "DOC-DEPLOY-004",
-          "score": 0.3841
-        },
-        {
-          "doc_id": "DOC-DATA-001",
-          "score": 0.3781
-        }
-      ],
+      "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+      "reason_code": "safety_keyword",
+      "intent": null,
+      "urgency": null,
+      "confidence": null,
+      "classify_method": null,
+      "alternatives": [],
+      "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is reporting suspicious activity in their audit log, potentially indicating a security incident, and is seeking immediate guidance on next steps. They suspect a breach at another service may have exposed their engineer's credentials.",
+        "summary": "The customer is reporting suspicious activity in their audit log, potentially related to a breach at another service, and is seeking immediate guidance on next steps. They are concerned about the security of their credentials and want to know what actions to take right now.",
         "summary_source": "llm",
-        "predicted_intent": "security_incident",
-        "predicted_urgency": "high",
-        "confidence": 0.99,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.62
-          },
-          {
-            "doc_id": "DOC-SEC-002",
-            "title": "Handling exposed secrets and credential rotation",
-            "score": 0.5722
-          },
-          {
-            "doc_id": "DOC-SEC-003",
-            "title": "Audit logging and compliance evidence",
-            "score": 0.4536
-          }
-        ],
-        "uncertainty_reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 484
+        "predicted_intent": null,
+        "predicted_urgency": null,
+        "confidence": null,
+        "retrieved_sources": [],
+        "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+        "tokens": 408
       },
-      "guardrails": null,
-      "tokens": 484,
+      "guardrails": {
+        "security_language": {
+          "status": "block",
+          "matched": "suspicious",
+          "reason": "security-related wording: always handled by a human"
+        },
+        "blocked_by": [
+          "security_language"
+        ]
+      },
+      "tokens": 408,
       "error": null,
       "stage_ms": {
-        "ingest": 0,
-        "classify": 18,
-        "retrieve": 13
+        "ingest": 0
       },
-      "knn_share": 1.0,
-      "latency_ms": 380,
-      "threshold_applied": 0.8,
-      "decision_id": "c5a28b58-7713-4faa-9aed-f16ece9d7f5a"
+      "latency_ms": 340,
+      "threshold_applied": 0.85,
+      "decision_id": "d3b26f60-18e9-4ce6-aa0f-fd40ea6ebe67"
     },
     {
       "ticket_id": "VAL-0044",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -4157,45 +4180,46 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 687,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 19,
+        "classify": 15,
         "retrieve": 13,
-        "generate": 418
+        "generate": 338
       },
       "knn_share": 1.0,
-      "latency_ms": 453,
-      "threshold_applied": 0.8,
-      "decision_id": "76d9b575-86b0-4954-87cc-2fce4df03364"
+      "latency_ms": 373,
+      "threshold_applied": 0.85,
+      "decision_id": "26fe814d-907d-4ebb-802e-65968a89aecf"
     },
     {
       "ticket_id": "VAL-0045",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'data_export' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'data_export' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "data_export",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-001",
           "score": 0.6298
         },
         {
-          "doc_id": "DOC-DEPLOY-002",
-          "score": 0.4378
-        },
-        {
           "doc_id": "DOC-API-002",
           "score": 0.4238
+        },
+        {
+          "doc_id": "DOC-DEPLOY-002",
+          "score": 0.4378
         },
         {
           "doc_id": "DOC-SEC-001",
@@ -4206,7 +4230,7 @@
           "score": 0.4028
         }
       ],
-      "response_text": "Jobs covering more than a million records commonly take several minutes. [DOC-DATA-001]\nThe underlying file is retained for seven days. [DOC-DATA-001]\nThe export reflects the moment the job began, so records created during processing are not included. [DOC-DATA-001]\nRequest a fresh link from the exports page if the original has expired. [DOC-DATA-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "We recommend checking the exports page for job status. Jobs covering more than a million records commonly take several minutes. [DOC-DATA-001] The export has not completed yet, so it's not necessary to cancel and try again. [DOC-DATA-001] \n\nWe also suggest requesting a fresh link from the exports page if the original has expired. The underlying file is retained for seven days. [DOC-DATA-001] \n\nNote that the export reflects the moment the job began, so records created during processing are not included. [DOC-DATA-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-001",
@@ -4241,33 +4265,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 824,
+      "tokens": 880,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 11,
-        "generate": 793
+        "classify": 16,
+        "retrieve": 13,
+        "generate": 346
       },
       "knn_share": 1.0,
-      "latency_ms": 823,
-      "threshold_applied": 0.8,
-      "decision_id": "6103f460-2585-4148-913a-a50a160d4a31"
+      "latency_ms": 381,
+      "threshold_applied": 0.85,
+      "decision_id": "82cfe630-44b9-46e1-ba57-a26cc0e4fcdc"
     },
     {
       "ticket_id": "VAL-0046",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_usage_question' is not safety-restricted, and 1 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_usage_question' is not safety-restricted, and 1 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "api_usage_question",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-002",
@@ -4309,62 +4334,58 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 646,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
+        "classify": 11,
         "retrieve": 11,
-        "generate": 400
+        "generate": 298
       },
       "knn_share": 1.0,
-      "latency_ms": 426,
-      "threshold_applied": 0.8,
-      "decision_id": "5cb3e8c9-7806-48d5-ba8a-27dc059c9728"
+      "latency_ms": 325,
+      "threshold_applied": 0.85,
+      "decision_id": "369afc03-09e0-4b4f-b786-f81e7fa99d3e"
     },
     {
       "ticket_id": "VAL-0047",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'rate_limit' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'rate_limit' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "rate_limit",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-001",
-          "score": 0.4534
+          "score": 0.3839
         },
         {
-          "doc_id": "DOC-API-002",
-          "score": 0.37
+          "doc_id": "DOC-DATA-003",
+          "score": 0.319
         },
         {
           "doc_id": "DOC-PERF-003",
           "score": 0.3412
         },
         {
-          "doc_id": "DOC-DATA-003",
-          "score": 0.319
+          "doc_id": "DOC-API-002",
+          "score": 0.37
         }
       ],
-      "response_text": "To address your issue with search endpoints being rejected constantly, confirm whether the endpoint has a specific limit. Search and export endpoints are more expensive and are limited more tightly than reads. [DOC-API-001]\nImplement exponential backoff with jitter on 429 responses rather than retrying immediately, which prolongs the throttling. [DOC-API-001]\nUse cursor pagination for anything that may change while you iterate, and pass the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null. [DOC-API-002]\nKeep page size at or below two hundred. Larger requests are rejected rather than truncated. [DOC-API-002]\nFor very large extracts, use the export endpoint, which runs asynchronously and returns a download link. [DOC-API-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Confirm whether the endpoint has a specific limit. Search and export endpoints are more expensive and are limited more tightly than reads. [DOC-API-001]\nImplement exponential backoff with jitter on 429 responses rather than retrying immediately, which prolongs the throttling. [DOC-API-001]\nWhere sustained higher throughput is genuinely required, the limit can be raised on Business and Enterprise plans through an account request. [DOC-API-001]\nNote that limits are enforced per organisation. Issuing more keys does not increase the available quota. [DOC-API-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-API-001",
           "resolves": true,
-          "passage_excerpt": "Understanding API rate limits and quota tiers ## Symptoms  - Requests return 429 Too Many Requests - Throughput drops sharply at a predictable point - Limits ap"
-        },
-        {
-          "doc_id": "DOC-API-002",
-          "resolves": true,
-          "passage_excerpt": "Pagination and handling large result sets ## Common causes  - The cursor from the previous response was not passed to the next request - Offset pagination was u"
+          "passage_excerpt": "Understanding API rate limits and quota tiers ## Resolution  1. Read the rate limit headers returned with every response. They give the limit, the remaining all"
         }
       ],
       "escalation_context": null,
@@ -4394,107 +4415,78 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 947,
+      "tokens": 905,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
-        "retrieve": 10,
-        "generate": 383
+        "classify": 14,
+        "retrieve": 13,
+        "generate": 322
       },
       "knn_share": 1.0,
-      "latency_ms": 408,
-      "threshold_applied": 0.8,
-      "decision_id": "bf574b2a-bcf5-47e0-8b22-521c65a037c7"
+      "latency_ms": 355,
+      "threshold_applied": 0.85,
+      "decision_id": "7e4d728e-041f-4185-9583-2a6e0e52758c"
     },
     {
       "ticket_id": "VAL-0048",
       "channel": "chat",
       "status": "ok",
       "decision": "escalate",
-      "reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-      "reason_code": "safety_intent",
-      "intent": "security_incident",
-      "urgency": "high",
-      "confidence": 0.99,
-      "classify_method": "knn",
-      "passages": [
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.5199
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "score": 0.5159
-        },
-        {
-          "doc_id": "DOC-INT-001",
-          "score": 0.382
-        },
-        {
-          "doc_id": "DOC-AUTH-001",
-          "score": 0.353
-        },
-        {
-          "doc_id": "DOC-AUTH-002",
-          "score": 0.3244
-        }
-      ],
+      "reason": "Security-related wording ('breach'): handled by a human regardless of classification.",
+      "reason_code": "safety_keyword",
+      "intent": null,
+      "urgency": null,
+      "confidence": null,
+      "classify_method": null,
+      "alternatives": [],
+      "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is seeking immediate guidance on how to respond to a suspected security incident where an engineer's credentials may have been exposed in a breach at another service. They are asking for urgent instructions on what actions to take right now.",
+        "summary": "The customer is seeking immediate guidance on how to respond to a potential breach of an engineer's credentials at another service. They are asking for urgent advice on what actions to take right now.",
         "summary_source": "llm",
-        "predicted_intent": "security_incident",
-        "predicted_urgency": "high",
-        "confidence": 0.99,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.5199
-          },
-          {
-            "doc_id": "DOC-SEC-002",
-            "title": "Handling exposed secrets and credential rotation",
-            "score": 0.5159
-          },
-          {
-            "doc_id": "DOC-INT-001",
-            "title": "Connecting continuous integration pipelines",
-            "score": 0.382
-          }
-        ],
-        "uncertainty_reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 475
+        "predicted_intent": null,
+        "predicted_urgency": null,
+        "confidence": null,
+        "retrieved_sources": [],
+        "uncertainty_reason": "Security-related wording ('breach'): handled by a human regardless of classification.",
+        "tokens": 419
       },
-      "guardrails": null,
-      "tokens": 475,
+      "guardrails": {
+        "security_language": {
+          "status": "block",
+          "matched": "breach",
+          "reason": "security-related wording: always handled by a human"
+        },
+        "blocked_by": [
+          "security_language"
+        ]
+      },
+      "tokens": 419,
       "error": null,
       "stage_ms": {
-        "ingest": 0,
-        "classify": 15,
-        "retrieve": 11
+        "ingest": 0
       },
-      "knn_share": 1.0,
-      "latency_ms": 377,
-      "threshold_applied": 0.8,
-      "decision_id": "bd479725-c82b-4c5e-b666-c270b3f1a1cd"
+      "latency_ms": 315,
+      "threshold_applied": 0.85,
+      "decision_id": "57bbfd62-ca70-46f0-83ef-dc1d7892ad1d"
     },
     {
       "ticket_id": "VAL-0049",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_key_issue' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_key_issue' is not safety-restricted, and 2 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -4503,14 +4495,6 @@
         {
           "doc_id": "DOC-SEC-002",
           "score": 0.3703
-        },
-        {
-          "doc_id": "DOC-ACCT-001",
-          "score": 0.3302
-        },
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.3188
         }
       ],
       "response_text": "To resolve the issue, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\n\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\n\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\n\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nPlease follow the steps above to resolve the issue.\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -4548,33 +4532,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 947,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
+        "classify": 14,
         "retrieve": 13,
-        "generate": 379
+        "generate": 341
       },
       "knn_share": 1.0,
-      "latency_ms": 412,
-      "threshold_applied": 0.8,
-      "decision_id": "09abbe6d-d2d9-440d-8061-f4ec156e0b82"
+      "latency_ms": 374,
+      "threshold_applied": 0.85,
+      "decision_id": "74012086-feb7-4927-b45a-b0a4cdd8e74f"
     },
     {
       "ticket_id": "VAL-0050",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'onboarding' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'onboarding' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "onboarding",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ONB-001",
@@ -4624,45 +4609,46 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 899,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 13,
-        "generate": 331
+        "classify": 10,
+        "retrieve": 9,
+        "generate": 329
       },
       "knn_share": 1.0,
-      "latency_ms": 364,
-      "threshold_applied": 0.8,
-      "decision_id": "c171c6a4-bd77-499e-9ec7-02f0aed83195"
+      "latency_ms": 354,
+      "threshold_applied": 0.85,
+      "decision_id": "1e979492-c39b-4664-9905-31d12aea9d80"
     },
     {
       "ticket_id": "VAL-0051",
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'integration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'integration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "integration_help",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-INT-002",
           "score": 0.6406
         },
         {
-          "doc_id": "DOC-AUTH-001",
-          "score": 0.37
-        },
-        {
           "doc_id": "DOC-DEPLOY-002",
           "score": 0.3285
+        },
+        {
+          "doc_id": "DOC-AUTH-001",
+          "score": 0.3042
         },
         {
           "doc_id": "DOC-SEC-003",
@@ -4708,7 +4694,7 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 699,
@@ -4716,29 +4702,30 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 17,
-        "retrieve": 13,
-        "generate": 322
+        "retrieve": 15,
+        "generate": 358
       },
       "knn_share": 1.0,
-      "latency_ms": 353,
-      "threshold_applied": 0.8,
-      "decision_id": "b3fa2422-fa75-4add-a635-f4812801d905"
+      "latency_ms": 395,
+      "threshold_applied": 0.85,
+      "decision_id": "0d3b3863-3d79-47ab-9fd5-5c53a6cc889a"
     },
     {
       "ticket_id": "VAL-0052",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'authentication_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'authentication_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "authentication_failure",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-001",
-          "score": 0.4451
+          "score": 0.4292
         },
         {
           "doc_id": "DOC-SEC-001",
@@ -4762,7 +4749,7 @@
         {
           "doc_id": "DOC-AUTH-001",
           "resolves": true,
-          "passage_excerpt": "Resolving invalid credential errors on login ## Symptoms  - The console returns 'Invalid credentials' despite a correct password - Login succeeds in one browser"
+          "passage_excerpt": "Resolving invalid credential errors on login ## Resolution  1. Confirm whether the account is locked by checking the security page of the console. A locked acco"
         }
       ],
       "escalation_context": null,
@@ -4792,33 +4779,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 973,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 21,
-        "retrieve": 13,
-        "generate": 372
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 386
       },
       "knn_share": 1.0,
-      "latency_ms": 408,
-      "threshold_applied": 0.8,
-      "decision_id": "215221b6-c87a-4e91-be98-0fe72bbf2472"
+      "latency_ms": 422,
+      "threshold_applied": 0.85,
+      "decision_id": "523e52e5-e0ba-4137-88ff-c29a034e3018"
     },
     {
       "ticket_id": "VAL-0053",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -4868,33 +4856,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 687,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
-        "retrieve": 10,
-        "generate": 373
+        "classify": 17,
+        "retrieve": 13,
+        "generate": 337
       },
       "knn_share": 1.0,
-      "latency_ms": 398,
-      "threshold_applied": 0.8,
-      "decision_id": "549a87cc-f1cd-4643-9d12-3f643bb9ce87"
+      "latency_ms": 373,
+      "threshold_applied": 0.85,
+      "decision_id": "efd5ba82-b2c3-4809-b6ce-236ee8e92d19"
     },
     {
       "ticket_id": "VAL-0054",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'data_residency' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'data_residency' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -4948,41 +4937,38 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 879,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 12,
-        "generate": 309
+        "classify": 12,
+        "retrieve": 10,
+        "generate": 330
       },
       "knn_share": 1.0,
-      "latency_ms": 340,
-      "threshold_applied": 0.8,
-      "decision_id": "21d97434-d2ea-4711-9fec-75af0340b1af"
+      "latency_ms": 357,
+      "threshold_applied": 0.85,
+      "decision_id": "49b77978-1865-47b1-b74d-2c1a5858f8ca"
     },
     {
       "ticket_id": "VAL-0055",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'integration_help' is not safety-restricted, and 2 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'integration_help' is not safety-restricted, and 1 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "integration_help",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-INT-001",
           "score": 0.6054
-        },
-        {
-          "doc_id": "DOC-AUTH-004",
-          "score": 0.3071
         }
       ],
       "response_text": "Create a service account for the pipeline rather than using a personal key, so that access survives staff changes [DOC-INT-001].\nGrant the service account only the projects and permissions the pipeline needs, and review that grant when the pipeline changes [DOC-INT-001].\nStore the credential as an encrypted secret in your pipeline provider, never in the repository [DOC-INT-001].\nTest the pipeline credential separately from the deployment logic, so that authentication failures are distinguishable from deployment failures [DOC-INT-001].\nSet an expiry and rotate the service account key on a schedule [DOC-INT-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -5020,33 +5006,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 671,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 11,
-        "generate": 325
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 300
       },
       "knn_share": 1.0,
-      "latency_ms": 354,
-      "threshold_applied": 0.8,
-      "decision_id": "664be0f5-cbf6-4647-be45-369f658d84de"
+      "latency_ms": 334,
+      "threshold_applied": 0.85,
+      "decision_id": "658a417f-0d7c-406f-aa0d-a968a10d547a"
     },
     {
       "ticket_id": "VAL-0056",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'deployment_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'deployment_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "deployment_failure",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -5066,10 +5053,10 @@
         },
         {
           "doc_id": "DOC-DEPLOY-002",
-          "score": 0.3668
+          "score": 0.306
         }
       ],
-      "response_text": "To resolve the issue with your deployment failing at the health check stage, please confirm that your container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. \n\nNext, inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001]. \n\nAlso, compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. \n\nFinally, ensure that a health check must return within the timeout using only local state. Endpoints that call a database will fail during a database incident and take the service down with them [DOC-DEPLOY-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve the issue with your deployment failing at the health check stage, confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. \n\nIncrease the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches [DOC-DEPLOY-001]. \n\nCompare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. \n\nInspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -5104,49 +5091,50 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 985,
+      "tokens": 974,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
-        "retrieve": 11,
-        "generate": 372
+        "retrieve": 13,
+        "generate": 440
       },
       "knn_share": 1.0,
-      "latency_ms": 401,
-      "threshold_applied": 0.8,
-      "decision_id": "f2204263-c21e-4622-8466-e63e9c1c2d9c"
+      "latency_ms": 474,
+      "threshold_applied": 0.85,
+      "decision_id": "3ef42114-fc64-4cde-a6f4-4847dbfee696"
     },
     {
       "ticket_id": "VAL-0057",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'deployment_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'deployment_failure' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "deployment_failure",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-001",
           "score": 0.7858
         },
         {
-          "doc_id": "DOC-DEPLOY-002",
-          "score": 0.4728
-        },
-        {
           "doc_id": "DOC-ONB-001",
           "score": 0.4627
         },
         {
+          "doc_id": "DOC-DEPLOY-002",
+          "score": 0.4728
+        },
+        {
           "doc_id": "DOC-API-003",
-          "score": 0.3948
+          "score": 0.3909
         },
         {
           "doc_id": "DOC-INT-002",
@@ -5188,33 +5176,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 951,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 13,
-        "generate": 431
+        "classify": 14,
+        "retrieve": 14,
+        "generate": 346
       },
       "knn_share": 1.0,
-      "latency_ms": 465,
-      "threshold_applied": 0.8,
-      "decision_id": "026c7a34-97b1-4511-910d-ac03e4625133"
+      "latency_ms": 379,
+      "threshold_applied": 0.85,
+      "decision_id": "69c10882-aff1-47b4-ae37-c84fb7ae9ce8"
     },
     {
       "ticket_id": "VAL-0058",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_key_issue' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_key_issue' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -5272,7 +5261,7 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 947,
@@ -5280,25 +5269,26 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
-        "retrieve": 12,
-        "generate": 371
+        "retrieve": 14,
+        "generate": 353
       },
       "knn_share": 1.0,
-      "latency_ms": 400,
-      "threshold_applied": 0.8,
-      "decision_id": "e61ef471-53d5-4d34-ae28-83cf9de5ca89"
+      "latency_ms": 387,
+      "threshold_applied": 0.85,
+      "decision_id": "2bfb7de8-224d-4da0-921e-2f735c8b8338"
     },
     {
       "ticket_id": "VAL-0059",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'configuration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'configuration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "configuration_help",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-004",
@@ -5309,12 +5299,12 @@
           "score": 0.6779
         },
         {
-          "doc_id": "DOC-INT-001",
-          "score": 0.3429
-        },
-        {
           "doc_id": "DOC-SEC-001",
           "score": 0.3166
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.3429
         },
         {
           "doc_id": "DOC-SEC-003",
@@ -5361,33 +5351,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 963,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 12,
-        "generate": 454
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 383
       },
       "knn_share": 1.0,
-      "latency_ms": 486,
-      "threshold_applied": 0.8,
-      "decision_id": "f5e18c60-42d3-43b5-9e7f-8ce8e49384fc"
+      "latency_ms": 420,
+      "threshold_applied": 0.85,
+      "decision_id": "00090113-6f15-43c6-83a8-6ec83f7ee851"
     },
     {
       "ticket_id": "VAL-0060",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'webhook_issue' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'webhook_issue' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "webhook_issue",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-003",
@@ -5395,15 +5386,15 @@
         },
         {
           "doc_id": "DOC-AUTH-003",
-          "score": 0.4065
-        },
-        {
-          "doc_id": "DOC-INT-001",
-          "score": 0.3452
+          "score": 0.3382
         },
         {
           "doc_id": "DOC-INT-002",
           "score": 0.3015
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.3452
         }
       ],
       "response_text": "We recommend checking the webhook delivery log, which records every attempt with the response status and body for the last seven days. [DOC-API-003]\nReturn 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. [DOC-API-003]\nCompute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature. [DOC-API-003]\nMake your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional. [DOC-API-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -5441,33 +5432,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 700,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 12,
-        "generate": 327
+        "classify": 10,
+        "retrieve": 10,
+        "generate": 426
       },
       "knn_share": 1.0,
-      "latency_ms": 357,
-      "threshold_applied": 0.8,
-      "decision_id": "11b53090-3ba6-4962-9477-3a6cba331cac"
+      "latency_ms": 451,
+      "threshold_applied": 0.85,
+      "decision_id": "a480f915-2c01-490c-a2ca-289f76fa602d"
     },
     {
       "ticket_id": "VAL-0061",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'webhook_issue' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'webhook_issue' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "webhook_issue",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-003",
@@ -5475,15 +5467,15 @@
         },
         {
           "doc_id": "DOC-AUTH-003",
-          "score": 0.4065
-        },
-        {
-          "doc_id": "DOC-INT-001",
-          "score": 0.3452
+          "score": 0.3382
         },
         {
           "doc_id": "DOC-INT-002",
           "score": 0.3015
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.3452
         }
       ],
       "response_text": "We recommend checking the webhook delivery log, which records every attempt with the response status and body for the last seven days. [DOC-API-003]\nReturn 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. [DOC-API-003]\nCompute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature. [DOC-API-003]\nMake your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional. [DOC-API-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -5521,33 +5513,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 700,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
+        "classify": 13,
         "retrieve": 12,
-        "generate": 320
+        "generate": 317
       },
       "knn_share": 1.0,
-      "latency_ms": 351,
-      "threshold_applied": 0.8,
-      "decision_id": "26fbc2da-d07d-429c-bad9-0535bab46903"
+      "latency_ms": 348,
+      "threshold_applied": 0.85,
+      "decision_id": "f95f1b4f-c78f-4734-a8c2-ad578c86e2f7"
     },
     {
       "ticket_id": "VAL-0062",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'integration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'integration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "integration_help",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-INT-002",
@@ -5558,16 +5551,16 @@
           "score": 0.4921
         },
         {
-          "doc_id": "DOC-DEPLOY-001",
-          "score": 0.3459
-        },
-        {
           "doc_id": "DOC-SEC-003",
           "score": 0.3397
         },
         {
-          "doc_id": "DOC-DATA-001",
-          "score": 0.3378
+          "doc_id": "DOC-DEPLOY-002",
+          "score": 0.3177
+        },
+        {
+          "doc_id": "DOC-DEPLOY-001",
+          "score": 0.3459
         }
       ],
       "response_text": "Check the forwarding status page, which shows the last successful delivery and any error returned by the destination. [DOC-INT-002]\nExpect a delay of up to two minutes on metrics, since they are aggregated before being sent. [DOC-INT-002]\nApply a level filter at source so that debug output is not forwarded, which is usually the reason volume is higher than expected. [DOC-INT-002]\nVerify the destination credential separately if delivery has stopped entirely, as expired credentials are the most common cause. [DOC-INT-002]\nForwarding pauses after one hour of consecutive failures and must be resumed manually once the destination is healthy. [DOC-INT-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -5605,7 +5598,7 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 899,
@@ -5613,25 +5606,26 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 12,
-        "generate": 399
+        "retrieve": 13,
+        "generate": 341
       },
       "knn_share": 1.0,
-      "latency_ms": 429,
-      "threshold_applied": 0.8,
-      "decision_id": "ee7cdb3a-bdcc-44af-8745-6ffe68af14f7"
+      "latency_ms": 376,
+      "threshold_applied": 0.85,
+      "decision_id": "99c82e40-eb16-4c88-8580-9c134643a325"
     },
     {
       "ticket_id": "VAL-0063",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'account_access' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'account_access' is not safety-restricted, and 2 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "account_access",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -5640,10 +5634,6 @@
         {
           "doc_id": "DOC-SEC-002",
           "score": 0.3207
-        },
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.3163
         }
       ],
       "response_text": "The role was granted at project scope rather than organisation scope. [DOC-ACCT-001]\nCheck the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001]\nConfirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001]\nPrefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -5681,33 +5671,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 654,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 11,
-        "generate": 298
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 313
       },
       "knn_share": 1.0,
-      "latency_ms": 326,
-      "threshold_applied": 0.8,
-      "decision_id": "b690fad7-73ef-4155-96e3-ec0ab2f0fcf7"
+      "latency_ms": 348,
+      "threshold_applied": 0.85,
+      "decision_id": "9e3bd760-98be-45b0-b05a-03a50e943f7a"
     },
     {
       "ticket_id": "VAL-0064",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_usage_question' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_usage_question' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "api_usage_question",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-API-002",
@@ -5762,33 +5753,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 882,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 13,
-        "generate": 377
+        "classify": 13,
+        "retrieve": 12,
+        "generate": 356
       },
       "knn_share": 1.0,
-      "latency_ms": 409,
-      "threshold_applied": 0.8,
-      "decision_id": "195987ed-88b1-4232-9e50-f272d416ef31"
+      "latency_ms": 387,
+      "threshold_applied": 0.85,
+      "decision_id": "10f6c935-adfc-428f-95da-0feca4eab360"
     },
     {
       "ticket_id": "VAL-0065",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -5803,12 +5795,12 @@
           "score": 0.3949
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.3199
-        },
-        {
           "doc_id": "DOC-ACCT-002",
           "score": 0.3017
+        },
+        {
+          "doc_id": "DOC-API-001",
+          "score": 0.3199
         }
       ],
       "response_text": "To clarify the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -5846,33 +5838,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 687,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
-        "retrieve": 10,
-        "generate": 331
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 335
       },
       "knn_share": 1.0,
-      "latency_ms": 358,
-      "threshold_applied": 0.8,
-      "decision_id": "5abdcf6e-1c72-4aca-95b2-0e0e3b734ec0"
+      "latency_ms": 369,
+      "threshold_applied": 0.85,
+      "decision_id": "5d0bc1ec-c1e7-4dea-8ca8-75f0d889fd84"
     },
     {
       "ticket_id": "VAL-0066",
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'data_residency' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'data_residency' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -5887,20 +5880,25 @@
           "score": 0.3593
         },
         {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.3349
-        },
-        {
           "doc_id": "DOC-DATA-001",
           "score": 0.3291
+        },
+        {
+          "doc_id": "DOC-SEC-003",
+          "score": 0.3349
         }
       ],
-      "response_text": "To provide written confirmation of where data is physically stored, please refer to the organisation settings page, which shows the region where primary data is stored. This region is fixed at creation and determines where primary storage is located [DOC-DATA-003]. \n\nTo reduce latency for distant users without moving primary storage, enable read replicas in additional regions. This can be done without affecting primary storage [DOC-DATA-003]. \n\nAdditionally, review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \n\nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To provide written confirmation of where data is physically stored, please refer to the organisation settings page, which shows the region where primary data is stored. This region is fixed at creation and determines where primary storage is located [DOC-DATA-003]. \n\nTo reduce latency for distant users without moving primary storage, enable read replicas in additional regions. This can be done without affecting primary storage [DOC-DATA-003]. \n\nAdditionally, review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \n\nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003]. \n\nLastly, note that retention is seven days on Standard, thirty days on Business and ninety days on Enterprise plans [DOC-DATA-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
           "resolves": true,
           "passage_excerpt": "Data residency and regional storage ## Symptoms  - A customer requires data to remain in a specific region - Latency is high for users far from the primary regi"
+        },
+        {
+          "doc_id": "DOC-DATA-002",
+          "resolves": true,
+          "passage_excerpt": "Backups, retention and point-in-time restore # Backups, retention and point-in-time restore  **Applies to:** Managed Database"
         }
       ],
       "escalation_context": null,
@@ -5930,181 +5928,122 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 935,
+      "tokens": 964,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 18,
-        "retrieve": 13,
-        "generate": 384
+        "retrieve": 14,
+        "generate": 1547
       },
       "knn_share": 1.0,
-      "latency_ms": 417,
-      "threshold_applied": 0.8,
-      "decision_id": "56584dc3-7152-4cda-820b-f025e0501c28"
+      "latency_ms": 1586,
+      "threshold_applied": 0.85,
+      "decision_id": "eb69d82a-d6fa-40a3-87b1-956f88640962"
     },
     {
       "ticket_id": "VAL-0067",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "escalate",
-      "reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-      "reason_code": "safety_intent",
-      "intent": "security_incident",
-      "urgency": "high",
-      "confidence": 0.99,
-      "classify_method": "knn",
-      "passages": [
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.6777
-        },
-        {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.4712
-        },
-        {
-          "doc_id": "DOC-DATA-001",
-          "score": 0.4131
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "score": 0.3913
-        },
-        {
-          "doc_id": "DOC-DEPLOY-004",
-          "score": 0.3489
-        }
-      ],
+      "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+      "reason_code": "safety_keyword",
+      "intent": null,
+      "urgency": null,
+      "confidence": null,
+      "classify_method": null,
+      "alternatives": [],
+      "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is reporting suspicious activity in their audit log, including unknown IP addresses and unclaimed resource creations, and is requesting urgent assistance. They are concerned about potential security incidents and need help resolving the issue quickly.",
+        "summary": "The customer is reporting suspicious activity in their audit log, with unknown IP addresses creating resources that team members do not recognize. They are requesting urgent assistance to investigate and resolve the issue.",
         "summary_source": "llm",
-        "predicted_intent": "security_incident",
-        "predicted_urgency": "high",
-        "confidence": 0.99,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.6777
-          },
-          {
-            "doc_id": "DOC-SEC-003",
-            "title": "Audit logging and compliance evidence",
-            "score": 0.4712
-          },
-          {
-            "doc_id": "DOC-DATA-001",
-            "title": "Exporting account data and scheduled extracts",
-            "score": 0.4131
-          }
-        ],
-        "uncertainty_reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 485
+        "predicted_intent": null,
+        "predicted_urgency": null,
+        "confidence": null,
+        "retrieved_sources": [],
+        "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+        "tokens": 406
       },
-      "guardrails": null,
-      "tokens": 485,
+      "guardrails": {
+        "security_language": {
+          "status": "block",
+          "matched": "suspicious",
+          "reason": "security-related wording: always handled by a human"
+        },
+        "blocked_by": [
+          "security_language"
+        ]
+      },
+      "tokens": 406,
       "error": null,
       "stage_ms": {
-        "ingest": 0,
-        "classify": 18,
-        "retrieve": 14
+        "ingest": 0
       },
-      "knn_share": 1.0,
-      "latency_ms": 396,
-      "threshold_applied": 0.8,
-      "decision_id": "431939ac-8469-4602-83b5-76471a62c5f5"
+      "latency_ms": 706,
+      "threshold_applied": 0.85,
+      "decision_id": "7516beb4-81ce-4416-8e2a-fd92148889a1"
     },
     {
       "ticket_id": "VAL-0068",
       "channel": "email",
       "status": "ok",
       "decision": "escalate",
-      "reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-      "reason_code": "safety_intent",
-      "intent": "security_incident",
-      "urgency": "high",
-      "confidence": 0.99,
-      "classify_method": "knn",
-      "passages": [
-        {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.6957
-        },
-        {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.4733
-        },
-        {
-          "doc_id": "DOC-DATA-001",
-          "score": 0.4225
-        },
-        {
-          "doc_id": "DOC-SEC-002",
-          "score": 0.3901
-        },
-        {
-          "doc_id": "DOC-INT-002",
-          "score": 0.3823
-        }
-      ],
+      "reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+      "reason_code": "safety_keyword",
+      "intent": null,
+      "urgency": null,
+      "confidence": null,
+      "classify_method": null,
+      "alternatives": [],
+      "passages": [],
       "response_text": null,
       "citations": [],
       "escalation_context": {
-        "summary": "The customer is reporting suspicious activity in their audit log, including unrecognized addresses and unclaimed resource creations, which they suspect may be a security incident. They are requesting assistance to investigate and resolve the issue as soon as possible.",
+        "summary": "The customer is reporting suspicious activity in their audit log, with unknown addresses creating resources that team members do not recognize. The activity started around 14:00 yesterday and is causing concern.",
         "summary_source": "llm",
-        "predicted_intent": "security_incident",
-        "predicted_urgency": "high",
-        "confidence": 0.99,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-SEC-001",
-            "title": "Responding to a suspected account compromise",
-            "score": 0.6957
-          },
-          {
-            "doc_id": "DOC-SEC-003",
-            "title": "Audit logging and compliance evidence",
-            "score": 0.4733
-          },
-          {
-            "doc_id": "DOC-DATA-001",
-            "title": "Exporting account data and scheduled extracts",
-            "score": 0.4225
-          }
-        ],
-        "uncertainty_reason": "Intent 'security_incident' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 500
+        "predicted_intent": null,
+        "predicted_urgency": null,
+        "confidence": null,
+        "retrieved_sources": [],
+        "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
+        "tokens": 437
       },
-      "guardrails": null,
-      "tokens": 500,
+      "guardrails": {
+        "security_language": {
+          "status": "block",
+          "matched": "suspicious",
+          "reason": "security-related wording: always handled by a human"
+        },
+        "blocked_by": [
+          "security_language"
+        ]
+      },
+      "tokens": 437,
       "error": null,
       "stage_ms": {
-        "ingest": 0,
-        "classify": 16,
-        "retrieve": 11
+        "ingest": 0
       },
-      "knn_share": 1.0,
-      "latency_ms": 368,
-      "threshold_applied": 0.8,
-      "decision_id": "cd3f217a-95a1-4d2c-97aa-8759861675d1"
+      "latency_ms": 616,
+      "threshold_applied": 0.85,
+      "decision_id": "9a7ddadc-aa6d-407b-81b5-1f5f7c6d3887"
     },
     {
       "ticket_id": "VAL-0069",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'configuration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'configuration_help' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "configuration_help",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-004",
@@ -6124,7 +6063,7 @@
         },
         {
           "doc_id": "DOC-BILL-003",
-          "score": 0.3281
+          "score": 0.32
         }
       ],
       "response_text": "To troubleshoot the issue with your staging environment picking up production configuration values, please check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults [DOC-DEPLOY-004]. \n\nNext, review the environment overrides page, which lists values that differ from the defaults for each environment [DOC-DEPLOY-004]. \n\nAlso, consider storing anything sensitive as a secret rather than a variable, as secrets are masked in logs and are not readable through the API after creation [DOC-DEPLOY-004]. \n\nFinally, redeploy after changing configuration, as running containers do not pick up new values without a restart [DOC-DEPLOY-004].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -6162,53 +6101,54 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 898,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12,
-        "generate": 389
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 472
       },
       "knn_share": 1.0,
-      "latency_ms": 420,
-      "threshold_applied": 0.8,
-      "decision_id": "fe9881d1-44bc-44db-9d3e-494b2069ab14"
+      "latency_ms": 509,
+      "threshold_applied": 0.85,
+      "decision_id": "9713228c-10c7-45cc-aee2-c6fa027fc8c3"
     },
     {
       "ticket_id": "VAL-0070",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'sso_configuration' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'sso_configuration' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "sso_configuration",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-003",
           "score": 0.6457
         },
         {
-          "doc_id": "DOC-AUTH-002",
-          "score": 0.4034
-        },
-        {
           "doc_id": "DOC-AUTH-001",
           "score": 0.3322
+        },
+        {
+          "doc_id": "DOC-AUTH-002",
+          "score": 0.3514
         },
         {
           "doc_id": "DOC-ACCT-001",
           "score": 0.3322
         },
         {
-          "doc_id": "DOC-SEC-001",
-          "score": 0.3274
+          "doc_id": "DOC-ACCT-002",
+          "score": 0.3169
         }
       ],
       "response_text": "Compare the assertion consumer service URL in your identity provider against the value shown on the SSO settings page. They must match exactly, including the trailing path. [DOC-AUTH-003]\nInspect a failing assertion and confirm the NameID is the user's email address in lower case. [DOC-AUTH-003]\nEnable just-in-time provisioning if new users should be created on first login, and set a default role for provisioned users. [DOC-AUTH-003]\nKeep at least one administrator account with password access while testing, so a misconfiguration does not lock the whole organisation out. [DOC-AUTH-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -6246,33 +6186,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 973,
+      "tokens": 729,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 12,
-        "generate": 364
+        "retrieve": 14,
+        "generate": 362
       },
       "knn_share": 1.0,
-      "latency_ms": 395,
-      "threshold_applied": 0.8,
-      "decision_id": "89afd52f-8977-4efd-aab0-05d84f2b0e24"
+      "latency_ms": 397,
+      "threshold_applied": 0.85,
+      "decision_id": "8d9957d2-d43e-4606-a498-7dba6c7ce302"
     },
     {
       "ticket_id": "VAL-0071",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'quota_or_overage' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'quota_or_overage' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "quota_or_overage",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-003",
@@ -6326,33 +6267,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 965,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 12,
-        "generate": 455
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 353
       },
       "knn_share": 1.0,
-      "latency_ms": 487,
-      "threshold_applied": 0.8,
-      "decision_id": "0cc0ea1a-0b6c-4882-ba61-d7f5d86e45d8"
+      "latency_ms": 389,
+      "threshold_applied": 0.85,
+      "decision_id": "c0439b5e-3a6d-4c54-a54e-deb0c8290476"
     },
     {
       "ticket_id": "VAL-0072",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -6406,33 +6348,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 691,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 19,
-        "retrieve": 13,
-        "generate": 315
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 405
       },
       "knn_share": 1.0,
-      "latency_ms": 349,
-      "threshold_applied": 0.8,
-      "decision_id": "19771004-2830-4af0-869e-95f21b90395d"
+      "latency_ms": 441,
+      "threshold_applied": 0.85,
+      "decision_id": "0dbb14fe-4cef-4ac0-a999-739914e9f886"
     },
     {
       "ticket_id": "VAL-0073",
       "channel": "forum",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -6441,10 +6384,6 @@
         {
           "doc_id": "DOC-BILL-002",
           "score": 0.4248
-        },
-        {
-          "doc_id": "DOC-BILL-003",
-          "score": 0.3394
         },
         {
           "doc_id": "DOC-API-001",
@@ -6486,33 +6425,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 686,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 11,
-        "generate": 463
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 338
       },
       "knn_share": 1.0,
-      "latency_ms": 493,
-      "threshold_applied": 0.8,
-      "decision_id": "608a8c4d-b3bc-4864-90e6-f7c2f071f877"
+      "latency_ms": 374,
+      "threshold_applied": 0.85,
+      "decision_id": "8e02dfb9-6037-41bb-bd88-6e7b728d0502"
     },
     {
       "ticket_id": "VAL-0074",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'account_access' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'account_access' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "account_access",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -6562,56 +6502,57 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 664,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 11,
-        "generate": 319
+        "classify": 13,
+        "retrieve": 12,
+        "generate": 348
       },
       "knn_share": 1.0,
-      "latency_ms": 348,
-      "threshold_applied": 0.8,
-      "decision_id": "35c20db9-2344-4dc4-921c-0cf17f9fad38"
+      "latency_ms": 379,
+      "threshold_applied": 0.85,
+      "decision_id": "c56da9a7-8f2a-4bd8-8a18-32118b6a228f"
     },
     {
       "ticket_id": "VAL-0075",
       "channel": "docs_comment",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'api_key_issue' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_key_issue' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "api_key_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-AUTH-004",
           "score": 0.6163
         },
         {
-          "doc_id": "DOC-API-001",
-          "score": 0.4556
-        },
-        {
           "doc_id": "DOC-SEC-001",
           "score": 0.4237
         },
         {
-          "doc_id": "DOC-INT-001",
-          "score": 0.3136
+          "doc_id": "DOC-API-001",
+          "score": 0.4556
         },
         {
           "doc_id": "DOC-ACCT-001",
-          "score": 0.3118
+          "score": 0.303
+        },
+        {
+          "doc_id": "DOC-INT-001",
+          "score": 0.3136
         }
       ],
-      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nKeys issued to individual users are removed when that user is deleted. Use service accounts for anything running in production. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -6646,33 +6587,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 948,
+      "tokens": 926,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 20,
-        "retrieve": 7,
-        "generate": 326
+        "classify": 10,
+        "retrieve": 10,
+        "generate": 321
       },
       "knn_share": 1.0,
-      "latency_ms": 356,
-      "threshold_applied": 0.8,
-      "decision_id": "50003681-6d4d-468d-bd7e-e872fcf07116"
+      "latency_ms": 348,
+      "threshold_applied": 0.85,
+      "decision_id": "55269164-887b-455f-91f3-36cd145f4add"
     },
     {
       "ticket_id": "VAL-0076",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'data_residency' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'data_residency' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "data_residency",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
@@ -6722,33 +6664,34 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 941,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 19,
-        "retrieve": 12,
-        "generate": 389
+        "classify": 12,
+        "retrieve": 11,
+        "generate": 388
       },
       "knn_share": 1.0,
-      "latency_ms": 423,
-      "threshold_applied": 0.8,
-      "decision_id": "a533dc6c-1a73-4632-b107-863bdcc3da59"
+      "latency_ms": 417,
+      "threshold_applied": 0.85,
+      "decision_id": "e93e3d3d-48ec-4966-b79b-37ec146b980c"
     },
     {
       "ticket_id": "VAL-0077",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'billing_query' is not safety-restricted, and 3 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "billing_query",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-BILL-001",
@@ -6798,21 +6741,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 700,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 11,
-        "generate": 354
+        "classify": 10,
+        "retrieve": 10,
+        "generate": 338
       },
       "knn_share": 1.0,
-      "latency_ms": 381,
-      "threshold_applied": 0.8,
-      "decision_id": "b81aa40a-4a20-456b-b677-e3efdac4c2f9"
+      "latency_ms": 364,
+      "threshold_applied": 0.85,
+      "decision_id": "71b97f3e-7df6-40b9-b60b-5ecd95506053"
     },
     {
       "ticket_id": "VAL-0078",
@@ -6823,8 +6766,9 @@
       "reason_code": "guardrail_block",
       "intent": "database_issue",
       "urgency": "medium",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-PERF-003",
@@ -6839,12 +6783,12 @@
           "score": 0.3839
         },
         {
-          "doc_id": "DOC-PERF-001",
-          "score": 0.351
-        },
-        {
           "doc_id": "DOC-DEPLOY-001",
           "score": 0.3386
+        },
+        {
+          "doc_id": "DOC-PERF-001",
+          "score": 0.351
         }
       ],
       "response_text": null,
@@ -6854,7 +6798,7 @@
         "summary_source": "llm",
         "predicted_intent": "database_issue",
         "predicted_urgency": "medium",
-        "confidence": 0.99,
+        "confidence": 0.994,
         "retrieved_sources": [
           {
             "doc_id": "DOC-PERF-003",
@@ -6905,56 +6849,57 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
       "tokens": 1470,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 11,
-        "generate": 443
+        "classify": 15,
+        "retrieve": 15,
+        "generate": 425
       },
       "knn_share": 1.0,
-      "latency_ms": 853,
-      "threshold_applied": 0.8,
-      "decision_id": "5972d33c-61d9-4aaf-9f5e-3c105560f6cb"
+      "latency_ms": 795,
+      "threshold_applied": 0.85,
+      "decision_id": "023831bd-25e4-4fd3-97a3-dbf14b617c4f"
     },
     {
       "ticket_id": "VAL-0079",
       "channel": "email",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'data_residency' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'data_residency' is not safety-restricted, and 5 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "data_residency",
       "urgency": "low",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DATA-003",
           "score": 0.5973
         },
         {
-          "doc_id": "DOC-SEC-003",
-          "score": 0.3534
+          "doc_id": "DOC-DATA-002",
+          "score": 0.3407
         },
         {
           "doc_id": "DOC-DATA-001",
           "score": 0.3504
         },
         {
-          "doc_id": "DOC-DATA-002",
-          "score": 0.3407
-        },
-        {
           "doc_id": "DOC-ONB-002",
           "score": 0.3019
+        },
+        {
+          "doc_id": "DOC-SEC-003",
+          "score": 0.3534
         }
       ],
-      "response_text": "We can confirm that data residency and regional storage are primarily determined by the region where the organisation was created. This is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \n\nTo ensure data remains in a specific region, you can check the region shown on the organisation settings page. This is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \n\nAdditionally, enabling read replicas in additional regions can reduce latency for distant users without moving primary storage [DOC-DATA-003]. \n\nReviewing the backup replication setting is also recommended if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \n\nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "We can confirm that data residency and regional storage are primarily determined by the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \nTo ensure data remains in a specific region, check the region shown on the organisation settings page. \nEnable read replicas in additional regions to reduce latency for distant users without moving primary storage [DOC-DATA-003]. \nReview the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
@@ -6989,41 +6934,38 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 736,
+      "tokens": 710,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 12,
-        "generate": 405
+        "classify": 17,
+        "retrieve": 15,
+        "generate": 346
       },
       "knn_share": 1.0,
-      "latency_ms": 438,
-      "threshold_applied": 0.8,
-      "decision_id": "29847669-001a-4f25-99fc-8d1548328c08"
+      "latency_ms": 384,
+      "threshold_applied": 0.85,
+      "decision_id": "4db68043-4871-4a13-8e29-d11a3d75001a"
     },
     {
       "ticket_id": "VAL-0080",
       "channel": "chat",
       "status": "ok",
       "decision": "auto_respond",
-      "reason": "Confidence 0.99 meets threshold 0.80, intent 'deployment_failure' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'deployment_failure' is not safety-restricted, and 4 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "deployment_failure",
       "urgency": "high",
-      "confidence": 0.99,
+      "confidence": 0.994,
       "classify_method": "knn",
+      "alternatives": [],
       "passages": [
         {
           "doc_id": "DOC-DEPLOY-003",
           "score": 0.7538
-        },
-        {
-          "doc_id": "DOC-ONB-001",
-          "score": 0.6117
         },
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -7032,6 +6974,10 @@
         {
           "doc_id": "DOC-DEPLOY-001",
           "score": 0.3163
+        },
+        {
+          "doc_id": "DOC-ONB-001",
+          "score": 0.3225
         }
       ],
       "response_text": "Pin your dependencies with exact versions and commit the lock file. Unpinned dependencies are the cause in the large majority of cases of this kind. [DOC-DEPLOY-003]\nCompare the runtime version declared in your build configuration against the version you use locally. [DOC-DEPLOY-003]\nClear the build cache from the settings page and trigger a fresh build to rule out a corrupted artefact. [DOC-DEPLOY-003]\nIf a specific dependency is failing to resolve, check whether its registry is reachable from the build network. [DOC-DEPLOY-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
@@ -7069,21 +7015,21 @@
         },
         "confidence_floor": {
           "status": "pass",
-          "reason": "threshold 0.8 was applied"
+          "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 867,
+      "tokens": 685,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 13,
-        "generate": 642
+        "classify": 21,
+        "retrieve": 14,
+        "generate": 309
       },
       "knn_share": 1.0,
-      "latency_ms": 674,
-      "threshold_applied": 0.8,
-      "decision_id": "ef823f4c-5b5f-4e5c-a8e2-8ba38a9c035d"
+      "latency_ms": 351,
+      "threshold_applied": 0.85,
+      "decision_id": "9c424229-5b87-4094-8804-c2e8b7276874"
     }
   ]
 }

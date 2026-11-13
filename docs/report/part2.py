@@ -9,7 +9,7 @@ def build(r, figs, ctx):
         "straight to a human. Otherwise the ticket is cleaned up and screened for text that tries to give the system instructions. Next the system works "
         "out what the ticket is about by comparing it with 500 labelled past tickets, and asks a language model only when that comparison is not clear-cut. "
         "It then searches the 29 articles for the passage that best matches the question. A short piece of ordinary code decides what happens next: "
-        "if the ticket is about security, compliance, a feature request or something unclear, or if no article matched, or if confidence is below 0.80, it "
+        "if the ticket is about security, compliance, a feature request or something unclear, or if no article matched, or if confidence is below 0.85, it "
         "goes to a human with a summary and the articles found. Otherwise a language model drafts a reply using only the full text of the best article, "
         "and five checks run on the draft before anything is sent. Any failed check sends the ticket to a human instead. Every step is written to a log "
         "that records what was decided and why. Figure 2 shows the same flow.")
@@ -44,10 +44,22 @@ def build(r, figs, ctx):
          "Hard-wire one provider.",
          "Credit ran out part-way through the project and a free tier was rate-limited.",
          "Fail-fast on 401 and 402; Retry-After handling on 429; Groq tested as a fallback."],
-        ["Plain Python function for the pipeline",
-         "LangChain with LangGraph, the orchestration the brief suggests.",
-         "The flow is a fixed sequence with early exits, so a graph framework adds dependencies and indirection without adding capability. A plain function is easy to test offline and to explain to an auditor, and the routing must be deterministic code anyway.",
-         "93 tests run without a network. The brief calls its architecture a starting point to be justified; the LangChain packages remain in requirements.txt but are not imported."],
+        ["LangGraph state machine as the orchestrator",
+         "A plain Python function (my first version).",
+         "The brief's low-level design names LangGraph. The graph makes the early exits explicit: a conditional edge after every step sends an escalated ticket straight to the final step, so the escalation packet, metrics and log are written once on every path.",
+         "I first built a plain function and kept the LangChain packages unused; on checking the brief I moved to LangGraph. All 106 tests passed unchanged apart from the routing order."],
+        ["Hybrid search (dense plus BM25)",
+         "Dense embeddings only.",
+         "The brief's design specifies hybrid search. BM25 is fused with the dense ranking by reciprocal rank with a low weight (0.15).",
+         "On development tickets the keyword weight moved hit@1 by about one point in both directions (90.2% to 91.6%), so it adds no measurable benefit on this 29-article corpus. Kept as designed, with a weight chosen on development data only."],
+        ["Confidence and threshold fitted on 'unseen wording' samples",
+         "A threshold of 0.80 taken from the brief's illustration.",
+         "Half the development tickets have a twin, so plain leave-one-out gives 0.99 confidence everywhere and a threshold does nothing. Removing twins and near-duplicates spreads the confidence and lets the threshold be chosen from data.",
+         "Calibration error 0.3 pp; threshold 0.85 is the lowest at which auto-answered tickets are right at least 99% of the time (Table 12)."],
+        ["Deterministic security-wording net and a safety-proximity rule",
+         "Rely on the intent classifier alone for restricted tickets.",
+         "With unseen wording, 3 of 87 restricted tickets (a former employee who still has access) were auto-answered with high confidence. No threshold can fix a confident mistake.",
+         "Keyword net escalates clear security language; proximity rule escalates when neighbours include restricted topics. Result: 0 of 87 restricted tickets answered, even with unseen wording."],
         ["Escalate when unsure; draft-for-agent as the first deployment",
          "Maximise automatic replies.",
          "Marcus would rather the system said nothing than something wrong; Sofia asked for a draft, not auto-send.",
@@ -65,7 +77,7 @@ def build(r, figs, ctx):
           "(b) Agreement of labels between tickets with identical text. Sources: evaluation/eval_routing.py, eval_retrieval_signal.py, "
           "eval_llm_answerability.py, analyze_label_consistency.py.", 148)
     r.p("I stopped there and recorded it as a limitation rather than tuning a threshold against the labels until the number looked better, which "
-        "would have produced a figure that would not survive contact with real tickets. The consequence is the 72 to 75% auto-reply precision "
+        "would have produced a figure that would not survive contact with real tickets. The consequence is the 71 to 75% auto-reply precision "
         "reported in Section 7, and the recommendation to start in draft mode. A related consequence: urgency is assigned and logged but is not "
         "used for routing, and its accuracy (45% validation, 52% dev, against a 55% majority-class baseline) is reported as a failure, not a result.")
     r.h2("5.4  Guardrails and the audit log")
@@ -81,20 +93,22 @@ def build(r, figs, ctx):
     r.h1("6  Implementation", key="s6")
     r.h2("6.1  What was built and where it lives")
     r.p("The repository follows the layout the submission guide prescribes. Table 6 maps each component to its module and to the tests that exercise it. "
-        "The code is about 1,400 lines of Python in src/ and 1,400 in evaluation/, with 93 tests (about 760 lines) that run offline (the model is replaced by a "
+        "The code is about 1,800 lines of Python in src/ and 1,600 in evaluation/, with 106 tests (about 860 lines) that run offline (the model is replaced by a "
         "deterministic stand-in) with one command, pytest tests/ -v.")
     r.table("modules", "Components, their location in the repository, and their tests.", [
         ["Component", "Location", "What it does", "Tests"],
         ["Ingest", "src/ingest.py", "Normalises four channels (api_comments accepted as an alias of docs_comment); never raises on bad input.", "test_ingest.py"],
         ["Classify", "src/classify.py", "Nearest-ticket vote, model fallback, agreement-based confidence.", "test_retrieve_classify_generate.py"],
-        ["Retrieve", "src/retrieve.py", "Chroma search over article sections; one passage per article; relevance floor 0.30; stale-article guard.", "same file; test for the stale guard"],
+        ["Retrieve", "src/retrieve.py", "Hybrid search (dense plus BM25, reciprocal rank) over article sections; one passage per article; relevance floor 0.30; stale-article guard.", "same file; test for the stale guard"],
         ["Route", "src/route.py", "Ordered deterministic rules; escalation packet.", "test_route.py"],
         ["Generate", "src/generate.py", "Cited reply from the full article; NO_ANSWER sentinel.", "test_retrieve_classify_generate.py"],
         ["Guardrails", "src/guardrails.py", "Privacy, grounding, figures, injection, tone, confidence floor.", "test_guardrails.py"],
-        ["Pipeline", "src/pipeline.py", "Orders the steps; kill switch; writes the log; never raises.", "test_pipeline.py, test_kill_switch.py"],
+        ["Pipeline", "src/pipeline.py", "LangGraph state machine: orders the steps; kill switch; writes the log; never raises.", "test_pipeline.py, test_kill_switch.py"],
+        ["Response formatter", "src/formatter.py", "Turns a result into the API payload (reply and citations, or escalation packet).", "test_api.py"],
+        ["Feedback loop", "src/feedback_loop.py", "POST /feedback: human corrections stored, counted, and added to the neighbour index.", "test_feedback_loop.py"],
         ["Decision log", "src/logging_store.py", "SQLite; decisions and resolution records.", "test_logging.py"],
         ["Provider client", "src/llm.py", "Retries, Retry-After, circuit breaker, fail-fast on 401/402.", "test_pipeline.py (outage cases)"],
-        ["API", "src/api.py", "/process, /decisions, /health, /metrics, /admin/kill-switch.", "test_api.py"],
+        ["API", "src/api.py", "/tickets (alias /process), /feedback, /decisions, /health, /metrics, /admin/kill-switch.", "test_api.py"],
         ["Harness", "evaluation/harness.py", "Unattended run; metrics report; human-review CSV. Exit 0 finished, 2 cannot start.", "test_harness.py"],
         ["Fairness audit", "evaluation/fairness_audit.py", "Segment comparison with intervals and significance tests.", "test_fairness_audit.py"],
         ["Monitoring", "monitoring/", "Prometheus config, alert rules, Grafana dashboard with five required views.", "test_monitoring.py"],

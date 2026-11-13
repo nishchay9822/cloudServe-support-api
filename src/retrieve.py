@@ -6,6 +6,7 @@ Retrieval over the 29 knowledge-base articles (Chroma + all-MiniLM-L6-v2). Satis
 - Returning an empty list is valid: results below RETRIEVAL_MIN_SCORE are dropped.
 """
 import json
+import math
 import os
 import re
 from typing import Optional
@@ -108,6 +109,56 @@ def ensure_corpus() -> None:
     embed_corpus()
 
 
+# --------------------------------------------------------------------------- hybrid search
+# The brief's low-level design calls for hybrid search: dense embeddings catch paraphrase, BM25 catches exact terms
+# (error codes, flag names, product words). Both rank the same section chunks and are fused by reciprocal rank.
+HYBRID = os.getenv("RETRIEVAL_HYBRID", "1") == "1"
+RRF_K = 60
+BM25_WEIGHT = float(os.getenv("RETRIEVAL_BM25_WEIGHT", "0.15"))   # keyword evidence relative to dense; chosen on development tickets only
+_bm = {"ready": False, "ids": [], "tf": [], "dl": [], "df": {}, "avgdl": 1.0}
+_STOP = set("a an and are as at be by for from has have i in is it its my of on or our that the this to was we with you your not but if so do does did can could would should will".split())
+
+
+def _tok(text: str) -> list:
+    return [w for w in re.findall(r"[a-z0-9_]+", (text or "").lower()) if w not in _STOP and len(w) > 1]
+
+
+def _build_bm25(col) -> None:
+    got = col.get(include=["documents"])
+    _bm.update(ids=list(got["ids"]), tf=[], dl=[], df={})
+    for doc in got["documents"]:
+        toks = _tok(doc)
+        tf = {}
+        for w in toks:
+            tf[w] = tf.get(w, 0) + 1
+        _bm["tf"].append(tf)
+        _bm["dl"].append(len(toks))
+        for w in tf:
+            _bm["df"][w] = _bm["df"].get(w, 0) + 1
+    _bm["avgdl"] = (sum(_bm["dl"]) / len(_bm["dl"])) if _bm["dl"] else 1.0
+    _bm["ready"] = True
+
+
+def _bm25_scores(col, query: str, k1: float = 1.5, b: float = 0.75) -> dict:
+    """BM25 score per chunk id (Robertson-Sparck Jones idf with +1 so it is never negative)."""
+    if not _bm["ready"]:
+        _build_bm25(col)
+    n = len(_bm["ids"])
+    out = {}
+    q = set(_tok(query))
+    for cid, tf, dl in zip(_bm["ids"], _bm["tf"], _bm["dl"]):
+        sc = 0.0
+        for w in q:
+            f = tf.get(w)
+            if not f:
+                continue
+            df = _bm["df"][w]
+            idf = math.log(1 + (n - df + 0.5) / (df + 0.5))
+            sc += idf * f * (k1 + 1) / (f + k1 * (1 - b + b * dl / _bm["avgdl"]))
+        out[cid] = sc
+    return out
+
+
 def retrieve_passages(query: str, top_k: int = DEFAULT_TOP_K, min_score: Optional[float] = None) -> list:
     """
     Return up to top_k passages: [{doc_id, title, passage, score, category}], best first.
@@ -118,18 +169,30 @@ def retrieve_passages(query: str, top_k: int = DEFAULT_TOP_K, min_score: Optiona
     ensure_corpus()
     floor = MIN_SCORE if min_score is None else min_score
     col = get_client().get_collection(DOC_COLLECTION, embedding_function=_ef())
-    res = col.query(query_texts=[query], n_results=min(top_k * 4, max(col.count(), 1)))
-
+    total = max(col.count(), 1)
+    res = col.query(query_texts=[query], n_results=total if HYBRID else min(top_k * 4, total))
+    ids, docs, metas, dists = res["ids"][0], res["documents"][0], res["metadatas"][0], res["distances"][0]
+    fused = {}
+    if HYBRID:
+        bm = _bm25_scores(col, query)
+        dense_rank = {cid: i for i, cid in enumerate(ids)}                      # already best-first by cosine
+        bm_order = sorted(bm, key=lambda c: -bm[c])
+        bm_rank = {cid: i for i, cid in enumerate(bm_order) if bm[cid] > 0}
+        for cid in ids:
+            fused[cid] = 1.0 / (RRF_K + dense_rank[cid]) + BM25_WEIGHT * (1.0 / (RRF_K + bm_rank[cid]) if cid in bm_rank else 0.0)
     best = {}
-    for text, meta, dist in zip(res["documents"][0], res["metadatas"][0], res["distances"][0]):
+    for cid, text, meta, dist in zip(ids, docs, metas, dists):
         score = round(1.0 - float(dist), 4)
         did = meta["doc_id"]
-        if did not in best or score > best[did]["score"]:
-            best[did] = {"doc_id": did, "title": meta["title"], "passage": text, "score": score,
+        key = fused.get(cid, score)                                              # hybrid rank score, else cosine
+        if did not in best or key > best[did]["_key"]:
+            best[did] = {"doc_id": did, "title": meta["title"], "passage": text, "score": score, "_key": key,
                          "full_text": _articles().get(did, text),
                          "category": meta.get("category", ""),
                          "last_reviewed_days_ago": meta.get("last_reviewed_days_ago", 0)}
-    ranked = sorted(best.values(), key=lambda p: -p["score"])
+    ranked = sorted(best.values(), key=lambda p: -p["_key"])
+    for p in ranked:
+        p.pop("_key", None)
     max_age = DOC_MAX_AGE_DAYS
     fresh = [p for p in ranked if not max_age or int(p.get("last_reviewed_days_ago") or 0) <= max_age]
     return [p for p in fresh if p["score"] >= floor][:top_k]

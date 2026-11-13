@@ -18,7 +18,7 @@ from src import llm
 from src.classify import SAFETY_INTENTS
 from src.prompts import load_prompt, render
 
-DEFAULT_THRESHOLD = 0.80
+DEFAULT_THRESHOLD = 0.85   # chosen by evaluation/calibrate.py (see results/threshold_selection.json)
 CONTEXT_PROMPT_FILE = "prompts/build/route_v1.txt"
 CONTEXT_PROMPT_VERSION = "PR-RO-01 v1.0"
 
@@ -28,6 +28,11 @@ def get_threshold() -> float:
         return float(os.getenv("CONFIDENCE_THRESHOLD", str(DEFAULT_THRESHOLD)))
     except ValueError:
         return DEFAULT_THRESHOLD
+
+
+# A ticket classified as ordinary whose nearest neighbours include restricted topics may be a restricted ticket in disguise.
+# 0.10 chosen from evaluation/calibrate.py's unseen-wording samples: halves restricted tickets slipping through for ~3.6% extra escalations.
+SAFETY_PROXIMITY = float(os.getenv("SAFETY_PROXIMITY", "0.10"))
 
 
 def route_ticket(ticket: dict, classification: dict, passages: list, threshold: Optional[float] = None,
@@ -40,12 +45,16 @@ def route_ticket(ticket: dict, classification: dict, passages: list, threshold: 
     if intent in SAFETY_INTENTS:
         decision, code = "escalate", "safety_intent"
         reason = f"Intent '{intent}' is always handled by a human (security, legal/contractual, no documented answer, or too vague)."
+    elif ((classification.get("raw") or {}).get("restricted_mass") or 0.0) >= SAFETY_PROXIMITY:
+        decision, code = "escalate", "safety_proximity"
+        reason = (f"Similar past tickets include always-escalate topics (vote weight {classification['raw']['restricted_mass']:.2f} "
+                  f">= {SAFETY_PROXIMITY:.2f}), so a human checks this one.")
+    elif conf < thr:    # the brief's decision tree asks about confidence first, then about evidence
+        decision, code = "escalate", "low_confidence"
+        reason = f"Classification confidence {conf:.2f} is below the threshold {thr:.2f}."
     elif not passages:
         decision, code = "escalate", "no_passages"
         reason = "No documentation passage was relevant enough to ground an answer."
-    elif conf < thr:
-        decision, code = "escalate", "low_confidence"
-        reason = f"Classification confidence {conf:.2f} is below the threshold {thr:.2f}."
     else:
         decision, code = "auto_respond", "confident_and_grounded"
         reason = f"Confidence {conf:.2f} meets threshold {thr:.2f}, intent '{intent}' is not safety-restricted, and {len(passages)} relevant passage(s) were found."

@@ -16,7 +16,7 @@ def test_auto_response_path_end_to_end(fake_llm):
 def test_safety_ticket_is_escalated_with_context(fake_llm):
     t = find_ticket("security_incident", "escalate")
     r = pipeline.process_ticket(t, run_id="t")
-    assert r["decision"] == "escalate" and r["reason_code"] == "safety_intent" and r["response_text"] is None
+    assert r["decision"] == "escalate" and r["reason_code"] in ("safety_intent", "safety_keyword") and r["response_text"] is None
     assert r["escalation_context"]["summary"] and r["escalation_context"]["uncertainty_reason"]
 
 
@@ -95,3 +95,11 @@ def test_customer_name_is_never_in_the_outbound_reply(monkeypatch):
     monkeypatch.setattr(llm, "chat", lambda m, **k: {"text": f"Hello {name}, open the revisions page. [DOC-DEPLOY-002]" if "draft replies" in m[0]["content"] else "SUMMARY: x", "tokens": 1})
     r = pipeline.process_ticket(t, run_id="t")
     assert r["decision"] == "escalate" and "pii" in r["guardrails"]["blocked_by"]
+
+
+def test_security_wording_escalates_without_calling_a_model(monkeypatch):
+    from src import llm, pipeline
+    monkeypatch.setattr(llm, "chat", lambda *a, **k: (_ for _ in ()).throw(AssertionError("model must not be called")))
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    r = pipeline.process_ticket({"ticket_id": "S1", "channel": "email", "subject": "Access", "body": "A former employee still has access to our console"}, log=False)
+    assert r["decision"] == "escalate" and r["reason_code"] == "safety_keyword" and r["response_text"] is None

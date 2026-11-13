@@ -76,6 +76,24 @@ Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 - `docs/Effort_Log.docx`: tasks/outputs filled from git; HOURS, hours available, signature and reflections to be confirmed by the author.
 - 93 tests passing.
 
+## Brief/Spec Audit and design alignment (second pass)
+Design now follows the brief's figures: LangGraph orchestrator (src/pipeline.py), /tickets endpoint, response formatter, hybrid dense+BM25 retrieval (no measurable gain on 29 articles, weight 0.15), feedback loop (POST /feedback; corrections enter the neighbour index; feedback_total metric), routing order safety -> confidence -> evidence. SQLite kept instead of PostgreSQL (brief allows). Decision log now stores classifier alternatives.
+Threshold: replaying routing showed 0.80 did nothing (confidence 0.99 on twins). evaluation/calibrate.py fits confidence on simulated unseen wording (twins + near-duplicates removed); chosen threshold 0.85 (lowest with >=99% intent accuracy of auto-answered); calibration error 0.3 pp. NOTE: the local .env still sets CONFIDENCE_THRESHOLD=0.80 and overrides the default; set it to 0.85 (all final runs used CONFIDENCE_THRESHOLD=0.85).
+Safety: unseen wording exposed 3/87 restricted tickets auto-answered (former employee still has access). Added security-wording net + safety-proximity rule (0.10): now 0/87 in both settings.
+Fairness (final system): CONFIRMED tier disparity - enterprise 12.5 pp and standard 8.5 pp below business in route accuracy (p=0.019, 0.036; unseen wording 16.7/11.1 pp, p=0.002/0.007). Exceeds 5-pp target. Cause not identified. Other dimensions not significant.
+Grafana: Prometheus + Grafana run natively (no Docker) from /tmp/obs with the repo configs; datasource healthy, dashboard provisioned, 9 of 9 panel queries return data via Grafana API. (To stop: pkill -f prometheus; pkill -f "grafana server"; pkill -f "uvicorn src.api".)
+Still true: validation set was used while debugging; hidden set never run; CSAT and repeat contacts not measurable offline.
+PRD v2.0 docx and revision log do NOT yet include FR-21 (feedback loop), FR-22 (security wording/proximity), calibrated threshold, hybrid/LangGraph; they should become v2.1.
+
+## Stage 6 Deliverables (done)
+- `docs/Governance_Framework.docx`: 12 risks with proposed owners, fairness table, incident procedure (6 steps), kill switch answers, declaration.
+- `evaluation/fairness_audit.py` + `results/fairness_dev|val.json/.md`: no significant route-accuracy gap on 500 tickets (intervals span 10-20 pp, so underpowered); one borderline confirmed retrieval gap (short tickets, p=0.046); val non-fluent gap (n=19) reversed on dev (n=120).
+- Kill-switch drill `tests/test_kill_switch.py` (effect < 2 s, in-flight ticket finishes). Stale-article guard `DOC_MAX_AGE_DAYS` (R-05). Git history scanned: no credentials.
+- `monitoring/`: Prometheus, alert rules, Grafana dashboard (5 views), replay script. NOT run (no Docker); `tests/test_monitoring.py` checks queried metrics exist.
+- `docs/NishchayGupta_Capstone_Report.pdf`: 26 pages (24 to end of section 10), 7 figures, 17 tables; rebuild with `venv/bin/python3 docs/report/build_report.py` (needs `docs/requirements-report.txt`).
+- `docs/Effort_Log.docx`: tasks/outputs filled from git; HOURS, hours available, signature and reflections to be confirmed by the author.
+- 93 tests passing.
+
 ## Brief/Spec Audit (after reading 01_Project_Brief and 02_Build_Specification)
 On track: all 12 acceptance criteria covered, unattended harness takes --input/--output and handles unlabelled and malformed input, graceful degradation, guardrails block, decision log reconciles.
 Gaps found and handled: mean response time added to metrics (was missing); threshold_sweep.py shows the 0.80 threshold does no work on this data (confidence is ~0.99 for nearly all tickets), reported honestly; repeat-contacts row and the brief's FCR formula added to report; LangChain/LangGraph not used (justified in report + architecture.md); attribution added to README; Python 3.11 verified.

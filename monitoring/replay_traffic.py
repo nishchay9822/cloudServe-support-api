@@ -10,7 +10,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--url", default="http://localhost:8000"); ap.add_argument("--n", type=int, default=60); ap.add_argument("--delay", type=float, default=0.5)
 a = ap.parse_args()
 for t in json.load(open(os.path.join(ROOT, "data", "validation_tickets.json")))[: a.n]:
-    req = urllib.request.Request(a.url + "/process", data=json.dumps({k: t[k] for k in KEYS}).encode(), headers={"Content-Type": "application/json"})
+    req = urllib.request.Request(a.url + "/tickets", data=json.dumps({k: t[k] for k in KEYS}).encode(), headers={"Content-Type": "application/json"})
     r = json.load(urllib.request.urlopen(req, timeout=120))
     print(t["ticket_id"], r["decision"], r["reason_code"], f'{r["latency_ms"]} ms')
     time.sleep(a.delay)

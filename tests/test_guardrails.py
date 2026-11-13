@@ -66,3 +66,17 @@ def test_confidence_floor_escalates_when_threshold_missing_or_ignored():
 def test_run_guardrails_reports_who_blocked():
     res = g.run_guardrails({"final_text": "We will refund you. [DOC-API-002]"}, TICKET, PASSAGES, ROUTE)
     assert res["overall_status"] == "block" and "tone_scope" in res["blocked_by"] and res["action"] == "block_and_escalate"
+
+
+def test_security_language_screen_catches_disguised_security_tickets():
+    from src.guardrails import check_security_language as chk
+    assert chk("A former employee appears to still have access three weeks after leaving.")["status"] == "block"
+    assert chk("We saw unauthorized API calls from an unknown IP")["status"] == "block"
+    assert chk("Our API key was leaked on GitHub")["status"] == "block"
+
+
+def test_security_language_screen_leaves_ordinary_tickets_alone():
+    from src.guardrails import check_security_language as chk
+    for ok in ("How do I roll back a failed deployment?", "Where is our data stored? Are backups replicated outside our primary region?",
+               "My invoice shows an overage charge for last month", "Webhook retries keep failing with a 502"):
+        assert chk(ok)["status"] == "pass", ok

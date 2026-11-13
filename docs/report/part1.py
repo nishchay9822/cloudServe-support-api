@@ -14,22 +14,23 @@ def build(r, figs, ctx):
         "evidence and confidence are good enough. Otherwise it escalates to a human with a prepared packet: a short summary, the relevant "
         "articles and the reason it did not answer. The routing decision is ordinary deterministic code, not a model's opinion, and every "
         "decision is written to an audit log. The system is a Python pipeline (ingest, classify, retrieve, route, generate, guardrails, "
-        "log) behind a FastAPI interface, with an unattended evaluation harness, 93 automated tests, a kill switch, and a Prometheus and "
+        "log) behind a FastAPI interface, with an unattended evaluation harness, 106 automated tests, a kill switch, and a Prometheus and "
         "Grafana monitoring configuration.")
-    r.p(f"<b>What it achieved.</b> On the 500 development tickets the system sent an automatic reply to 79.4% and escalated 20.6%, against a "
+    dv, dn, vl = ctx["dv"], ctx["dn"], ctx["vl"]
+    r.p(f"<b>What it achieved.</b> On the 500 development tickets the system sent an automatic reply to {dv['auto_pct']:.1f}% and escalated {dv['esc_pct']:.1f}%, against a "
         f"baseline escalation rate of 56.2%. An offline proxy for first-contact resolution (replied automatically and the labels say the "
-        f"documentation can answer it) is 62.8%, against a baseline of 43.8% and a target of 60%. On the 80-ticket validation set the same "
-        f"proxy is 58.8%, just under the target. Auto-reply latency at the 95th percentile is {ctx['p95_val_ms']} ms (target under 3 s). "
-        f"No safety-restricted ticket was auto-answered (0 of 101), no personal data left the system (0 findings in 580 tickets), every citation resolved "
-        f"to a retrieved article, and an independent model judged 0 of 150 sampled replies to contain an unsupported claim.")
-    r.p("<b>What it did not achieve, and the single most important caveat.</b> About a quarter of the automatic replies (72 to 75% precision) went "
-        "to tickets that the labels say should have reached a human, and 21 to 27% went to tickets the labels say cannot be answered from "
-        "the documentation. When those are counted as tickets that still need a person, the effective escalation rate is 37% on the "
-        "development set and 41% on validation, not 21%. I tried five different signals to predict which tickets should escalate and none "
-        "worked better than chance, and identical ticket text carries the same route label only 87.8% of the time, so part of this is a "
-        "property of the labels rather than something more engineering would fix. The confidence threshold also does no work on this data (every threshold up to 0.99 routes identically), so the real controls are the restricted-intent rule and the evidence requirement. The evaluation also flatters the system in ways stated "
-        "in Section 7: half the development tickets share their text with another ticket, the validation set was used while fixing faults, "
-        "the hidden evaluation set was never available to me, and the second human assessor of reply quality has not yet reviewed any replies.")
+        f"documentation can answer it) is {dv['proxy']:.1f}%, against a baseline of 43.8% and a target of 60%. On the 80-ticket validation set the same "
+        f"proxy is {vl['proxy']:.1f}%, under the target. Auto-reply latency at the 95th percentile is {vl['p95']} ms on validation (target under 3 s). "
+        f"No safety-restricted ticket was auto-answered (0 of 101), and also 0 of {dn['safe_n']} when each ticket is classified as if its wording were new. "
+        f"No personal data left the system (0 findings in 580 tickets), every citation resolved to a retrieved article, and an independent model judged 0 of 150 sampled replies to contain an unsupported claim.")
+    r.p(f"<b>What it did not achieve, and the single most important caveat.</b> About a quarter of the automatic replies ({vl['prec']:.0f} to {dv['prec']:.0f}% precision) went "
+        f"to tickets that the labels say should have reached a human, and {ctx['unans_dev_pct']:.0f} to {ctx['unans_val_pct']:.0f}% went to tickets the labels say cannot be answered from "
+        f"the documentation. Counting those as tickets that still need a person, the effective escalation rate is {ctx['adj_dev']:.0f}% on the "
+        f"development set and {ctx['adj_val']:.0f}% on validation, not 21%. Five different signals failed to predict which tickets should escalate, and identical ticket text carries "
+        f"the same route label only 87.8% of the time, so part of this is a property of the labels. A second finding concerns fairness: route accuracy is significantly lower "
+        f"for enterprise and standard customers than for business customers (about 12 and 8 points on the development set, wider when wording is new), which exceeds the 5-point target. "
+        f"The evaluation also flatters the system in ways stated in Section 7: half the development tickets share their text with another ticket (so I also report a harder "
+        f"'unseen wording' setting), the validation set was used while fixing faults, the hidden evaluation set was never available to me, and the second human assessor of reply quality has not yet reviewed any reply.")
     r.p("<b>Recommendation.</b> Do not deploy this as an autonomous responder. Deploy it first as a draft-for-agent tool, which is also what the "
         "tier-one agent in the interviews asked for, and measure agent acceptance on live tickets for several weeks before widening "
         "automation to the intents where measured precision is highest. Section 8 lists what must be true before the system speaks to a real customer.")
@@ -80,7 +81,7 @@ def build(r, figs, ctx):
          "A hard routing rule on the predicted intent, checked before confidence. The flag itself is ground truth and does not exist on a live ticket, so it is used only for scoring."],
         ["F3", "Escalations lose context, and tier two repeats the work.",
          "Daniel: escalations arrive as the raw ticket; a summary plus relevant articles plus the reason for uncertainty would make him 'twice as fast'. 56.2% of tickets escalate, many on intents that are mostly answerable (deployment_failure 59% escalated, 70% answerable).",
-         "Every escalation carries a packet: summary, retrieved sources and a reason code. Measured completeness: 100% (103/103 dev, 16/16 validation)."],
+         "Every escalation carries a packet: summary, retrieved sources and a reason code. Measured completeness: 100% (every escalation in both runs)."],
     ], [8, 38, 66, 54])
     r.h2("3.2  Where accounts disagreed and the data decided")
     r.p("Four disagreements between accounts were settled with data rather than by preference (Table 3). Two are worth drawing out because they "
@@ -110,18 +111,18 @@ def build(r, figs, ctx):
         "version 2.0 IDs and are the ones used in the decision log, the prompt register and the tests.")
     r.table("reqs", "Key requirements, their origin in the evidence, and how each is verified.", [
         ["ID", "Requirement (short form)", "Evidence it follows from", "How verified", "Result"],
-        ["FR-02", "Classify every ticket into one of the 22 real intents.", "Ticket labels; Marcus did not know the breakdown.", "Per-class precision, confusion matrix.", "99.8% dev, 100% val"],
-        ["FR-03", "Calibrated confidence per classification.", "Marcus: 'I would rather it said nothing than said something wrong.'", "Calibration bands.", "Only 0.9 to 1.0 band populated (weak)"],
-        ["FR-04, FR-05", "Semantic search of the 29 articles; return nothing when nothing is relevant.", "F1; Ines: no article for feature requests.", "Retrieval hit@k against expected documents.", "hit@1 90.5% dev, 94.3% val"],
+        ["FR-02", "Classify every ticket into one of the 22 real intents.", "Ticket labels; Marcus did not know the breakdown.", "Per-class precision, confusion matrix.", f"{dv['intent']:.1f}% dev, {dn['intent']:.1f}% unseen wording, {vl['intent']:.0f}% val"],
+        ["FR-03", "Calibrated confidence per classification.", "Marcus: 'I would rather it said nothing than said something wrong.'", "Calibration bands on unseen-wording samples.", f"Calibration error {ctx['sel']['ece_pp']} pp (n=1500)"],
+        ["FR-04, FR-05", "Semantic search of the 29 articles; return nothing when nothing is relevant.", "F1; Ines: no article for feature requests.", "Retrieval hit@k against expected documents.", f"hit@1 {dv['hit1']:.1f}% dev, {vl['hit1']:.1f}% val"],
         ["FR-06", "Never auto-respond to restricted intents.", "F2; Daniel.", "Safety violations on labelled tickets.", "0 of 101"],
-        ["FR-07", "Deterministic routing: restricted intent, evidence, confidence 0.80.", "Marcus; calibration.", "Unit tests; harness route accuracy.", "75% val, 78% dev"],
+        ["FR-07", "Deterministic routing: restricted intent or wording, confidence threshold (0.85, from data), evidence.", "Marcus; calibration.", "Unit tests; harness route accuracy.", f"{vl['route']:.0f}% val, {dv['route']:.0f}% dev"],
         ["FR-08", "Escalation packet: summary, sources, reason.", "F3; Daniel.", "Completeness check on every escalation.", "100%"],
         ["FR-09, FR-10", "Cite the article used; do not answer without evidence.", "Ines; Ravi.", "Citation resolves; independent judge.", "100%; 0 of 150 hallucinated"],
-        ["FR-11", "Five guardrails on every outbound reply.", "Marcus's primary fear; GDPR.", "Unit tests; harness blocks.", "17 grounding blocks"],
+        ["FR-11", "Five guardrails on every outbound reply.", "Marcus's primary fear; GDPR.", "Unit tests; harness blocks.", f"{dv['blocks'] + vl['blocks']} blocks across the two runs"],
         ["FR-12", "Persistent decision log, one record per ticket.", "Autumn compliance review.", "Log count equals tickets processed.", "Reconciles on every run"],
         ["FR-13", "Store resolution records for resolved tickets.", "Compounding value of the resolution graph.", "Records written per run.", "Written; never read (unproven)"],
         ["FR-19, FR-20", "Configurable provider; kill switch.", "Added after the build: credit exhaustion; governance framework.", "Outage drill; kill-switch drill.", "80/80 escalated; effect under 2 s"],
-        ["NFR-01", "Auto-reply p95 latency under 3 s.", "Customers on chat feel the slowest case.", "Harness percentile.", "673 ms val; 508 ms dev"],
+        ["NFR-01", "Auto-reply p95 latency under 3 s.", "Customers on chat feel the slowest case.", "Harness percentile.", f"{vl['p95']} ms val; {dv['p95']} ms dev"],
         ["NFR-04", "Zero personal data in outbound text.", "GDPR; Daniel.", "PII scan of every reply.", "0 findings"],
         ["NFR-06", "Under 5 pp variation across tiers and fluency.", "Ravi; Sofia.", "Fairness audit (Section 8).", "Not demonstrated either way"],
     ], [16, 46, 42, 36, 30])

@@ -152,3 +152,22 @@ def run_guardrails(response: dict, ticket: dict, passages: list, routing_decisio
     else:
         status, action = "block", "block_and_escalate"
     return {"overall_status": status, "action": action, "blocked_by": blocked, **results}
+
+
+# Second line of defence for the most costly mistake: a security incident answered as if it were an ordinary ticket.
+# The nearest-neighbour classifier can be confidently wrong on unfamiliar wording ("a former employee still has access" looks
+# like an account-access ticket), so clearly security-related language escalates regardless of the predicted intent.
+# Chosen on the development tickets: catches 25 of 30 security incidents and none of 479 ordinary tickets. Generic compliance
+# words (compliance, GDPR) were tried and left out: they only fired on data-residency questions, which the system can answer.
+_SECURITY_TERMS = [r"still has? access", r"unauthori[sz]ed", r"\bbreach", r"compromis", r"\bleak(ed|ing)?\b", r"\bstolen\b",
+                   r"suspicious", r"\bformer employee", r"ex-employee", r"\bintrusion", r"\bphishing", r"\bexfiltrat",
+                   r"vulnerabilit", r"\bcve-\d", r"\bpen ?test"]
+_SECURITY_RX = re.compile("|".join(_SECURITY_TERMS), re.I)
+
+
+def check_security_language(ticket_text: str) -> dict:
+    m = _SECURITY_RX.search(ticket_text or "")
+    if m:
+        return {"status": "block", "matched": m.group(0).lower(), "reason": "security-related wording: always handled by a human"}
+    return {"status": "pass", "matched": None}
+

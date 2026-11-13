@@ -47,7 +47,8 @@ KNN_CONFIDENCE_BINS = [(0.85, 0.99), (0.75, 0.947), (0.60, 0.909), (0.0, 0.333)]
 
 
 def knn_confidence(share: float) -> float:
-    for floor, conf in KNN_CONFIDENCE_BINS:
+    bins = (_load_calibration() or {}).get("knn_bins") or KNN_CONFIDENCE_BINS   # fitted by evaluation/calibrate.py
+    for floor, conf in bins:
         if share >= floor:
             return conf
     return 0.333
@@ -79,15 +80,22 @@ def ensure_ticket_index() -> None:
     )
 
 
-def classify_knn(ticket: dict, exclude_id: Optional[str] = None, k: int = KNN_K) -> dict:
-    """Distance-weighted vote of the k nearest labelled dev tickets."""
+def classify_knn(ticket: dict, exclude_id: Optional[str] = None, k: int = KNN_K, ban_ids: Optional[set] = None,
+                 sim_cap: Optional[float] = None) -> dict:
+    """
+    Distance-weighted vote of the k nearest labelled dev tickets.
+    ban_ids / sim_cap exist only for evaluation: they remove same-text twins and near-duplicates from the index so the
+    vote simulates a ticket with wording the system has never seen. Production calls pass neither.
+    """
     ensure_ticket_index()
     col = retrieve.get_client().get_collection(TICKET_COLLECTION, embedding_function=retrieve._ef())
-    res = col.query(query_texts=[ticket.get("text") or "(empty)"], n_results=k + 1)
+    res = col.query(query_texts=[ticket.get("text") or "(empty)"], n_results=(k + 60) if (ban_ids or sim_cap) else (k + 1))
     votes, uvotes, ans_w, esc_w = defaultdict(float), defaultdict(float), 0.0, 0.0
     used = 0
     for tid, meta, dist in zip(res["ids"][0], res["metadatas"][0], res["distances"][0]):
         if exclude_id and tid == exclude_id:
+            continue
+        if (ban_ids and tid in ban_ids) or (sim_cap and (1.0 - float(dist)) > sim_cap):
             continue
         if used >= k:
             break
@@ -102,6 +110,7 @@ def classify_knn(ticket: dict, exclude_id: Optional[str] = None, k: int = KNN_K)
     intent, score = ranked[0]
     return {
         "intent": intent,
+        "restricted_mass": round(sum(v for k, v in votes.items() if k in SAFETY_INTENTS) / total, 4),  # vote weight on always-escalate intents
         "share": round(score / total, 4),
         "answerable_share": round(ans_w / total, 4),  # weighted share of similar past tickets the docs could answer
         "escalate_share": round(esc_w / total, 4),    # weighted share of similar past tickets that were escalated
@@ -181,7 +190,8 @@ def calibrated_confidence(llm_conf: float, agree: bool, knn_share: float) -> flo
 
 
 # --------------------------------------------------------------------------- public API
-def classify_ticket(ticket: dict, exclude_id: Optional[str] = None, use_llm: bool = True) -> dict:
+def classify_ticket(ticket: dict, exclude_id: Optional[str] = None, use_llm: bool = True, ban_ids: Optional[set] = None,
+                    sim_cap: Optional[float] = None) -> dict:
     """
     Classify a normalised ticket. Never raises for provider problems: falls back to kNN, and if
     that fails too returns unclear_request with confidence 0 so the ticket escalates.
@@ -192,7 +202,7 @@ def classify_ticket(ticket: dict, exclude_id: Optional[str] = None, use_llm: boo
                 "raw": {"llm_confidence": None, "knn_share": None, "agree": None}}
     knn = None
     try:
-        knn = classify_knn(ticket, exclude_id=exclude_id)
+        knn = classify_knn(ticket, exclude_id=exclude_id, ban_ids=ban_ids, sim_cap=sim_cap)
     except Exception:
         knn = None
 
@@ -200,7 +210,7 @@ def classify_ticket(ticket: dict, exclude_id: Optional[str] = None, use_llm: boo
     if knn and knn["share"] >= KNN_TRUST:
         return {"intent": knn["intent"], "urgency": knn["urgency"], "confidence": knn_confidence(knn["share"]),
                 "alternatives": knn["alternatives"], "method": "knn", "prompt_version": "knn-v1", "tokens": 0,
-                "raw": {"llm_confidence": None, "knn_share": knn["share"], "agree": None}}
+                "raw": {"llm_confidence": None, "knn_share": knn["share"], "agree": None, "restricted_mass": knn.get("restricted_mass")}}
 
     llm_res = None
     if use_llm:
@@ -220,7 +230,7 @@ def classify_ticket(ticket: dict, exclude_id: Optional[str] = None, use_llm: boo
         return {"intent": llm_res["intent"], "urgency": llm_res["urgency"], "confidence": conf,
                 "alternatives": alts[:2], "method": "llm+knn", "prompt_version": PROMPT_VERSION,
                 "tokens": llm_res["tokens"],
-                "raw": {"llm_confidence": llm_res["confidence"], "knn_share": knn["share"], "agree": agree}}
+                "raw": {"llm_confidence": llm_res["confidence"], "knn_share": knn["share"], "agree": agree, "restricted_mass": knn.get("restricted_mass")}}
     if llm_res:  # kNN unavailable
         return {"intent": llm_res["intent"], "urgency": llm_res["urgency"],
                 "confidence": round(min(llm_res["confidence"], 0.7), 4), "alternatives": [],
@@ -229,7 +239,7 @@ def classify_ticket(ticket: dict, exclude_id: Optional[str] = None, use_llm: boo
     if knn:  # ambiguous ticket and the provider is down: use the kNN answer with its measured confidence
         return {"intent": knn["intent"], "urgency": knn["urgency"], "confidence": knn_confidence(knn["share"]),
                 "alternatives": knn["alternatives"], "method": "knn_fallback", "prompt_version": "knn-fallback",
-                "tokens": 0, "raw": {"llm_confidence": None, "knn_share": knn["share"], "agree": None}}
+                "tokens": 0, "raw": {"llm_confidence": None, "knn_share": knn["share"], "agree": None, "restricted_mass": knn.get("restricted_mass")}}
     return {"intent": "unclear_request", "urgency": "medium", "confidence": 0.0, "alternatives": [],
             "method": "unavailable", "prompt_version": "none", "tokens": 0,
             "raw": {"llm_confidence": None, "knn_share": None, "agree": None}}

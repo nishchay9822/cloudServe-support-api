@@ -53,7 +53,7 @@ flowchart LR
 
 ## Orchestration
 
-The brief suggests LangChain with LangGraph. This system does not use them. `process_ticket()` in `src/pipeline.py` is an ordinary function that runs the steps in a fixed order with early exits (kill switch, injection screen, routing, guardrails). The flow has no loops or branches that need a graph engine, the routing must be deterministic code, and a plain function is simple to test offline (93 tests, no network). The packages stay in `requirements.txt` only because the brief lists them; they can be removed.
+As in the brief's low-level design, the orchestrator is a **LangGraph state machine** (`src/pipeline.py`). Nodes: kill_switch, ingest, screen, classify, retrieve, route, generate, validate, finalize. After each node a conditional edge sends the ticket straight to `finalize` once it has been escalated, so the escalation packet, telemetry and decision log are written exactly once, for every path. Each node is wrapped so an exception becomes a logged escalation, never a crash. `process_ticket()` keeps its earlier signature and simply invokes the compiled graph.
 
 ## Component Responsibilities
 
@@ -69,26 +69,29 @@ The brief suggests LangChain with LangGraph. This system does not use them. `pro
 | LLM client | `src/llm.py` | `chat()`, retries, circuit breaker, fail-fast on 401/402 |
 | Pipeline | `src/pipeline.py` | `process_ticket()`, `warm_up()`, `kill_switch_on()` |
 | Telemetry | `src/telemetry.py` | Prometheus counters and histograms |
-| API | `src/api.py` | `/health`, `/process`, `/decisions/{id}`, `/metrics`, `/admin/kill-switch` |
+| Response formatter | `src/formatter.py` | Turns a pipeline result into the API payload (reply + citations, or escalation packet) |
+| Feedback loop | `src/feedback_loop.py` | `POST /feedback`: human corrections stored in the audit DB and added to the neighbour index |
+| API | `src/api.py` | `/tickets` (alias `/process`), `/feedback`, `/decisions/{id}`, `/health`, `/metrics`, `/admin/kill-switch` |
 
 ## Routing Decision Logic
 
-Routing is code, not a model call. First match wins:
+Routing is code, not a model call. It follows the brief's decision tree (confidence, then evidence, then guardrails), with two safety additions in front. First match wins:
 
 ```
-if kill_switch:                         escalate  (kill_switch)
-if predicted_intent in SAFETY_INTENTS:  escalate  (safety)
-if no passages above MIN_SCORE:         escalate  (no_evidence)
-if confidence < CONFIDENCE_THRESHOLD:   escalate  (low_confidence)   # 0.80
-else:                                   generate
-generate -> NO_ANSWER                   escalate
-guardrail blocks                        escalate
-else:                                   auto_respond
+if kill_switch:                                   escalate  (kill_switch)
+if injection or security wording in the ticket:   escalate  (injection_screen / safety_keyword)   # before any model call
+if predicted_intent in SAFETY_INTENTS:            escalate  (safety_intent)
+if restricted-topic vote weight >= 0.10:          escalate  (safety_proximity)
+if confidence < CONFIDENCE_THRESHOLD (0.85):      escalate  (low_confidence)
+if no passage above the relevance floor:          escalate  (no_passages)
+generate -> NO_ANSWER                             escalate  (model_declined)
+guardrails block                                  escalate  (guardrail_block)
+else:                                             auto_respond
 ```
 
-SAFETY_INTENTS = security_incident, compliance_request, feature_request, unclear_request. The rule uses the predicted intent only; ground-truth labels are never read at inference.
+The threshold 0.85 is not a guess: `evaluation/calibrate.py` classifies every development ticket as if its wording were new, fits the confidence on those samples, and picks the lowest threshold at which auto-answered tickets are classified correctly at least 99% of the time (`evaluation/results/threshold_selection.json`).
 
-An escalation always carries a summary, the retrieved sources, and the reason code.
+An escalation always carries a summary, the retrieved sources and a reason code.
 
 ## Guardrails
 
@@ -127,3 +130,26 @@ Each decision stores: decision id, timestamp, ticket id, stage, model and prompt
 3. Latency median and p95 (target p95 under 3 s)
 4. Guardrail activations by type
 5. Confidence distribution, to spot threshold drift
+
+## Conformance with the brief's design
+
+High-level design (six components over three cross-cutting concerns) and low-level design (three layers).
+
+| Brief | This system | Status |
+|---|---|---|
+| Ingest, Classify, Retrieve, Route, Generate, Validate in sequence | Same six steps as LangGraph nodes | Matches |
+| Cross-cutting: Audit log | SQLite decision log, one record per ticket, alternatives and sources included | Matches |
+| Cross-cutting: Monitoring (latency, volume, drift) | Prometheus metrics, five alert rules, Grafana dashboard; run and verified | Matches |
+| Cross-cutting: Feedback loop (human corrections return) | `POST /feedback`; corrections change the neighbour index; counted in `feedback_total` | Matches (added after the audit) |
+| Application layer: FastAPI `/tickets` | `/tickets` (and `/process`) | Matches |
+| Application layer: Orchestrator, LangGraph state machine | LangGraph `StateGraph` | Matches |
+| Application layer: Guardrail middleware | `validate` node between generation and release; can block | Matches (a graph node, not HTTP middleware) |
+| Application layer: Response formatter | `src/formatter.py` | Matches |
+| Model layer: Classifier chain (few-shot) | Few-shot prompt PR-CL-01 v2.0 plus nearest-ticket vote | Matches (nearest-ticket first, the model when unsure) |
+| Model layer: Embedding model MiniLM-L6-v2 | all-MiniLM-L6-v2, local | Matches |
+| Model layer: Chroma vector store (hybrid search) | Chroma dense search fused with BM25 by reciprocal rank | Matches; no measurable gain on this 29-article corpus (see report) |
+| Model layer: Generator chain with citations | Generator prompt PR-GN-01 v3.0, inline citations checked against retrieved articles | Matches |
+| Persistence: PostgreSQL decision log | SQLite | Deliberate: the brief allows SQLite; `DATABASE_URL` would need a Postgres driver to change |
+| Persistence: Prometheus, Grafana, GitHub Actions | All three configured; Grafana verified locally; Actions workflow written but never run on a remote | Matches, CI unverified |
+| Routing tree: confidence 0.80, then retrieval, then guardrails | confidence threshold from data (0.85), then evidence, then guardrails; plus safety rules in front | Extended, not contradicted |
+

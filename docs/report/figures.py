@@ -45,12 +45,14 @@ def fig_architecture():
         arrow(ax, (3.0, 8.4 - i * 1.5), (3.7, 5.5), color=GREY)
     W, X0, STEP = 2.45, 6.4, 2.85
     steps = ["1 Ingest\nnormalise +\ninjection screen", "2 Classify\nkNN first,\nLLM if unsure", "3 Retrieve\nChroma search,\nmin score 0.30",
-             "4 Route\ndeterministic\ncode", "5 Generate\nfull article,\ncited", "6 Guardrails\nPII, grounding,\nfigures, tone"]
+             "4 Route\ndeterministic\ncode", "5 Generate\nfull article,\ncited", "6 Validate\nPII, grounding,\nfigures, tone"]
     cols = [GREEN, GREEN, GREEN, "#f3e3a8", GREEN, "#f3e3a8"]
     xs = [X0 + i * STEP for i in range(6)]
     for t, x, fc in zip(steps, xs, cols):
         box(ax, x, 4.5, W, 2.0, t, fc, "#5b6b7b", fs=7.2)
     arrow(ax, (5.8, 5.5), (X0, 5.5)); ax.text(6.15, 5.75, "off", fontsize=7, ha="center")
+    ax.add_patch(FancyBboxPatch((X0 - 0.2, 4.3), 6 * STEP - 0.4, 2.4, boxstyle="round,pad=0.02,rounding_size=0.1", fc="none", ec="#8a97a6", lw=1, ls="--"))
+    ax.text(X0, 6.78, "LangGraph state machine (src/pipeline.py): conditional edges send any escalation straight to the end", fontsize=6.8, color="#5b6b7b", style="italic")
     for a_, b_ in zip(xs, xs[1:]):
         arrow(ax, (a_ + W, 5.5), (b_, 5.5))
     box(ax, 14.0, 1.3, 4.6, 1.3, "Escalate to human\nsummary + sources + reason", "#f8cecc", "#b85450", fs=7.4)
@@ -62,15 +64,17 @@ def fig_architecture():
     box(ax, 7.2, 8.7, 6.9, 1.3, "LLM provider (OpenRouter / any OpenAI-compatible)\nretries, circuit breaker, fail fast on 401/402", "#e1d5e7", "#7d5ba6", fs=7)
     arrow(ax, (xs[1] + W / 2, 6.5), (9.6, 8.7), color=PURPLE, style="<|-|>", ls="--")
     arrow(ax, (xs[4] + W / 2, 6.5), (13.0, 8.7), color=PURPLE, style="<|-|>", ls="--")
-    box(ax, 6.6, 0.1, 5.2, 1.0, "Chroma: 29 articles + dev tickets", "#e1d5e7", "#7d5ba6", fs=7.4)
+    box(ax, 6.6, 0.1, 5.2, 1.0, "Chroma: articles (hybrid dense + BM25)\n+ labelled-ticket neighbours", "#e1d5e7", "#7d5ba6", fs=7.4)
     arrow(ax, (xs[1] + 0.6, 4.5), (8.0, 1.1), color=PURPLE, style="<|-|>", ls="--")
     arrow(ax, (xs[2] + 0.6, 4.5), (10.2, 1.1), color=PURPLE, style="<|-|>", ls="--")
     box(ax, 12.2, 0.1, 3.4, 1.0, "SQLite decision log\n+ resolution records", "#e1d5e7", "#7d5ba6", fs=7.2)
     arrow(ax, (xs[3] + W * 0.3, 4.5), (13.6, 1.1), color=PURPLE, ls="--")
-    box(ax, 0.2, 0.1, 5.8, 1.0, "FastAPI: /process /decisions /health\n/metrics /admin/kill-switch", "#dae8fc", "#6c8ebf", fs=7.2)
+    box(ax, 0.2, 0.1, 5.8, 1.0, "FastAPI: /tickets /feedback /decisions\n/health /metrics /admin/kill-switch", "#dae8fc", "#6c8ebf", fs=7.2)
+    box(ax, 16.2, 0.1, 6.9, 1.0, "Feedback loop: POST /feedback\nhuman corrections → log + neighbour index", "#fde9d9", "#e8660b", fs=7.2)
+    arrow(ax, (16.2, 0.6), (15.6, 0.6), color="#e8660b")
     box(ax, 17.6, 8.8, 5.2, 1.1, "Prometheus /metrics → Grafana", "#eeeeee", "#8a97a6", fs=7.4)
     arrow(ax, (xs[5] + W * 0.6, 6.5), (20.5, 8.8), color=GREY, ls="--")
-    return save(fig, "architecture_fig.png")
+    return save(fig, "architecture_fig2.png")
 
 
 def fig_discovery():

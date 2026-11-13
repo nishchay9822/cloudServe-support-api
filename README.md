@@ -55,7 +55,7 @@ Provider-outage drill: run with the key unset. Expect every ticket processed, al
 pytest tests/ -v
 ```
 
-93 tests, no network needed.
+106 tests, no network needed.
 
 ## Run the API
 
@@ -68,7 +68,8 @@ Docs at `http://localhost:8000/docs`.
 | Endpoint | Purpose |
 |---|---|
 | `GET /health` | Status, provider configured, kill switch state |
-| `POST /process` | Run one ticket through the pipeline; always returns a decision |
+| `POST /tickets` (alias `/process`) | Run one ticket through the pipeline; always returns a decision |
+| `POST /feedback`, `GET /feedback/summary` | A human correction returns to the system (stored, counted, added to the classifier's neighbour index) |
 | `GET /decisions/{ticket_id}` | Decision log entries for a ticket |
 | `GET /metrics` | Prometheus metrics |
 | `POST /admin/kill-switch` | Body `{"on": true, "token": "<ADMIN_TOKEN>"}`. Sends all later tickets to humans |
@@ -80,9 +81,9 @@ Kill switch can also be set with `KILL_SWITCH=1` or by creating `storage/KILL_SW
 ## How a ticket is decided
 
 1. Ingest: normalise channel and fields, screen for prompt injection.
-2. Classify: kNN over development tickets; if vote share is below `KNN_TRUST` the LLM is also called and the two are combined. Confidence comes from classifier agreement.
-3. Retrieve: Chroma search, one passage per document, minimum score `RETRIEVAL_MIN_SCORE`.
-4. Route (deterministic code): safety intent, then no passages, then confidence below `CONFIDENCE_THRESHOLD`, else auto-respond.
+2. Classify: nearest labelled tickets; if vote share is below `KNN_TRUST` the LLM is also called and the two are combined. Confidence is calibrated on simulated unseen wording (`evaluation/calibrate.py`).
+3. Retrieve: hybrid search (Chroma dense + BM25, reciprocal rank), one passage per document, minimum score `RETRIEVAL_MIN_SCORE`.
+4. Route (deterministic code): safety wording or intent, restricted-topic neighbours, confidence below `CONFIDENCE_THRESHOLD` (0.85, chosen from data), then no passages, else auto-respond.
 5. Generate: cited reply from the full top article. A `NO_ANSWER` reply escalates.
 6. Guardrails: PII, grounding, figures, injection, tone. Any block escalates.
 7. Log: decision, reason, sources, prompt version and requirement IDs go to SQLite.
@@ -91,9 +92,15 @@ Safety intents that always escalate: `security_incident`, `compliance_request`, 
 
 ---
 
-## Fairness audit, monitoring and the report
+## Evaluation settings, calibration, fairness audit, monitoring and the report
 
 ```bash
+# Harder evaluation: classify each ticket as if its wording were new (removes same-text twins and near-duplicates)
+python evaluation/harness.py --input data/development_tickets.json --output evaluation/results/dev_novel.json --novel-cap 0.90
+
+# Refit confidence and choose the threshold from data (makes a few hundred model calls)
+python evaluation/calibrate.py
+
 # Segment a finished run by tier, fluency, length, region and channel (intervals + significance tests)
 python evaluation/fairness_audit.py --run evaluation/results/dev_run.json \
   --tickets data/development_tickets.json --out evaluation/results/fairness_dev
@@ -124,7 +131,7 @@ Final_Capstone_Project/
 │   └── api.py          ← FastAPI
 ├── prompts/            ← versioned prompts + register (prompts/README.md)
 ├── evaluation/         ← harness.py, metrics.py, judge.py, analysis scripts, results/
-├── tests/              ← 93 tests
+├── tests/              ← 106 tests
 ├── monitoring/         ← Prometheus config, alert rules, Grafana dashboard, traffic replay
 ├── docs/               ← stage documents, architecture.md, architecture.drawio
 ├── data/               ← tickets, ground truth, documentation, calibration.json
@@ -160,6 +167,6 @@ See `CONTEXT.md`. In short: route and urgency labels are partly unpredictable fr
 
 - Most of the source code, tests, evaluation scripts, workbook text and the report were drafted by **Kiro**, an AI coding assistant, in conversation with the author, who set the goals, supplied the data and decisions, and is responsible for the submission. The commit history shows the work as it happened.
 - Runtime models: Llama 3.1 8B Instruct (generation and fallback classification, via OpenRouter), GPT-4o-mini and GPT-OSS-120B (independent judges), Qwen3.8-27B (Groq fallback), and `all-MiniLM-L6-v2` (local embeddings).
-- Third-party libraries are listed in `requirements.txt` (FastAPI, Chroma, sentence-transformers, prometheus-client, python-docx and others). `langchain` and `langgraph` are listed because the brief suggests them, but the pipeline does not import them (see `docs/architecture.md`).
+- Third-party libraries are listed in `requirements.txt` (FastAPI, Chroma, sentence-transformers, prometheus-client, python-docx and others). `langgraph` is the pipeline orchestrator (`src/pipeline.py`); `langchain` packages are listed because the brief suggests them but are not imported.
 - No external code was knowingly copied. Templates for the workbooks come from the course pack.
 

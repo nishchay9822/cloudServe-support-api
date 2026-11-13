@@ -10,6 +10,7 @@ LATENCY = Histogram("ticket_latency_seconds", "End-to-end latency per ticket",
 GUARDRAIL_BLOCKS = Counter("guardrail_blocks_total", "Responses blocked, by guardrail", ["guardrail"])
 CONFIDENCE = Histogram("classification_confidence", "Confidence of the intent classification",
                        buckets=(0.1, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0))
+FEEDBACK = Counter("feedback_total", "Human corrections returned to the system", ["kind"])
 ROUTE_REASONS = Counter("routing_reason_total", "Why tickets were routed as they were", ["reason"])
 
 
