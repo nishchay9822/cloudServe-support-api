@@ -27,8 +27,8 @@ def build(r, figs, ctx):
         f"to tickets that the labels say should have reached a human, and {ctx['unans_dev_pct']:.0f} to {ctx['unans_val_pct']:.0f}% went to tickets the labels say cannot be answered from "
         f"the documentation. Counting those as tickets that still need a person, the effective escalation rate is {ctx['adj_dev']:.0f}% on the "
         f"development set and {ctx['adj_val']:.0f}% on validation, not 21%. Five different signals failed to predict which tickets should escalate, and identical ticket text carries "
-        f"the same route label only 87.8% of the time, so part of this is a property of the labels. A second finding concerns fairness: route accuracy is significantly lower "
-        f"for enterprise and standard customers than for business customers (about 12 and 8 points on the development set, wider when wording is new), which exceeds the 5-point target. "
+        f"the same route label only 87.8% of the time, so part of this is a property of the labels. A second finding concerns fairness: route accuracy for enterprise and standard customers trails business customers in every run, by roughly 8 to 13 points, above the 5-point target. "
+        f"The gap is statistically significant when wording is new and borderline otherwise, and it moves across the 0.05 line with small changes to the system, so it is a consistent shortfall against the target and not a settled finding. "
         f"The evaluation also flatters the system in ways stated in Section 7: half the development tickets share their text with another ticket (so I also report a harder "
         f"'unseen wording' setting), the validation set was used while fixing faults, the hidden evaluation set was never available to me, and the second human assessor of reply quality has not yet reviewed any reply.")
     r.p("<b>Recommendation.</b> Do not deploy this as an autonomous responder. Deploy it first as a draft-for-agent tool, which is also what the "

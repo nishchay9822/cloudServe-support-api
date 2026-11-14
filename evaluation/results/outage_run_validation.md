@@ -1,6 +1,6 @@
-# Evaluation report - outage-final4
+# Evaluation report - outage-v4
 
-- Input: `data/validation_tickets.json`  |  tickets: **80**  |  finished: 2026-11-13T21:01:07+00:00  |  wall time: 1.2s
+- Input: `data/validation_tickets.json`  |  tickets: **80**  |  finished: 2026-11-14T18:38:23+00:00  |  wall time: 1.2s
 - Model: `meta-llama/llama-3.1-8b-instruct`  |  confidence threshold: 0.85  |  labelled input: True
 
 ## Gate: unattended run
@@ -39,13 +39,13 @@
 
 ## 6. Latency
 
-- All tickets: p50 14 ms, p95 14 ms. Auto-replies: p50 None ms, **p95 None ms** (target < 3000 ms: None)
+- All tickets: p50 14 ms, p95 15 ms. Auto-replies: p50 None ms, **p95 None ms** (target < 3000 ms: None)
 - Model provider: 0 calls, 0 retries, 0 failures, 0 tokens
 
 ## 7. Citations and answer quality
 
 - Auto-replies 0; with a citation None; citations that resolve None; cited the expected article None
-- Model-assessed hallucination check not run (use --judge N).
+- Model-assessed hallucination check not run (no model provider configured, or --judge 0).
 
 ## 8. Governance
 

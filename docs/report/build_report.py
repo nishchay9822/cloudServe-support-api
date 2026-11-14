@@ -42,7 +42,8 @@ def facts(name, tickets_file):
             "ctx_n": g["escalations_with_complete_context"] if "escalations_with_complete_context" in g else g.get("escalations"),
             "esc_n": g.get("escalations"), "resrec": g.get("resolution_records_written"), "p50": l["auto_p50_ms"], "p95": l["auto_p95_ms"], "mean": l["auto_mean_ms"],
             "tok": round(m["llm"]["tokens"] / r["n"]), "proxy": b["auto_resolution_proxy"] * 100, "brief": b["fcr_brief_formula"] * 100,
-            "minprec": min(v["precision"] for v in m["classification"]["per_class"].values()) * 100, "reasons": g["decision_reason_counts"]}
+            "minprec": min(v["precision"] for v in m["classification"]["per_class"].values()) * 100, "reasons": g["decision_reason_counts"],
+            "structured": (c.get("structured_output_rate") or 0) * 100, "j_cov": (m.get("judge") or {}).get("coverage_of_required_points_rate"), "j_hall": (m.get("judge") or {}).get("hallucination_rate"), "j_n": (m.get("judge") or {}).get("n_judged")}
 
 
 def context():
@@ -64,6 +65,7 @@ def context():
     return {
         "dv": facts("dev_run", "development_tickets"), "dn": facts("dev_run_novel090", "development_tickets"), "vl": facts("gate_run_validation", "validation_tickets"),
         "sel": sel,
+        "v3d": facts("dev_run_v3", "development_tickets"), "v3v": facts("gate_run_validation_v3", "validation_tickets"),
         "human": (J("human_review_agreement.json") if os.path.exists(os.path.join(RES, "human_review_agreement.json")) else None),
         "fair_dn": J("fairness_dev_novel.json")["segments"],
         "gaps": {k: v["max_gap_pp_route_accuracy"] for k, v in J("fairness_dev.json")["segments"].items()},

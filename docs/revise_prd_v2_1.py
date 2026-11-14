@@ -98,7 +98,8 @@ set_cell(r.cells[1], "The system shall perform hybrid search over the 29 knowled
          "Articles not reviewed within DOC_MAX_AGE_DAYS (default 180) are never returned. The reply generator shall be shown the whole article for the top result, and the runner-up only if it scores at least 0.6 times as high.")
 set_cell(r.cells[4], f"Every returned passage resolves to a real document ID. Measured hit@1 / hit@5: {pc(dev['retrieval']['hit@1'])} / {pc(dev['retrieval']['hit@5'])} dev, "
          f"{pc(val['retrieval']['hit@1'])} / {pc(val['retrieval']['hit@5'])} validation. The keyword component changed hit@1 by about one point in either direction on development tickets, "
-         "so it adds no measurable benefit on this small corpus; it is kept because the brief's design specifies hybrid search.")
+         "so it adds no measurable benefit on this small corpus; it is kept because the brief's design specifies hybrid search. A higher relevance floor was tested and rejected: "
+         "the best article's score barely separates answerable from unanswerable tickets (AUC 0.56 dev, 0.64 validation).")
 
 r = row(fr, "FR-06")
 set_cell(r.cells[1], "The system shall never auto-respond to a ticket whose predicted intent is security_incident, compliance_request, feature_request or unclear_request. "
@@ -117,6 +118,9 @@ set_cell(r.cells[4], f"Same ticket gives the same decision (tested). The thresho
          "(evaluation/results/threshold_selection.json). Known limitation: the labelled 'should escalate' outcome for non-safety tickets could not be predicted from text; auto-reply precision measured "
          f"{pc(val['routing']['precision_of_auto_respond'])} validation, {pc(dev['routing']['precision_of_auto_respond'])} dev, {pc(nov['routing']['precision_of_auto_respond'])} with unseen wording.")
 
+r = row(fr, "FR-09")
+set_cell(r.cells[1], r.cells[1].text.strip() + " The model shall return its reply as one JSON object {status, answer, cited_docs, reason}; if it returns anything else the plain-text fallback is used, so a formatting slip never breaks a reply.")
+set_cell(r.cells[4], r.cells[4].text.strip() + f" Output structure (v4.0 prompt): {pc(dev['citations']['structured_output_rate'])} of dev replies and {pc(val['citations']['structured_output_rate'])} of validation replies were valid JSON.")
 r = row(fr, "FR-11")
 set_cell(r.cells[4], f"All five run on every response in every run; there is no switch to disable them. Engineered triggers for each are in tests/test_guardrails.py and tests/test_pipeline.py. "
          f"Zero outbound PII. Blocks in the final runs: {blocks(dev)} on dev, {blocks(val)} on validation (grounding). Security-wording screen escalated "
@@ -143,14 +147,14 @@ r = row(nf, "NFR-01")
 set_cell(r.cells[3], f"Measured in the harness, p95 over auto-replies: {val['latency']['auto_p95_ms']} ms validation, {dev['latency']['auto_p95_ms']} ms dev (mean {dev['latency']['auto_mean_ms']:.0f} ms, median {dev['latency']['auto_p50_ms']} ms), "
          "on a paid OpenRouter provider. It depends on provider routing and plan: on the Groq free tier p95 was 11 s because of rate limits, which misses the target.")
 r = row(nf, "NFR-06")
-set_cell(r.cells[3], f"Fairness audit (evaluation/fairness_audit.py). NOT MET for customer tier: route accuracy {pc(bus[0] / 100)} for business customers against {pc(ent[0] / 100)} for enterprise "
-         f"({ent[1]:.1f} pp, p = {ent[2]:.3f}) and {pc(std[0] / 100)} for standard ({std[1]:.1f} pp, p = {std[2]:.3f}); wider with unseen wording. Fluency, length, region and channel gaps are not statistically significant, "
+set_cell(r.cells[3], f"Fairness audit (evaluation/fairness_audit.py). NOT MET as a point estimate for customer tier (gap above 5 points in every run; statistically significant only with unseen wording): route accuracy {pc(bus[0] / 100)} for business customers against {pc(ent[0] / 100)} for enterprise "
+         f"({ent[1]:.1f} pp, p = {ent[2]:.3f}) and {pc(std[0] / 100)} for standard ({std[1]:.1f} pp, p = {std[2]:.3f}); wider with unseen wording. Fluency, region and channel gaps are not consistently significant, "
          "but the intervals span roughly 10 to 20 points, so the audit could only detect gaps of about 10 points or more.")
 
 oq = find_table(doc, "Question") if False else doc.tables[-2]
 try:
     add_row(oq, ["Why do enterprise and standard tickets route less accurately than business tickets, and should enterprise get a stricter policy?",
-                 "A confirmed tier disparity above the 5-point target. Enterprise tickets are auto-answered more often when the labels say a human was expected, but they are not labelled 'escalate' more often.",
+                 "A consistent tier shortfall above the 5-point target (significant with unseen wording, borderline otherwise). Enterprise tickets are auto-answered more often when the labels say a human was expected, but they are not labelled 'escalate' more often.",
                  "Nishchay with Marcus (head of support)", "Before any live use"])
 except Exception:
     pass
@@ -181,8 +185,10 @@ new_rows = [
      "Replaying routing at several thresholds showed 0.80 changed nothing, because plain leave-one-out gives 0.99 almost everywhere. The brief asks for a threshold determined from data.", AG],
     ["FR-04, FR-15 (v2.1)", "Dense search; /process endpoint; no orchestrator named.", "Hybrid dense + BM25 search; POST /tickets with /process as alias; response formatter; the pipeline is a LangGraph state machine.",
      "The brief's low-level design names hybrid search, /tickets, a response formatter and a LangGraph orchestrator. Hybrid search gave no measurable gain on this corpus.", AG],
+    ["FR-09, FR-10 (v2.1)", "Plain-text reply with a NO_ANSWER sentinel.", "JSON output contract (status, answer, cited_docs, reason) with a plain-text fallback; stricter decline rule.",
+     "Build Specification section 3 (Generate must produce output in a defined structure). v3 against v4: every reply valid JSON, quality unchanged. The stricter decline rule had no effect because the model never declines.", AG],
     ["NFR-06 (v2.1)", "Under 5 pp variation across tiers and between fluent and non-fluent.", "Unchanged target; result recorded as NOT MET for tier.",
-     "Final audit: enterprise and standard route accuracy significantly below business (above target in both evaluation settings). Cause not identified; recorded as an open question.", AG],
+     "Final audit: enterprise and standard route accuracy 8 to 13 points below business in every run (above target; significant with unseen wording, borderline otherwise). Cause not identified; recorded as an open question.", AG],
 ]
 for vals in new_rows:
     if vals[0] not in existing:

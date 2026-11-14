@@ -1,12 +1,12 @@
 {
   "metrics": {
     "run": {
-      "run_id": "outage-final4",
+      "run_id": "outage-v4",
       "input": "data/validation_tickets.json",
       "tickets": 80,
       "labelled": true,
       "wall_seconds": 1.2,
-      "finished_at": "2026-11-13T21:01:07+00:00",
+      "finished_at": "2026-11-14T18:38:23+00:00",
       "model": "meta-llama/llama-3.1-8b-instruct",
       "threshold": 0.85,
       "ticket_errors": 0
@@ -165,10 +165,10 @@
       }
     ],
     "latency": {
-      "all_mean_ms": 13.4,
+      "all_mean_ms": 13.9,
       "all_p50_ms": 14,
-      "all_p95_ms": 14,
-      "all_max_ms": 18,
+      "all_p95_ms": 15,
+      "all_max_ms": 27,
       "auto_mean_ms": null,
       "auto_p50_ms": null,
       "auto_p95_ms": null,
@@ -434,7 +434,7 @@
       "knn_share": 1.0,
       "latency_ms": 18,
       "threshold_applied": 0.85,
-      "decision_id": "216ce4e7-9059-48a6-9780-8b9dc840b5dc"
+      "decision_id": "dbcc3658-464b-42c2-b121-9140ad8954cc"
     },
     {
       "ticket_id": "VAL-0002",
@@ -488,7 +488,7 @@
       "knn_share": 0.8252,
       "latency_ms": 12,
       "threshold_applied": 0.85,
-      "decision_id": "481696cb-8ca5-4ecd-923f-a26520fb833c"
+      "decision_id": "cb41bfb6-350f-4e92-a6c1-ceb1cf1d9b7c"
     },
     {
       "ticket_id": "VAL-0003",
@@ -526,7 +526,7 @@
       "knn_share": 1.0,
       "latency_ms": 12,
       "threshold_applied": 0.85,
-      "decision_id": "02aa0e2c-43d1-41f8-a724-fa4b6db593f1"
+      "decision_id": "e2f2b411-1695-468d-bba2-d33f37c201b8"
     },
     {
       "ticket_id": "VAL-0004",
@@ -591,13 +591,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
-        "retrieve": 6
+        "classify": 6,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "b7960a5c-c5cc-4568-9292-7c040653d378"
+      "decision_id": "540fd1ee-f828-441b-a58c-4c8b8523c833"
     },
     {
       "ticket_id": "VAL-0005",
@@ -666,9 +666,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
+      "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "1b81770e-5eae-4982-8c9b-b7935d2a4cfe"
+      "decision_id": "a714246d-6abf-458a-8e5a-7e35153b8ea0"
     },
     {
       "ticket_id": "VAL-0006",
@@ -737,13 +737,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "3bfcc404-2aa1-4f16-aef1-f8b2278a9f22"
+      "decision_id": "10593e84-85a3-49da-af7e-90fb39f778ed"
     },
     {
       "ticket_id": "VAL-0007",
@@ -775,13 +775,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 4,
+        "classify": 5,
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 11,
+      "latency_ms": 12,
       "threshold_applied": 0.85,
-      "decision_id": "88a85f2e-4f73-4eeb-9100-1436acb2307e"
+      "decision_id": "cd7ebe1c-3a40-4a6f-8015-fd256e745cdc"
     },
     {
       "ticket_id": "VAL-0008",
@@ -830,7 +830,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "4da0834a-1753-410f-8018-fa444f6a5421"
+      "decision_id": "84ae494a-aa38-441e-b93b-d40761906e40"
     },
     {
       "ticket_id": "VAL-0009",
@@ -903,9 +903,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
+      "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "8364345c-a17c-44c3-af92-fffa0eec8b9b"
+      "decision_id": "1adaac4b-fe9c-4fad-a977-5ebd9b389b39"
     },
     {
       "ticket_id": "VAL-0010",
@@ -976,7 +976,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "25974ab2-6f3d-44ff-961b-713e8521b560"
+      "decision_id": "86d7d3db-18fe-4eae-ba79-6f6f5abc5bc0"
     },
     {
       "ticket_id": "VAL-0011",
@@ -1051,7 +1051,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "b4ed3c0b-adab-4d74-8d3d-87f4d2b19fe2"
+      "decision_id": "393d67ed-1083-4e0a-ae8f-066ddbb2dc6d"
     },
     {
       "ticket_id": "VAL-0012",
@@ -1109,7 +1109,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "c1b348ca-7c5a-4687-bbb8-ed83cd5098e6"
+      "decision_id": "f07d501d-1d7e-409e-8b6d-c979b15a01fc"
     },
     {
       "ticket_id": "VAL-0013",
@@ -1170,13 +1170,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "7f730b77-abab-4c02-bdb1-cb3aaf427a31"
+      "decision_id": "57f3f754-c280-40e6-a71a-28755b0956a8"
     },
     {
       "ticket_id": "VAL-0014",
@@ -1237,13 +1237,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "9b090b74-a766-4e5c-a5c3-dcea073b0a10"
+      "decision_id": "d30d9d7a-8270-4a88-a2af-e49ee6a89b01"
     },
     {
       "ticket_id": "VAL-0015",
@@ -1275,13 +1275,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
-        "retrieve": 6
+        "classify": 14,
+        "retrieve": 10
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
+      "latency_ms": 27,
       "threshold_applied": 0.85,
-      "decision_id": "f6ce6f99-cdd7-44cf-a5eb-a01fefea2ce6"
+      "decision_id": "abe99a24-f29c-4ec3-9f08-45b2f437b4de"
     },
     {
       "ticket_id": "VAL-0016",
@@ -1350,13 +1350,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
-        "retrieve": 6
+        "classify": 6,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "127ecebe-4a19-4d77-914d-aab6271e3f69"
+      "decision_id": "80531c61-4652-410b-ba0d-0e02ae7f3f77"
     },
     {
       "ticket_id": "VAL-0017",
@@ -1394,7 +1394,7 @@
       "knn_share": 1.0,
       "latency_ms": 12,
       "threshold_applied": 0.85,
-      "decision_id": "1f3abec0-5a56-4ed2-8200-6cf237d141ab"
+      "decision_id": "6d6973ab-6111-4fb3-96c3-e34f562916e6"
     },
     {
       "ticket_id": "VAL-0018",
@@ -1452,7 +1452,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "65dc093f-b458-4ae8-9792-230d7d6575f1"
+      "decision_id": "6587f7e5-30bb-4b98-8378-0545781a7899"
     },
     {
       "ticket_id": "VAL-0019",
@@ -1518,12 +1518,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "71953b8e-d3df-4ec0-92b6-347d401fad51"
+      "decision_id": "0e19fb99-fbb3-4983-93a6-fb85e5545502"
     },
     {
       "ticket_id": "VAL-0020",
@@ -1576,12 +1576,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 12,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "ea30078f-a312-4388-8491-60a060c303a2"
+      "decision_id": "1d630c36-c413-42d8-ba4f-df0bb4d8a1b8"
     },
     {
       "ticket_id": "VAL-0021",
@@ -1646,13 +1646,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "3c1d92da-2335-4f3a-9f83-84986c08a5cc"
+      "decision_id": "75fff186-0000-48ed-80ae-586e2da74291"
     },
     {
       "ticket_id": "VAL-0022",
@@ -1721,13 +1721,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "07a5c4b4-0e15-4ad2-9ba3-f8160ba4edc1"
+      "decision_id": "848f2837-1cf9-4c69-ae5f-76bf981ca8a7"
     },
     {
       "ticket_id": "VAL-0023",
@@ -1792,13 +1792,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "949b1189-4b69-4fd6-8c16-8bd14100b669"
+      "decision_id": "31e4e3ac-a084-443d-9d73-87f737638285"
     },
     {
       "ticket_id": "VAL-0024",
@@ -1861,7 +1861,7 @@
       "knn_share": 0.846,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "423462d2-24fb-4d21-a348-ae7bdbbc9e2f"
+      "decision_id": "85e0cb5c-24a8-46b9-82c1-53083e950cc5"
     },
     {
       "ticket_id": "VAL-0025",
@@ -1936,7 +1936,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "34394c80-3e81-4009-b93f-afb254f406df"
+      "decision_id": "650ec11b-1c97-4c5f-a6b1-4a52185c7b30"
     },
     {
       "ticket_id": "VAL-0026",
@@ -1997,13 +1997,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "e1a097c9-7224-495f-8632-172209d3ec69"
+      "decision_id": "d74c3d56-520c-4e38-9f28-25f29f283ef1"
     },
     {
       "ticket_id": "VAL-0027",
@@ -2074,7 +2074,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "6fb87256-62d1-42ac-af23-1eb0e85cb145"
+      "decision_id": "99aca3fa-a19d-4421-b42b-bf03d5c24645"
     },
     {
       "ticket_id": "VAL-0028",
@@ -2149,7 +2149,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "9b24fceb-2dad-4233-8d96-ad40f5e0bc00"
+      "decision_id": "83c9064e-cd67-40fb-b4e6-978fc821279b"
     },
     {
       "ticket_id": "VAL-0029",
@@ -2207,7 +2207,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "e8c4bcf6-e148-47c8-8237-cec0c37e7fdb"
+      "decision_id": "d1f0f4a3-b38e-4a6d-9d51-f9d5348ed429"
     },
     {
       "ticket_id": "VAL-0030",
@@ -2256,7 +2256,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "a8b57f90-1bba-4852-b21a-52968f45655c"
+      "decision_id": "d36ec169-22ee-4c04-ae0c-dc793cd92f37"
     },
     {
       "ticket_id": "VAL-0031",
@@ -2321,13 +2321,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 6,
+        "classify": 5,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 15,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "7b25306e-c950-4275-879c-90c6df2b53b6"
+      "decision_id": "511b4d18-2d69-400f-ad96-32082cc9477d"
     },
     {
       "ticket_id": "VAL-0032",
@@ -2398,7 +2398,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "e220b093-0484-4f95-8e5a-5ff83afa9d69"
+      "decision_id": "6c157986-2d86-43ba-832b-3674df5f0d60"
     },
     {
       "ticket_id": "VAL-0033",
@@ -2465,7 +2465,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "b6b36975-1e98-45ac-a74b-f202f3ea8451"
+      "decision_id": "c4f5e6fe-42ff-4114-b988-e1d401daa856"
     },
     {
       "ticket_id": "VAL-0034",
@@ -2517,13 +2517,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "7d03f5a9-0766-43d7-aa5a-a9d73b3cffe8"
+      "decision_id": "6087d3c3-41c1-4764-bf98-674d90801048"
     },
     {
       "ticket_id": "VAL-0035",
@@ -2566,7 +2566,7 @@
       "knn_share": 0.9193,
       "latency_ms": 12,
       "threshold_applied": 0.85,
-      "decision_id": "6fccbb7e-c4fc-40e8-b165-3a9348be8140"
+      "decision_id": "807616dd-da75-49e0-9b80-6d4ff8caae4f"
     },
     {
       "ticket_id": "VAL-0036",
@@ -2609,13 +2609,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "0ba08357-3f4c-49d6-8287-93d00ba76b56"
+      "decision_id": "8f14de64-afb2-42bb-a3f1-d67a4bf27656"
     },
     {
       "ticket_id": "VAL-0037",
@@ -2677,12 +2677,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "65d30d7d-69ac-4c03-98d4-0f8c4222f951"
+      "decision_id": "41483774-af18-441b-a355-6832a495807a"
     },
     {
       "ticket_id": "VAL-0038",
@@ -2751,9 +2751,9 @@
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "c86fd660-7431-441b-99f5-69655e8b7498"
+      "decision_id": "83878174-a5ac-4f18-a3e6-2eadccbddc3a"
     },
     {
       "ticket_id": "VAL-0039",
@@ -2822,13 +2822,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "2cab0458-ac06-483c-acf2-f80869cc88e2"
+      "decision_id": "14d44aab-4662-4066-884c-c191be1f068b"
     },
     {
       "ticket_id": "VAL-0040",
@@ -2889,13 +2889,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "9748d2a9-dc12-4739-83b8-35b2ca33f726"
+      "decision_id": "97c89d57-738d-4083-a98b-d713628a828d"
     },
     {
       "ticket_id": "VAL-0041",
@@ -2956,13 +2956,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "c4d4dd08-e29f-491b-9d0c-e730bbf509e3"
+      "decision_id": "3247d10b-2f73-4f76-966a-960582440119"
     },
     {
       "ticket_id": "VAL-0042",
@@ -3037,7 +3037,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "7fcedef3-4d05-4809-9cf6-c755b7460ac6"
+      "decision_id": "fff2ff56-02dd-4674-96cf-d64db251653c"
     },
     {
       "ticket_id": "VAL-0043",
@@ -3119,9 +3119,9 @@
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "0af43c03-74f9-44d1-8e9c-3ddc58ced828"
+      "decision_id": "389102ce-1b4a-4e00-aa9c-7f6798fa4281"
     },
     {
       "ticket_id": "VAL-0044",
@@ -3183,12 +3183,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "4109181d-3661-4e04-9d6e-72407c6acaf2"
+      "decision_id": "95c10b6a-93c4-4e8b-b67f-8e5d2a4c76ad"
     },
     {
       "ticket_id": "VAL-0045",
@@ -3257,13 +3257,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "484b9e72-1536-4900-a02e-90c539146270"
+      "decision_id": "9443b18e-00e8-4124-90c6-08814f41e113"
     },
     {
       "ticket_id": "VAL-0046",
@@ -3307,12 +3307,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "585636f5-ee7a-46d4-9eb9-f8e8b28daace"
+      "decision_id": "0b572052-790f-4800-9275-4fcd908c947e"
     },
     {
       "ticket_id": "VAL-0047",
@@ -3383,7 +3383,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "db60ffeb-5ff3-4fd3-8d57-d9343e3d524c"
+      "decision_id": "1855463d-9b4e-4fbe-aa1b-417ed86405cf"
     },
     {
       "ticket_id": "VAL-0048",
@@ -3461,9 +3461,9 @@
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "3e86a132-3c26-44cf-9eb3-7b6e1abcf52e"
+      "decision_id": "57b123a0-5b1f-4d35-98b0-9f21e4a20a1b"
     },
     {
       "ticket_id": "VAL-0049",
@@ -3521,7 +3521,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "bb01ed2c-49b1-42ba-a038-c81be8e66591"
+      "decision_id": "f99aae7e-e797-4798-805f-2d775fac2383"
     },
     {
       "ticket_id": "VAL-0050",
@@ -3588,7 +3588,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "f6cc9066-e103-420e-a298-e80b8393e364"
+      "decision_id": "1bd27f49-aa87-4ea2-a3d4-abd3cba78ac0"
     },
     {
       "ticket_id": "VAL-0051",
@@ -3657,13 +3657,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "50d0ddad-5786-4c50-a902-f34287ccc8a9"
+      "decision_id": "a60ecfa1-eb1a-4cca-be90-29c61c015879"
     },
     {
       "ticket_id": "VAL-0052",
@@ -3736,9 +3736,9 @@
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "33a07ded-0020-496d-8c0c-33ee2d9fc5d5"
+      "decision_id": "af3852d0-3c82-4c0e-bed4-c707219d83b0"
     },
     {
       "ticket_id": "VAL-0053",
@@ -3805,7 +3805,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "04281e3a-5c64-4cdd-bf78-125f250d536e"
+      "decision_id": "88ea7beb-bc3b-4370-b7ef-8785dec92aed"
     },
     {
       "ticket_id": "VAL-0054",
@@ -3870,13 +3870,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "e2b9d89d-1be0-4b46-8b25-4508469727e6"
+      "decision_id": "53cb9733-aab0-4156-aac0-7dfe27a38195"
     },
     {
       "ticket_id": "VAL-0055",
@@ -3925,7 +3925,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "03842af9-2e37-42b0-bb8b-7aeedf76ce35"
+      "decision_id": "f80660c1-8a93-43dc-aeda-cc8b608e8366"
     },
     {
       "ticket_id": "VAL-0056",
@@ -4000,7 +4000,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "f413ad12-d314-45a5-afd5-4108bd110eb1"
+      "decision_id": "fec327ef-182d-43ed-bfba-9086c47520fd"
     },
     {
       "ticket_id": "VAL-0057",
@@ -4075,7 +4075,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "ebb3823c-9d22-469d-83a0-21ff89d38666"
+      "decision_id": "f216767e-214a-4b38-8563-c578e673f4cd"
     },
     {
       "ticket_id": "VAL-0058",
@@ -4150,7 +4150,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "0554eb7d-380d-4fe3-9d30-fa1c6ac7b079"
+      "decision_id": "6a3abb55-3cc9-452e-8422-848c1dcec7bb"
     },
     {
       "ticket_id": "VAL-0059",
@@ -4225,7 +4225,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "4738c1c9-393a-446a-9f7b-df43516bb57c"
+      "decision_id": "7cbdab49-d18f-4bfd-b158-ffa55acef627"
     },
     {
       "ticket_id": "VAL-0060",
@@ -4296,7 +4296,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "a821bdae-73b8-47dd-a2f8-ddbd80cc7bab"
+      "decision_id": "8571879e-97b0-47f1-8e7e-7503ba16a836"
     },
     {
       "ticket_id": "VAL-0061",
@@ -4367,7 +4367,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "46dcadf2-e573-48b0-96b4-c38c1da537c4"
+      "decision_id": "8befa111-6963-4eca-8142-6dcffb585ee2"
     },
     {
       "ticket_id": "VAL-0062",
@@ -4442,7 +4442,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "9e1fab33-736b-4045-9421-0cd3cfe937d8"
+      "decision_id": "fd4d5e6f-99e4-403c-873b-6409a3b1a436"
     },
     {
       "ticket_id": "VAL-0063",
@@ -4500,7 +4500,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "3ee90d38-0410-464b-b991-4124fac32025"
+      "decision_id": "c6449ec8-2d15-4721-84b2-95d0234b5007"
     },
     {
       "ticket_id": "VAL-0064",
@@ -4567,7 +4567,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "7e6c9ca8-1e96-4fa6-830c-c7c3e5b69556"
+      "decision_id": "43cf51c8-0fcd-4a13-9118-a1cb072dd83b"
     },
     {
       "ticket_id": "VAL-0065",
@@ -4642,7 +4642,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "ed819e13-a777-4ed9-a955-30f784bfccf9"
+      "decision_id": "9b252c38-3d7c-40f6-b81a-550c74c61ff8"
     },
     {
       "ticket_id": "VAL-0066",
@@ -4717,7 +4717,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "f24aca3e-0e80-44ff-be7e-6a16461d8c54"
+      "decision_id": "4feaa52a-a967-4a20-b731-077bda30ca49"
     },
     {
       "ticket_id": "VAL-0067",
@@ -4801,7 +4801,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "9dddb2e1-1881-48ac-a9d0-b570d068f3ca"
+      "decision_id": "363cd313-5c66-456c-9efb-3ba603e72b79"
     },
     {
       "ticket_id": "VAL-0068",
@@ -4885,7 +4885,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "742cc2a1-91e9-48ac-91d6-a6194ffede25"
+      "decision_id": "caeb5d42-ceee-40be-88c7-bfdf871d6aff"
     },
     {
       "ticket_id": "VAL-0069",
@@ -4955,12 +4955,12 @@
       "stage_ms": {
         "ingest": 0,
         "classify": 5,
-        "retrieve": 6
+        "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "c0d2f70f-ad3d-4989-b228-6c01bea20c4c"
+      "decision_id": "73f0ee11-a417-437a-a149-dc822e765cee"
     },
     {
       "ticket_id": "VAL-0070",
@@ -5033,9 +5033,9 @@
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "128e68ff-6bc2-4faa-ad88-29a1619b08df"
+      "decision_id": "37c4677d-1cfe-4e4d-b770-a7021da4386c"
     },
     {
       "ticket_id": "VAL-0071",
@@ -5100,13 +5100,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "threshold_applied": 0.85,
-      "decision_id": "2758a20b-9c24-439a-a4ac-a0431881ffcc"
+      "decision_id": "5a525026-d4be-46de-b712-fa7e2236eef5"
     },
     {
       "ticket_id": "VAL-0072",
@@ -5177,7 +5177,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "bf28e05d-d020-4eee-abac-24cda2b8c1fa"
+      "decision_id": "16c86d28-d79b-4411-87a7-973d658543cf"
     },
     {
       "ticket_id": "VAL-0073",
@@ -5244,7 +5244,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "9787307f-8730-4804-8d9d-37e132828cee"
+      "decision_id": "f1beaa7f-7d52-4500-bb03-04dc717d3566"
     },
     {
       "ticket_id": "VAL-0074",
@@ -5311,7 +5311,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "d142e57e-53db-427a-ba73-61a5ff617a36"
+      "decision_id": "5d6720f2-fd58-45fd-925b-71e3947b68b0"
     },
     {
       "ticket_id": "VAL-0075",
@@ -5386,7 +5386,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "a692aedf-f39c-4291-8026-df6f55879a6f"
+      "decision_id": "bd9041a6-7deb-449c-bd16-fa9b67fa7c21"
     },
     {
       "ticket_id": "VAL-0076",
@@ -5447,13 +5447,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "3fa407f6-f20a-4052-9a6b-6341af516330"
+      "decision_id": "246cbb15-a704-4240-a26a-7484a41121a9"
     },
     {
       "ticket_id": "VAL-0077",
@@ -5518,9 +5518,9 @@
         "retrieve": 6
       },
       "knn_share": 1.0,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "3a34f9bd-f664-490e-8e3f-e584d54b789c"
+      "decision_id": "b5df1e53-1327-45ff-8951-9a2a72f7217f"
     },
     {
       "ticket_id": "VAL-0078",
@@ -5595,7 +5595,7 @@
       "knn_share": 1.0,
       "latency_ms": 13,
       "threshold_applied": 0.85,
-      "decision_id": "b4761050-64a7-43ff-9d9e-65fb48fb3326"
+      "decision_id": "77fe7487-9bd8-4688-8eae-1d3c072bd0d0"
     },
     {
       "ticket_id": "VAL-0079",
@@ -5664,13 +5664,13 @@
       "error": "OPENROUTER_API_KEY is not set",
       "stage_ms": {
         "ingest": 0,
-        "classify": 5,
+        "classify": 6,
         "retrieve": 7
       },
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "5e5fa949-9bcd-4682-9851-3313afff79e2"
+      "decision_id": "5b5d8b10-e915-4764-b5c9-e1b5fc48990f"
     },
     {
       "ticket_id": "VAL-0080",
@@ -5741,7 +5741,7 @@
       "knn_share": 1.0,
       "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "6ebd464b-d9f4-46f8-86fa-cf06000ab454"
+      "decision_id": "00778abd-976e-4ef9-82db-dd9d82ef0b94"
     }
   ]
 }

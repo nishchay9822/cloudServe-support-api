@@ -117,6 +117,8 @@ def citation_metrics(rows: list) -> dict:
     return {"n_auto": len(auto), "n_citations": len(cites),
             "responses_with_citation": _ratio(sum(1 for r, _ in auto if r.get("citations")), len(auto)),
             "citation_resolves_rate": _ratio(resolves, len(cites)),
+            # share of generated replies where the model returned the JSON contract (the rest were handled by the plain-text fallback)
+            "structured_output_rate": _ratio(sum(1 for r, _ in rows if r.get("gen_format") == "json"), sum(1 for r, _ in rows if r.get("gen_format"))) if any(r.get("gen_format") for r, _ in rows) else None,
             "cited_expected_doc_rate": _ratio(sum(1 for c, exp in with_exp if c["doc_id"] in exp), len(with_exp)) if with_exp else None}
 
 

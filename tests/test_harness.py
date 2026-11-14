@@ -11,7 +11,7 @@ VAL = os.path.join(ROOT, "data", "validation_tickets.json")
 
 
 def run(args, tmp_path, key=""):
-    env = {**os.environ, "OPENROUTER_API_KEY": key, "DATABASE_URL": f"sqlite:///{tmp_path}/d.db", "ANONYMIZED_TELEMETRY": "False"}
+    env = {**os.environ, "OPENROUTER_API_KEY": key, "LLM_API_KEY": key, "DATABASE_URL": f"sqlite:///{tmp_path}/d.db", "ANONYMIZED_TELEMETRY": "False"}
     return subprocess.run([sys.executable, HARNESS, *args], capture_output=True, text=True, cwd=ROOT, env=env, timeout=600)
 
 

@@ -28,13 +28,13 @@ NOTE: git commit and run timestamps show real dates of 7 to 11 Nov. Recorded pha
 - Classifier: kNN over dev tickets primary when vote share >= 0.85, else LLM combined. Confidence from classifier agreement (`data/calibration.json`).
 - Safety rule from predicted intent: security_incident, compliance_request, feature_request, unclear_request.
 - Routing is deterministic code: safety, no passages, confidence < 0.80, else auto_respond.
-- Generator sees the full top article (+ runner-up if score >= 0.6x top). Prompt `generate_v3.txt`.
+- Generator sees the full top article (+ runner-up if score >= 0.6x top). Prompt `generate_v4.txt` (JSON contract).
 - Judge is `openai/gpt-4o-mini` (env `JUDGE_MODEL`), independent of the generator. Human second assessor still required.
 - Provider configurable: `LLM_BASE_URL`, `LLM_API_KEY`, `MODEL_NAME`, `JUDGE_MODEL`, `LLM_PROVIDER_SORT`, `KILL_SWITCH`, `ADMIN_TOKEN`. HTTP 401/402 fail fast.
 - Requirement numbering follows the PRD docx: FR-01..FR-18 plus FR-19, FR-20; NFR-01..NFR-10.
 
 ## Prompt Versions Active
-PR-CL-01 v2.0, PR-GN-01 v3.0, PR-RO-01 v1.0, PR-EV-01 v1.0 (see `prompts/README.md`).
+PR-CL-01 v2.0, PR-GN-01 v4.0, PR-RO-01 v1.0, PR-EV-01 v1.0 (see `prompts/README.md`).
 
 ## Results
 | | Validation (n=80, gate) | Dev (n=500, leave-one-out) |
@@ -80,7 +80,7 @@ Outage run (provider off): 80/80 processed, 80 escalated, 0 customer replies.
 Design now follows the brief's figures: LangGraph orchestrator (src/pipeline.py), /tickets endpoint, response formatter, hybrid dense+BM25 retrieval (no measurable gain on 29 articles, weight 0.15), feedback loop (POST /feedback; corrections enter the neighbour index; feedback_total metric), routing order safety -> confidence -> evidence. SQLite kept instead of PostgreSQL (brief allows). Decision log now stores classifier alternatives.
 Threshold: replaying routing showed 0.80 did nothing (confidence 0.99 on twins). evaluation/calibrate.py fits confidence on simulated unseen wording (twins + near-duplicates removed); chosen threshold 0.85 (lowest with >=99% intent accuracy of auto-answered); calibration error 0.3 pp. NOTE: the local .env still sets CONFIDENCE_THRESHOLD=0.80 and overrides the default; set it to 0.85 (all final runs used CONFIDENCE_THRESHOLD=0.85).
 Safety: unseen wording exposed 3/87 restricted tickets auto-answered (former employee still has access). Added security-wording net + safety-proximity rule (0.10): now 0/87 in both settings.
-Fairness (final system): CONFIRMED tier disparity - enterprise 12.5 pp and standard 8.5 pp below business in route accuracy (p=0.019, 0.036; unseen wording 16.7/11.1 pp, p=0.002/0.007). Exceeds 5-pp target. Cause not identified. Other dimensions not significant.
+Fairness (earlier system version, now superseded by the note below): tier disparity - enterprise 12.5 pp and standard 8.5 pp below business in route accuracy (p=0.019, 0.036; unseen wording 16.7/11.1 pp, p=0.002/0.007). Exceeds 5-pp target. Cause not identified. Other dimensions not significant.
 Grafana: Prometheus + Grafana run natively (no Docker) from /tmp/obs with the repo configs; datasource healthy, dashboard provisioned, 9 of 9 panel queries return data via Grafana API. (To stop: pkill -f prometheus; pkill -f "grafana server"; pkill -f "uvicorn src.api".)
 Still true: validation set was used while debugging; hidden set never run; CSAT and repeat contacts not measurable offline.
 PRD v2.1 (docs/Stage_2_PRD_v2_1.docx, from docs/revise_prd_v2_1.py) now includes FR-21 feedback loop, FR-22 security controls, calibrated threshold, hybrid search, /tickets and the NFR-06 tier result; the revision log has the matching v2.1 rows. v1.0 and v2.0 are kept.
@@ -116,3 +116,4 @@ Not fixable / must be disclosed: the brief says do not look at or tune against t
 - OpenRouter restored: final gate run (gate-openrouter-final) and dev rejudge n=100 completed; 82 tests passing.
 - Stage 6 session: fairness audit, kill-switch drill, stale guard, governance workbook, monitoring config, 26-page report PDF, effort log (hours left for author). Video and packaging skipped on request.
 - Review/claims session: PRD v2.1 + revision log extended; evaluation/verify_report_claims.py recomputes the report's factual claims (docs/CLAIMS_CHECK.md: 75 pass, 8 quotes found, 0 fail; found and fixed one misquote of Marcus in the Stage 1 workbook); blind human review packet (evaluation/results/human_review_packet.html + human_review_answers.csv) and evaluation/review_agreement.py ready - the HUMAN must fill the CSV, then run review_agreement.py and rebuild the report.
+- Spec-compliance session (final): all PARTLY items addressed. Generation now returns a JSON object (PR-GN-01 v4.0; 100% valid; quality unchanged; stricter decline rule had no effect - the 8B model never declines). Retrieval floor cannot be improved from data (AUC 0.56/0.64; evaluation/eval_floor_answerability.py). Judge on by default with fallback; LLM_MAX_RPM pacing; .env.groq.example for the free tier. Fairness with the final prompt: tier gap (enterprise/standard 8-13 pp below business) above the 5-pp target in every run but only significant with unseen wording (p~0.01) and borderline in the plain run (p=0.09/0.06): described as a consistent shortfall, NOT a confirmed disparity. v3 results kept as *_v3.json for comparison.

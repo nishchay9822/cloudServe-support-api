@@ -75,3 +75,16 @@ def test_exhausted_credit_fails_fast_and_opens_the_breaker(provider):
     with pytest.raises(llm.LLMUnavailable):          # breaker open: no further provider calls
         llm.chat(M, temperature=0.1)
     assert c.calls == 1
+
+
+def test_pacing_spaces_calls_to_the_configured_rate(provider, monkeypatch):
+    """LLM_MAX_RPM=30 means at least 2 s between calls: the second call waits instead of firing straight into a rate limit."""
+    clock = {"t": 100.0}
+    monkeypatch.setattr(llm.time, "monotonic", lambda: clock["t"])
+    monkeypatch.setattr(llm.time, "sleep", lambda s: (provider.slept.append(s), clock.__setitem__("t", clock["t"] + s)))
+    monkeypatch.setattr(llm, "MAX_RPM", 30.0)
+    monkeypatch.setitem(llm._pace_state, "last", 0.0)
+    provider([])
+    llm.chat(M, temperature=0.1)
+    llm.chat(M, temperature=0.1)
+    assert any(abs(s - 2.0) < 1e-6 for s in provider.slept), provider.slept

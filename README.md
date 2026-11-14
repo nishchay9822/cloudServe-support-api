@@ -131,7 +131,7 @@ Final_Capstone_Project/
 │   └── api.py          ← FastAPI
 ├── prompts/            ← versioned prompts + register (prompts/README.md)
 ├── evaluation/         ← harness.py, metrics.py, judge.py, analysis scripts, results/
-├── tests/              ← 115 tests
+├── tests/              ← 124 tests
 ├── monitoring/         ← Prometheus config, alert rules, Grafana dashboard, traffic replay
 ├── docs/               ← stage documents, architecture.md, architecture.drawio
 ├── data/               ← tickets, ground truth, documentation, calibration.json

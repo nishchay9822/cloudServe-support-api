@@ -84,7 +84,7 @@ app = [("fast", "FastAPI\nPOST /tickets, POST /feedback\nGET /decisions, /health
 mod = [("clf", "Classifier chain\nnearest labelled tickets,\nthen few-shot LLM prompt\n(PR-CL-01 v2.0)", "flow"),
        ("emb", "Embedding model\nall-MiniLM-L6-v2\n(local)", "flow"),
        ("chroma", "Chroma vector store\nhybrid search: dense + BM25\narticles + labelled tickets", "store"),
-       ("genc", "Generator chain\nwith citations\n(PR-GN-01 v3.0)\nLLM via OpenRouter or any\nOpenAI-compatible provider", "flow")]
+       ("genc", "Generator chain: JSON output\n(status, answer, cited_docs)\nPR-GN-01 v4.0, LLM via OpenRouter\nor any OpenAI-compatible provider", "flow")]
 per = [("db", "SQLite decision log\ndecisions, resolution records,\nfeedback (PostgreSQL\nwould be a drop-in change)", "store"),
        ("prom", "Prometheus\nmetrics and alert rules", "store"),
        ("graf", "Grafana\ndashboards (9 panels)", "store"),
@@ -120,7 +120,7 @@ for nid, text, code in dec:
     edge(p3, prev, nid, "" if prev == "t0" else "no", exit=(.5, 1), entry=(.5, 0))
     edge(p3, nid, "e_" + nid, "yes", "red", exit=(1, .5), entry=(0, .5))
     prev, y = nid, y + 120
-node(p3, "g1", CX - 140, y, 280, 50, "Generate a reply from the full\ntop article (PR-GN-01 v3.0)", "flow", fs=11)
+node(p3, "g1", CX - 140, y, 280, 50, "Generate a JSON reply from the\nfull top article (PR-GN-01 v4.0)", "flow", fs=11)
 edge(p3, prev, "g1", "no", exit=(.5, 1), entry=(.5, 0))
 y += 80
 node(p3, "d7", CX - DW // 2, y, DW, DH, "Model answered NO_ANSWER?", "policy", "diamond", fs=11)

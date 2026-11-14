@@ -12,7 +12,7 @@ def build(r, figs, ctx):
         f"nothing in this report is a hidden-set result. Reference answers exist for 200 tickets and were used only to assess reply quality, never to build the system.")
     r.p(f"The development run finished on {c['dev_date']} using the final pipeline logic; later changes to the provider client and the judge (error handling and "
         f"token budgets) do not alter routing or generation. The validation gate used for every figure below finished on {c['gate_date']} on the model "
-        f"{c['model']}, with the repository at commit {c['commit']} and these prompt versions: PR-CL-01 v2.0, PR-GN-01 v3.0, PR-RO-01 v1.0 and PR-EV-01 v1.0. "
+        f"{c['model']}, with the repository at commit {c['commit']} and these prompt versions: PR-CL-01 v2.0, PR-GN-01 v4.0, PR-RO-01 v1.0 and PR-EV-01 v1.0. "
         f"Both runs processed every ticket with no per-ticket error, and the decision log reconciled exactly with the number of tickets processed (500 of 500 and 80 of 80).")
     r.p("The development set is reported in two settings. <b>Plain leave-one-out</b> removes only the ticket itself from the neighbour index. Because about half the "
         "tickets have a same-text twin, that setting is easy. <b>Unseen wording</b> (run with --novel-cap 0.90) removes every same-text twin and every neighbour above 0.90 "
@@ -46,7 +46,7 @@ def build(r, figs, ctx):
          "Paid OpenRouter. On the Groq free tier p95 was 11 s (misses). No concurrent load test."],
         ["Private data in output", "n/a", "0", "0 in 580 tickets", "Medium", "Pattern-based scan; cannot recognise an ordinary name that belongs to someone else."],
         ["Cross-group variation", "n/a", "under 5 points", f"Tier {c['gaps']['customer_tier']:.1f}, region {c['gaps']['region']:.1f}, channel {c['gaps']['channel']:.1f}, length {c['gaps']['ticket_length']:.1f}, fluency {c['gaps']['language_fluency']:.1f} pp", "Medium",
-         "Route accuracy. The tier gap is statistically significant (enterprise and standard below business) and exceeds the target; other dimensions are not significant (Section 8)."],
+         "Route accuracy. The tier gap exceeds the target in every run (significant with unseen wording, borderline in the plain run); other dimensions are mostly not significant (Section 8)."],
     ], [26, 18, 17, 38, 21, 50])
     r.fig("outcomes", figs["outcomes"], "Escalation rate (a) and first-contact resolution proxy (b) against baseline and target. "
           "'Adjusted' counts automatic replies to tickets labelled not answerable from the documentation as still needing a person.", 150)
@@ -103,13 +103,16 @@ def build(r, figs, ctx):
         "default provider routing and about 0.4 seconds when providers were sorted by throughput. On Groq's free tier, rate limits pushed the 95th percentile to 11 seconds (Figure 5).")
     r.fig("latency", figs["latency"], "Auto-reply latency by provider on the 80-ticket validation set. The free Groq tier waits out rate limits and misses the 3-second target.", 110)
     r.h3("Reply quality and the judge")
+    r.p(f"Since prompt v4.0 the model returns its reply as a JSON object (status, answer, cited_docs, reason). {c['dv']['structured']:.0f}% of development replies and {c['vl']['structured']:.0f}% of validation replies were valid JSON, "
+        f"so the plain-text fallback was never needed in these runs. Reply quality did not change: the independent judge found {c['dv']['j_hall']*100:.0f}% hallucination on {c['dv']['j_n']} development replies and {c['vl']['j_hall']*100:.0f}% on {c['vl']['j_n']} validation replies, "
+        f"with required-point coverage {c['dv']['j_cov']*100:.0f}% (v3: {c['v3d']['j_cov']*100:.0f}%) and {c['vl']['j_cov']*100:.0f}% (v3: {c['v3v']['j_cov']*100:.0f}%).")
     r.p("Hallucination needs human judgement to establish properly. I used a model from a different family as the first assessor and have not yet had a second, human, assessor. "
         "The history of this measurement matters more than its final value, because it shows how easily a judge misleads (Table 10).")
     r.table("judge", "How the reply-quality measurement changed as the judge improved.", [
         ["Assessor", "Sample", "Result", "What I learned"],
         ["Same-family 8B model", "50 validation replies", "4 flagged (8%)", "All four flagged statements were present in the cited articles: false positives. A weak judge is wrong in both directions."],
         ["openai/gpt-4o-mini (independent)", "50 validation replies", "0 hallucinated, 0 prohibited", "The reference figure for validation."],
-        ["openai/gpt-4o-mini, with reference answers", "100 development replies", "0% hallucinated, 0% prohibited, 95% required-point coverage", "Coverage was 80% under the earlier prompt and rose to 95% under v3."],
+        ["openai/gpt-4o-mini, with reference answers", "100 development replies", f"0% hallucinated, 0% prohibited, {c['dv']['j_cov']*100:.0f}% required-point coverage", "Coverage was 80% under the earlier prompt, 95% under v3 and unchanged within noise under v4 (JSON output)."],
         ["openai/gpt-oss-120b (on Groq)", "50 validation replies", "0 hallucinated, 0 prohibited", "Agreement with the OpenRouter judge from a third model family."],
         (["Human second assessor", f"{c['human']['n_compared']} validation replies",
           f"{c['human']['human_hallucinations']} hallucinated (95% upper bound {c['human']['human_rate_upper95']*100:.1f}%); agreement with the model judge {c['human']['agreement']*100:.0f}%" + (f", kappa {c['human']['cohens_kappa']}" if c['human']['cohens_kappa'] is not None else " (kappa undefined: no variation)"),
@@ -137,7 +140,7 @@ def build(r, figs, ctx):
     r.h2("7.4  Governance conditions")
     r.p("The governance conditions either hold or they do not. Private data: zero occurrences in 580 tickets. Decision logging: exact reconciliation on every run. "
         "Confidence calibration: within 5 points (0.3 pp) on simulated unseen wording, and untested on live traffic. Quality across customer groups: <b>not met</b> for customer tier, where enterprise and "
-        "standard customers receive significantly less accurate routing than business customers (Section 8). A system that fails any of these is not deployable as it stands, and the tier gap is the open question.")
+        "standard customers trail business customers in routing accuracy by more than 5 points in every run, though the gap is only reliably significant with unseen wording (Section 8). A system that fails any of these is not deployable as it stands, and the tier gap is the open question.")
     r.h2("7.5  The limits of what was measured")
     r.p("The figures above should be treated with caution because of the following, each of which I can state but not remove. (1) The data are synthetic and templated; "
         "half the development tickets repeat another's text, which inflates classification and perhaps retrieval. (2) The validation set was used while fixing faults, "
@@ -162,7 +165,7 @@ def build(r, figs, ctx):
         ["R-01", "Confident, wrong answer", "Medium / very high", "Full-article grounding, NO_ANSWER, figure checks, confidence floor", "0 of 150 judged replies hallucinated"],
         ["R-02", "Private data in output", "Low / very high", "Privacy guardrail blocks and escalates, never redacts", "0 findings in 580 tickets"],
         ["R-03", "Input treated as instruction", "Low / very high", "Screen before any model call; data-not-instructions prompting; recheck", "Unit tests; no red team"],
-        ["R-04", "Some groups served worse", "High / high", "Fairness audit with intervals and tests; per-tier monitoring recommended", "Tier disparity confirmed; others not"],
+        ["R-04", "Some groups served worse", "High / high", "Fairness audit with intervals and tests; per-tier monitoring recommended", "Tier gap above target in every run; significance varies"],
         ["R-05", "Documentation goes stale", "High over time / high", "Citations traceable; articles older than 180 days never quoted", "Guard tested; corpus all 0 days old"],
         ["R-06", "Provider unavailable", "High / medium", "Retries, circuit breaker, fail-fast, configurable provider, drill", "80 of 80 escalated, 0 replies"],
         ["R-07", "Latency under load", "Medium / medium", "Provider sorted by throughput; alert", f"{c['vl']['p95']} ms p95; no load test"],
@@ -195,23 +198,23 @@ def build(r, figs, ctx):
     r.table("fairsum", "Fairness findings. Gaps are to the best segment in each dimension; p is a two-sided two-proportion test (not corrected for multiple comparisons).", [
         ["Dimension", "Largest gap in route accuracy", "Largest retrieval-quality gap", "Reading"],
         ["Customer tier", cell("customer_tier"), qcell("customer_tier"),
-         "<b>Confirmed, above the 5-point target in both settings.</b> Enterprise and standard have higher false-automatic-reply rates (24.1% and 20.2% vs 15.2% for business). Cause not identified: the share of tickets labelled 'escalate' is similar across tiers (38.6%, 39.1%, 35.4%)."],
+         "<b>Above the 5-point target in every run; significant with unseen wording, borderline in the plain run.</b> Enterprise and standard have higher false-automatic-reply rates (24.1% and 20.2% vs 15.2% for business). Cause not identified: the share of tickets labelled 'escalate' is similar across tiers (38.6%, 39.1%, 35.4%)."],
         ["English fluency", cell("language_fluency"), qcell("language_fluency"),
          "Not significant. Retrieval is weaker for non-fluent tickets, the direction the framework predicts, but only borderline. The 19-ticket validation group looked about 28 points worse and did not replicate on the 120 development tickets."],
         ["Ticket length", cell("ticket_length"), qcell("ticket_length"),
-         "Nothing significant in the final system. An earlier run showed a borderline retrieval gap for short tickets that did not persist."],
+         "Long tickets trail short ones in route accuracy in the plain run but not with unseen wording; short tickets retrieve worse in both runs (about 7 pp, p near 0.03). Neither holds up against the roughly ten comparisons made per run."],
         ["Region", cell("region"), qcell("region"),
          "Asia-Pacific lowest; not significant. Its tickets are labelled 'escalate' more often (46.2% vs 31.8% in Europe), so the system answers more tickets it should not."],
         ["Channel", cell("channel"), qcell("channel"),
          "Docs-comment lowest; not significant. 47.4% of its tickets carry an 'escalate' label (32 to 42% elsewhere)."],
     ], [22, 52, 36, 56])
-    r.p("The honest reading has three parts. First, there is one confirmed disparity. Enterprise and standard customers receive less accurate routing than business customers, "
-        "and the gap exceeds the 5-point target in both evaluation settings, so NFR-06 is not met for tier. With roughly ten comparisons made, only the unseen-wording enterprise result survives a "
-        "Bonferroni correction (p = 0.002 against 0.005); the others should be read as likely but not certain. I did not identify the cause, and I did not engineer around it, because "
-        "changing routing for one tier on this evidence would be fitting noise in synthetic labels. The practical recommendation is to monitor the false-automatic-reply rate per tier from the first "
-        "day and to consider a stricter policy for enterprise tickets. Second, no other dimension shows a significant gap, but the 95% intervals span roughly 10 to 20 points, so this "
-        "audit could only have detected gaps of about 10 points or more; 'not significant' does not mean 'fair'. Third, the segments differ mainly in how many of their tickets carry an escalate "
-        "label, so part of what looks like unequal treatment is the system answering where the labels expected a person. A fair assessment needs live tickets and a larger sample per segment.")
+    r.p("The honest reading has three parts. First, the tier gap. Enterprise and standard customers trail business customers in routing accuracy by roughly 8 to 13 points in every run, above the 5-point target, "
+        "so NFR-06 is not met for tier as a point estimate. Whether it is statistically real is less clear: it is significant with unseen wording (p about 0.01) but borderline in the plain run (p = 0.09 and 0.06), "
+        "and the audit makes about ten comparisons per run, so the gap should be treated as a consistent shortfall that needs live data, not as a settled finding. Other results shifted between runs too: the ticket-length "
+        "gap appeared in one run and not the other, which is a sign that findings near the 0.05 line are noise-sensitive. I did not identify the cause and did not engineer around it, because changing routing for one tier "
+        "on this evidence would fit noise in synthetic labels. The practical recommendation is to monitor the false-automatic-reply rate per tier from the first day and to consider a stricter policy for enterprise tickets. "
+        "Second, the 95% intervals span roughly 10 to 20 points, so this audit could only have detected gaps of about 10 points or more; 'not significant' does not mean 'fair'. Third, the segments differ mainly in how many "
+        "of their tickets carry an escalate label, so part of what looks like unequal treatment is the system answering where the labels expected a person. A fair assessment needs live tickets and a larger sample per segment.")
     r.h2("8.3  Decision logging, kill switch and incident response")
     r.p("<b>Decision logging.</b> Every decision is written to a SQLite log with the action, reason, sources and scores, prompt version, guardrail results and requirement "
         "IDs. The count of logged decisions equalled the number of tickets processed on every run, including the provider-outage run, and tests assert that malformed input, "
@@ -317,7 +320,7 @@ def build(r, figs, ctx):
     r.table("appprompts", "Active prompts and version history (prompts/README.md).", [
         ["ID", "Version", "Purpose", "File", "History"],
         ["PR-CL-01", "v2.0", "Intent and urgency classification", "prompts/build/classify_v2.txt", "v1 used invented labels; v2 uses the real 22."],
-        ["PR-GN-01", "v3.0", "Grounded generation with citations", "prompts/build/generate_v3.txt", "v1 appended refusals; v2 NO_ANSWER sentinel; v3 covers all applicable steps (coverage 80% to 95%)."],
+        ["PR-GN-01", "v4.0", "Grounded generation as a JSON object with citations", "prompts/build/generate_v4.txt", "v1 appended refusals; v2 NO_ANSWER sentinel; v3 covers all applicable steps (coverage 80% to 95%); v4 JSON output contract (every reply valid) and a stricter decline rule (no effect: the model never declines)."],
         ["PR-RO-01", "v1.0", "Escalation context packet", "prompts/build/route_v1.txt", "Unchanged."],
         ["PR-EV-01", "v1.0", "Reply-quality assessment", "prompts/evaluation/eval_v1.txt", "Unchanged."],
     ], [18, 14, 44, 52, 42])

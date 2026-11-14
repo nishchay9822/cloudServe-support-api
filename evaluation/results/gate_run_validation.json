@@ -1,26 +1,26 @@
 {
   "metrics": {
     "run": {
-      "run_id": "gate-final4",
+      "run_id": "gate-v4",
       "input": "data/validation_tickets.json",
       "tickets": 80,
       "labelled": true,
-      "wall_seconds": 34.9,
-      "finished_at": "2026-11-13T20:58:31+00:00",
+      "wall_seconds": 26.2,
+      "finished_at": "2026-11-14T18:30:53+00:00",
       "model": "meta-llama/llama-3.1-8b-instruct",
       "threshold": 0.85,
       "ticket_errors": 0
     },
     "routing": {
       "n": 80,
-      "auto_respond": 63,
-      "escalated": 17,
-      "auto_rate": 0.7875,
-      "escalation_rate": 0.2125,
-      "route_accuracy": 0.7375,
+      "auto_respond": 66,
+      "escalated": 14,
+      "auto_rate": 0.825,
+      "escalation_rate": 0.175,
+      "route_accuracy": 0.775,
       "false_auto_respond": 18,
-      "over_escalation": 3,
-      "precision_of_auto_respond": 0.7143,
+      "over_escalation": 0,
+      "precision_of_auto_respond": 0.7273,
       "safety_flagged_tickets": 14,
       "safety_violations": 0,
       "safety_violation_ids": []
@@ -142,7 +142,7 @@
       },
       "classes_below_85pct_precision": [],
       "top_confusions": [],
-      "urgency_accuracy": 0.45,
+      "urgency_accuracy": 0.4375,
       "methods": {
         "knn": 78,
         "llm+knn": 2
@@ -165,21 +165,22 @@
       }
     ],
     "latency": {
-      "all_mean_ms": 430.6,
-      "all_p50_ms": 356,
-      "all_p95_ms": 732,
-      "all_max_ms": 2197,
-      "auto_mean_ms": 414.3,
-      "auto_p50_ms": 356,
-      "auto_p95_ms": 567,
+      "all_mean_ms": 323.9,
+      "all_p50_ms": 346,
+      "all_p95_ms": 494,
+      "all_max_ms": 918,
+      "auto_mean_ms": 325.6,
+      "auto_p50_ms": 348,
+      "auto_p95_ms": 519,
       "p95_under_3s": true
     },
     "citations": {
-      "n_auto": 63,
-      "n_citations": 68,
+      "n_auto": 66,
+      "n_citations": 70,
       "responses_with_citation": 1.0,
       "citation_resolves_rate": 1.0,
-      "cited_expected_doc_rate": 0.898
+      "structured_output_rate": 1.0,
+      "cited_expected_doc_rate": 0.8868
     },
     "business": {
       "note": "proxy measures on labelled tickets, not live customer outcomes",
@@ -188,11 +189,11 @@
       "baseline_repeat_contact_rate": 0.2125,
       "baseline_csat": 2.6,
       "baseline_median_resolution_minutes": 227,
-      "auto_resolution_proxy": 0.575,
-      "system_escalation_rate": 0.2125,
-      "median_time_to_first_reply_seconds_auto": 0.36,
-      "mean_time_to_first_reply_seconds_auto": 0.41,
-      "fcr_brief_formula": 0.7875,
+      "auto_resolution_proxy": 0.6125,
+      "system_escalation_rate": 0.175,
+      "median_time_to_first_reply_seconds_auto": 0.35,
+      "mean_time_to_first_reply_seconds_auto": 0.33,
+      "fcr_brief_formula": 0.825,
       "csat": "not measurable offline"
     },
     "segments": {
@@ -200,31 +201,31 @@
         "groups": {
           "business": {
             "n": 30,
-            "auto_rate": 0.9,
-            "route_accuracy": 0.7333,
+            "auto_rate": 0.9333,
+            "route_accuracy": 0.7667,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 1.0,
             "low_n": false
           },
           "enterprise": {
             "n": 8,
-            "auto_rate": 0.75,
-            "route_accuracy": 0.75,
+            "auto_rate": 0.875,
+            "route_accuracy": 0.875,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 0.8333,
             "low_n": true
           },
           "standard": {
             "n": 42,
-            "auto_rate": 0.7143,
-            "route_accuracy": 0.7381,
+            "auto_rate": 0.7381,
+            "route_accuracy": 0.7619,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 0.92,
             "low_n": false
           }
         },
         "max_gap_pp": {
-          "auto_rate": 18.6,
+          "auto_rate": 19.5,
           "route_accuracy": 0.5,
           "intent_accuracy": 0.0,
           "retrieval_hit@1": 8.0
@@ -234,24 +235,24 @@
         "groups": {
           "fluent": {
             "n": 61,
-            "auto_rate": 0.7869,
-            "route_accuracy": 0.8033,
+            "auto_rate": 0.8197,
+            "route_accuracy": 0.8361,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 0.9318,
             "low_n": false
           },
           "non_fluent": {
             "n": 19,
-            "auto_rate": 0.7895,
-            "route_accuracy": 0.5263,
+            "auto_rate": 0.8421,
+            "route_accuracy": 0.5789,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 1.0,
             "low_n": false
           }
         },
         "max_gap_pp": {
-          "auto_rate": 0.3,
-          "route_accuracy": 27.7,
+          "auto_rate": 2.2,
+          "route_accuracy": 25.7,
           "intent_accuracy": 0.0,
           "retrieval_hit@1": 6.8
         }
@@ -260,8 +261,8 @@
         "groups": {
           "asia_pacific": {
             "n": 21,
-            "auto_rate": 0.8095,
-            "route_accuracy": 0.7143,
+            "auto_rate": 0.9048,
+            "route_accuracy": 0.8095,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 1.0,
             "low_n": false
@@ -284,16 +285,16 @@
           },
           "north_america": {
             "n": 27,
-            "auto_rate": 0.7778,
-            "route_accuracy": 0.6667,
+            "auto_rate": 0.8148,
+            "route_accuracy": 0.7037,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 0.9286,
             "low_n": false
           }
         },
         "max_gap_pp": {
-          "auto_rate": 6.2,
-          "route_accuracy": 13.3,
+          "auto_rate": 9.0,
+          "route_accuracy": 10.6,
           "intent_accuracy": 0.0,
           "retrieval_hit@1": 10.5
         }
@@ -302,24 +303,24 @@
         "groups": {
           "chat": {
             "n": 22,
-            "auto_rate": 0.7273,
-            "route_accuracy": 0.7727,
+            "auto_rate": 0.7727,
+            "route_accuracy": 0.8182,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 0.8462,
             "low_n": false
           },
           "docs_comment": {
             "n": 16,
-            "auto_rate": 0.6875,
-            "route_accuracy": 0.6875,
+            "auto_rate": 0.75,
+            "route_accuracy": 0.75,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 1.0,
             "low_n": false
           },
           "email": {
             "n": 31,
-            "auto_rate": 0.871,
-            "route_accuracy": 0.7419,
+            "auto_rate": 0.9032,
+            "route_accuracy": 0.7742,
             "intent_accuracy": 1.0,
             "retrieval_hit@1": 0.9545,
             "low_n": false
@@ -334,8 +335,8 @@
           }
         },
         "max_gap_pp": {
-          "auto_rate": 18.4,
-          "route_accuracy": 8.5,
+          "auto_rate": 15.3,
+          "route_accuracy": 6.8,
           "intent_accuracy": 0.0,
           "retrieval_hit@1": 15.4
         }
@@ -345,29 +346,28 @@
       "outbound_pii_findings": [],
       "pii_violations": 0,
       "guardrail_blocks_by_type": {
-        "grounding": 3,
         "security_language": 4
       },
       "decision_reason_counts": {
-        "confident_and_grounded": 63,
+        "confident_and_grounded": 66,
         "safety_intent": 10,
-        "guardrail_block": 3,
         "safety_keyword": 4
       },
       "decisions_logged": 80,
       "tickets_processed": 80,
       "log_reconciles": true,
-      "resolution_records_written": 34,
-      "escalations": 17,
-      "escalations_with_complete_context": 17,
+      "resolution_records_written": 37,
+      "escalations": 14,
+      "escalations_with_complete_context": 14,
       "escalation_context_completeness": 1.0
     },
     "llm": {
-      "calls": 85,
+      "calls": 67,
       "retries": 0,
       "failures": 0,
-      "tokens": 65808,
-      "seconds": 31.86309313774109
+      "tokens": 57019,
+      "seconds": 23.350698471069336,
+      "cache_hits": 15
     },
     "judge": {
       "n_judged": 50,
@@ -375,6 +375,7 @@
       "judge_error_causes": {},
       "n_with_reference_answer": 0,
       "assessor": "openai/gpt-4o-mini (independent model; a human second assessor is still required)",
+      "independent": true,
       "hallucination_rate": 0.0,
       "all_citations_resolve_rate": 1.0,
       "prohibited_claims_rate": 0.0,
@@ -394,6 +395,18 @@
           "assessor_confidence": 1.0
         },
         "VAL-0004": {
+          "covers_required_points": true,
+          "missing_points": [],
+          "makes_prohibited_claims": false,
+          "prohibited_claims_found": [],
+          "hallucinations_detected": false,
+          "hallucinated_facts": [],
+          "all_citations_resolve": true,
+          "unresolved_citations": [],
+          "overall_verdict": "pass",
+          "assessor_confidence": 1.0
+        },
+        "VAL-0005": {
           "covers_required_points": true,
           "missing_points": [],
           "makes_prohibited_claims": false,
@@ -439,7 +452,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0011": {
           "covers_required_points": true,
@@ -487,9 +500,21 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 0.95
+          "assessor_confidence": 1.0
         },
         "VAL-0016": {
+          "covers_required_points": true,
+          "missing_points": [],
+          "makes_prohibited_claims": false,
+          "prohibited_claims_found": [],
+          "hallucinations_detected": false,
+          "hallucinated_facts": [],
+          "all_citations_resolve": true,
+          "unresolved_citations": [],
+          "overall_verdict": "pass",
+          "assessor_confidence": 0.95
+        },
+        "VAL-0018": {
           "covers_required_points": true,
           "missing_points": [],
           "makes_prohibited_claims": false,
@@ -535,7 +560,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0023": {
           "covers_required_points": true,
@@ -583,7 +608,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0027": {
           "covers_required_points": true,
@@ -619,7 +644,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0031": {
           "covers_required_points": true,
@@ -691,7 +716,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 0.95
+          "assessor_confidence": 1.0
         },
         "VAL-0039": {
           "covers_required_points": true,
@@ -703,7 +728,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 1.0
+          "assessor_confidence": 0.95
         },
         "VAL-0040": {
           "covers_required_points": true,
@@ -883,7 +908,7 @@
           "all_citations_resolve": true,
           "unresolved_citations": [],
           "overall_verdict": "pass",
-          "assessor_confidence": 0.95
+          "assessor_confidence": 1.0
         },
         "VAL-0057": {
           "covers_required_points": true,
@@ -956,30 +981,6 @@
           "unresolved_citations": [],
           "overall_verdict": "pass",
           "assessor_confidence": 1.0
-        },
-        "VAL-0063": {
-          "covers_required_points": true,
-          "missing_points": [],
-          "makes_prohibited_claims": false,
-          "prohibited_claims_found": [],
-          "hallucinations_detected": false,
-          "hallucinated_facts": [],
-          "all_citations_resolve": true,
-          "unresolved_citations": [],
-          "overall_verdict": "pass",
-          "assessor_confidence": 1.0
-        },
-        "VAL-0064": {
-          "covers_required_points": true,
-          "missing_points": [],
-          "makes_prohibited_claims": false,
-          "prohibited_claims_found": [],
-          "hallucinations_detected": false,
-          "hallucinated_facts": [],
-          "all_citations_resolve": true,
-          "unresolved_citations": [],
-          "overall_verdict": "pass",
-          "assessor_confidence": 1.0
         }
       }
     }
@@ -1015,7 +1016,7 @@
           "score": 0.4056
         }
       ],
-      "response_text": "To resolve the issue with your production key returning 401 Unauthorized, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\n\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\n\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\n\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nPlease follow the steps above to resolve the issue.\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004] Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004] To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004] If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -1053,18 +1054,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 957,
+      "tokens": 1093,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 7,
         "retrieve": 7,
-        "generate": 762
+        "generate": 634
       },
       "knn_share": 1.0,
-      "latency_ms": 784,
+      "gen_format": "json",
+      "latency_ms": 654,
       "threshold_applied": 0.85,
-      "decision_id": "ae59bf09-9000-419e-8dbf-031de9404663"
+      "decision_id": "112beb35-5ead-4b78-a9b6-ebb00473c835"
     },
     {
       "ticket_id": "VAL-0002",
@@ -1108,17 +1110,17 @@
         "tokens": 416
       },
       "guardrails": null,
-      "tokens": 2496,
+      "tokens": 416,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 275,
-        "retrieve": 20
+        "classify": 16,
+        "retrieve": 12
       },
       "knn_share": 0.8252,
-      "latency_ms": 626,
+      "latency_ms": 346,
       "threshold_applied": 0.85,
-      "decision_id": "95c935d3-f10e-4743-bcfa-6641f348b4a4"
+      "decision_id": "1cfc0c41-f462-412c-add4-77cf34abbae4"
     },
     {
       "ticket_id": "VAL-0003",
@@ -1150,13 +1152,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 7
+        "classify": 17,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 291,
+      "latency_ms": 400,
       "threshold_applied": 0.85,
-      "decision_id": "e578dd30-7463-4aad-a5c9-a86c6eb59857"
+      "decision_id": "9be8ef66-ccc3-4a7c-87a4-2a2ceae71d77"
     },
     {
       "ticket_id": "VAL-0004",
@@ -1188,7 +1190,7 @@
           "score": 0.3221
         }
       ],
-      "response_text": "To resolve the issue with your MFA code being rejected, please check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin. [DOC-AUTH-002]\n\nIf the issue persists, please sign in with one of your recovery codes and then re-enrol a new device from the security page. [DOC-AUTH-002]\n\nIf you do not have recovery codes available, an account administrator can reset multi-factor authentication for that user from the team members page. [DOC-AUTH-002]\n\nIf you are the sole administrator and have no recovery codes, identity verification through support is required and takes up to one business day. [DOC-AUTH-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin [DOC-AUTH-002]. If this does not resolve the issue, sign in with one of your recovery codes and then re-enrol a new device from the security page [DOC-AUTH-002]. If no recovery codes are available, an account administrator can reset multi-factor authentication for that user from the team members page [DOC-AUTH-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-002",
@@ -1226,26 +1228,27 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 726,
+      "tokens": 837,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 14,
-        "generate": 314
+        "classify": 14,
+        "retrieve": 12,
+        "generate": 293
       },
       "knn_share": 1.0,
-      "latency_ms": 352,
+      "gen_format": "json",
+      "latency_ms": 324,
       "threshold_applied": 0.85,
-      "decision_id": "acce8012-1cb7-473c-af80-f9b8c713e4ec"
+      "decision_id": "e2e1aa02-0ece-413d-9a69-57245790efc3"
     },
     {
       "ticket_id": "VAL-0005",
       "channel": "chat",
       "status": "ok",
-      "decision": "escalate",
-      "reason": "Draft blocked by guardrail(s): grounding.",
-      "reason_code": "guardrail_block",
+      "decision": "auto_respond",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_usage_question' is not safety-restricted, and 4 relevant passage(s) were found.",
+      "reason_code": "confident_and_grounded",
       "intent": "api_usage_question",
       "urgency": "low",
       "confidence": 0.994,
@@ -1269,51 +1272,28 @@
           "score": 0.3023
         }
       ],
-      "response_text": null,
-      "citations": [],
-      "escalation_context": {
-        "summary": "The customer is experiencing issues with their cursor stopping to work partway through a long iteration and is asking if there's an expiry they should be handling. They're looking for guidance on how to handle large result sets.",
-        "summary_source": "llm",
-        "predicted_intent": "api_usage_question",
-        "predicted_urgency": "low",
-        "confidence": 0.994,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-API-002",
-            "title": "Pagination and handling large result sets",
-            "score": 0.6164
-          },
-          {
-            "doc_id": "DOC-DATA-002",
-            "title": "Backups, retention and point-in-time restore",
-            "score": 0.3233
-          },
-          {
-            "doc_id": "DOC-INT-002",
-            "title": "Third party monitoring and log forwarding",
-            "score": 0.3187
-          }
-        ],
-        "uncertainty_reason": "Draft blocked by guardrail(s): grounding.",
-        "tokens": 466
-      },
+      "response_text": "Use cursor pagination for anything that may change while you iterate. Offset pagination will skip or repeat records when items are inserted mid-iteration. [DOC-API-002] Pass the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null. [DOC-API-002] Keep page size at or below two hundred. [DOC-API-002] For very large extracts, use the export endpoint, which runs asynchronously and returns a download link. [DOC-API-002] Cursors expire after one hour. Long-running iterations should handle expiry by restarting from a recorded checkpoint. [DOC-API-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "citations": [
+        {
+          "doc_id": "DOC-API-002",
+          "resolves": true,
+          "passage_excerpt": "Pagination and handling large result sets ## Notes  Cursors expire after one hour. Long-running iterations should handle expiry by restarting from a recorded ch"
+        }
+      ],
+      "escalation_context": null,
       "guardrails": {
-        "overall_status": "block",
-        "action": "block_and_escalate",
-        "blocked_by": [
-          "grounding"
-        ],
+        "overall_status": "pass",
+        "action": "send_response",
+        "blocked_by": [],
         "pii": {
           "status": "pass",
           "reason": "no PII detected",
           "detected_patterns": []
         },
         "grounding": {
-          "status": "block",
-          "reason": "figures not present in the cited documentation",
-          "ungrounded_claims": [
-            "['5'] in: 5."
-          ]
+          "status": "pass",
+          "reason": "citations resolve and claims are supported",
+          "ungrounded_claims": []
         },
         "injection": {
           "status": "pass",
@@ -1330,18 +1310,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 1176,
+      "tokens": 833,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 12,
-        "retrieve": 11,
-        "generate": 332
+        "classify": 13,
+        "retrieve": 12,
+        "generate": 463
       },
       "knn_share": 1.0,
-      "latency_ms": 711,
+      "gen_format": "json",
+      "latency_ms": 494,
       "threshold_applied": 0.85,
-      "decision_id": "3b972e11-3fa0-467a-b886-f800a70b94eb"
+      "decision_id": "07129e47-ef0f-405f-9c15-e021757050f1"
     },
     {
       "ticket_id": "VAL-0006",
@@ -1377,7 +1358,7 @@
           "score": 0.3547
         }
       ],
-      "response_text": "Check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin. [DOC-AUTH-002]\nIf the device is lost, sign in with one of your recovery codes and then re-enrol a new device from the security page. [DOC-AUTH-002]\nWhere no recovery codes are available, an account administrator can reset multi-factor authentication for that user from the team members page. [DOC-AUTH-002]\nIf you are the sole administrator and have no recovery codes, identity verification through support is required and takes up to one business day. [DOC-AUTH-002]\nSupport cannot disable multi-factor authentication without identity verification, regardless of urgency. [DOC-AUTH-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check that automatic time synchronisation is enabled on the device generating the code. Drift is the most common cause by a wide margin. [DOC-AUTH-002] If the issue persists, sign in with one of your recovery codes and then re-enrol a new device from the security page. [DOC-AUTH-002] If no recovery codes are available, an account administrator can reset multi-factor authentication for that user from the team members page. [DOC-AUTH-002] If the user is the sole administrator and has no recovery codes, identity verification through support is required and takes up to one business day. [DOC-AUTH-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-002",
@@ -1415,18 +1396,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 1014,
+      "tokens": 1152,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
+        "classify": 16,
         "retrieve": 14,
-        "generate": 323
+        "generate": 488
       },
       "knn_share": 1.0,
-      "latency_ms": 361,
+      "gen_format": "json",
+      "latency_ms": 522,
       "threshold_applied": 0.85,
-      "decision_id": "7a72f247-efa7-4aa3-a81c-94979135b25c"
+      "decision_id": "ce8057fe-2e43-4f05-8983-fcf1985e6dab"
     },
     {
       "ticket_id": "VAL-0007",
@@ -1458,13 +1440,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
-        "retrieve": 12
+        "classify": 16,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 303,
+      "latency_ms": 305,
       "threshold_applied": 0.85,
-      "decision_id": "194643bf-bbcb-4ad1-8e8f-15f1deba5f40"
+      "decision_id": "960ef539-b65b-42a2-96bb-d1184d740d0e"
     },
     {
       "ticket_id": "VAL-0008",
@@ -1484,7 +1466,7 @@
           "score": 0.5093
         }
       ],
-      "response_text": "To understand how group membership interacts with directly assigned roles, check the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001]\nConfirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001]\nPrefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001]\nRemove a departing user rather than only changing their password, and revoke any API keys they created. [DOC-ACCT-001]\nTransfer ownership before removing the account, as removing the last account owner is not permitted. [DOC-ACCT-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand how group membership interacts with directly assigned roles, check the effective permissions view for the user, which resolves direct roles and group memberships together [DOC-ACCT-001]. Confirm the invitation was accepted. Prefer group membership to direct role assignment, so that access can be reviewed in one place [DOC-ACCT-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -1522,18 +1504,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 683,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
+        "classify": 14,
         "retrieve": 12,
-        "generate": 450
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 486,
+      "gen_format": "json",
+      "latency_ms": 30,
       "threshold_applied": 0.85,
-      "decision_id": "0e10f67e-28e7-4f12-aec4-e0c26ac1db8d"
+      "decision_id": "4fa9d406-7ed6-4766-a1bd-e287287a02dd"
     },
     {
       "ticket_id": "VAL-0009",
@@ -1602,13 +1585,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13
+        "classify": 7,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 385,
+      "latency_ms": 345,
       "threshold_applied": 0.85,
-      "decision_id": "633a189c-a9c1-4efd-b673-f1248b137b0a"
+      "decision_id": "63cbe128-1d5a-4afa-ae57-d25fbe64134f"
     },
     {
       "ticket_id": "VAL-0010",
@@ -1640,7 +1623,7 @@
           "score": 0.3472
         }
       ],
-      "response_text": "To understand the increase in your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand the increase in your invoice, first open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -1678,18 +1661,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 953,
+      "tokens": 1109,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 13,
-        "generate": 388
+        "retrieve": 14,
+        "generate": 340
       },
       "knn_share": 1.0,
-      "latency_ms": 423,
+      "gen_format": "json",
+      "latency_ms": 375,
       "threshold_applied": 0.85,
-      "decision_id": "bfa909b6-e07b-4401-b3d7-84f2ed8e7417"
+      "decision_id": "5b360782-cd1e-4cba-aa49-326c9b8434aa"
     },
     {
       "ticket_id": "VAL-0011",
@@ -1725,7 +1709,7 @@
           "score": 0.354
         }
       ],
-      "response_text": "To revert to the previous revision, follow these steps:\n\n1. Open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]\n2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]\n3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]\n4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To revert to the previous revision quickly, open the revisions page for the service and identify the last revision that was healthy. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -1763,18 +1747,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 939,
+      "tokens": 1064,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 14,
-        "generate": 487
+        "retrieve": 13,
+        "generate": 336
       },
       "knn_share": 1.0,
-      "latency_ms": 522,
+      "gen_format": "json",
+      "latency_ms": 370,
       "threshold_applied": 0.85,
-      "decision_id": "1c0854d5-da06-40cc-8bd7-79cd53c4f402"
+      "decision_id": "28a1b23b-d597-474c-b20c-e943950e9e25"
     },
     {
       "ticket_id": "VAL-0012",
@@ -1798,7 +1783,7 @@
           "score": 0.3147
         }
       ],
-      "response_text": "To roll back the latest release, open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]\nSelect roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]\nIf the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]\nRecord the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To revert to an earlier revision, open the revisions page for the service and identify the last revision that was healthy. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -1836,18 +1821,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 666,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
         "retrieve": 13,
-        "generate": 323
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 356,
+      "gen_format": "json",
+      "latency_ms": 33,
       "threshold_applied": 0.85,
-      "decision_id": "fa5395e7-1b6b-4f41-9e31-84442d1a1879"
+      "decision_id": "df028afe-a918-4bae-ae36-4b6ae7852f90"
     },
     {
       "ticket_id": "VAL-0013",
@@ -1875,7 +1861,7 @@
           "score": 0.3685
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve this issue, open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -1913,18 +1899,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 694,
+      "tokens": 846,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 276
+        "classify": 7,
+        "retrieve": 8,
+        "generate": 329
       },
       "knn_share": 1.0,
-      "latency_ms": 312,
+      "gen_format": "json",
+      "latency_ms": 348,
       "threshold_applied": 0.85,
-      "decision_id": "211e91b6-e97b-47bd-9c12-cfd5ecc63bca"
+      "decision_id": "091b3489-c40b-4330-9b54-192c573ad416"
     },
     {
       "ticket_id": "VAL-0014",
@@ -1952,7 +1939,7 @@
           "score": 0.3951
         }
       ],
-      "response_text": "To roll back the release, open the revisions page for the service and identify the last revision that was healthy. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002] If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To roll back the release, open the revisions page for the service and identify the last revision that was healthy. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002] If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002] Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -1990,18 +1977,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 877,
+      "tokens": 1045,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
+        "classify": 17,
         "retrieve": 14,
-        "generate": 381
+        "generate": 394
       },
       "knn_share": 1.0,
-      "latency_ms": 417,
+      "gen_format": "json",
+      "latency_ms": 429,
       "threshold_applied": 0.85,
-      "decision_id": "039ac27b-c08f-4f6d-92f3-234cfa03864c"
+      "decision_id": "461c1103-956d-4a4b-a45f-25fa54b2c401"
     },
     {
       "ticket_id": "VAL-0015",
@@ -2033,13 +2021,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 9
+        "classify": 14,
+        "retrieve": 12
       },
       "knn_share": 1.0,
-      "latency_ms": 282,
+      "latency_ms": 291,
       "threshold_applied": 0.85,
-      "decision_id": "3ec30b37-767b-4288-b414-791cf5a6f2f3"
+      "decision_id": "38d3742d-3062-495f-880c-01aec9add46f"
     },
     {
       "ticket_id": "VAL-0016",
@@ -2075,7 +2063,7 @@
           "score": 0.3213
         }
       ],
-      "response_text": "To diagnose the issue, compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service. [DOC-PERF-001]\nCheck memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure. [DOC-PERF-001]\nReview the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another. [DOC-PERF-001]\nAdjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation. [DOC-PERF-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Compare median and 95th percentile latency on the metrics page to check for contention or queueing. Check memory utilisation across instances to see if sustained utilisation above eighty per cent is causing latency. Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another. Adjust the autoscaling policy if load is predictable, scaling on request count responds sooner than scaling on processor utilisation. Cold starts affect the first request to a new instance, so frequent scaling events will raise the 95th percentile even when the service itself is healthy. [DOC-PERF-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-PERF-001",
@@ -2113,18 +2101,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 956,
+      "tokens": 1100,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 11,
-        "retrieve": 10,
-        "generate": 417
+        "classify": 14,
+        "retrieve": 13,
+        "generate": 413
       },
       "knn_share": 1.0,
-      "latency_ms": 443,
+      "gen_format": "json",
+      "latency_ms": 445,
       "threshold_applied": 0.85,
-      "decision_id": "8e5a86d1-ae82-4175-b0a7-b537e8aa1679"
+      "decision_id": "dc24ddd9-6dfd-404e-a215-d52b3868df8f"
     },
     {
       "ticket_id": "VAL-0017",
@@ -2156,21 +2145,21 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 12
+        "classify": 15,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 290,
+      "latency_ms": 326,
       "threshold_applied": 0.85,
-      "decision_id": "bf064fd1-8b61-4f1e-b273-1a0da0652ce0"
+      "decision_id": "aeadb23f-5083-4eca-88bb-90e78fcbe8f1"
     },
     {
       "ticket_id": "VAL-0018",
       "channel": "email",
       "status": "ok",
-      "decision": "escalate",
-      "reason": "Draft blocked by guardrail(s): grounding.",
-      "reason_code": "guardrail_block",
+      "decision": "auto_respond",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'api_usage_question' is not safety-restricted, and 2 relevant passage(s) were found.",
+      "reason_code": "confident_and_grounded",
       "intent": "api_usage_question",
       "urgency": "low",
       "confidence": 0.994,
@@ -2186,46 +2175,28 @@
           "score": 0.3036
         }
       ],
-      "response_text": null,
-      "citations": [],
-      "escalation_context": {
-        "summary": "The customer is experiencing issues with their cursor stopping partway through a long iteration, and they are wondering if there is an expiry they should be handling. They are looking for a solution to page through large results without interruption.",
-        "summary_source": "llm",
-        "predicted_intent": "api_usage_question",
-        "predicted_urgency": "low",
-        "confidence": 0.994,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-API-002",
-            "title": "Pagination and handling large result sets",
-            "score": 0.7752
-          },
-          {
-            "doc_id": "DOC-DATA-001",
-            "title": "Exporting account data and scheduled extracts",
-            "score": 0.3036
-          }
-        ],
-        "uncertainty_reason": "Draft blocked by guardrail(s): grounding.",
-        "tokens": 461
-      },
+      "response_text": "To page through large results, use cursor pagination by passing the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null [DOC-API-002]. Keep page size at or below two hundred [DOC-API-002]. If you're experiencing issues with the cursor expiring, handle expiry by restarting from a recorded checkpoint [DOC-API-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "citations": [
+        {
+          "doc_id": "DOC-API-002",
+          "resolves": true,
+          "passage_excerpt": "Pagination and handling large result sets ## Notes  Cursors expire after one hour. Long-running iterations should handle expiry by restarting from a recorded ch"
+        }
+      ],
+      "escalation_context": null,
       "guardrails": {
-        "overall_status": "block",
-        "action": "block_and_escalate",
-        "blocked_by": [
-          "grounding"
-        ],
+        "overall_status": "pass",
+        "action": "send_response",
+        "blocked_by": [],
         "pii": {
           "status": "pass",
           "reason": "no PII detected",
           "detected_patterns": []
         },
         "grounding": {
-          "status": "block",
-          "reason": "figures not present in the cited documentation",
-          "ungrounded_claims": [
-            "['5'] in: 5."
-          ]
+          "status": "pass",
+          "reason": "citations resolve and claims are supported",
+          "ungrounded_claims": []
         },
         "injection": {
           "status": "pass",
@@ -2242,18 +2213,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 1175,
+      "tokens": 791,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 14,
-        "generate": 848
+        "classify": 18,
+        "retrieve": 15,
+        "generate": 308
       },
       "knn_share": 1.0,
-      "latency_ms": 1219,
+      "gen_format": "json",
+      "latency_ms": 346,
       "threshold_applied": 0.85,
-      "decision_id": "bb72a964-77a3-4ffe-84f3-7d43e9db7564"
+      "decision_id": "91c09120-15bb-430a-b203-9cccf5bd11a0"
     },
     {
       "ticket_id": "VAL-0019",
@@ -2285,7 +2257,7 @@
           "score": 0.3532
         }
       ],
-      "response_text": "To resolve the issue, check the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001]\nConfirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001]\nRemove a departing user rather than only changing their password, and revoke any API keys they created. [DOC-ACCT-001]\nPrefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the effective permissions view for the user, which resolves direct roles and group memberships together [DOC-ACCT-001]. Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days [DOC-ACCT-001]. Remove a departing user rather than only changing their password, and revoke any API keys they created [DOC-ACCT-001]. Prefer group membership to direct role assignment, so that access can be reviewed in one place [DOC-ACCT-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -2323,18 +2295,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 876,
+      "tokens": 1027,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 12,
         "retrieve": 11,
-        "generate": 303
+        "generate": 359
       },
       "knn_share": 1.0,
-      "latency_ms": 332,
+      "gen_format": "json",
+      "latency_ms": 387,
       "threshold_applied": 0.85,
-      "decision_id": "0b817937-62da-452c-a4d2-6a3e402c8b29"
+      "decision_id": "73373c96-c328-4b3b-b67f-2cb9e1f7bab5"
     },
     {
       "ticket_id": "VAL-0020",
@@ -2386,13 +2359,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
+        "classify": 16,
         "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 392,
+      "latency_ms": 410,
       "threshold_applied": 0.85,
-      "decision_id": "c56306bb-e331-45d0-8b2c-1e1c21304d9f"
+      "decision_id": "e9c341c4-85c9-4535-bcab-e8b6e4de77e5"
     },
     {
       "ticket_id": "VAL-0021",
@@ -2424,7 +2397,7 @@
           "score": 0.3316
         }
       ],
-      "response_text": "To roll back to the previous version quickly, follow these steps:\n\n1. Open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]\n2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]\n3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]\n4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To roll back to the previous version quickly, open the revisions page for the service and identify the last revision that was healthy. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002] If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002] Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -2462,18 +2435,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 905,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 19,
+        "classify": 18,
         "retrieve": 14,
-        "generate": 304
+        "generate": 1
       },
       "knn_share": 1.0,
-      "latency_ms": 342,
+      "gen_format": "json",
+      "latency_ms": 37,
       "threshold_applied": 0.85,
-      "decision_id": "5e633bd9-5536-4078-9a48-70569a8407ac"
+      "decision_id": "c8e3b415-079c-4985-affb-7532bcfe1b21"
     },
     {
       "ticket_id": "VAL-0022",
@@ -2509,17 +2483,12 @@
           "score": 0.3539
         }
       ],
-      "response_text": "To diagnose the issue, compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service. [DOC-PERF-001]\nCheck memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure. [DOC-PERF-001]\nReview the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another. [DOC-PERF-001]\nAdjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation. [DOC-PERF-001]\nAlso, check whether the service is sitting at its configured maximum instance count, as scaling stops there regardless of load. [DOC-PERF-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Compare median and 95th percentile latency on the metrics page to check for contention or queueing. Check memory utilisation across instances to see if sustained utilisation above eighty per cent is causing latency. Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another. Adjust the autoscaling policy if load is predictable, scaling on request count responds sooner than scaling on processor utilisation. Cold starts affect the first request to a new instance, so frequent scaling events will raise the 95th percentile even when the service itself is healthy. [DOC-PERF-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-PERF-001",
           "resolves": true,
           "passage_excerpt": "Diagnosing elevated response latency ## Resolution  1. Compare median and 95th percentile latency on the metrics page. A large gap points to contention or queue"
-        },
-        {
-          "doc_id": "DOC-PERF-002",
-          "resolves": true,
-          "passage_excerpt": "Autoscaling behaviour and instance limits ## Symptoms  - The service does not scale up under load - Scaling happens later than expected - Instance count oscilla"
         }
       ],
       "escalation_context": null,
@@ -2552,18 +2521,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 993,
+      "tokens": 1106,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 409
+        "classify": 7,
+        "retrieve": 9,
+        "generate": 337
       },
       "knn_share": 1.0,
-      "latency_ms": 445,
+      "gen_format": "json",
+      "latency_ms": 358,
       "threshold_applied": 0.85,
-      "decision_id": "26b64633-5d07-41a0-9be4-46c67409121a"
+      "decision_id": "b6458aaa-fead-45d2-b659-9eaf45a4672d"
     },
     {
       "ticket_id": "VAL-0023",
@@ -2595,17 +2565,12 @@
           "score": 0.307
         }
       ],
-      "response_text": "To get your containerized application deployed on CloudServe, we recommend externalising configuration before migrating. This means moving any configuration read from a file on disk to environment variables or secrets. [DOC-ONB-002]\nIdentify local state such as uploaded files or session data and move it to object storage or the managed database first. [DOC-ONB-002]\nRun in parallel with the existing deployment and shift a small share of traffic before committing to the move. [DOC-ONB-002]\nPlan the database migration separately from the application migration; attempting both at once makes any failure hard to diagnose. [DOC-ONB-002]\nAdditionally, we suggest creating a project, then a service within it, and connecting a repository or pushing a container image to start the deployment process. [DOC-ONB-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To migrate your containerised application, first externalise configuration by moving it to environment variables or secrets [DOC-ONB-002]. Identify local state such as uploaded files or session data and move it to object storage or the managed database first [DOC-ONB-002]. Run in parallel with the existing deployment and shift a small share of traffic before committing to the move [DOC-ONB-002]. Plan the database migration separately from the application migration [DOC-ONB-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-ONB-002",
           "resolves": true,
           "passage_excerpt": "Migrating an existing application to CloudServe ## Resolution  1. Externalise configuration before migrating. Anything read from a file on disk should move to e"
-        },
-        {
-          "doc_id": "DOC-ONB-001",
-          "resolves": true,
-          "passage_excerpt": "First deployment: a walkthrough ## Resolution  1. Create a project, then a service within it. Resources belong to services and services belong to projects. 2. C"
         }
       ],
       "escalation_context": null,
@@ -2638,18 +2603,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 899,
+      "tokens": 991,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
+        "classify": 15,
         "retrieve": 14,
-        "generate": 444
+        "generate": 332
       },
       "knn_share": 1.0,
-      "latency_ms": 480,
+      "gen_format": "json",
+      "latency_ms": 365,
       "threshold_applied": 0.85,
-      "decision_id": "9f3bab71-50b3-4faa-b62b-7b2c59e4069f"
+      "decision_id": "e5de4769-2e69-4ee4-9c02-272eaf1a1602"
     },
     {
       "ticket_id": "VAL-0024",
@@ -2678,7 +2644,7 @@
           "score": 0.3425
         }
       ],
-      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004] Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004] To resolve the issue, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004] Use service accounts for anything running in production. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -2716,18 +2682,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 3035,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 325,
-        "retrieve": 22,
-        "generate": 299
+        "classify": 16,
+        "retrieve": 11,
+        "generate": 0
       },
       "knn_share": 0.846,
-      "latency_ms": 652,
+      "gen_format": "json",
+      "latency_ms": 31,
       "threshold_applied": 0.85,
-      "decision_id": "1a5bb83f-361a-48cd-a054-454bbadf1bde"
+      "decision_id": "d1b07c69-9b1e-47ca-9974-0d24b497e1ef"
     },
     {
       "ticket_id": "VAL-0025",
@@ -2763,7 +2730,7 @@
           "score": 0.3544
         }
       ],
-      "response_text": "To resolve the issue with your deployments failing at the health check stage, please confirm that your container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. \n\nNext, increase the initial delay if your application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches [DOC-DEPLOY-001]. \n\nCompare the environment variables present in the deployment against those your application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. \n\nInspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout. [DOC-DEPLOY-001] Increase the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches. [DOC-DEPLOY-001] Compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure. [DOC-DEPLOY-001] Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default. [DOC-DEPLOY-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -2801,18 +2768,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 751,
+      "tokens": 895,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 13,
-        "generate": 374
+        "classify": 6,
+        "retrieve": 7,
+        "generate": 413
       },
       "knn_share": 1.0,
-      "latency_ms": 409,
+      "gen_format": "json",
+      "latency_ms": 430,
       "threshold_applied": 0.85,
-      "decision_id": "eb002d91-bc78-4915-bc6e-49fb94ada777"
+      "decision_id": "81765a06-2905-4238-9ed7-4c94e41cbc25"
     },
     {
       "ticket_id": "VAL-0026",
@@ -2840,7 +2808,7 @@
           "score": 0.309
         }
       ],
-      "response_text": "To determine the region where your data is stored, please check the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \n\nEnable read replicas in additional regions to reduce latency for distant users without moving primary storage [DOC-DATA-003]. \n\nReview the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \n\nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To ensure your data remains within the EU, check the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. If this region no longer suits your requirement, you can check the backup replication setting, since cross-region replication is enabled by default [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
@@ -2878,18 +2846,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 690,
+      "tokens": 804,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 17,
         "retrieve": 14,
-        "generate": 290
+        "generate": 304
       },
       "knn_share": 1.0,
-      "latency_ms": 327,
+      "gen_format": "json",
+      "latency_ms": 339,
       "threshold_applied": 0.85,
-      "decision_id": "7b2a7f80-a216-4a53-ae9b-1d122d88072d"
+      "decision_id": "e66f3b8a-25b1-4d65-9212-17291ca7d7e8"
     },
     {
       "ticket_id": "VAL-0027",
@@ -2921,12 +2890,17 @@
           "score": 0.3005
         }
       ],
-      "response_text": "To resolve the unexpected overage charges, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve the unexpected overage charges, open the usage breakdown for the period and look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001]. Check the current period usage against the plan allowance on the billing page [DOC-BILL-003]. Decide deliberately between a hard spend cap, which stops the service, and overage, which continues at the listed rate [DOC-BILL-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
           "resolves": true,
           "passage_excerpt": "Understanding your invoice and usage breakdown ## Common causes  - Usage-based charges accrued beyond the plan allowance - A resource was left running in a non-"
+        },
+        {
+          "doc_id": "DOC-BILL-003",
+          "resolves": true,
+          "passage_excerpt": "Usage limits, overage and spend controls ## Common causes  - Plan allowance was consumed before the end of the period - A spend cap was configured and reached -"
         }
       ],
       "escalation_context": null,
@@ -2959,18 +2933,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 911,
+      "tokens": 1111,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
         "retrieve": 13,
-        "generate": 374
+        "generate": 435
       },
       "knn_share": 1.0,
-      "latency_ms": 407,
+      "gen_format": "json",
+      "latency_ms": 468,
       "threshold_applied": 0.85,
-      "decision_id": "1987becb-da39-45aa-9ae6-b3b59ed9edd1"
+      "decision_id": "a03e43ca-ae7a-4d2e-aa2b-898ff4ec53de"
     },
     {
       "ticket_id": "VAL-0028",
@@ -3006,7 +2981,7 @@
           "score": 0.3081
         }
       ],
-      "response_text": "To resolve the issue with your deployment rolling back every time, please follow these steps:\n\n1. Pin your dependencies with exact versions and commit the lock file, as unpinned dependencies are the cause in the large majority of cases of this kind [DOC-DEPLOY-003].\n2. Compare the runtime version declared in your build configuration against the version you use locally [DOC-DEPLOY-003].\n3. Clear the build cache from the settings page and trigger a fresh build to rule out a corrupted artefact [DOC-DEPLOY-003].\n4. If a specific dependency is failing to resolve, check whether its registry is reachable from the build network [DOC-DEPLOY-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Pin your dependencies with exact versions and commit the lock file. Unpinned dependencies are the cause in the large majority of cases of this kind. [DOC-DEPLOY-003] Compare the runtime version declared in your build configuration against the version you use locally. [DOC-DEPLOY-003] Clear the build cache from the settings page and trigger a fresh build to rule out a corrupted artefact. [DOC-DEPLOY-003] If a specific dependency is failing to resolve, check whether its registry is reachable from the build network. [DOC-DEPLOY-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-003",
@@ -3044,18 +3019,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 895,
+      "tokens": 1034,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13,
-        "generate": 318
+        "classify": 13,
+        "retrieve": 12,
+        "generate": 401
       },
       "knn_share": 1.0,
-      "latency_ms": 352,
+      "gen_format": "json",
+      "latency_ms": 431,
       "threshold_applied": 0.85,
-      "decision_id": "be022aea-e8f9-4bee-be94-9950cee719e0"
+      "decision_id": "52fa37d9-c709-443a-bf7c-7a4cc8ff7b6a"
     },
     {
       "ticket_id": "VAL-0029",
@@ -3079,17 +3055,12 @@
           "score": 0.3173
         }
       ],
-      "response_text": "To get started, we recommend checking the security page of the console to confirm whether your account is locked. A locked account displays a red banner and unlocks automatically after thirty minutes [DOC-AUTH-001]. \n\nIf your account is not locked, we suggest clearing cookies for the CloudServe domain, or opening a private browsing window, then attempting the login again [DOC-AUTH-001]. \n\nIf you're still having trouble, please try opening the console in a private browsing window or clearing cookies for the CloudServe domain. \n\nIf you're using the CLI, run `cloudserve auth logout` followed by `cloudserve auth login` to discard the cached token [DOC-AUTH-001]. \n\nIf you're still unable to access the console, we recommend checking the documentation on managing team members, roles, and permissions to ensure you have the correct permissions [DOC-ACCT-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To get started, first check the security page of the console to confirm whether your account is locked [DOC-AUTH-001]. If it is, you can wait thirty minutes for it to unlock automatically. If not, clear cookies for the CloudServe domain, or open a private browsing window, then attempt the login again [DOC-AUTH-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-001",
           "resolves": true,
           "passage_excerpt": "Resolving invalid credential errors on login # Resolving invalid credential errors on login  **Applies to:** Console, CLI, SDK"
-        },
-        {
-          "doc_id": "DOC-ACCT-001",
-          "resolves": true,
-          "passage_excerpt": "Managing team members, roles and permissions ## Notes  Removing the last account owner is not permitted. Transfer ownership before removing the account."
         }
       ],
       "escalation_context": null,
@@ -3122,18 +3093,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 982,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10,
-        "generate": 532
+        "classify": 15,
+        "retrieve": 12,
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 559,
+      "gen_format": "json",
+      "latency_ms": 31,
       "threshold_applied": 0.85,
-      "decision_id": "b214c405-ffd4-4c46-be33-367b52d9a617"
+      "decision_id": "192480ff-cb39-4af1-97d9-1b2b937f50c1"
     },
     {
       "ticket_id": "VAL-0030",
@@ -3176,13 +3148,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 13
+        "classify": 7,
+        "retrieve": 8
       },
       "knn_share": 1.0,
-      "latency_ms": 390,
+      "latency_ms": 312,
       "threshold_applied": 0.85,
-      "decision_id": "f0c7a7c9-66d8-47b1-a595-97f119956680"
+      "decision_id": "d32340e8-b0a1-402c-bec2-1166fb026890"
     },
     {
       "ticket_id": "VAL-0031",
@@ -3214,7 +3186,7 @@
           "score": 0.3015
         }
       ],
-      "response_text": "To safely roll back to the previous version, follow these steps:\n\n1. Open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]\n2. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]\n3. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]\n4. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To roll back to the previous version quickly, open the revisions page for the service and identify the last revision that was healthy. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002] If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002] Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -3252,18 +3224,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 907,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 18,
         "retrieve": 14,
-        "generate": 319
+        "generate": 1
       },
       "knn_share": 1.0,
-      "latency_ms": 357,
+      "gen_format": "json",
+      "latency_ms": 37,
       "threshold_applied": 0.85,
-      "decision_id": "7e334c20-92d7-489f-89c0-322396620b13"
+      "decision_id": "5e613903-aab4-43d9-912f-d6d149896f09"
     },
     {
       "ticket_id": "VAL-0032",
@@ -3321,20 +3294,20 @@
           }
         ],
         "uncertainty_reason": "Intent 'feature_request' is always handled by a human (security, legal/contractual, no documented answer, or too vague).",
-        "tokens": 496
+        "tokens": 0
       },
       "guardrails": null,
-      "tokens": 496,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13
+        "classify": 8,
+        "retrieve": 8
       },
       "knn_share": 1.0,
-      "latency_ms": 423,
+      "latency_ms": 18,
       "threshold_applied": 0.85,
-      "decision_id": "ffdd7979-920d-4636-bf91-32f5fad57cbb"
+      "decision_id": "20f11f4b-3f5d-4543-9fa1-31a956600647"
     },
     {
       "ticket_id": "VAL-0033",
@@ -3362,7 +3335,7 @@
           "score": 0.3054
         }
       ],
-      "response_text": "Check the webhook delivery log, which records every attempt with the response status and body for the last seven days. [DOC-API-003]\nReturn 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. [DOC-API-003]\nCompute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature. [DOC-API-003]\nMake your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional. [DOC-API-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the webhook delivery log to see the response status and body for the last seven days. Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. Compute the signature over the raw request body before any parsing. Make your handler idempotent using the event identifier. [DOC-API-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-API-003",
@@ -3400,18 +3373,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 697,
+      "tokens": 805,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13,
-        "generate": 274
+        "classify": 5,
+        "retrieve": 7,
+        "generate": 360
       },
       "knn_share": 1.0,
-      "latency_ms": 308,
+      "gen_format": "json",
+      "latency_ms": 375,
       "threshold_applied": 0.85,
-      "decision_id": "20bcda6e-9d1a-4f6e-9f00-d83739ce0245"
+      "decision_id": "970f5f4d-56d4-4c47-8d06-ab281ed9183b"
     },
     {
       "ticket_id": "VAL-0034",
@@ -3435,7 +3409,7 @@
           "score": 0.3147
         }
       ],
-      "response_text": "To roll back the latest release, open the revisions page for the service and identify the last revision that was healthy. [DOC-DEPLOY-002]\nSelect roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. [DOC-DEPLOY-002]\nIf the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. [DOC-DEPLOY-002]\nRecord the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To revert to an earlier revision, open the revisions page for the service and identify the last revision that was healthy. Select roll back on that revision. Traffic moves within roughly thirty seconds and no rebuild takes place. If the release included a database migration, roll the migration back before the service, or the older code will encounter a schema it does not expect. Record the incident and the reason for the rollback before deploying a fix, while the detail is still fresh. [DOC-DEPLOY-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-002",
@@ -3473,18 +3447,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 666,
+      "tokens": 802,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
         "retrieve": 13,
-        "generate": 275
+        "generate": 327
       },
       "knn_share": 1.0,
-      "latency_ms": 308,
+      "gen_format": "json",
+      "latency_ms": 359,
       "threshold_applied": 0.85,
-      "decision_id": "0ffce53a-d356-467f-a01e-99ce87a2f7c0"
+      "decision_id": "1d4adf7c-f74f-4538-a1e5-673bdb2853e2"
     },
     {
       "ticket_id": "VAL-0035",
@@ -3525,9 +3500,9 @@
         "retrieve": 13
       },
       "knn_share": 0.9193,
-      "latency_ms": 287,
+      "latency_ms": 295,
       "threshold_applied": 0.85,
-      "decision_id": "57c0dd2c-8250-4c09-a1a7-927c0b35de1a"
+      "decision_id": "ff3e7c47-c919-4abd-867a-8fc8356abbd1"
     },
     {
       "ticket_id": "VAL-0036",
@@ -3547,7 +3522,7 @@
           "score": 0.593
         }
       ],
-      "response_text": "To get started with your first deployment, create a project, then a service within it. Resources belong to services and services belong to projects [DOC-ONB-001]. \nConnect a repository or push a container image. The build service detects common project layouts automatically [DOC-ONB-001]. \nSet any environment variables the application needs before the first deployment rather than after it [DOC-ONB-001]. \nDeploy, then watch the logs for the first sixty seconds. Most first-deployment problems are visible immediately in startup output [DOC-ONB-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To get started with your first deployment, create a project, then a service within it. Connect a repository or push a container image. Set any environment variables the application needs before the first deployment rather than after it. Deploy, then watch the logs for the first sixty seconds. [DOC-ONB-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-ONB-001",
@@ -3585,18 +3560,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 638,
+      "tokens": 744,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
+        "classify": 16,
         "retrieve": 14,
-        "generate": 295
+        "generate": 268
       },
       "knn_share": 1.0,
-      "latency_ms": 333,
+      "gen_format": "json",
+      "latency_ms": 303,
       "threshold_applied": 0.85,
-      "decision_id": "41b253ab-d560-4a27-b016-7868d0f13274"
+      "decision_id": "2612bc22-45ee-410b-8c41-3debeaf2a6af"
     },
     {
       "ticket_id": "VAL-0037",
@@ -3624,7 +3600,7 @@
           "score": 0.3209
         }
       ],
-      "response_text": "Backups are replicated outside our primary region by default, as cross-region replication is enabled by default [DOC-DATA-003]. \nHowever, this setting can be reviewed if a single-region requirement applies. \nReview the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003]. \nThe organisation settings page will show the region where primary data is stored, which is fixed at creation [DOC-DATA-003]. \nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Backups are replicated to a second region by default. [DOC-DATA-003] This is enabled by default. [DOC-DATA-003] To confirm your backup replication setting, check the organisation settings page. [DOC-DATA-003] If a single-region requirement applies, review the backup replication setting. [DOC-DATA-003] Metadata such as account names and billing records is stored centrally regardless of the data region. [DOC-DATA-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
@@ -3662,18 +3638,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 700,
+      "tokens": 810,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 12,
-        "generate": 392
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 369
       },
       "knn_share": 1.0,
-      "latency_ms": 424,
+      "gen_format": "json",
+      "latency_ms": 403,
       "threshold_applied": 0.85,
-      "decision_id": "ff0a91b2-1535-469d-800d-c84f1308527f"
+      "decision_id": "bfa8fb56-4fa0-4d9d-a279-69e6053a82f6"
     },
     {
       "ticket_id": "VAL-0038",
@@ -3705,7 +3682,7 @@
           "score": 0.3051
         }
       ],
-      "response_text": "To diagnose the issue, compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service [DOC-PERF-001]. \nCheck memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure [DOC-PERF-001]. \nReview the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another [DOC-PERF-001]. \nAdjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation [DOC-PERF-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Compare median and 95th percentile latency on the metrics page. A large gap points to contention or queueing rather than a uniformly slower service. [DOC-PERF-001] Check memory utilisation across instances. Sustained utilisation above eighty per cent typically shows up as latency before it shows up as failure. [DOC-PERF-001] Review the dependency timing breakdown on the trace view to identify whether the time is being spent in your service or waiting on another. [DOC-PERF-001] Adjust the autoscaling policy if load is predictable. Scaling on request count responds sooner than scaling on processor utilisation. [DOC-PERF-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-PERF-001",
@@ -3743,18 +3720,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 751,
+      "tokens": 907,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 17,
         "retrieve": 14,
-        "generate": 320
+        "generate": 322
       },
       "knn_share": 1.0,
-      "latency_ms": 356,
+      "gen_format": "json",
+      "latency_ms": 358,
       "threshold_applied": 0.85,
-      "decision_id": "d3f4c6ea-edb0-42ad-a7aa-d5e62d284713"
+      "decision_id": "26b84b91-d539-488f-9245-b65dd1426610"
     },
     {
       "ticket_id": "VAL-0039",
@@ -3790,7 +3768,7 @@
           "score": 0.3894
         }
       ],
-      "response_text": "To replace the API key without taking the service down, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nTo ensure the new key is properly configured, review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\nKeys issued to individual users are removed when that user is deleted, so the exposed key should be revoked immediately rather than waiting for the rotation window. [DOC-AUTH-004]\nTo confirm the replacement key is working correctly, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\nFinally, to prevent similar incidents in the future, use service accounts for anything running in production. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To rotate the API key without taking the service down, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key [DOC-AUTH-004].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -3828,18 +3806,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 992,
+      "tokens": 1004,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 13,
-        "generate": 474
+        "retrieve": 14,
+        "generate": 254
       },
       "knn_share": 1.0,
-      "latency_ms": 509,
+      "gen_format": "json",
+      "latency_ms": 289,
       "threshold_applied": 0.85,
-      "decision_id": "60811321-0090-473a-b2b1-4d7dee11de2c"
+      "decision_id": "e3a0e535-363b-438d-ab20-2df0e78b595e"
     },
     {
       "ticket_id": "VAL-0040",
@@ -3867,7 +3846,7 @@
           "score": 0.3685
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. \nLook for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. \nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. \nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve this issue, open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3905,18 +3884,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 692,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 11,
-        "retrieve": 10,
-        "generate": 311
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 338,
+      "gen_format": "json",
+      "latency_ms": 34,
       "threshold_applied": 0.85,
-      "decision_id": "f6058bfb-22b7-407e-acf5-19ae5b782064"
+      "decision_id": "1efe7af8-1875-4abd-92ef-b0c3c0676933"
     },
     {
       "ticket_id": "VAL-0041",
@@ -3944,7 +3924,7 @@
           "score": 0.3685
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. \nLook for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. \nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. \nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve this issue, open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -3982,18 +3962,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 692,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 17,
-        "retrieve": 14,
-        "generate": 263
+        "classify": 7,
+        "retrieve": 8,
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 300,
+      "gen_format": "json",
+      "latency_ms": 18,
       "threshold_applied": 0.85,
-      "decision_id": "cb737ce7-6d04-400f-a907-f0c3e512a0f6"
+      "decision_id": "683d6883-5e18-4012-8d63-b79367baf0ed"
     },
     {
       "ticket_id": "VAL-0042",
@@ -4029,7 +4010,7 @@
           "score": 0.32
         }
       ],
-      "response_text": "To troubleshoot the issue with your staging environment picking up production configuration values, please check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults [DOC-DEPLOY-004]. \n\nNext, review the environment overrides page, which lists values that differ from the defaults for each environment [DOC-DEPLOY-004]. \n\nAlso, consider storing anything sensitive as a secret rather than a variable, as secrets are masked in logs and are not readable through the API after creation [DOC-DEPLOY-004]. \n\nFinally, redeploy after changing configuration, as running containers do not pick up new values without a restart [DOC-DEPLOY-004].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults. [DOC-DEPLOY-004] Store anything sensitive as a secret rather than a variable. Secrets are masked in logs and are not readable through the API after creation. [DOC-DEPLOY-004] Review the environment overrides page, which lists values that differ from the defaults for each environment. [DOC-DEPLOY-004] Redeploy after changing configuration. Running containers do not pick up new values without a restart. [DOC-DEPLOY-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-004",
@@ -4067,18 +4048,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 898,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10,
-        "generate": 357
+        "classify": 5,
+        "retrieve": 7,
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 382,
+      "gen_format": "json",
+      "latency_ms": 14,
       "threshold_applied": 0.85,
-      "decision_id": "631f177a-b427-4b2f-8809-f3695ab7db8a"
+      "decision_id": "117259ae-1a59-49be-9430-0d1bdd870b80"
     },
     {
       "ticket_id": "VAL-0043",
@@ -4156,13 +4138,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 13
+        "classify": 5,
+        "retrieve": 7
       },
       "knn_share": 1.0,
-      "latency_ms": 989,
+      "latency_ms": 322,
       "threshold_applied": 0.85,
-      "decision_id": "d55a6787-7703-47ea-a43d-bd78ea261ea9"
+      "decision_id": "cd0d6fdd-754f-430e-9db0-0fef57152a47"
     },
     {
       "ticket_id": "VAL-0044",
@@ -4190,7 +4172,7 @@
           "score": 0.3562
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve this issue, open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -4228,18 +4210,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 687,
+      "tokens": 839,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 14,
-        "generate": 295
+        "classify": 14,
+        "retrieve": 12,
+        "generate": 308
       },
       "knn_share": 1.0,
-      "latency_ms": 332,
+      "gen_format": "json",
+      "latency_ms": 340,
       "threshold_applied": 0.85,
-      "decision_id": "d0249084-97c5-4a17-930c-b3d904a97e1d"
+      "decision_id": "b15c5b4d-f439-44e6-8000-aa314a8ef0c7"
     },
     {
       "ticket_id": "VAL-0045",
@@ -4275,7 +4258,7 @@
           "score": 0.4028
         }
       ],
-      "response_text": "We recommend checking the exports page for job status. Jobs covering more than a million records commonly take several minutes. [DOC-DATA-001] The export has not completed yet, so it's not necessary to cancel and try again. [DOC-DATA-001] \n\nWe also suggest requesting a fresh link from the exports page if the original has expired. The underlying file is retained for seven days. [DOC-DATA-001] \n\nNote that the export reflects the moment the job began, so records created during processing are not included. [DOC-DATA-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the exports page for job status. Jobs covering more than a million records commonly take several minutes. [DOC-DATA-001] If the job has completed, request a fresh link from the exports page if the original has expired. The underlying file is retained for seven days. [DOC-DATA-001] Note that the export reflects the moment the job began, so records created during processing are not included. [DOC-DATA-001] For recurring needs, configure a scheduled export delivered to object storage rather than generating them manually. [DOC-DATA-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-001",
@@ -4313,18 +4296,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 880,
+      "tokens": 1038,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 13,
-        "generate": 354
+        "retrieve": 14,
+        "generate": 341
       },
       "knn_share": 1.0,
-      "latency_ms": 389,
+      "gen_format": "json",
+      "latency_ms": 376,
       "threshold_applied": 0.85,
-      "decision_id": "4f875d0c-0502-4a36-ad9c-54be4f050226"
+      "decision_id": "20d09f0e-d592-469e-9632-cf190c352439"
     },
     {
       "ticket_id": "VAL-0046",
@@ -4344,7 +4328,7 @@
           "score": 0.7616
         }
       ],
-      "response_text": "To avoid missing or duplicating records, use cursor pagination for large result sets. Use cursor pagination for anything that may change while you iterate. Offset pagination will skip or repeat records when items are inserted mid-iteration. [DOC-API-002] Pass the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null. Keep page size at or below two hundred. Larger requests are rejected rather than truncated. [DOC-API-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To page through large results correctly, use cursor pagination by passing the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null [DOC-API-002]. Keep page size at or below two hundred [DOC-API-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-API-002",
@@ -4382,18 +4366,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 646,
+      "tokens": 763,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
         "retrieve": 13,
-        "generate": 259
+        "generate": 290
       },
       "knn_share": 1.0,
-      "latency_ms": 293,
+      "gen_format": "json",
+      "latency_ms": 323,
       "threshold_applied": 0.85,
-      "decision_id": "7fec3734-be53-4f01-8632-1d9ccc143a70"
+      "decision_id": "7044bf9d-a9b6-41e0-afa8-843617f300a2"
     },
     {
       "ticket_id": "VAL-0047",
@@ -4425,7 +4410,7 @@
           "score": 0.37
         }
       ],
-      "response_text": "Confirm whether the endpoint has a specific limit. Search and export endpoints are more expensive and are limited more tightly than reads. [DOC-API-001]\nImplement exponential backoff with jitter on 429 responses rather than retrying immediately, which prolongs the throttling. [DOC-API-001]\nWhere sustained higher throughput is genuinely required, the limit can be raised on Business and Enterprise plans through an account request. [DOC-API-001]\nNote that limits are enforced per organisation. Issuing more keys does not increase the available quota. [DOC-API-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Confirm whether the search endpoint has a specific limit. Search and export endpoints are more expensive and are limited more tightly than reads. [DOC-API-001] Read the rate limit headers returned with every response. They give the limit, the remaining allowance and the reset time, which is more reliable than inferring the limit from behaviour. [DOC-API-001] Implement exponential backoff with jitter on 429 responses rather than retrying immediately, which prolongs the throttling. [DOC-API-001] Where sustained higher throughput is genuinely required, the limit can be raised on Business and Enterprise plans through an account request. [DOC-API-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-API-001",
@@ -4463,18 +4448,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 905,
+      "tokens": 1080,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
+        "classify": 15,
         "retrieve": 13,
-        "generate": 293
+        "generate": 342
       },
       "knn_share": 1.0,
-      "latency_ms": 328,
+      "gen_format": "json",
+      "latency_ms": 376,
       "threshold_applied": 0.85,
-      "decision_id": "db8589d3-09ff-4f73-b1ce-9dc19147fb48"
+      "decision_id": "076973ac-8317-4285-812a-6f78dd8fe821"
     },
     {
       "ticket_id": "VAL-0048",
@@ -4548,13 +4534,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13
+        "classify": 16,
+        "retrieve": 14
       },
       "knn_share": 1.0,
-      "latency_ms": 350,
+      "latency_ms": 357,
       "threshold_applied": 0.85,
-      "decision_id": "f420be54-135b-4350-8952-320eafa30f1e"
+      "decision_id": "7614b974-502e-4b73-90a6-9afa5613d967"
     },
     {
       "ticket_id": "VAL-0049",
@@ -4578,7 +4564,7 @@
           "score": 0.3703
         }
       ],
-      "response_text": "To resolve the issue, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\n\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\n\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\n\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nPlease follow the steps above to resolve the issue.\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004] Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004] To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004] If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -4616,18 +4602,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 947,
+      "tokens": 1091,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 12,
-        "retrieve": 11,
-        "generate": 364
+        "classify": 17,
+        "retrieve": 15,
+        "generate": 396
       },
       "knn_share": 1.0,
-      "latency_ms": 393,
+      "gen_format": "json",
+      "latency_ms": 433,
       "threshold_applied": 0.85,
-      "decision_id": "dfa77291-4ad0-4b73-8978-d2a0ce524efb"
+      "decision_id": "31eef84f-b0f4-4a63-9bc5-6be2bf6c73a8"
     },
     {
       "ticket_id": "VAL-0050",
@@ -4655,7 +4642,7 @@
           "score": 0.3867
         }
       ],
-      "response_text": "To get started with your first deployment, create a project, then a service within it. Resources belong to services and services belong to projects [DOC-ONB-001]. Connect a repository or push a container image. The build service detects common project layouts automatically [DOC-ONB-001]. Set any environment variables the application needs before the first deployment rather than after it [DOC-ONB-001]. Deploy, then watch the logs for the first sixty seconds. Most first-deployment problems are visible immediately in startup output [DOC-ONB-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To get started with your first deployment, create a project, then a service within it. Connect a repository or push a container image. Set any environment variables the application needs before the first deployment rather than after it. Deploy, then watch the logs for the first sixty seconds. Most first-deployment problems are visible immediately in startup output. [DOC-ONB-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-ONB-001",
@@ -4693,18 +4680,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 899,
+      "tokens": 1020,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 11,
-        "retrieve": 10,
-        "generate": 297
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 349
       },
       "knn_share": 1.0,
-      "latency_ms": 323,
+      "gen_format": "json",
+      "latency_ms": 384,
       "threshold_applied": 0.85,
-      "decision_id": "8519de10-e1d4-4d3f-9476-f81ffdfce05f"
+      "decision_id": "ab8cb679-ef1b-43f3-9caa-ff4c6a7d9479"
     },
     {
       "ticket_id": "VAL-0051",
@@ -4740,7 +4728,7 @@
           "score": 0.3032
         }
       ],
-      "response_text": "We've checked the forwarding status page, which shows the last successful delivery and any error returned by the destination. [DOC-INT-002]\nExpect a delay of up to two minutes on metrics, since they are aggregated before being sent. [DOC-INT-002]\nApply a level filter at source so that debug output is not forwarded, which is usually the reason volume is higher than expected. [DOC-INT-002]\nVerify the destination credential separately if delivery has stopped entirely, as expired credentials are the most common cause. [DOC-INT-002]\nForwarding pauses after one hour of consecutive failures and must be resumed manually once the destination is healthy. [DOC-INT-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the forwarding status page to see the last successful delivery and any error returned by the destination [DOC-INT-002]. Expect a delay of up to two minutes on metrics, since they are aggregated before being sent [DOC-INT-002]. Apply a level filter at source so that debug output is not forwarded [DOC-INT-002]. Verify the destination credential separately if delivery has stopped entirely [DOC-INT-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-INT-002",
@@ -4778,18 +4766,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 699,
+      "tokens": 805,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
-        "retrieve": 14,
-        "generate": 301
+        "retrieve": 13,
+        "generate": 884
       },
       "knn_share": 1.0,
-      "latency_ms": 337,
+      "gen_format": "json",
+      "latency_ms": 918,
       "threshold_applied": 0.85,
-      "decision_id": "66ae1450-70ce-41a6-b8aa-3a6c319925a7"
+      "decision_id": "52a6d74e-b82e-4d51-9f17-8590cf8e9251"
     },
     {
       "ticket_id": "VAL-0052",
@@ -4825,7 +4814,7 @@
           "score": 0.3242
         }
       ],
-      "response_text": "To troubleshoot the issue, please check the security page of the console to confirm whether your account is locked. A locked account displays a red banner and unlocks automatically after thirty minutes. [DOC-AUTH-001]\nIf your account is locked, clear cookies for the CloudServe domain, or open a private browsing window, then attempt the login again. [DOC-AUTH-001]\nIf the issue persists, run `cloudserve auth logout` followed by `cloudserve auth login` to discard the cached token. [DOC-AUTH-001]\nIf you still cannot access the console, an administrator on the account can release the lock from the team members page. [DOC-AUTH-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Confirm whether your account is locked by checking the security page of the console. A locked account displays a red banner and unlocks automatically after thirty minutes [DOC-AUTH-001]. Clear cookies for the CloudServe domain, or open a private browsing window, then attempt the login again [DOC-AUTH-001]. If the CLI is failing, run `cloudserve auth logout` followed by `cloudserve auth login` to discard the cached token [DOC-AUTH-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-001",
@@ -4863,18 +4852,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 973,
+      "tokens": 1088,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 9,
-        "generate": 366
+        "classify": 15,
+        "retrieve": 14,
+        "generate": 311
       },
       "knn_share": 1.0,
-      "latency_ms": 391,
+      "gen_format": "json",
+      "latency_ms": 345,
       "threshold_applied": 0.85,
-      "decision_id": "5dcee312-14b2-4dbf-8689-3d799e29ff75"
+      "decision_id": "4a010fbb-a41e-4b34-9f27-e32e0f27d9cf"
     },
     {
       "ticket_id": "VAL-0053",
@@ -4902,7 +4892,7 @@
           "score": 0.3562
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve this issue, open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -4940,18 +4930,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 687,
+      "tokens": 839,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 12,
-        "retrieve": 12,
-        "generate": 381
+        "classify": 9,
+        "retrieve": 7,
+        "generate": 314
       },
       "knn_share": 1.0,
-      "latency_ms": 410,
+      "gen_format": "json",
+      "latency_ms": 333,
       "threshold_applied": 0.85,
-      "decision_id": "fc566e2f-da5f-421e-bd94-43eb0fa9c093"
+      "decision_id": "16c5ee3f-74ff-4b4a-bb74-3dc38bec6530"
     },
     {
       "ticket_id": "VAL-0054",
@@ -4983,7 +4974,7 @@
           "score": 0.3542
         }
       ],
-      "response_text": "We store data in the region where the organisation was created, which can be found on the organisation settings page. This region determines where primary data is stored [DOC-DATA-003]. \n\nTo reduce latency for distant users without moving primary storage, enable read replicas in additional regions [DOC-DATA-003]. \n\nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Your data is stored in the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. To reduce latency for distant users without moving primary storage, enable read replicas in additional regions. Cross-region replication is enabled by default for backups, so review the backup replication setting if a single-region requirement applies. Metadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
@@ -5021,18 +5012,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 879,
+      "tokens": 1050,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13,
-        "generate": 279
+        "classify": 11,
+        "retrieve": 10,
+        "generate": 321
       },
       "knn_share": 1.0,
-      "latency_ms": 314,
+      "gen_format": "json",
+      "latency_ms": 347,
       "threshold_applied": 0.85,
-      "decision_id": "a0edf864-ded4-4816-bbca-755d404640d5"
+      "decision_id": "222a1a0e-7cf5-48e6-b672-787a2c4faef9"
     },
     {
       "ticket_id": "VAL-0055",
@@ -5052,7 +5044,7 @@
           "score": 0.6054
         }
       ],
-      "response_text": "Create a service account for the pipeline rather than using a personal key, so that access survives staff changes [DOC-INT-001].\nGrant the service account only the projects and permissions the pipeline needs, and review that grant when the pipeline changes [DOC-INT-001].\nStore the credential as an encrypted secret in your pipeline provider, never in the repository [DOC-INT-001].\nTest the pipeline credential separately from the deployment logic, so that authentication failures are distinguishable from deployment failures [DOC-INT-001].\nSet an expiry and rotate the service account key on a schedule [DOC-INT-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Create a service account for the pipeline rather than using a personal key, so that access survives staff changes [DOC-INT-001]. Grant the service account only the projects and permissions the pipeline needs, and review that grant when the pipeline changes [DOC-INT-001]. Store the credential as an encrypted secret in your pipeline provider, never in the repository [DOC-INT-001]. Test the pipeline credential separately from the deployment logic, so that authentication failures are distinguishable from deployment failures [DOC-INT-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-INT-001",
@@ -5090,18 +5082,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 671,
+      "tokens": 812,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 11,
-        "retrieve": 10,
-        "generate": 276
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 291
       },
       "knn_share": 1.0,
-      "latency_ms": 301,
+      "gen_format": "json",
+      "latency_ms": 325,
       "threshold_applied": 0.85,
-      "decision_id": "d5abe9e0-1fcf-41bd-aa56-f6d9bd43ab80"
+      "decision_id": "8bb3efb2-6d1b-4072-a246-0ba38155f654"
     },
     {
       "ticket_id": "VAL-0056",
@@ -5137,7 +5130,7 @@
           "score": 0.306
         }
       ],
-      "response_text": "To resolve the issue with your deployment failing at the health check stage, please confirm that your container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. \n\nNext, inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001]. \n\nAlso, compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. \n\nFinally, ensure that a health check must return within the timeout using only local state. Endpoints that call a database will fail during a database incident and take the service down with them [DOC-DEPLOY-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout. [DOC-DEPLOY-001] If the application needs time to warm up before it can answer, increase the initial delay. Thirty seconds is a reasonable starting point for services that load models or caches. [DOC-DEPLOY-001] Compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure. [DOC-DEPLOY-001] Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default. [DOC-DEPLOY-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -5175,18 +5168,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 985,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 13,
-        "generate": 350
+        "classify": 13,
+        "retrieve": 11,
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 386,
+      "gen_format": "json",
+      "latency_ms": 28,
       "threshold_applied": 0.85,
-      "decision_id": "c8a23d01-e10e-4e8e-aee7-17c8283ddb0a"
+      "decision_id": "ba353c73-2c25-451b-8ab8-644ade619c63"
     },
     {
       "ticket_id": "VAL-0057",
@@ -5222,7 +5216,7 @@
           "score": 0.3851
         }
       ],
-      "response_text": "To resolve the issue with your deployment rolling back every time, confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout [DOC-DEPLOY-001]. \n\nIncrease the initial delay if the application needs time to warm up before it can answer. Thirty seconds is a reasonable starting point for services that load models or caches [DOC-DEPLOY-001]. \n\nCompare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure [DOC-DEPLOY-001]. \n\nInspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default [DOC-DEPLOY-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Confirm the container is listening on the port declared in the service definition. A mismatch here produces a health check failure that looks like a timeout. [DOC-DEPLOY-001] If the application needs time to warm up before it can answer, increase the initial delay to thirty seconds. [DOC-DEPLOY-001] Compare the environment variables present in the deployment against those the application requires. Missing configuration frequently causes a silent startup failure. [DOC-DEPLOY-001] Inspect the container logs from the failed revision rather than the running one; the rollback replaces the logs shown by default. [DOC-DEPLOY-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-001",
@@ -5260,18 +5254,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 951,
+      "tokens": 1090,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 9,
-        "generate": 542
+        "classify": 7,
+        "retrieve": 8,
+        "generate": 500
       },
       "knn_share": 1.0,
-      "latency_ms": 567,
+      "gen_format": "json",
+      "latency_ms": 519,
       "threshold_applied": 0.85,
-      "decision_id": "c20994ff-f408-4bd0-a756-91d4ac389f8c"
+      "decision_id": "660af45d-23f7-4634-8ae6-4173780652cb"
     },
     {
       "ticket_id": "VAL-0058",
@@ -5307,7 +5302,7 @@
           "score": 0.3268
         }
       ],
-      "response_text": "To resolve the issue with the exposed key, check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004] Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004] To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004] If a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -5345,18 +5340,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 947,
+      "tokens": 1097,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 15,
         "retrieve": 13,
-        "generate": 313
+        "generate": 336
       },
       "knn_share": 1.0,
-      "latency_ms": 347,
+      "gen_format": "json",
+      "latency_ms": 370,
       "threshold_applied": 0.85,
-      "decision_id": "ab22f899-5b20-4c46-a0fc-1254e1f89156"
+      "decision_id": "1b488d26-b4df-4688-a5b0-7be64843b03e"
     },
     {
       "ticket_id": "VAL-0059",
@@ -5392,12 +5388,17 @@
           "score": 0.3107
         }
       ],
-      "response_text": "Store anything sensitive as a secret rather than a variable. Secrets are masked in logs and are not readable through the API after creation. [DOC-DEPLOY-004] Check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults. [DOC-DEPLOY-004] Review the environment overrides page, which lists values that differ from the defaults for each environment. [DOC-DEPLOY-004] Redeploy after changing configuration. Running containers do not pick up new values without a restart. [DOC-DEPLOY-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Store secrets as masked values rather than variables. This will prevent them from appearing in logs. [DOC-DEPLOY-004] Check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults. [DOC-DEPLOY-004] Review the environment overrides page, which lists values that differ from the defaults for each environment. [DOC-DEPLOY-004] Redeploy after changing configuration. Running containers do not pick up new values without a restart. [DOC-SEC-002] Revoke the exposed credential first. Removing it from the repository does not help, because it remains in the history. [DOC-SEC-002] Issue a replacement with the narrowest scope that still works, rather than recreating the original permissions by default. [DOC-SEC-002] Add secret scanning to your pipeline so that the next occurrence is caught before it reaches a remote branch. [DOC-SEC-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-004",
           "resolves": true,
           "passage_excerpt": "Configuring environment variables and secrets ## Notes  A secret that has been printed to logs should be treated as exposed and rotated, even if the logs are pr"
+        },
+        {
+          "doc_id": "DOC-SEC-002",
+          "resolves": true,
+          "passage_excerpt": "Handling exposed secrets and credential rotation ## Common causes  - Configuration was committed rather than referenced from the environment - The application p"
         }
       ],
       "escalation_context": null,
@@ -5430,18 +5431,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 899,
+      "tokens": 1162,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 13,
-        "generate": 2164
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 457
       },
       "knn_share": 1.0,
-      "latency_ms": 2197,
+      "gen_format": "json",
+      "latency_ms": 494,
       "threshold_applied": 0.85,
-      "decision_id": "760d0d5e-d69a-4833-b9be-4d337ec2dd15"
+      "decision_id": "ef85cd0c-46ed-4626-80d4-f2c6e7858df6"
     },
     {
       "ticket_id": "VAL-0060",
@@ -5473,7 +5475,7 @@
           "score": 0.3452
         }
       ],
-      "response_text": "We recommend checking the webhook delivery log, which records every attempt with the response status and body for the last seven days. [DOC-API-003]\nReturn 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. [DOC-API-003]\nCompute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature. [DOC-API-003]\nMake your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional. [DOC-API-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the webhook delivery log to see the response status and body for the last seven days. Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. Compute the signature over the raw request body before any parsing. Make your handler idempotent using the event identifier. [DOC-API-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-API-003",
@@ -5511,18 +5513,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 700,
+      "tokens": 806,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
+        "classify": 16,
         "retrieve": 13,
-        "generate": 275
+        "generate": 276
       },
       "knn_share": 1.0,
-      "latency_ms": 308,
+      "gen_format": "json",
+      "latency_ms": 309,
       "threshold_applied": 0.85,
-      "decision_id": "1813045a-f308-4b4c-b5c9-d494c2b1b91c"
+      "decision_id": "b91d42d5-c8ee-4fd5-9375-5e03ac568ab4"
     },
     {
       "ticket_id": "VAL-0061",
@@ -5554,7 +5557,7 @@
           "score": 0.3452
         }
       ],
-      "response_text": "We recommend checking the webhook delivery log, which records every attempt with the response status and body for the last seven days. [DOC-API-003]\nReturn 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. [DOC-API-003]\nCompute the signature over the raw request body before any parsing. Re-serialising JSON changes the bytes and invalidates the signature. [DOC-API-003]\nMake your handler idempotent using the event identifier. At-least-once delivery means duplicates are expected rather than exceptional. [DOC-API-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the webhook delivery log to see the response status and body for the last seven days. Return 2xx as quickly as possible and process the event asynchronously. Deliveries time out after five seconds. Compute the signature over the raw request body before any parsing. Make your handler idempotent using the event identifier. [DOC-API-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-API-003",
@@ -5592,7 +5595,7 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 700,
+      "tokens": 806,
       "error": null,
       "stage_ms": {
         "ingest": 0,
@@ -5601,9 +5604,10 @@
         "generate": 284
       },
       "knn_share": 1.0,
-      "latency_ms": 320,
+      "gen_format": "json",
+      "latency_ms": 318,
       "threshold_applied": 0.85,
-      "decision_id": "952fa745-1a4f-4378-bb61-db7133259ce6"
+      "decision_id": "8d347551-9715-443d-9167-a8098df8bce9"
     },
     {
       "ticket_id": "VAL-0062",
@@ -5639,7 +5643,7 @@
           "score": 0.3459
         }
       ],
-      "response_text": "Check the forwarding status page, which shows the last successful delivery and any error returned by the destination. [DOC-INT-002]\nExpect a delay of up to two minutes on metrics, since they are aggregated before being sent. [DOC-INT-002]\nApply a level filter at source so that debug output is not forwarded, which is usually the reason volume is higher than expected. [DOC-INT-002]\nVerify the destination credential separately if delivery has stopped entirely, as expired credentials are the most common cause. [DOC-INT-002]\nForwarding pauses after one hour of consecutive failures and must be resumed manually once the destination is healthy. [DOC-INT-002]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the forwarding status page to see the last successful delivery and any error returned by the destination [DOC-INT-002]. Expect a delay of up to two minutes on metrics, since they are aggregated before being sent [DOC-INT-002]. Apply a level filter at source so that debug output is not forwarded, which is usually the reason volume is higher than expected [DOC-INT-002]. Verify the destination credential separately if delivery has stopped entirely, as expired credentials are the most common cause [DOC-INT-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-INT-002",
@@ -5677,18 +5681,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 899,
+      "tokens": 1027,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 11,
-        "retrieve": 11,
-        "generate": 431
+        "classify": 12,
+        "retrieve": 9,
+        "generate": 316
       },
       "knn_share": 1.0,
-      "latency_ms": 459,
+      "gen_format": "json",
+      "latency_ms": 340,
       "threshold_applied": 0.85,
-      "decision_id": "4c380316-7f0f-4f8f-af17-2dcbe30b9bdb"
+      "decision_id": "9c6f0739-737f-4d17-ae56-2c6022098924"
     },
     {
       "ticket_id": "VAL-0063",
@@ -5698,7 +5703,7 @@
       "reason": "Confidence 0.99 meets threshold 0.85, intent 'account_access' is not safety-restricted, and 2 relevant passage(s) were found.",
       "reason_code": "confident_and_grounded",
       "intent": "account_access",
-      "urgency": "medium",
+      "urgency": "high",
       "confidence": 0.994,
       "classify_method": "knn",
       "alternatives": [],
@@ -5712,7 +5717,7 @@
           "score": 0.3207
         }
       ],
-      "response_text": "The role was granted at project scope rather than organisation scope. [DOC-ACCT-001]\nCheck the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001]\nConfirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001]\nPrefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001] Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001] Prefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001] Remove a departing user rather than only changing their password, and revoke any API keys they created. [DOC-ACCT-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -5750,18 +5755,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 654,
+      "tokens": 820,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 13,
-        "generate": 253
+        "classify": 7,
+        "retrieve": 8,
+        "generate": 319
       },
       "knn_share": 1.0,
-      "latency_ms": 288,
+      "gen_format": "json",
+      "latency_ms": 339,
       "threshold_applied": 0.85,
-      "decision_id": "d79d9240-0f76-4103-a19e-47e4a4792e94"
+      "decision_id": "dc746c27-7976-4941-9b4f-0a1bf6950db6"
     },
     {
       "ticket_id": "VAL-0064",
@@ -5789,7 +5795,7 @@
           "score": 0.3217
         }
       ],
-      "response_text": "To pull a very large extract, we recommend using the export endpoint, which runs asynchronously and returns a download link. This is suitable for very large extracts. [DOC-API-002]\nKeep in mind that exports are queued and processed asynchronously. [DOC-DATA-001]\nFor very large extracts, use the export endpoint. [DOC-API-002]\nFor recurring needs, consider configuring a scheduled export delivered to object storage rather than generating them manually. [DOC-DATA-001]\nExports containing personal data are logged in the audit trail with the requesting user and the fields included. [DOC-DATA-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To pull a very large extract, use cursor pagination by passing the next_cursor value from each response as the cursor parameter of the following request, and stop when it is null [DOC-API-002]. Keep page size at or below two hundred [DOC-API-002]. For very large extracts, use the export endpoint, which runs asynchronously and returns a download link [DOC-API-002]. Check the exports page for job status, and request a fresh link if the original has expired [DOC-DATA-001]. Note that the export reflects the moment the job began, so records created during processing are not included [DOC-DATA-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-API-002",
@@ -5832,18 +5838,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 882,
+      "tokens": 1054,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
+        "classify": 14,
         "retrieve": 12,
-        "generate": 338
+        "generate": 348
       },
       "knn_share": 1.0,
-      "latency_ms": 371,
+      "gen_format": "json",
+      "latency_ms": 379,
       "threshold_applied": 0.85,
-      "decision_id": "4de1a1bf-e006-4519-bbde-c2ccbf5d4d3e"
+      "decision_id": "49023b8e-ff00-46b4-b5d9-a3a4ee727e7b"
     },
     {
       "ticket_id": "VAL-0065",
@@ -5879,7 +5886,7 @@
           "score": 0.3199
         }
       ],
-      "response_text": "To clarify the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand the charges on your invoice, open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -5917,18 +5924,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 687,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13,
-        "generate": 285
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 318,
+      "gen_format": "json",
+      "latency_ms": 34,
       "threshold_applied": 0.85,
-      "decision_id": "15ae3617-7f7a-47d7-8894-628a52e5240f"
+      "decision_id": "581693a4-38e3-4c7b-9d68-aa98cc36e12b"
     },
     {
       "ticket_id": "VAL-0066",
@@ -5964,17 +5972,12 @@
           "score": 0.3349
         }
       ],
-      "response_text": "To provide written confirmation of where data is physically stored, please refer to the organisation settings page, which shows the region where primary data is stored. This region is fixed at creation and determines where primary storage is located [DOC-DATA-003]. \n\nTo reduce latency for distant users without moving primary storage, enable read replicas in additional regions. This can be done without affecting primary storage [DOC-DATA-003]. \n\nAdditionally, review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \n\nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003]. \n\nLastly, note that retention is seven days on Standard, thirty days on Business and ninety days on Enterprise plans [DOC-DATA-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "The data for your organisation is physically stored in the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. To reduce latency for distant users without moving primary storage, enable read replicas in additional regions. Cross-region replication is enabled by default for backups, so review the backup replication setting if a single-region requirement applies. Metadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
           "resolves": true,
           "passage_excerpt": "Data residency and regional storage ## Symptoms  - A customer requires data to remain in a specific region - Latency is high for users far from the primary regi"
-        },
-        {
-          "doc_id": "DOC-DATA-002",
-          "resolves": true,
-          "passage_excerpt": "Backups, retention and point-in-time restore # Backups, retention and point-in-time restore  **Applies to:** Managed Database"
         }
       ],
       "escalation_context": null,
@@ -6007,18 +6010,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 964,
+      "tokens": 1059,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 14,
-        "retrieve": 12,
-        "generate": 401
+        "classify": 9,
+        "retrieve": 8,
+        "generate": 325
       },
       "knn_share": 1.0,
-      "latency_ms": 434,
+      "gen_format": "json",
+      "latency_ms": 346,
       "threshold_applied": 0.85,
-      "decision_id": "1bd75757-12d0-4744-84fb-3359e487a07e"
+      "decision_id": "e3396d65-4b1c-4086-bccb-e12a61c990d2"
     },
     {
       "ticket_id": "VAL-0067",
@@ -6080,7 +6084,7 @@
           }
         ],
         "uncertainty_reason": "Security-related wording ('suspicious'): handled by a human regardless of classification.",
-        "tokens": 484
+        "tokens": 482
       },
       "guardrails": {
         "security_language": {
@@ -6092,17 +6096,17 @@
           "security_language"
         ]
       },
-      "tokens": 484,
+      "tokens": 482,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 13,
-        "retrieve": 12
+        "classify": 15,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 335,
+      "latency_ms": 337,
       "threshold_applied": 0.85,
-      "decision_id": "7105bb91-915f-443a-8a33-d1329890463b"
+      "decision_id": "0ecfd816-9ec2-4169-ac17-cad01f5e40d7"
     },
     {
       "ticket_id": "VAL-0068",
@@ -6180,13 +6184,13 @@
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 14
+        "classify": 16,
+        "retrieve": 13
       },
       "knn_share": 1.0,
-      "latency_ms": 346,
+      "latency_ms": 360,
       "threshold_applied": 0.85,
-      "decision_id": "62efd45b-8421-41a7-9c40-f1a91d38433a"
+      "decision_id": "4e937665-fce8-4e2e-9fd2-a26744f88ded"
     },
     {
       "ticket_id": "VAL-0069",
@@ -6222,7 +6226,7 @@
           "score": 0.32
         }
       ],
-      "response_text": "To troubleshoot the issue with your staging environment picking up production configuration values, please check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults [DOC-DEPLOY-004]. \n\nNext, review the environment overrides page, which lists values that differ from the defaults for each environment [DOC-DEPLOY-004]. \n\nAlso, consider storing anything sensitive as a secret rather than a variable, as secrets are masked in logs and are not readable through the API after creation [DOC-DEPLOY-004]. \n\nFinally, redeploy after changing configuration, as running containers do not pick up new values without a restart [DOC-DEPLOY-004].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the scope at which the variable was defined. Service scope overrides project scope, and project scope overrides organisation defaults. [DOC-DEPLOY-004] Store anything sensitive as a secret rather than a variable. Secrets are masked in logs and are not readable through the API after creation. [DOC-DEPLOY-004] Review the environment overrides page, which lists values that differ from the defaults for each environment. [DOC-DEPLOY-004] Redeploy after changing configuration. Running containers do not pick up new values without a restart. [DOC-DEPLOY-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-004",
@@ -6260,18 +6264,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 898,
+      "tokens": 0,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 9,
-        "retrieve": 9,
-        "generate": 327
+        "classify": 16,
+        "retrieve": 13,
+        "generate": 0
       },
       "knn_share": 1.0,
-      "latency_ms": 351,
+      "gen_format": "json",
+      "latency_ms": 33,
       "threshold_applied": 0.85,
-      "decision_id": "20da3379-4de9-4f80-b05c-572dc277bed1"
+      "decision_id": "f51882d7-d032-4cec-9bd1-a33f0895701a"
     },
     {
       "ticket_id": "VAL-0070",
@@ -6307,7 +6312,7 @@
           "score": 0.3169
         }
       ],
-      "response_text": "Compare the assertion consumer service URL in your identity provider against the value shown on the SSO settings page. They must match exactly, including the trailing path. [DOC-AUTH-003]\nInspect a failing assertion and confirm the NameID is the user's email address in lower case. [DOC-AUTH-003]\nEnable just-in-time provisioning if new users should be created on first login, and set a default role for provisioned users. [DOC-AUTH-003]\nKeep at least one administrator account with password access while testing, so a misconfiguration does not lock the whole organisation out. [DOC-AUTH-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Compare the assertion consumer service URL in your identity provider against the value shown on the SSO settings page. They must match exactly, including the trailing path. [DOC-AUTH-003] Inspect a failing assertion and confirm the NameID is the user's email address in lower case. [DOC-AUTH-003] Enable just-in-time provisioning if new users should be created on first login, and set a default role for provisioned users. [DOC-AUTH-003] Keep at least one administrator account with password access while testing, so a misconfiguration does not lock the whole organisation out. [DOC-AUTH-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-003",
@@ -6345,18 +6350,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 729,
+      "tokens": 889,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 290
+        "classify": 8,
+        "retrieve": 9,
+        "generate": 330
       },
       "knn_share": 1.0,
-      "latency_ms": 326,
+      "gen_format": "json",
+      "latency_ms": 351,
       "threshold_applied": 0.85,
-      "decision_id": "b6f873e3-e6f1-4b8f-bd60-eba450ed60c5"
+      "decision_id": "a2a702f9-2cc1-4c79-8d2f-3186876f6a81"
     },
     {
       "ticket_id": "VAL-0071",
@@ -6388,7 +6394,7 @@
           "score": 0.3682
         }
       ],
-      "response_text": "To change the spend cap to overage, follow these steps:\n\n1. Check the current period usage against the plan allowance on the billing page [DOC-BILL-003].\n2. Decide deliberately between a hard spend cap, which stops the service, and overage, which continues at the listed rate [DOC-BILL-003].\n3. Configure alerts at fifty, eighty and ninety-five per cent of allowance rather than relying on the cap as a warning [DOC-BILL-003].\n4. Where a cap has stopped a production service, an account owner can raise it immediately from the billing page and service resumes within a minute [DOC-BILL-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To change the spend cap to overage, check the current period usage against the plan allowance on the billing page [DOC-BILL-003]. Decide deliberately between a hard spend cap, which stops the service, and overage, which continues at the listed rate. Production workloads generally need the second. Configure alerts at fifty, eighty and ninety-five per cent of allowance rather than relying on the cap as a warning. Where a cap has stopped a production service, an account owner can raise it immediately from the billing page and service resumes within a minute [DOC-BILL-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-003",
@@ -6426,18 +6432,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 965,
+      "tokens": 1109,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 314
+        "classify": 17,
+        "retrieve": 15,
+        "generate": 330
       },
       "knn_share": 1.0,
-      "latency_ms": 351,
+      "gen_format": "json",
+      "latency_ms": 368,
       "threshold_applied": 0.85,
-      "decision_id": "ba1108c8-bafc-4d62-928b-aaf249f7df0c"
+      "decision_id": "f0f5b62c-7662-42f8-8290-c225d0d5aca3"
     },
     {
       "ticket_id": "VAL-0072",
@@ -6469,7 +6476,7 @@
           "score": 0.3087
         }
       ],
-      "response_text": "To understand the charges on your invoice, please open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. \nLook for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. \nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. \nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To resolve the issue, open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -6507,18 +6514,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 691,
+      "tokens": 844,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10,
-        "generate": 281
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 456
       },
       "knn_share": 1.0,
-      "latency_ms": 306,
+      "gen_format": "json",
+      "latency_ms": 493,
       "threshold_applied": 0.85,
-      "decision_id": "ce5aae0b-0c51-41f1-beec-e6728cb37163"
+      "decision_id": "8fab0cb3-d642-4bd1-ad68-0d801052037a"
     },
     {
       "ticket_id": "VAL-0073",
@@ -6546,7 +6554,7 @@
           "score": 0.3194
         }
       ],
-      "response_text": "To understand your invoice and usage breakdown, please open the usage breakdown for the period, which itemises charges by service and by environment. [DOC-BILL-001]\nLook for resources in staging or development environments, which are billed at the same rate as production. [DOC-BILL-001]\nCheck the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date. [DOC-BILL-001]\nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it. [DOC-BILL-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "The invoice is higher than expected because usage-based charges accrued beyond the plan allowance [DOC-BILL-001]. To resolve this, open the usage breakdown for the period, which itemises charges by service and by environment [DOC-BILL-001]. Look for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the anniversary of the subscription date [DOC-BILL-001]. Set a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -6584,18 +6592,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 686,
+      "tokens": 859,
       "error": null,
       "stage_ms": {
         "ingest": 0,
         "classify": 16,
         "retrieve": 13,
-        "generate": 289
+        "generate": 360
       },
       "knn_share": 1.0,
-      "latency_ms": 324,
+      "gen_format": "json",
+      "latency_ms": 395,
       "threshold_applied": 0.85,
-      "decision_id": "c163b39b-366a-4e59-932a-9a020de52206"
+      "decision_id": "b205b12f-b437-4042-9da4-1fd62e9a5846"
     },
     {
       "ticket_id": "VAL-0074",
@@ -6623,7 +6632,7 @@
           "score": 0.3246
         }
       ],
-      "response_text": "To understand how group membership interacts with directly assigned roles, check the effective permissions view for the user, which resolves direct roles and group memberships together. [DOC-ACCT-001]\nConfirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days. [DOC-ACCT-001]\nPrefer group membership to direct role assignment, so that access can be reviewed in one place. [DOC-ACCT-001]\nRemove a departing user rather than only changing their password, and revoke any API keys they created. [DOC-ACCT-001]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To understand how group membership interacts with directly assigned roles, check the effective permissions view for the user, which resolves direct roles and group memberships together [DOC-ACCT-001]. Confirm the invitation was accepted. Pending invitations appear in a separate section and expire after seven days [DOC-ACCT-001]. Prefer group membership to direct role assignment, so that access can be reviewed in one place [DOC-ACCT-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-ACCT-001",
@@ -6661,18 +6670,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 664,
+      "tokens": 794,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 10,
-        "retrieve": 10,
-        "generate": 276
+        "classify": 16,
+        "retrieve": 14,
+        "generate": 297
       },
       "knn_share": 1.0,
-      "latency_ms": 301,
+      "gen_format": "json",
+      "latency_ms": 331,
       "threshold_applied": 0.85,
-      "decision_id": "3115d93e-c8dd-4cec-a968-b096ef4aa4d8"
+      "decision_id": "c25ba8a9-5968-4c1b-8aff-d6ef98d1403a"
     },
     {
       "ticket_id": "VAL-0075",
@@ -6708,7 +6718,7 @@
           "score": 0.3136
         }
       ],
-      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004]\nReview the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004]\nTo rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\nIf a key has been exposed publicly, revoke it immediately rather than waiting for the rotation window. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Check the API keys page for the key's status and expiry. Revoked and expired keys are listed with the date and the user who acted. [DOC-AUTH-004] Review the scopes attached to the key. Read-only keys cannot write, and project-scoped keys cannot reach organisation endpoints. [DOC-AUTH-004] To rotate without downtime, create the replacement key first, deploy it, confirm traffic has moved, then revoke the old key. [DOC-AUTH-004]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-AUTH-004",
@@ -6746,18 +6756,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 926,
+      "tokens": 1059,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 15,
-        "retrieve": 13,
-        "generate": 285
+        "classify": 14,
+        "retrieve": 12,
+        "generate": 310
       },
       "knn_share": 1.0,
-      "latency_ms": 318,
+      "gen_format": "json",
+      "latency_ms": 341,
       "threshold_applied": 0.85,
-      "decision_id": "181f622d-faeb-491f-be52-65b38dc22243"
+      "decision_id": "36e797a7-0975-42e2-9859-8446af66a41f"
     },
     {
       "ticket_id": "VAL-0076",
@@ -6785,7 +6796,7 @@
           "score": 0.3104
         }
       ],
-      "response_text": "To determine the region where your organisation's data is stored, please check the region shown on the organisation settings page. This is fixed at creation and determines where primary data is stored. [DOC-DATA-003]\nIf you need data to remain in a specific region, you may also want to consider enabling read replicas in additional regions to reduce latency for distant users without moving primary storage. [DOC-DATA-003]\nIf a single-region requirement applies, review the backup replication setting since cross-region replication is enabled by default. [DOC-DATA-003]\nMetadata such as account names and billing records is stored centrally regardless of the data region. [DOC-DATA-003]\nPlease note that migrating an organisation between regions requires a planned migration with support and involves a maintenance window. [DOC-DATA-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To ensure your data remains within the EU, check the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. If this is not the desired region, you will need to contact support to discuss migration options. Note that metadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
@@ -6823,18 +6834,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 941,
+      "tokens": 1020,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 10,
-        "generate": 393
+        "classify": 17,
+        "retrieve": 14,
+        "generate": 335
       },
       "knn_share": 1.0,
-      "latency_ms": 424,
+      "gen_format": "json",
+      "latency_ms": 372,
       "threshold_applied": 0.85,
-      "decision_id": "855eaa79-5d4d-4a21-8740-2d94e0ad984a"
+      "decision_id": "63faff10-cf9f-4911-af79-3aa3de930912"
     },
     {
       "ticket_id": "VAL-0077",
@@ -6862,7 +6874,7 @@
           "score": 0.3674
         }
       ],
-      "response_text": "The billing period runs from the anniversary of the subscription date, not the first of the month [DOC-BILL-001]. \nCheck the billing period dates at the top of the invoice to confirm this [DOC-BILL-001]. \nLook for resources in staging or development environments, which are billed at the same rate as production [DOC-BILL-001]. \nSet a usage alert on the billing page so that unexpected accrual is noticed during the period rather than at the end of it [DOC-BILL-001]. \nInvoices are finalised three days after the period ends, so adjustments requested before finalisation will appear on the same invoice [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "The billing period runs from the anniversary of the subscription date, not the first of the month [DOC-BILL-001]. Check the billing period dates at the top of the invoice. The period runs from the subscription date [DOC-BILL-001].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-BILL-001",
@@ -6900,26 +6912,27 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 700,
+      "tokens": 773,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 12,
-        "retrieve": 9,
-        "generate": 318
+        "classify": 14,
+        "retrieve": 13,
+        "generate": 253
       },
       "knn_share": 1.0,
-      "latency_ms": 345,
+      "gen_format": "json",
+      "latency_ms": 284,
       "threshold_applied": 0.85,
-      "decision_id": "50ce0c49-7037-44f5-a71f-e0c4d8c997f1"
+      "decision_id": "6cf7b182-f61c-4759-a2c0-7f5597fd28fa"
     },
     {
       "ticket_id": "VAL-0078",
       "channel": "docs_comment",
       "status": "ok",
-      "decision": "escalate",
-      "reason": "Draft blocked by guardrail(s): grounding.",
-      "reason_code": "guardrail_block",
+      "decision": "auto_respond",
+      "reason": "Confidence 0.99 meets threshold 0.85, intent 'database_issue' is not safety-restricted, and 5 relevant passage(s) were found.",
+      "reason_code": "confident_and_grounded",
       "intent": "database_issue",
       "urgency": "medium",
       "confidence": 0.994,
@@ -6947,51 +6960,33 @@
           "score": 0.351
         }
       ],
-      "response_text": null,
-      "citations": [],
-      "escalation_context": {
-        "summary": "The customer is experiencing a database restore issue that is taking hours, resulting in a \"connection not available\" error. They have tried scaling up the service, but the problem persists.",
-        "summary_source": "llm",
-        "predicted_intent": "database_issue",
-        "predicted_urgency": "medium",
-        "confidence": 0.994,
-        "retrieved_sources": [
-          {
-            "doc_id": "DOC-PERF-003",
-            "title": "Database connection pool exhaustion",
-            "score": 0.4811
-          },
-          {
-            "doc_id": "DOC-DATA-002",
-            "title": "Backups, retention and point-in-time restore",
-            "score": 0.4374
-          },
-          {
-            "doc_id": "DOC-DEPLOY-002",
-            "title": "Rolling back a failed release",
-            "score": 0.3839
-          }
-        ],
-        "uncertainty_reason": "Draft blocked by guardrail(s): grounding.",
-        "tokens": 478
-      },
+      "response_text": "To resolve the issue with your database restore taking hours, calculate the total possible connections as pool size multiplied by maximum instances, and compare it against your plan's connection limit [DOC-PERF-003]. If it exceeds the limit, reduce the per-instance pool size rather than raising the limit. Look for queries that hold a transaction open across a network call to another service, which is the most common cause of leaks of this kind [DOC-PERF-003]. Consider a connection proxy if the instance count must remain high, so that pooling happens once rather than per instance [DOC-PERF-003]. Also, allow roughly ten minutes per hundred gigabytes for the restore, and considerably longer where the instance is also under load [DOC-DATA-002]. Verify the restored data before switching traffic, and keep the original instance until that verification is complete [DOC-DATA-002].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "citations": [
+        {
+          "doc_id": "DOC-PERF-003",
+          "resolves": true,
+          "passage_excerpt": "Database connection pool exhaustion ## Symptoms  - Errors indicating no connection is available - Latency increases sharply as traffic grows - The database repo"
+        },
+        {
+          "doc_id": "DOC-DATA-002",
+          "resolves": true,
+          "passage_excerpt": "Backups, retention and point-in-time restore ## Symptoms  - Data was deleted and needs recovering - A restore is taking longer than expected - A backup is older"
+        }
+      ],
+      "escalation_context": null,
       "guardrails": {
-        "overall_status": "block",
-        "action": "block_and_escalate",
-        "blocked_by": [
-          "grounding"
-        ],
+        "overall_status": "pass",
+        "action": "send_response",
+        "blocked_by": [],
         "pii": {
           "status": "pass",
           "reason": "no PII detected",
           "detected_patterns": []
         },
         "grounding": {
-          "status": "block",
-          "reason": "figures not present in the cited documentation",
-          "ungrounded_claims": [
-            "['5'] in: 5."
-          ]
+          "status": "pass",
+          "reason": "citations resolve and claims are supported",
+          "ungrounded_claims": []
         },
         "injection": {
           "status": "pass",
@@ -7008,18 +7003,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 1470,
+      "tokens": 1139,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 16,
-        "retrieve": 14,
-        "generate": 401
+        "classify": 14,
+        "retrieve": 12,
+        "generate": 398
       },
       "knn_share": 1.0,
-      "latency_ms": 732,
+      "gen_format": "json",
+      "latency_ms": 429,
       "threshold_applied": 0.85,
-      "decision_id": "ff99c730-1714-4c1e-9315-9f7a5df4d0f2"
+      "decision_id": "ffecbecf-bdca-489f-8b0a-26f5097ae3ce"
     },
     {
       "ticket_id": "VAL-0079",
@@ -7055,7 +7051,7 @@
           "score": 0.3534
         }
       ],
-      "response_text": "We can confirm that data residency and regional storage are primarily determined by the region where the organisation was created. This is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \n\nTo ensure data remains in a specific region, you can check the region shown on the organisation settings page. This is fixed at creation and determines where primary data is stored [DOC-DATA-003]. \n\nAdditionally, enabling read replicas in additional regions can reduce latency for distant users without moving primary storage [DOC-DATA-003]. \n\nReviewing the backup replication setting is also recommended if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003]. \n\nMetadata such as account names and billing records is stored centrally regardless of the data region [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "To confirm where data is physically stored, check the region shown on the organisation settings page, which is fixed at creation and determines where primary data is stored [DOC-DATA-003]. Enable read replicas in additional regions to reduce latency for distant users without moving primary storage [DOC-DATA-003]. Review the backup replication setting if a single-region requirement applies, since cross-region replication is enabled by default [DOC-DATA-003].\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DATA-003",
@@ -7093,18 +7089,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 736,
+      "tokens": 820,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 19,
-        "retrieve": 15,
-        "generate": 357
+        "classify": 15,
+        "retrieve": 13,
+        "generate": 276
       },
       "knn_share": 1.0,
-      "latency_ms": 398,
+      "gen_format": "json",
+      "latency_ms": 308,
       "threshold_applied": 0.85,
-      "decision_id": "056a4fbd-ca99-4948-b9d9-1b9a52c40635"
+      "decision_id": "161f79bb-0777-4247-8456-4ccb695b19d1"
     },
     {
       "ticket_id": "VAL-0080",
@@ -7136,7 +7133,7 @@
           "score": 0.3225
         }
       ],
-      "response_text": "Pin your dependencies with exact versions and commit the lock file. Unpinned dependencies are the cause in the large majority of cases of this kind. [DOC-DEPLOY-003]\nCompare the runtime version declared in your build configuration against the version you use locally. [DOC-DEPLOY-003]\nClear the build cache from the settings page and trigger a fresh build to rule out a corrupted artefact. [DOC-DEPLOY-003]\nIf a specific dependency is failing to resolve, check whether its registry is reachable from the build network. [DOC-DEPLOY-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
+      "response_text": "Pin your dependencies with exact versions and commit the lock file. Unpinned dependencies are the cause in the large majority of cases of this kind. [DOC-DEPLOY-003] Compare the runtime version declared in your build configuration against the version you use locally. [DOC-DEPLOY-003] Clear the build cache from the settings page and trigger a fresh build to rule out a corrupted artefact. [DOC-DEPLOY-003] If a specific dependency is failing to resolve, check whether its registry is reachable from the build network. [DOC-DEPLOY-003]\n\nThis reply was drafted automatically from our documentation. If it does not solve the problem, reply and a member of the support team will take over.",
       "citations": [
         {
           "doc_id": "DOC-DEPLOY-003",
@@ -7174,18 +7171,19 @@
           "reason": "threshold 0.85 was applied"
         }
       },
-      "tokens": 685,
+      "tokens": 845,
       "error": null,
       "stage_ms": {
         "ingest": 0,
-        "classify": 18,
-        "retrieve": 15,
-        "generate": 434
+        "classify": 14,
+        "retrieve": 12,
+        "generate": 342
       },
       "knn_share": 1.0,
-      "latency_ms": 473,
+      "gen_format": "json",
+      "latency_ms": 371,
       "threshold_applied": 0.85,
-      "decision_id": "f33bc056-5807-45b5-ab66-5a1d88e021fe"
+      "decision_id": "4a70e007-03ab-47ea-910c-0537ad64bfb9"
     }
   ]
 }

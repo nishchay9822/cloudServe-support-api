@@ -18,6 +18,18 @@ PROMPT_FILE = "prompts/evaluation/eval_v1.txt"
 # A different, stronger model family than the generator, so the assessor is independent of the thing it assesses.
 JUDGE_MODEL = os.getenv("JUDGE_MODEL", "openai/gpt-4o-mini")
 _JSON = re.compile(r"\{.*\}", re.S)
+JUDGE_MAX_SECONDS = float(os.getenv("JUDGE_MAX_SECONDS", "300"))   # a graded run must not stall on a slow judge; report how many were judged
+_active = {"model": JUDGE_MODEL, "independent": True}
+
+
+def pick_judge_model() -> dict:
+    """Use the configured independent judge if it answers; otherwise fall back to the generator's own model and say so."""
+    try:
+        llm.reset_breaker()
+        llm.chat([{"role": "user", "content": "Reply with the single word OK."}], max_tokens=5, temperature=0, model=JUDGE_MODEL)
+        return {"model": JUDGE_MODEL, "independent": True}
+    except llm.LLMUnavailable:
+        return {"model": llm.model_name(), "independent": False}
 
 
 def judge_one(result: dict, ground_truth: dict = None) -> dict:
@@ -32,7 +44,7 @@ def judge_one(result: dict, ground_truth: dict = None) -> dict:
                     passages=passages)
     try:
         out = llm.chat([{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-                       max_tokens=900, model=JUDGE_MODEL)
+                       max_tokens=900, model=_active["model"])
     except llm.LLMUnavailable as e:
         return {"error": str(e)}
     m = _JSON.search(out["text"])
@@ -53,9 +65,14 @@ def judge_many(results: list, ground_truth: dict, n: int) -> dict:
     others = [r for r in auto if r["ticket_id"] not in ground_truth]
     step = max(1, len(others) // max(n - len(with_gt[:n]), 1)) if others else 1
     sample = (with_gt + others[::step])[:n] if len(with_gt) < n else with_gt[:: max(1, len(with_gt) // n)][:n]
+    _active.update(pick_judge_model())
+    t_start = time.time()
     verdicts, errors, causes = {}, 0, {}
     llm.reset_breaker()  # a burst of pipeline calls must not leave the judge locked out
     for r in sample:
+        if time.time() - t_start > JUDGE_MAX_SECONDS:
+            causes["time budget reached"] = causes.get("time budget reached", 0) + 1
+            break
         v = {"error": "not attempted"}
         for attempt in range(4):          # pace the calls and retry transient provider errors
             time.sleep(0.4 if attempt == 0 else 3.0 * attempt)
@@ -74,7 +91,8 @@ def judge_many(results: list, ground_truth: dict, n: int) -> dict:
     def rate(field, want=True):
         return round(sum(1 for v in vals if bool(v.get(field)) == want) / k, 4) if k else None
     return {"n_judged": k, "judge_errors": errors, "judge_error_causes": causes, "n_with_reference_answer": sum(1 for tid in verdicts if tid in ground_truth),
-            "assessor": f"{JUDGE_MODEL} (independent model; a human second assessor is still required)",
+            "assessor": (f"{_active['model']} (independent model; a human second assessor is still required)" if _active["independent"] else f"{_active['model']} (NOT independent: the configured judge model was unavailable, so the generator's own model assessed; weak evidence)"),
+            "independent": _active["independent"],
             "hallucination_rate": rate("hallucinations_detected", True),
             "all_citations_resolve_rate": rate("all_citations_resolve", True),
             "prohibited_claims_rate": rate("makes_prohibited_claims", True),

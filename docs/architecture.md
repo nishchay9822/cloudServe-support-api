@@ -72,7 +72,7 @@ As in the brief's low-level design, the orchestrator is a **LangGraph state mach
 | Classify | `src/classify.py` | kNN over dev tickets (`dev_tickets_v3`), LLM fallback, agreement-based confidence |
 | Retrieve | `src/retrieve.py` | `embed_corpus()`, `retrieve_passages()`, `select_for_generation()` |
 | Route | `src/route.py` | `route_ticket()`, escalation context packet |
-| Generate | `src/generate.py` | `generate_response()` using `generate_v3.txt` |
+| Generate | `src/generate.py` | `generate_response()` using `generate_v4.txt` (JSON output contract: status, answer, cited_docs, reason; plain-text fallback) |
 | Guardrails | `src/guardrails.py` | `run_guardrails()` |
 | Log | `src/logging_store.py` | decision log and resolution records |
 | LLM client | `src/llm.py` | `chat()`, retries, circuit breaker, fail-fast on 401/402 |
@@ -115,7 +115,7 @@ An escalation always carries a summary, the retrieved sources and a reason code.
 
 ## Decision Log (SQLite)
 
-Each decision stores: decision id, timestamp, ticket id, stage, model and prompt version (e.g. `PR-GN-01 v3.0`), prediction and confidence, sources used with scores, threshold applied, action taken, reason code, guardrail results, requirement IDs, and run id. `GET /decisions/{ticket_id}` returns them.
+Each decision stores: decision id, timestamp, ticket id, stage, model and prompt version (e.g. `PR-GN-01 v4.0`), prediction and confidence, sources used with scores, threshold applied, action taken, reason code, guardrail results, requirement IDs, and run id. `GET /decisions/{ticket_id}` returns them.
 
 ## Technology Stack
 
@@ -157,7 +157,7 @@ High-level design (six components over three cross-cutting concerns) and low-lev
 | Model layer: Classifier chain (few-shot) | Few-shot prompt PR-CL-01 v2.0 plus nearest-ticket vote | Matches (nearest-ticket first, the model when unsure) |
 | Model layer: Embedding model MiniLM-L6-v2 | all-MiniLM-L6-v2, local | Matches |
 | Model layer: Chroma vector store (hybrid search) | Chroma dense search fused with BM25 by reciprocal rank | Matches; no measurable gain on this 29-article corpus (see report) |
-| Model layer: Generator chain with citations | Generator prompt PR-GN-01 v3.0, inline citations checked against retrieved articles | Matches |
+| Model layer: Generator chain with citations | Generator prompt PR-GN-01 v4.0 returning a JSON object, inline citations checked against retrieved articles | Matches |
 | Persistence: PostgreSQL decision log | SQLite | Deliberate: the brief allows SQLite; `DATABASE_URL` would need a Postgres driver to change |
 | Persistence: Prometheus, Grafana, GitHub Actions | All three configured; Grafana verified locally; Actions workflow written but never run on a remote | Matches, CI unverified |
 | Routing tree: confidence 0.80, then retrieval, then guardrails | confidence threshold from data (0.85), then evidence, then guardrails; plus safety rules in front | Extended, not contradicted |

@@ -33,7 +33,7 @@ def parse_args():
     p.add_argument("--input", required=True, help="path to a JSON file containing a list of tickets")
     p.add_argument("--output", required=True, help="path of the results JSON to write")
     p.add_argument("--max-tickets", type=int, default=None, help="process only the first N tickets")
-    p.add_argument("--judge", type=int, default=0, help="model-assess up to N auto-responses (hallucination/citations)")
+    p.add_argument("--judge", type=int, default=None, help="model-assess up to N auto-responses for hallucination and citation support. Default: 50 when a model provider is configured, 0 otherwise. Use 0 to disable.")
     p.add_argument("--ground-truth", default=os.path.join(ROOT, "data", "ground_truth_responses.json"),
                    help="reference answers keyed by ticket_id (used only for tickets that appear in it)")
     p.add_argument("--run-id", default=None)
@@ -147,7 +147,7 @@ def render_report(m: dict) -> str:
         L += [f"- Model-assessed ({j['assessor']}), n={j['n_judged']}: hallucination rate **{j['hallucination_rate']}**, citations resolve {j['all_citations_resolve_rate']}, "
               f"prohibited claims {j['prohibited_claims_rate']}, required-point coverage {j['coverage_of_required_points_rate']}, pass {j['pass_rate']}"]
     else:
-        L += ["- Model-assessed hallucination check not run (use --judge N)."]
+        L += ["- Model-assessed hallucination check not run (no model provider configured, or --judge 0)."]
     L += ["", "## 8. Governance", "",
           f"- Outbound PII findings (independent re-scan): **{g['pii_violations']}**",
           f"- Guardrail blocks by type: {g['guardrail_blocks_by_type'] or 'none'}",
@@ -200,6 +200,8 @@ def main() -> int:
             "region": lambda r, t: t.get("customer_region"), "channel": lambda r, t: r.get("channel")}),
         "governance": governance(rows, run_id), "llm": dict(llm.stats),
     }
+    if args.judge is None:
+        args.judge = 50 if llm.is_available() else 0
     if args.judge:
         print(f"model-assessing up to {args.judge} auto-replies ...", flush=True)
         m["judge"] = judge_many_safe(results, gt, args.judge)

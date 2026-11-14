@@ -75,7 +75,7 @@ AG = "Owners are proposed roles from the discovery interviews and the author; th
 fill(risk, [
     ["R-01", "The system answers confidently and incorrectly", "Medium",
      "Very high",
-     "Replies are written only from the full text of the top retrieved article(s) (src/generate.py, prompt PR-GN-01 v3.0). The model may answer NO_ANSWER, which escalates. Grounding and figure checks block any number or claim not in the shown articles (src/guardrails.py). Confidence floor 0.85, calibrated on simulated unseen wording (error 0.3 pp), from classifier agreement, not model self-report. Measured: 0 of 150 judged replies hallucinated (50 validation, 100 dev; independent model), citations resolve 100%. Known gap: 25-28% of auto-replies go to tickets whose label says escalate (R-09), and the human second assessment is still pending. Alerts: AutoRateDrift, LowConfidenceShift (defined; the Grafana stack has not been run, see report).",
+     "Replies are written only from the full text of the top retrieved article(s) (src/generate.py, prompt PR-GN-01 v4.0, JSON output with a status field). The model may decline (status no_answer), which escalates. Grounding and figure checks block any number or claim not in the shown articles (src/guardrails.py). Confidence floor 0.85, calibrated on simulated unseen wording (error 0.3 pp), from classifier agreement, not model self-report. Measured: 0 of 150 judged replies hallucinated (50 validation, 100 dev; independent model), citations resolve 100%. Known gap: 25-28% of auto-replies go to tickets whose label says escalate (R-09), and the human second assessment is still pending. Alerts: AutoRateDrift, LowConfidenceShift (defined; the Grafana stack has not been run, see report).",
      "Marcus Adeyemi, Head of Support (accepts residual risk); engineering owner Nishchay Gupta"],
     ["R-02", "Private data appears in an outbound response", "Low",
      "Very high",
@@ -154,13 +154,13 @@ def row(label, dim, g, note):
 
 
 fill(fair, [
-    row("Enterprise customers", "customer_tier", "enterprise", "CONFIRMED disparity versus business customers, above the 5-point target in both settings. Cause not identified: enterprise tickets are not labelled 'escalate' more often (38.6% vs 35.4%), but they are auto-answered more often when a human was expected."),
+    row("Enterprise customers", "customer_tier", "enterprise", "Trails business customers by more than the 5-point target in every run (significant with unseen wording, borderline in the plain run). Cause not identified: enterprise tickets are not labelled 'escalate' more often (38.6% vs 35.4%), but they are auto-answered more often when a human was expected."),
     row("Small business customers", "customer_tier", "business", "Best tier on route accuracy and the reference for the tier comparison."),
     row("Tickets in fluent English", "language_fluency", "fluent", "Not significantly different from non-fluent tickets."),
     row("Tickets in non-fluent English", "language_fluency", "non_fluent", "Retrieval is weaker, the direction the framework predicts, but only borderline. On the 80-ticket validation set this group (19 tickets) looked about 28 points worse; that did not replicate on the 120 development tickets, so it is treated as small-sample noise."),
     row("Short tickets", "ticket_length", short_k, "No significant gap in the final system. An earlier run showed a borderline retrieval gap for short tickets that did not persist."),
     row("Long or complex tickets", "ticket_length", long_k, "Long and short tickets carry the same share of 'escalate' labels; long tickets are auto-answered more often."),
-    row("Standard customers", "customer_tier", "standard", "CONFIRMED disparity versus business customers (significant, above target)."),
+    row("Standard customers", "customer_tier", "standard", "Trails business customers by more than the 5-point target in every run (significant with unseen wording, borderline in the plain run)."),
     row("Asia-Pacific region (lowest resolution)", "region", "asia_pacific", "Not significant. 46.2% of its tickets carry an 'escalate' label against 31.8% in Europe, so the system answers more tickets it should not."),
     row("Docs-comment channel (lowest resolution)", "channel", "docs_comment", "Not significant. 47.4% of its tickets carry an 'escalate' label (32 to 42% in other channels)."),
 ])
@@ -169,9 +169,10 @@ fair_note = para_after(fair._tbl,
     "auto-replied and the labelled route was auto_respond; it is not a measure of customer outcomes); false-automatic-reply rate; quality (retrieval hit@1 on tickets "
     "answerable from the documentation); and route accuracy with a 95% Wilson interval, with the gap to the best segment and a two-proportion z-test. The table uses the 500 "
     "development tickets with plain leave-one-out, and also quotes the harder setting where each ticket is classified as if its wording were new. Validation results are in "
-    "evaluation/results/fairness_val.md. Findings. (1) One CONFIRMED disparity: enterprise and standard customers receive less accurate routing than business customers, "
-    "by more than the 5-point target in both settings, so the tier condition is not met. With roughly ten comparisons, only the unseen-wording enterprise result survives a Bonferroni "
-    "correction. (2) No other dimension shows a significant gap, but the 95% intervals span roughly 10 to 20 pp, so the audit could only detect gaps of about 10 pp or more: "
+    "evaluation/results/fairness_val.md. Findings. (1) Enterprise and standard customers trail business customers in routing accuracy by roughly 8 to 13 points in every run, "
+    "above the 5-point target, so the tier condition is not met as a point estimate; it is statistically significant with unseen wording and borderline in the plain run, and the audit makes about ten comparisons "
+    "per run, so it is a consistent shortfall that needs live data, not a settled finding. "
+    "correction. (2) No other dimension is consistently significant (the ticket-length gap appeared in one run and not the other), but the 95% intervals span roughly 10 to 20 pp, so the audit could only detect gaps of about 10 pp or more: "
     "'not significant' is not the same as 'fair'. (3) The non-fluent retrieval gap the framework warns about is present in direction but borderline. (4) Part of the apparent "
     "unequal treatment is label mix: segments differ in how many of their tickets carry an escalate label. A real deployment needs live per-segment monitoring and a stricter "
     "policy for the affected tiers before claiming parity.",

@@ -11,6 +11,7 @@ Design goals (A11 - fail gracefully):
 """
 import json
 import os
+import threading
 import time
 from typing import Optional
 
@@ -95,6 +96,23 @@ def _cache_put(key: str, text: str) -> None:
         pass
 
 
+# Client-side pacing ("queueing"): with LLM_MAX_RPM set to the provider's per-minute allowance, calls are spaced out instead of
+# being sent in a burst, hitting 429s and waiting them out. 0 (default) disables pacing.
+MAX_RPM = float(os.getenv("LLM_MAX_RPM", "0"))
+_pace_state = {"last": 0.0}
+_pace_lock = threading.Lock()
+
+
+def _pace() -> None:
+    if MAX_RPM <= 0:
+        return
+    with _pace_lock:
+        wait = _pace_state["last"] + 60.0 / MAX_RPM - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        _pace_state["last"] = time.monotonic()
+
+
 RATE_LIMIT_MAX_WAIT_S = float(os.getenv("LLM_RATE_LIMIT_MAX_WAIT_S", "60"))
 RATE_LIMIT_MAX_WAITS = int(os.getenv("LLM_RATE_LIMIT_MAX_WAITS", "6"))
 
@@ -156,6 +174,7 @@ def chat(messages: list, max_tokens: int = 400, temperature: float = 0.0, model:
         if attempt or rl_waits:
             stats["retries"] += 1
         try:
+            _pace()
             resp = _client().chat.completions.create(
                 model=model or model_name(),
                 messages=messages,

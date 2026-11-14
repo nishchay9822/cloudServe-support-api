@@ -14,7 +14,7 @@ All prompts are versioned here. Format: `PR-{MODULE}-{NUMBER} v{MAJOR}.{MINOR}`
 | Prompt ID | Version | Purpose | File | Module | Requirement IDs | Last Updated |
 |-----------|---------|---------|------|--------|-----------------|--------------|
 | PR-CL-01 | v2.0 | Intent + urgency classification, 22 real intent labels | `prompts/build/classify_v2.txt` | `src/classify.py` | FR-02, FR-03 | Stage 5 |
-| PR-GN-01 | v3.0 | Grounded generation, doc_id citations, NO_ANSWER sentinel, covers all resolution steps | `prompts/build/generate_v3.txt` | `src/generate.py` | FR-09, FR-10 | Stage 5 |
+| PR-GN-01 | v4.0 | Grounded generation returned as a JSON object (status, answer, cited_docs, reason), doc_id citations, covers all resolution steps | `prompts/build/generate_v4.txt` | `src/generate.py` | FR-09, FR-10 | Stage 5 |
 | PR-RO-01 | v1.0 | Escalation context packet generation (summary + reason + relevant docs) | `prompts/build/route_v1.txt` | `src/route.py` | FR-08 | 9 Nov 2026 |
 | PR-EV-01 | v1.0 | Response quality evaluation: coverage, hallucination, citation accuracy | `prompts/evaluation/eval_v1.txt` | `evaluation/harness.py` | NFR-03, NFR-04, NFR-08 | 9 Nov 2026 |
 
@@ -34,6 +34,7 @@ All prompts are versioned here. Format: `PR-{MODULE}-{NUMBER} v{MAJOR}.{MINOR}`
 | PR-CL-01 | v1.0 | v2.0 | Replaced invented intent labels with the 22 real labels | v1 labels did not match ground truth | Stage 5 |
 | PR-GN-01 | v1.0 | v2.0 | NO_ANSWER sentinel replaces appended refusal sentence | v1 appended refusals to real answers | Stage 5 |
 | PR-GN-01 | v2.0 | v3.0 | Cover all applicable resolution steps | Required-point coverage 80% to 95% on 100 dev replies | Stage 5 |
+| PR-GN-01 | v3.0 | v4.0 | JSON output contract {status, answer, cited_docs, reason}; stricter decline rule; plain-text fallback in the parser | Build Specification: Generate must produce output in a defined structure. Result: 100% of replies valid JSON, quality unchanged (0 hallucinated, coverage 94% vs 95%). The stricter decline rule had no effect: the model never declined | 14 Nov 2026 |
 
 ---
 

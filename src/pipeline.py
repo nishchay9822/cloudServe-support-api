@@ -155,8 +155,10 @@ def n_generate(s: State) -> dict:
         return {"done": True}
     r["tokens"] += gen["token_count"]
     r["stage_ms"]["generate"] = _ms(t)
+    r["gen_format"] = gen.get("format")
     if gen["declined"]:
-        r.update(decision="escalate", reason="The model could not answer from the documentation.", reason_code="model_declined")
+        why = gen.get("decline_reason")
+        r.update(decision="escalate", reason="The model could not answer from the documentation" + (f": {why}" if why else "."), reason_code="model_declined")
         return {"gen": gen, "done": True}
     return {"gen": gen}
 

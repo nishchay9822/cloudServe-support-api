@@ -47,7 +47,11 @@ def build(r, figs, ctx):
         ["LangGraph state machine as the orchestrator",
          "A plain Python function (my first version).",
          "The brief's low-level design names LangGraph. The graph makes the early exits explicit: a conditional edge after every step sends an escalated ticket straight to the final step, so the escalation packet, metrics and log are written once on every path.",
-         "I first built a plain function and kept the LangChain packages unused; on checking the brief I moved to LangGraph. All 115 tests passed unchanged apart from the routing order."],
+         "I first built a plain function and kept the LangChain packages unused; on checking the brief I moved to LangGraph. All 124 tests passed unchanged apart from the routing order."],
+        ["Generation returns a JSON object (PR-GN-01 v4.0)",
+         "Free text with a NO_ANSWER sentinel (v3.0).",
+         "The specification asks for output in a defined structure the code can parse. The model returns {status, answer, cited_docs, reason}; the parser falls back to plain text if the model slips, so a formatting error cannot break a reply.",
+         f"{ctx['dv']['structured']:.0f}% of replies on development and {ctx['vl']['structured']:.0f}% on validation were valid JSON. Quality unchanged: 0 hallucinated; required-point coverage {ctx['dv']['j_cov']*100:.0f}% vs {ctx['v3d']['j_cov']*100:.0f}% for v3 on development, {ctx['vl']['j_cov']*100:.0f}% vs {ctx['v3v']['j_cov']*100:.0f}% on validation."],
         ["Hybrid search (dense plus BM25)",
          "Dense embeddings only.",
          "The brief's design specifies hybrid search. BM25 is fused with the dense ranking by reciprocal rank with a low weight (0.15).",
@@ -80,6 +84,13 @@ def build(r, figs, ctx):
         "would have produced a figure that would not survive contact with real tickets. The consequence is the 71 to 75% auto-reply precision "
         "reported in Section 7, and the recommendation to start in draft mode. A related consequence: urgency is assigned and logged but is not "
         "used for routing, and its accuracy (45% validation, 52% dev, against a 55% majority-class baseline) is reported as a failure, not a result.")
+    r.p("<b>Can the system decide to say nothing because no article fits?</b> The specification asks retrieval to return nothing rather than something irrelevant. "
+        "Two attempts at making that decision better both failed, and the reason is informative. First, a stricter relevance floor: the score of the best article barely separates tickets the documentation "
+        "can answer from those it cannot (AUC 0.56 on development, 0.64 on validation; evaluation/eval_floor_answerability.py), so raising the floor from 0.30 to 0.55 loses 45 answerable tickets while the "
+        "share of answered tickets that are answerable stays at about 79%. Unanswerable tickets typically retrieve a perfectly relevant article; what they lack is something the article cannot supply "
+        "(an action on the customer's account). Second, asking the generator to decline in exactly those cases: the prompt now says so (v4.0), but the 8-billion-parameter model never returned no_answer in "
+        "the 580 tickets I ran, consistent with its answerability judgement being no better than chance in the earlier experiment. The floor therefore stays at 0.30, chosen for recall, and the remaining defence "
+        "is routing: restricted topics, confidence, and the guardrails. This is the main reason 21 to 26% of automatic replies go to tickets the labels say the documentation cannot answer.")
     r.h2("5.4  Guardrails and the audit log")
     r.p("Five checks run on every draft. The privacy check blocks names, email addresses, account numbers and keys. The grounding check blocks any sentence "
         "whose claims are not in the articles that were actually shown to the model, and a separate check on figures blocks any number, version or duration "
@@ -93,7 +104,7 @@ def build(r, figs, ctx):
     r.h1("6  Implementation", key="s6")
     r.h2("6.1  What was built and where it lives")
     r.p("The repository follows the layout the submission guide prescribes. Table 6 maps each component to its module and to the tests that exercise it. "
-        "The code is about 1,800 lines of Python in src/ and 1,600 in evaluation/, with 115 tests (about 860 lines) that run offline (the model is replaced by a "
+        "The code is about 1,800 lines of Python in src/ and 1,600 in evaluation/, with 124 tests (about 860 lines) that run offline (the model is replaced by a "
         "deterministic stand-in) with one command, pytest tests/ -v.")
     r.table("modules", "Components, their location in the repository, and their tests.", [
         ["Component", "Location", "What it does", "Tests"],
@@ -101,7 +112,7 @@ def build(r, figs, ctx):
         ["Classify", "src/classify.py", "Nearest-ticket vote, model fallback, agreement-based confidence.", "test_retrieve_classify_generate.py"],
         ["Retrieve", "src/retrieve.py", "Hybrid search (dense plus BM25, reciprocal rank) over article sections; one passage per article; relevance floor 0.30; stale-article guard.", "same file; test for the stale guard"],
         ["Route", "src/route.py", "Ordered deterministic rules; escalation packet.", "test_route.py"],
-        ["Generate", "src/generate.py", "Cited reply from the full article; NO_ANSWER sentinel.", "test_retrieve_classify_generate.py"],
+        ["Generate", "src/generate.py", "JSON reply (status, answer, cited_docs, reason) from the full article, with a plain-text fallback.", "test_generation_contract.py, test_retrieve_classify_generate.py"],
         ["Guardrails", "src/guardrails.py", "Privacy, grounding, figures, injection, tone, confidence floor.", "test_guardrails.py"],
         ["Pipeline", "src/pipeline.py", "LangGraph state machine: orders the steps; kill switch; writes the log; never raises.", "test_pipeline.py, test_kill_switch.py"],
         ["Response formatter", "src/formatter.py", "Turns a result into the API payload (reply and citations, or escalation packet).", "test_api.py"],

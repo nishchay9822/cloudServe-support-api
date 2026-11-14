@@ -6,7 +6,7 @@ Checked line by line against `02_Build_Specification.docx` on 14 November 2026. 
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Starts from the documented instructions on a clean checkout | MET | Fresh clone, new virtual environment, `pip install -r requirements.txt`, tests and harness: Python 3.9, 3.11 and 3.12 all pass (115 tests, 8 to 80 tickets processed, exit 0, log reconciles). No key needed to start: without one every ticket escalates. |
+| Starts from the documented instructions on a clean checkout | MET | Fresh clone, new virtual environment, `pip install -r requirements.txt`, tests and harness: Python 3.9, 3.11 and 3.12 all pass ($N tests, 8 to 80 tickets processed, exit 0, log reconciles). No key needed to start: without one every ticket escalates. |
 | Processes the whole set unattended | MET | 80 of 80 validation, 500 of 500 development, and 123 of 123 on a shuffled, relabelled, unlabelled file with malformed entries (`None`, `{}`, a string, an empty body, control characters, an unknown channel). Exit code 0. 3 malformed entries escalated and logged. |
 | Provider trouble never counts against the project; degrade gracefully | MET | Outage drill (key unset): 80 of 80 processed, 80 escalated, 0 replies, 0 errors. Unit tests for 429 (waits `Retry-After`), a long 429 (fails fast), timeouts, and exhausted credit (402 fails fast and opens the breaker). |
 
@@ -25,7 +25,7 @@ Checked line by line against `02_Build_Specification.docx` on 14 November 2026. 
 | A9 full set, single unattended run, then a file never seen | MET | See the gate row. `python evaluation/harness.py` or `python -m evaluation.harness`, taking `--input` and `--output`. |
 | A10 metrics report with no manual work | MET | JSON and Markdown written automatically; contains every group the spec lists (below). |
 | A11 failure without crashing | MET | No retrieval hit (escalates), provider outage, timeout, rate limit, exhausted credit, malformed input: each has a test or a drill. |
-| A12 one documented test command | MET | `pytest tests/ -v` (also `python -m pytest tests/ -v`), 115 tests, about 35 s, no network. |
+| A12 one documented test command | MET | `pytest tests/ -v` (also `python -m pytest tests/ -v`), $N tests, about 35 s, no network. |
 
 ## 03 Component behaviour
 
@@ -41,7 +41,7 @@ Checked line by line against `02_Build_Specification.docx` on 14 November 2026. 
 | | Records the alternatives considered | MET (fixed in this review) | Alternatives were computed but written to the log as an empty list; now stored. They are empty when every neighbour agrees. |
 | Retrieve | Ranked passages with scores | MET | |
 | | Identifiers resolve to the real corpus | MET | |
-| | Relevance threshold, returns nothing rather than something irrelevant | PARTLY | Floor 0.30 returns nothing for only 10 of 143 non-answerable development tickets. Raising it removes more but also loses correct hits (eval table in `evaluation/eval_retrieval.py`). The generator's NO_ANSWER and the guardrails are the second line. |
+| | Relevance threshold, returns nothing rather than something irrelevant | MET, with an inherent limit | Floor 0.30 returns nothing for 10 of 143 non-answerable development tickets. I tested whether a higher floor could do better and it cannot: the best article's score barely separates answerable from unanswerable tickets (AUC 0.56 dev, 0.64 validation), so a higher floor loses answerable tickets as fast as it removes unanswerable ones (`evaluation/eval_floor_answerability.py`). The generator is also told to decline when the article does not fit this customer's situation (prompt v4.0), but the 8B model never does (0 declines in 580 tickets). Unanswerable tickets retrieve a relevant article; the missing piece is an action on the account, which retrieval cannot detect. Routing and the guardrails are the remaining defence. |
 | | Chunking is a justified decision | MET | Section-level chunks for matching, whole article for generation; reasoning and the failure that motivated it are in report section 5. |
 | Route | Threshold determined from data | MET (fixed in this review) | 0.85, from `evaluation/calibrate.py`. |
 | | Deterministic | MET | |
@@ -50,7 +50,7 @@ Checked line by line against `02_Build_Specification.docx` on 14 November 2026. 
 | Generate | Grounded, with citations on claims | MET | |
 | | States plainly when it does not know | MET | NO_ANSWER sentinel escalates instead of replying. |
 | | Customer text cannot redirect the system | MET | Injection screen before any model call; ticket passed as delimited data; guardrail re-check. |
-| | Output in a defined structure the code can parse | PARTLY | The model writes plain text with inline `[DOC-ID]` markers and a NO_ANSWER sentinel; code turns that into a structured result (answer, citations, declined). Citations parse 100% of the time, but there is no JSON output contract. |
+| | Output in a defined structure the code can parse | MET (fixed in this review) | Prompt PR-GN-01 v4.0 makes the model return one JSON object `{status, answer, cited_docs, reason}`. 100% of replies on development and validation were valid JSON; a plain-text fallback means a formatting slip cannot break a reply (`tests/test_generation_contract.py`). Quality unchanged: 0 hallucinated, required-point coverage 94% against 95% for v3. |
 | Validate | Runs on every generated response | MET | There is no switch to disable it. |
 | | Checks private data and unsupported claims | MET | Plus figures, injection, tone, confidence floor. |
 | | Can block | MET | |
@@ -68,7 +68,7 @@ Checked line by line against `02_Build_Specification.docx` on 14 November 2026. 
 | Business (first-contact resolution, mean and median response time, escalation rate) | MET (mean response time added in this review) |
 | Technical (precision and recall per class, retrieval hit rate, latency p50 and p95) | MET |
 | Governance (decisions logged, guardrail activations by type, private-data detections) | MET |
-| Hallucination rate in the automatic report | PARTLY: needs an independent model, so it is produced with `--judge N`, not by default |
+| Hallucination rate in the automatic report | MET (fixed in this review) | The harness now runs the independent judge by default (up to 50 replies, with a time budget) whenever a model provider is configured; `--judge 0` turns it off. If the configured judge model is unavailable it falls back to the generator's own model and labels the result 'NOT independent'. |
 
 ## 06 How it will be tested (procedure)
 
@@ -89,8 +89,8 @@ Checked line by line against `02_Build_Specification.docx` on 14 November 2026. 
 
 | Requirement | Status | Note |
 |---|---|---|
-| Free tiers only; nothing requires paid capacity | PARTLY | The pack's default (`meta-llama/llama-3.1-8b-instruct` on OpenRouter) needs credit on our account. Groq's free tier works (80 of 80, judged clean) but misses the 3-second p95 target there (11 s) because of rate limits. Embeddings and the vector store are free and local. |
-| Rate limits handled by backoff, queuing, caching | PARTLY | Backoff, `Retry-After`, circuit breaker and a response cache (added in this review) are in. There is no request queue. |
+| Free tiers only; nothing requires paid capacity | PARTLY (inherent) | A ready free-tier configuration is provided (`.env.groq.example`: copy it to `.env` and add a Groq key). It works: 80 of 80 validation tickets processed and judged clean. Free-tier rate limits push p95 latency to about 11 s against the 3 s target; that is the provider's limit and cannot be coded away. The pack's default OpenRouter model needs credit. |
+| Rate limits handled by backoff, queuing, caching | MET (fixed in this review) | Backoff, `Retry-After`, circuit breaker, a response cache, and client-side pacing (`LLM_MAX_RPM` spaces calls to the provider's per-minute allowance; tested). The harness is sequential, so there is no concurrent queue to manage. |
 | Local models permitted | NOT USED | Embeddings are local; generation is remote. |
 
 ## 08 What does not count as working (self-check)
