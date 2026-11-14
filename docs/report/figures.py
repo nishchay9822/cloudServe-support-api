@@ -200,9 +200,33 @@ def fig_risk():
     return save(fig, "risk.png")
 
 
+def fig_confusion():
+    """Confusion matrix for the harder 'unseen wording' development run (the plain run is almost entirely on the diagonal)."""
+    import numpy as np
+    from collections import Counter
+    run = J("dev_run_novel090.json")["results"]
+    T = {t["ticket_id"]: t for t in json.load(open(os.path.join(ROOT, "data", "development_tickets.json")))}
+    classes = sorted({T[r["ticket_id"]]["labels"]["intent"] for r in run})
+    idx = {c: i for i, c in enumerate(classes)}
+    M = np.zeros((len(classes), len(classes)), int)
+    for r in run:
+        if r.get("intent") in idx:
+            M[idx[T[r["ticket_id"]]["labels"]["intent"]], idx[r["intent"]]] += 1
+    fig, ax = plt.subplots(figsize=(7.4, 6.4))
+    ax.imshow(np.log1p(M), cmap="Blues")
+    for i in range(len(classes)):
+        for j in range(len(classes)):
+            if M[i, j]:
+                ax.text(j, i, str(M[i, j]), ha="center", va="center", fontsize=6, color="white" if M[i, j] > 8 else "#1f2933")
+    ax.set_xticks(range(len(classes))); ax.set_yticks(range(len(classes)))
+    ax.set_xticklabels(classes, rotation=90, fontsize=6.5); ax.set_yticklabels(classes, fontsize=6.5)
+    ax.set_xlabel("Predicted intent"); ax.set_ylabel("True intent")
+    return save(fig, "confusion.png")
+
+
 def make_all():
     return {"arch": fig_architecture(), "disc": fig_discovery(), "signals": fig_signals(), "outcomes": fig_outcomes(),
-            "latency": fig_latency(), "fair": fig_fairness(), "risk": fig_risk()}
+            "latency": fig_latency(), "fair": fig_fairness(), "risk": fig_risk(), "confusion": fig_confusion()}
 
 
 if __name__ == "__main__":

@@ -12,11 +12,11 @@ def build(r, figs, ctx):
         "if the ticket is about security, compliance, a feature request or something unclear, or if no article matched, or if confidence is below 0.85, it "
         "goes to a human with a summary and the articles found. Otherwise a language model drafts a reply using only the full text of the best article, "
         "and five checks run on the draft before anything is sent. Any failed check sends the ticket to a human instead. Every step is written to a log "
-        "that records what was decided and why. Figure 2 shows the same flow.")
+        "that records what was decided and why. @F:arch@ shows the same flow.")
     r.fig("arch", figs["arch"], "System architecture. Green: model or data steps. Yellow: policy steps in code. Red: the human path. "
           "Purple: storage and the model provider. An editable version is in docs/architecture.drawio.", 160)
     r.h2("5.2  Design decisions and the alternatives rejected")
-    r.p("Table 5 lists the decisions that shaped the system. Each was taken because of evidence found during the build, not in advance, and four "
+    r.p("@T:alts@ lists the decisions that shaped the system. Each was taken because of evidence found during the build, not in advance, and four "
         "of them reversed an initial assumption.")
     r.table("alts", "Design decisions, the alternatives considered, and the evidence for the choice.", [
         ["Decision", "Alternative considered", "Why this choice", "Evidence"],
@@ -59,7 +59,7 @@ def build(r, figs, ctx):
         ["Confidence and threshold fitted on 'unseen wording' samples",
          "A threshold of 0.80 taken from the brief's illustration.",
          "Half the development tickets have a twin, so plain leave-one-out gives 0.99 confidence everywhere and a threshold does nothing. Removing twins and near-duplicates spreads the confidence and lets the threshold be chosen from data.",
-         "Calibration error 0.3 pp; threshold 0.85 is the lowest at which auto-answered tickets are right at least 99% of the time (Table 12)."],
+         "Calibration error 0.3 pp; threshold 0.85 is the lowest at which auto-answered tickets are right at least 99% of the time (@T:sweep@)."],
         ["Deterministic security-wording net and a safety-proximity rule",
          "Rely on the intent classifier alone for restricted tickets.",
          "With unseen wording, 3 of 87 restricted tickets (a former employee who still has access) were auto-answered with high confidence. No threshold can fix a confident mistake.",
@@ -74,7 +74,7 @@ def build(r, figs, ctx):
         "and 17.4 points of that are the restricted intents. The remaining escalations have no obvious pattern, and I tested five signals as predictors "
         "of the label: the intent classifier, the nearest-ticket vote on the route label, the nearest-ticket vote on answerability, the retrieval score, "
         "and a language-model judgement of whether the article answers the question. None beat chance. The retrieval score reached an AUC of 0.51 on "
-        "the development set and 0.47 on validation, and the model judge 0.46 and 0.42, worse than guessing. Figure 3(b) shows why: among tickets with "
+        "the development set and 0.47 on validation, and the model judge 0.46 and 0.42, worse than guessing. @F:signals@(b) shows why: among tickets with "
         "identical text, the route label agrees only 87.8% of the time and the urgency label 68.5%. A good share of the label noise is "
         "in the data itself, so no model could recover it from the text.")
     r.fig("signals", figs["signals"], "(a) Attempted predictors of 'should escalate' on non-restricted tickets, shown as area under the ROC curve; none exceeds chance (0.5). "
@@ -103,7 +103,7 @@ def build(r, figs, ctx):
     # ------------------------------------------------------------------ 6 Implementation
     r.h1("6  Implementation", key="s6")
     r.h2("6.1  What was built and where it lives")
-    r.p("The repository follows the layout the submission guide prescribes. Table 6 maps each component to its module and to the tests that exercise it. "
+    r.p("The repository follows the layout the submission guide prescribes. @T:modules@ maps each component to its module and to the tests that exercise it. "
         "The code is about 1,800 lines of Python in src/ and 1,600 in evaluation/, with 124 tests (about 860 lines) that run offline (the model is replaced by a "
         "deterministic stand-in) with one command, pytest tests/ -v.")
     r.table("modules", "Components, their location in the repository, and their tests.", [
@@ -124,8 +124,9 @@ def build(r, figs, ctx):
         ["Fairness audit", "evaluation/fairness_audit.py", "Segment comparison with intervals and significance tests.", "test_fairness_audit.py"],
         ["Monitoring", "monitoring/", "Prometheus config, alert rules, Grafana dashboard with five required views.", "test_monitoring.py"],
     ], [24, 36, 76, 34])
+    r.p("The automated tests are listed in @T:apptests@ in Appendix G, and the prompt register is @T:appprompts@ in Appendix F.")
     r.h2("6.2  What was difficult")
-    r.p("Most of the build time went on finding out that something I believed was wrong. Table 7 records the faults that mattered, how each was "
+    r.p("Most of the build time went on finding out that something I believed was wrong. @T:bugs@ records the faults that mattered, how each was "
         "found, and the fix. Three were found only because I looked at individual tickets rather than at aggregate scores, which is the main "
         "practical lesson of the build.")
     r.table("bugs", "Faults found during the build, how they were found, and what changed.", [

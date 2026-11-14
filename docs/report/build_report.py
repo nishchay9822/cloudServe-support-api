@@ -22,12 +22,19 @@ import figures
 import part1, part2, part3
 from evaluation.fairness_audit import wilson
 
+COMMIT = subprocess.run(['git','rev-parse','--short','HEAD'],cwd=ROOT,capture_output=True,text=True).stdout.strip() or 'unknown'
 RES = os.path.join(ROOT, "evaluation", "results")
 J = lambda n: json.load(open(os.path.join(RES, n)))
 
-TABLE_ORDER = ["asked", "findings", "disagree", "reqs", "alts", "modules", "bugs", "results", "runs", "judge", "calib", "sweep",
-               "risks", "fairsum", "changes", "appfair", "appprompts", "apptests"]
-FIG_ORDER = ["disc", "arch", "signals", "outcomes", "latency", "risk", "fair"]
+TABLE_ORDER = ["asked", "client", "findings", "disagree", "stake", "reqs", "trace", "alts", "modules", "bugs", "results", "fairsum", "appfair", "appclass", "runs", "judge", "calib", "sweep",
+               "risks", "changes", "appprompts", "apptests"]
+FIG_ORDER = ["disc", "arch", "signals", "outcomes", "risk", "fair", "confusion", "latency"]
+
+
+def when(m):
+    from datetime import datetime
+    d = datetime.fromisoformat(m["run"]["finished_at"])
+    return f"{d.day} {d.strftime('%B %Y')}"
 
 
 def facts(name, tickets_file):
@@ -65,12 +72,13 @@ def context():
     return {
         "dv": facts("dev_run", "development_tickets"), "dn": facts("dev_run_novel090", "development_tickets"), "vl": facts("gate_run_validation", "validation_tickets"),
         "sel": sel,
+        "pc": {k: J(f)["metrics"]["classification"]["per_class"] for k, f in (("dv", "dev_run.json"), ("dn", "dev_run_novel090.json"), ("vl", "gate_run_validation.json"))},
         "v3d": facts("dev_run_v3", "development_tickets"), "v3v": facts("gate_run_validation_v3", "validation_tickets"),
         "human": (J("human_review_agreement.json") if os.path.exists(os.path.join(RES, "human_review_agreement.json")) else None),
         "fair_dn": J("fairness_dev_novel.json")["segments"],
         "gaps": {k: v["max_gap_pp_route_accuracy"] for k, v in J("fairness_dev.json")["segments"].items()},
-        "dev_date": "11 November 2026", "gate_date": "12 November 2026", "model": "meta-llama/llama-3.1-8b-instruct (OpenRouter)",
-        "commit": "0297e25",
+        "dev_date": when(dm), "gate_date": when(vm), "model": "meta-llama/llama-3.1-8b-instruct (OpenRouter)",
+        "commit": COMMIT,
         "p95_val_ms": vm["latency"]["auto_p95_ms"], "p95_dev_ms": dm["latency"]["auto_p95_ms"],
         "med_val_ms": vm["latency"]["auto_p50_ms"], "med_dev_ms": dm["latency"]["auto_p50_ms"],
         "mean_val_ms": vm["latency"]["auto_mean_ms"], "mean_dev_ms": dm["latency"]["auto_mean_ms"],
@@ -116,30 +124,28 @@ def tests_rows():
 
 def title_page(r):
     s = r.story
-    s.append(Spacer(1, 55 * mm))
+    s.append(Spacer(1, 28 * mm))
     s.append(Paragraph("CloudServe Intelligent Support System", ST["title"]))
     s.append(Spacer(1, 4 * mm))
     s.append(Paragraph("A retrieval-first, auditable support pipeline: from a chatbot request to a system that knows when to stay silent", ST["sub"]))
-    s.append(Spacer(1, 22 * mm))
-    for line in ("<b>Forward Deployed AI Engineering: Capstone Project</b>", "Report", "",
-                 "Nishchay Gupta", "November 2026", "",
-                 "Repository commit of the evaluated code: 0297e25"):
+    s.append(Spacer(1, 12 * mm))
+    for line in ("<b>Forward Deployed AI Engineering: Capstone Project</b>", "Report", "Nishchay Gupta", "November 2026", "Repository commit when this report was built: " + COMMIT):
         s.append(Paragraph(line, ST["meta"]))
-    s.append(Spacer(1, 40 * mm))
+    s.append(Spacer(1, 12 * mm))
     t = Table([[Paragraph("Read this first. Headline results are on validation (80 tickets) and development (500 tickets, leave-one-out). "
                           "The hidden evaluation set was not used. Business outcomes are offline proxies. The human second assessment of reply quality "
                           "is outstanding. Sections 7 and 8 state the limits of every figure.", ST["note"])]], colWidths=[150 * mm])
     t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), LIGHT), ("LINEBEFORE", (0, 0), (0, -1), 2.5, ACCENT),
                            ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
     s.append(t)
-    s.append(PageBreak())
+    s.append(Spacer(1, 10 * mm))
+    s.append(Paragraph("Contents", ST["h2"]))
     toc = [("1", "Executive summary"), ("2", "The problem"), ("3", "Discovery findings"), ("4", "Requirements"), ("5", "Architecture and design"),
            ("6", "Implementation"), ("7", "Evaluation"), ("8", "Governance and risk"), ("9", "The requirements revision"), ("10", "Conclusions"),
-           ("", "Appendices")]
-    s.append(Paragraph("Contents", ST["h1"]))
+           ("", "Appendices A to I: fairness tables, per-class results and confusion matrix, evaluation tables, risk register, requirement changes, prompt register, tests, reproduction, other deliverables")]
     for n, name in toc:
-        s.append(Paragraph(f"{n + '  ' if n else ''}{name}", ST["body"]))
-    s.append(Spacer(1, 6))
+        s.append(Paragraph(f"{n + '&nbsp;&nbsp;&nbsp;' if n else ''}{name}", ST["meta"]))
+    s.append(PageBreak())
 
 
 def main():

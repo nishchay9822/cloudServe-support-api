@@ -5,6 +5,7 @@ Minimal report layout engine on reportlab.
 - Body font is DejaVu Sans (ships with matplotlib) so symbols such as >=, arrows and middle dots render.
 """
 import os
+import re
 import matplotlib
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_CENTER
@@ -61,6 +62,10 @@ class Report:
         self.title, self.author = title, author
         self.last_page = 0
 
+    def _s(self, text):
+        text = re.sub(r"@T:(\w+)@", lambda m: self.T(m.group(1)), str(text))
+        return re.sub(r"@F:(\w+)@", lambda m: self.F(m.group(1)), text)
+
     # ---- numbering / references
     def T(self, key): return f"Table {self.TO.index(key) + 1}"
     def F(self, key): return f"Figure {self.FO.index(key) + 1}"
@@ -72,12 +77,12 @@ class Report:
         self.story.append(Paragraph(text, ST["h1"]))
     def h2(self, text): self.story.append(Paragraph(text, ST["h2"]))
     def h3(self, text): self.story.append(Paragraph(text, ST["h3"]))
-    def p(self, text): self.story.append(Paragraph(text, ST["body"]))
+    def p(self, text): self.story.append(Paragraph(self._s(text), ST["body"]))
     def bullets(self, items):
-        for it in items: self.story.append(Paragraph(it, ST["bullet"], bulletText="•"))
+        for it in items: self.story.append(Paragraph(self._s(it), ST["bullet"], bulletText="•"))
         self.story.append(Spacer(1, 4))
     def note(self, text):
-        t = Table([[Paragraph(text, ST["note"])]], colWidths=[165 * mm])
+        t = Table([[Paragraph(self._s(text), ST["note"])]], colWidths=[165 * mm])
         t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), LIGHT), ("LINEBEFORE", (0, 0), (0, -1), 2.5, ACCENT),
                                ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]))
         self.story += [t, Spacer(1, 8)]
@@ -90,7 +95,7 @@ class Report:
         data = []
         for i, r in enumerate(rows):
             style = ST["cellb"] if i == 0 else ST["cell"]
-            data.append([Paragraph(str(c), style) for c in r])
+            data.append([Paragraph(self._s(c), style) for c in r])
         t = Table(data, colWidths=[w * mm for w in widths_mm], repeatRows=1)
         ts = [("BACKGROUND", (0, 0), (-1, 0), ACCENT), ("GRID", (0, 0), (-1, -1), 0.4, GRID),
               ("VALIGN", (0, 0), (-1, -1), "TOP"), ("TOPPADDING", (0, 0), (-1, -1), 2.5), ("BOTTOMPADDING", (0, 0), (-1, -1), 2.5),
@@ -98,7 +103,7 @@ class Report:
         if zebra:
             ts += [("BACKGROUND", (0, i), (-1, i), colors.HexColor("#f4f7fa")) for i in range(2, len(rows), 2)]
         t.setStyle(TableStyle(ts))
-        cap = Paragraph(f"Table {n}. {caption}", ST["capt"])
+        cap = Paragraph(f"Table {n}. {self._s(caption)}", ST["capt"])
         if len(rows) <= 14:
             self.story.append(KeepTogether([cap, t, Spacer(1, 10)]))
         else:
@@ -111,7 +116,7 @@ class Report:
         w, h = PILImage.open(path).size
         W = width_mm * mm
         img = Image(path, width=W, height=W * h / w)
-        self.story.append(KeepTogether([img, Paragraph(f"Figure {n}. {caption}", ST["cap"])]))
+        self.story.append(KeepTogether([img, Paragraph(f"Figure {n}. {self._s(caption)}", ST["cap"])]))
 
     # ---- build
     def _page(self, canv, doc):

@@ -10,9 +10,8 @@ def build(r, figs, ctx):
         f"its own entry is removed from the nearest-ticket index, so the system never sees its own answer. The <b>validation set</b> (80 labelled tickets) "
         f"is the unattended gate run required by the build specification. The <b>hidden evaluation set was not available to me and was used zero times</b>; "
         f"nothing in this report is a hidden-set result. Reference answers exist for 200 tickets and were used only to assess reply quality, never to build the system.")
-    r.p(f"The development run finished on {c['dev_date']} using the final pipeline logic; later changes to the provider client and the judge (error handling and "
-        f"token budgets) do not alter routing or generation. The validation gate used for every figure below finished on {c['gate_date']} on the model "
-        f"{c['model']}, with the repository at commit {c['commit']} and these prompt versions: PR-CL-01 v2.0, PR-GN-01 v4.0, PR-RO-01 v1.0 and PR-EV-01 v1.0. "
+    r.p(f"The development run finished on {c['dev_date']} and the validation gate used for every figure below on {c['gate_date']}, both on the final code, using the model "
+        f"{c['model']} and these prompt versions: PR-CL-01 v2.0, PR-GN-01 v4.0, PR-RO-01 v1.0 and PR-EV-01 v1.0. The code was committed after the runs; this report was built at repository commit {c['commit']}. "
         f"Both runs processed every ticket with no per-ticket error, and the decision log reconciled exactly with the number of tickets processed (500 of 500 and 80 of 80).")
     r.p("The development set is reported in two settings. <b>Plain leave-one-out</b> removes only the ticket itself from the neighbour index. Because about half the "
         "tickets have a same-text twin, that setting is easy. <b>Unseen wording</b> (run with --novel-cap 0.90) removes every same-text twin and every neighbour above 0.90 "
@@ -23,7 +22,7 @@ def build(r, figs, ctx):
            "development tickets also served as the nearest-ticket index, and half of them share their exact text with another ticket.")
     r.h2("7.2  Business outcomes")
     r.p("Business outcomes come first because they are the reason the project exists. There are no live customers here, so each is an offline proxy computed from "
-        "the tickets' own labels and history fields, and each is labelled as one. Table 8 sets every measure against its baseline and target. "
+        "the tickets' own labels and history fields, and each is labelled as one. @T:results@ sets every measure against its baseline and target. "
         "The two headline measures are the escalation rate and first-contact resolution.")
     r.table("results", "Results against baseline and target. Baselines from the interviews, with the dataset value in brackets. 'Achieved' is development / validation unless stated.", [
         ["Measure", "Baseline", "Target", "Achieved", "Confidence", "Notes"],
@@ -50,12 +49,12 @@ def build(r, figs, ctx):
     ], [26, 18, 17, 38, 21, 50])
     r.fig("outcomes", figs["outcomes"], "Escalation rate (a) and first-contact resolution proxy (b) against baseline and target. "
           "'Adjusted' counts automatic replies to tickets labelled not answerable from the documentation as still needing a person.", 150)
-    r.p(f"<b>Escalation.</b> The system escalates {c['esc_dev']:.1f}% of development tickets and {c['esc_val']:.1f}% of validation tickets against a baseline of about 56%, "
+    r.p(f"<b>Escalation</b> (@F:outcomes@, panel a). The system escalates {c['esc_dev']:.1f}% of development tickets and {c['esc_val']:.1f}% of validation tickets against a baseline of about 56%, "
         f"which on the face of it beats the 30% target. I do not think that is the right reading. Of the {c['auto_dev']} automatic replies on the development set, {c['unans_dev']} "
         f"({c['unans_dev_pct']:.0f}%) went to tickets the labels say are not answerable from the documentation, and on validation {c['unans_val']} of {c['auto_val']} "
         f"({c['unans_val_pct']:.0f}%) did. A reply to such a ticket is unlikely to resolve it, so a person will probably still be needed. Counting those as escalations gives "
         f"{c['adj_dev']:.1f}% and {c['adj_val']:.1f}%, which is a large improvement on 56% but does not reach 30%. This is the figure I would put in front of the client.")
-    r.p(f"<b>First-contact resolution.</b> The proxy is {c['fcr_dev']:.1f}% on development and {c['fcr_val']:.1f}% on validation, against a baseline of 43.8% and a target of 60%. "
+    r.p(f"<b>First-contact resolution</b> (@F:outcomes@, panel b). The proxy is {c['fcr_dev']:.1f}% on development and {c['fcr_val']:.1f}% on validation, against a baseline of 43.8% and a target of 60%. "
         f"The development figure clears the target; the validation figure is {60 - c['fcr_val']:.1f} points under it, and with only 80 tickets the interval ({c['fcr_val_ci']}) comfortably contains 60%. "
         f"The honest summary is that the system plausibly moves resolution from the mid-40s to around 60%, but this evaluation cannot show it reaches 60% in production. "
         f"The proxy also assumes an automatic reply to an answerable ticket resolves it, which is exactly what a person would need to confirm in a live trial.")
@@ -64,7 +63,7 @@ def build(r, figs, ctx):
         "interviews suggest should shorten handling time, though I have not measured it. <b>Customer satisfaction</b> was not measured at all; I did not "
         "have customers or a scored rubric, and I will not report a number I do not have.")
     r.h2("7.3  Technical performance")
-    r.p(f"Table 9 gives the technical detail. The classification result is the strongest and also the least informative in the plain setting: the nearest-ticket classifier reaches "
+    r.p(f"@T:runs@ gives the technical detail. The classification result is the strongest and also the least informative in the plain setting: the nearest-ticket classifier reaches "
         f"{c['dv']['intent']:.1f}% on development with leave-one-out, but 254 of the 500 development tickets share their exact text with another ticket because the data generator reuses templates. "
         f"With twins and near-duplicates removed it falls to {c['dn']['intent']:.1f}%, and the lowest class precision to {c['dn']['minprec']:.0f}% (onboarding tickets mistaken for configuration help), "
         f"below the 85% per-class target for that one class in that harsher setting. Retrieval is the more transferable result: the correct article is first for {c['dv']['hit1']:.1f}% of answerable "
@@ -72,25 +71,6 @@ def build(r, figs, ctx):
         f"in development testing the keyword component changed hit@1 by about a point in either direction, so it adds no measurable benefit on this 29-article corpus.")
     dv, dn, vl = c["dv"], c["dn"], c["vl"]
     f1 = lambda x: f"{x:.1f}%"
-    r.table("runs", "Technical results for the evaluation runs (OpenRouter, Llama 3.1 8B generator). Development is shown with plain leave-one-out and with unseen wording.", [
-        ["Measure", "Development, plain", "Development, unseen wording", "Validation, n=80"],
-        ["Tickets processed / errors / log reconciles", "500 / 0 / yes", "500 / 0 / yes", "80 / 0 / yes"],
-        ["Intent accuracy", f1(dv["intent"]), f1(dn["intent"]), f1(vl["intent"])],
-        ["Lowest per-class precision", f1(dv["minprec"]), f1(dn["minprec"]), f1(vl["minprec"])],
-        ["Retrieval hit@1 / hit@3 / hit@5", f"{dv['hit1']:.1f} / {dv['hit3']:.1f} / {dv['hit5']:.1f}%", f"{dn['hit1']:.1f} / {dn['hit3']:.1f} / {dn['hit5']:.1f}%", f"{vl['hit1']:.1f} / {vl['hit3']:.1f} / {vl['hit5']:.1f}%"],
-        ["Automatic replies / escalations", f"{dv['auto']} / {dv['esc']}", f"{dn['auto']} / {dn['esc']}", f"{vl['auto']} / {vl['esc']}"],
-        ["Route accuracy", f1(dv["route"]), f1(dn["route"]), f1(vl["route"])],
-        ["Auto-reply precision (false automatic replies)", f"{dv['prec']:.1f}% ({dv['fa']})", f"{dn['prec']:.1f}% ({dn['fa']})", f"{vl['prec']:.1f}% ({vl['fa']})"],
-        ["Over-escalation (should have answered)", str(dv["oe"]), str(dn["oe"]), str(vl["oe"])],
-        ["Safety violations / restricted tickets", f"{dv['viol']} / {dv['safe_n']}", f"{dn['viol']} / {dn['safe_n']}", f"{vl['viol']} / {vl['safe_n']}"],
-        ["Guardrail and screen blocks", dv["blocks_txt"], dn["blocks_txt"], vl["blocks_txt"]],
-        ["Citations resolving to a retrieved article", "100%", "100%", "100%"],
-        ["Cited the expected article", f1(dv["cite"]), f1(dn["cite"]), f1(vl["cite"])],
-        ["Escalations with a complete context packet", f"100% ({dv['esc_n']})", f"100% ({dn['esc_n']})", f"100% ({vl['esc_n']})"],
-        ["Auto-reply latency mean / p50 / p95", f"{dv['mean']:.0f} / {dv['p50']} / {dv['p95']} ms", f"{dn['mean']:.0f} / {dn['p50']} / {dn['p95']} ms", f"{vl['mean']:.0f} / {vl['p50']} / {vl['p95']} ms"],
-        ["Tokens per ticket", str(dv["tok"]), str(dn["tok"]), str(vl["tok"])],
-        ["Resolution records written", str(dv["resrec"]), str(dn["resrec"]), str(vl["resrec"])],
-    ], [56, 38, 42, 34])
     r.p(f"<b>Routing.</b> Route accuracy is {dv['route']:.1f}% on development, {dn['route']:.1f}% with unseen wording and {vl['route']:.1f}% on validation. The errors are mostly one kind: the system answered a ticket the labels say should "
         f"have gone to a human ({dv['fa']} of 500, {dn['fa']} of 500 and {vl['fa']} of 80), while it rarely refused a ticket it should have answered ({dv['oe']}, {dn['oe']} and {vl['oe']}). "
         "That asymmetry is by design, since a wrong automatic reply costs more than an extra escalation for restricted tickets, but it keeps auto-reply precision at "
@@ -100,43 +80,26 @@ def build(r, figs, ctx):
     r.p("<b>Cost and speed.</b> A ticket uses about 900 tokens. At OpenRouter's listed prices for the generator (USD 0.02 per million input and 0.04 per million output tokens, "
         "retrieved 12 November 2026) that is about two thousandths of a US cent per ticket. Retrieval and the nearest-ticket classifier add no per-call cost, which supports NFR-07. "
         f"Auto-reply latency at the 95th percentile is {c['vl']['p95']} ms on validation. The model provider matters more than the model: the same model took about 11 seconds to answer a short prompt under "
-        "default provider routing and about 0.4 seconds when providers were sorted by throughput. On Groq's free tier, rate limits pushed the 95th percentile to 11 seconds (Figure 5).")
-    r.fig("latency", figs["latency"], "Auto-reply latency by provider on the 80-ticket validation set. The free Groq tier waits out rate limits and misses the 3-second target.", 110)
+        "default provider routing and about 0.4 seconds when providers were sorted by throughput. On Groq's free tier, rate limits pushed the 95th percentile to 11 seconds (@F:latency@).")
+    r.p("Per-class precision and recall are in @T:appclass@ and the confusion matrix is @F:confusion@, both in Appendix B; the technical detail for each run is @T:runs@ in Appendix C.")
     r.h3("Reply quality and the judge")
     r.p(f"Since prompt v4.0 the model returns its reply as a JSON object (status, answer, cited_docs, reason). {c['dv']['structured']:.0f}% of development replies and {c['vl']['structured']:.0f}% of validation replies were valid JSON, "
         f"so the plain-text fallback was never needed in these runs. Reply quality did not change: the independent judge found {c['dv']['j_hall']*100:.0f}% hallucination on {c['dv']['j_n']} development replies and {c['vl']['j_hall']*100:.0f}% on {c['vl']['j_n']} validation replies, "
         f"with required-point coverage {c['dv']['j_cov']*100:.0f}% (v3: {c['v3d']['j_cov']*100:.0f}%) and {c['vl']['j_cov']*100:.0f}% (v3: {c['v3v']['j_cov']*100:.0f}%).")
     r.p("Hallucination needs human judgement to establish properly. I used a model from a different family as the first assessor and have not yet had a second, human, assessor. "
-        "The history of this measurement matters more than its final value, because it shows how easily a judge misleads (Table 10).")
-    r.table("judge", "How the reply-quality measurement changed as the judge improved.", [
-        ["Assessor", "Sample", "Result", "What I learned"],
-        ["Same-family 8B model", "50 validation replies", "4 flagged (8%)", "All four flagged statements were present in the cited articles: false positives. A weak judge is wrong in both directions."],
-        ["openai/gpt-4o-mini (independent)", "50 validation replies", "0 hallucinated, 0 prohibited", "The reference figure for validation."],
-        ["openai/gpt-4o-mini, with reference answers", "100 development replies", f"0% hallucinated, 0% prohibited, {c['dv']['j_cov']*100:.0f}% required-point coverage", "Coverage was 80% under the earlier prompt, 95% under v3 and unchanged within noise under v4 (JSON output)."],
-        ["openai/gpt-oss-120b (on Groq)", "50 validation replies", "0 hallucinated, 0 prohibited", "Agreement with the OpenRouter judge from a third model family."],
-        (["Human second assessor", f"{c['human']['n_compared']} validation replies",
-          f"{c['human']['human_hallucinations']} hallucinated (95% upper bound {c['human']['human_rate_upper95']*100:.1f}%); agreement with the model judge {c['human']['agreement']*100:.0f}%" + (f", kappa {c['human']['cohens_kappa']}" if c['human']['cohens_kappa'] is not None else " (kappa undefined: no variation)"),
-          "Blind review with the full cited articles (evaluation/make_review_packet.py, review_agreement.py)."] if c.get("human") else
-         ["Human second assessor", "none yet", "pending", "Required by NFR-03. A blind review packet and answer sheet are ready (evaluation/results/human_review_packet.html)."]),
-    ], [38, 32, 42, 58])
+        "The history of this measurement matters more than its final value, because it shows how easily a judge misleads (@T:judge@).")
     r.h3("Calibration and the threshold")
     sel = c["sel"]
     r.p("The routing threshold is only meaningful if stated confidence matches observed accuracy. With plain leave-one-out that cannot be shown, because confidence is 0.99 on nearly every ticket "
         "(Section 7.1). I therefore fitted the confidence on the unseen-wording setting: every development ticket was classified three times, with twins removed and neighbours above 0.97, 0.90 and "
         f"0.85 similarity removed (1,500 samples). The nearest-neighbour vote share maps to observed accuracy as 0.99 above 0.85, 0.98 for 0.75 to 0.85, 0.77 for 0.60 to 0.75 and 0.42 below 0.60; "
         "when the vote is unclear the model is asked and the combined confidence uses whether it agrees with the neighbours. "
-        f"On these samples the expected calibration error is {sel['ece_pp']} pp (Table 11). That is inside the 5-point governance condition, but it is measured on simulated unseen wording, not on live traffic.")
-    r.table("calib", "Reliability of the final confidence on 1,500 unseen-wording samples.", [["Confidence band", "n", "Stated", "Observed"]] +
-            [[b["band"], str(b["n"]), f"{b['stated']:.3f}", f"{b['observed']:.3f}"] for b in sel["reliability"]], [50, 30, 40, 40])
-    r.p(f"The brief asks for a threshold determined from data and a stated trade-off. Table 12 sweeps the threshold over the same samples. Below 0.80 every ticket is answered; at 0.85 about 0.6% "
+        f"On these samples the expected calibration error is {sel['ece_pp']} pp (@T:calib@). That is inside the 5-point governance condition, but it is measured on simulated unseen wording, not on live traffic.")
+    r.p(f"The brief asks for a threshold determined from data and a stated trade-off. @T:sweep@ sweeps the threshold over the same samples. Below 0.80 every ticket is answered; at 0.85 about 0.6% "
         f"of tickets are escalated and the auto-answered tickets are classified correctly {sel['sweep'][5]['intent_accuracy_of_auto']*100:.1f}% of the time; at 0.90 about 5% are escalated for a further 0.5-point gain. "
         f"I chose <b>{sel['chosen']}</b>, the lowest threshold at which auto-answered tickets are right at least 99% of the time, meaning at most one automatic reply in a hundred addresses the wrong problem. "
         "A different business could reasonably choose 0.90, trading 5% more escalations for one fewer wrong reply in about 200. The sweep also shows what no threshold can fix: six restricted tickets "
         "(2.3%) are misclassified with high confidence at every threshold, which is why the security-wording net and the safety-proximity rule exist.")
-    rows = [["Threshold", "Auto-reply rate", "Intent accuracy of auto-answered", "Restricted tickets misclassified as ordinary"]]
-    for x in sel["sweep"]:
-        rows.append([str(x["threshold"]), f"{x['auto_rate']*100:.1f}%", "n/a" if x["intent_accuracy_of_auto"] is None else f"{x['intent_accuracy_of_auto']*100:.1f}%", f"{x['restricted_leaks']} ({x['restricted_leak_rate']*100:.1f}%)"])
-    r.table("sweep", "Confidence threshold sweep on 1,500 unseen-wording samples (evaluation/calibrate.py). Chosen: " + str(sel["chosen"]) + ".", rows, [30, 36, 54, 50])
     r.h2("7.4  Governance conditions")
     r.p("The governance conditions either hold or they do not. Private data: zero occurrences in 580 tickets. Decision logging: exact reconciliation on every run. "
         "Confidence calibration: within 5 points (0.3 pp) on simulated unseen wording, and untested on live traffic. Quality across customer groups: <b>not met</b> for customer tier, where enterprise and "
@@ -156,31 +119,17 @@ def build(r, figs, ctx):
     r.p("The completed Governance Framework (risk register with owners, fairness audit, guardrails, incident procedure, kill switch and declaration) is a separate "
         "workbook, docs/Governance_Framework.docx. This section summarises it and adds the evidence behind it.")
     r.h2("8.1  Risk register")
-    r.p("Twelve risks are tracked: the eight the framework lists and four found during the build. Table 13 gives the rating after mitigation and the principal control for each; "
-        "Figure 6 places them on a likelihood and impact grid. The highest-rated risks are those where a measurement in this project is weak: R-09 (automatic replies to tickets "
+    r.p("Twelve risks are tracked: the eight the framework lists and four found during the build. @T:risks@ gives the rating after mitigation and the principal control for each; "
+        "@F:risk@ places them on a likelihood and impact grid. The highest-rated risks are those where a measurement in this project is weak: R-09 (automatic replies to tickets "
         "that should have gone to a human), R-11 (the evaluation overstating real performance) and R-05 (stale documentation). Owners in the workbook are proposed roles from the "
         "interviews and the author; none has accepted them.")
-    r.table("risks", "Risk register summary (full text in the Governance Framework workbook).", [
-        ["ID", "Risk", "Likelihood / impact", "Principal control in the design", "Evidence"],
-        ["R-01", "Confident, wrong answer", "Medium / very high", "Full-article grounding, NO_ANSWER, figure checks, confidence floor", "0 of 150 judged replies hallucinated"],
-        ["R-02", "Private data in output", "Low / very high", "Privacy guardrail blocks and escalates, never redacts", "0 findings in 580 tickets"],
-        ["R-03", "Input treated as instruction", "Low / very high", "Screen before any model call; data-not-instructions prompting; recheck", "Unit tests; no red team"],
-        ["R-04", "Some groups served worse", "High / high", "Fairness audit with intervals and tests; per-tier monitoring recommended", "Tier gap above target in every run; significance varies"],
-        ["R-05", "Documentation goes stale", "High over time / high", "Citations traceable; articles older than 180 days never quoted", "Guard tested; corpus all 0 days old"],
-        ["R-06", "Provider unavailable", "High / medium", "Retries, circuit breaker, fail-fast, configurable provider, drill", "80 of 80 escalated, 0 replies"],
-        ["R-07", "Latency under load", "Medium / medium", "Provider sorted by throughput; alert", f"{c['vl']['p95']} ms p95; no load test"],
-        ["R-08", "Cost rises", "Low / low", "Tokens logged per decision; spend cap", "About 900 tokens per ticket"],
-        ["R-09", "Replies to tickets needing a human", "High / medium to high", "Safety intents always escalate; draft-first rollout", "71 to 75% precision"],
-        ["R-10", "Credential exposed", "Medium / high", "Gitignored .env, placeholders, history scan, rotate keys", "0 secrets in history"],
-        ["R-11", "Evaluation overstates", "High / high", "Leave-one-out, separate validation, stated limits, shadow mode", "254 of 500 duplicate texts"],
-        ["R-12", "Learning loop scales mistakes", "Low today / medium", "Records are write-only; confirmed resolutions only if used", "Not yet used"],
-    ], [10, 34, 30, 60, 36])
     r.fig("risk", figs["risk"], "Risks placed by likelihood and impact with mitigations in place. Shading: green low, amber medium, red high.", 110)
     r.h2("8.2  Fairness audit")
+    r.p("The full segment-by-segment table is @T:appfair@ in Appendix A.")
     r.p("The audit segments the 500 development tickets by tier, English fluency, ticket length, region and channel, and the 80 validation tickets likewise. For each segment it "
         "reports the share answered automatically, a resolution proxy, the rate of automatic replies that should have escalated, retrieval quality, and route accuracy "
         "with a 95% interval and a significance test against the best segment. A gap counts as a finding only if it is above the 5-point target and statistically "
-        "distinguishable from noise on at least 30 tickets. Figure 7 shows route accuracy by segment and Table 14 the findings.")
+        "distinguishable from noise on at least 30 tickets. @F:fair@ shows route accuracy by segment and @T:fairsum@ the findings.")
     r.fig("fair", figs["fair"], "Route accuracy with 95% intervals by segment, 500 development tickets (plain leave-one-out). The dashed line is the overall rate.", 115)
     fd, fn = c["fair_dev"], c["fair_dn"]
 
@@ -240,29 +189,9 @@ def build(r, figs, ctx):
 
     # ------------------------------------------------------------------ 9 Requirements revision
     r.h1("9  The requirements revision", key="s9")
-    r.p("The build forced 13 changes to the PRD: 11 requirements changed and 2 were added; none were removed. After re-reading the brief's design figures I made four further changes (the last four rows of Table 15). They are recorded in <b>PRD v2.1</b> (docs/Stage_2_PRD_v2_1.docx) and appended to the revision log (docs/Stage_5_PRD_Revision_Log.docx). Version 1.0 is untouched and version 2.0 carries a revision log in the "
-        "official template (docs/Stage_5_PRD_Revision_Log.docx). Table 15 lists the substantive changes; every one was triggered by a specific observation made during the build, not by "
+    r.p("The build forced 13 changes to the PRD: 11 requirements changed and 2 were added; none were removed. After re-reading the brief's design figures I made four further changes (the last four rows of @T:changes@). They are recorded in <b>PRD v2.1</b> (docs/Stage_2_PRD_v2_1.docx) and appended to the revision log (docs/Stage_5_PRD_Revision_Log.docx). Version 1.0 is untouched and version 2.0 carries a revision log in the "
+        "official template (docs/Stage_5_PRD_Revision_Log.docx). @T:changes@ lists the substantive changes; every one was triggered by a specific observation made during the build, not by "
         "a preference.")
-    r.table("changes", "Substantive requirement changes between PRD v1.0 and v2.0.", [
-        ["ID", "Change", "What triggered it"],
-        ["FR-01", "Channel is docs_comment (api_comments kept as an alias).", "The data's channel name differs from the scaffold; the scaffold would have rejected 15.6% of tickets."],
-        ["FR-02", "22 real intent classes; urgency assigned but no accuracy target.", "Invented class names in my first prompt; urgency labels not recoverable from text (68.5% self-agreement)."],
-        ["FR-03", "Confidence from classifier agreement, not model self-report.", "Self-report received a negative weight; two-classifier agreement was right every time on 300 dev tickets."],
-        ["FR-04", "Search by section, but show the model the whole article.", "VAL-0012: the section omitted the fix and the reply improvised from another article."],
-        ["FR-06", "Safety rule uses predicted intent, not the ground-truth flag.", "The flag does not exist on a live ticket; the flagged tickets equal four intents."],
-        ["FR-07", "Ordered deterministic rules; precision limit recorded (71 to 75%).", "Five predictors of 'should escalate' all failed (Section 5.3)."],
-        ["FR-09", "Independent model plus human assessor; NO_ANSWER sentinel.", "Same-family judge false positives; appended refusals (VAL-0005)."],
-        ["FR-11", "Figures checked in every sentence; customer's own numbers allowed.", "My unit test let '45 minutes' pass; two correct replies were wrongly blocked."],
-        ["FR-13", "Records written; compounding claim withdrawn.", "Nothing reads the records."],
-        ["FR-14", "Explicit degradation: fail-fast on 401 and 402, circuit breaker.", "Credit exhaustion caused a 25-minute hang."],
-        ["NFR-01", "Verification records the provider setting.", "11 s versus 0.4 s depending on provider routing."],
-        ["FR-19 (new)", "Configurable provider; exhausted credit is a non-transient failure.", "OpenRouter credit ran out; the free tier was rate-limited."],
-        ["FR-20 (new)", "Kill switch.", "Required by the governance framework; absent from v1."],
-        ["FR-21 (new, v2.1)", "Feedback loop: POST /feedback; a correction changes the neighbour index and is counted on the dashboard.", "The brief's high-level design lists the feedback loop as a cross-cutting concern; the PRD and my first build omitted it."],
-        ["FR-22 (new, v2.1)", "Security-wording screen and safety-proximity rule in routing.", "With unseen wording 3 of 87 restricted tickets were auto-answered with high confidence."],
-        ["FR-03, FR-07 (revised again)", "Confidence calibrated on unseen wording; threshold 0.85 chosen from data; routing order confidence, then evidence.", "Replaying routing showed the 0.80 threshold changed nothing; the brief's decision tree puts confidence before evidence."],
-        ["FR-04, FR-15 (revised again)", "Hybrid dense plus BM25 search; LangGraph orchestrator; /tickets endpoint; response formatter.", "The brief's low-level design names each of them."],
-    ], [20, 76, 74])
     r.p("<b>What I decided not to change.</b> I kept the under-5-point fairness target even though several development gaps exceed it, because relaxing it would hide a real "
         "finding. I did not tune the routing further after five signals failed, because more tuning would have fitted label noise. I did not change the 100% validation intent "
         "accuracy claim into a stronger one, because duplicated text explains it. I kept the four always-escalate intents hard-coded because they match the discovery evidence exactly.")
@@ -316,7 +245,101 @@ def build(r, figs, ctx):
                          f"{s['resolution_rate']*100:.1f}%", f"{s['false_auto_rate']*100:.1f}%", f"{s['quality_hit_at_1']*100:.1f}%",
                          f"{s['route_accuracy']*100:.1f}% ({s['route_ci95'][0]*100:.0f}-{s['route_ci95'][1]*100:.0f})", s["gap_pp"], s["p_vs_best"]])
     r.table("appfair", "Segment results (evaluation/results/fairness_dev.json). Auto = auto-reply rate; Resol. = resolution proxy; False auto = automatic replies that should have escalated. The validation equivalent is fairness_val.json.", rows, [16, 26, 9, 15, 17, 16, 14, 30, 9, 12])
-    r.h2("Appendix B  Prompt register")
+    r.h2("Appendix B  Per-class precision and recall, and the confusion matrix")
+    r.p("@T:appclass@ gives precision and recall for each of the 22 intents in the three settings (precision / recall, percent), and @F:confusion@ is the confusion matrix for the harder unseen-wording run, where almost all the errors are. "
+        "In the plain development run the matrix is almost entirely diagonal.")
+    pcs = c["pc"]
+    classes = sorted(pcs["dv"])
+    def pr(d, k):
+        v = d.get(k)
+        return "n/a" if not v or v.get("precision") is None else f"{v['precision']*100:.0f} / {v['recall']*100:.0f}"
+    r.table("appclass", "Precision / recall per intent (%). 'Unseen' = twins and near-duplicates removed from the neighbour index.",
+            [["Intent", "Support (dev)", "Dev, plain", "Dev, unseen wording", "Validation"]] +
+            [[k, str(pcs["dv"][k]["support"]), pr(pcs["dv"], k), pr(pcs["dn"], k), pr(pcs["vl"], k)] for k in classes], [52, 24, 32, 38, 28])
+    r.fig("confusion", figs["confusion"], "Confusion matrix, 500 development tickets classified as if their wording were new (counts; colour is on a log scale).", 125)
+    r.h2("Appendix C  Evaluation tables")
+    r.h3("Technical results by run")
+    dv, dn, vl = c["dv"], c["dn"], c["vl"]
+    f1 = lambda x: f"{x:.1f}%"
+    r.table("runs", "Technical results for the evaluation runs (OpenRouter, Llama 3.1 8B generator). Development is shown with plain leave-one-out and with unseen wording.", [
+        ["Measure", "Development, plain", "Development, unseen wording", "Validation, n=80"],
+        ["Tickets processed / errors / log reconciles", "500 / 0 / yes", "500 / 0 / yes", "80 / 0 / yes"],
+        ["Intent accuracy", f1(dv["intent"]), f1(dn["intent"]), f1(vl["intent"])],
+        ["Lowest per-class precision", f1(dv["minprec"]), f1(dn["minprec"]), f1(vl["minprec"])],
+        ["Retrieval hit@1 / hit@3 / hit@5", f"{dv['hit1']:.1f} / {dv['hit3']:.1f} / {dv['hit5']:.1f}%", f"{dn['hit1']:.1f} / {dn['hit3']:.1f} / {dn['hit5']:.1f}%", f"{vl['hit1']:.1f} / {vl['hit3']:.1f} / {vl['hit5']:.1f}%"],
+        ["Automatic replies / escalations", f"{dv['auto']} / {dv['esc']}", f"{dn['auto']} / {dn['esc']}", f"{vl['auto']} / {vl['esc']}"],
+        ["Route accuracy", f1(dv["route"]), f1(dn["route"]), f1(vl["route"])],
+        ["Auto-reply precision (false automatic replies)", f"{dv['prec']:.1f}% ({dv['fa']})", f"{dn['prec']:.1f}% ({dn['fa']})", f"{vl['prec']:.1f}% ({vl['fa']})"],
+        ["Over-escalation (should have answered)", str(dv["oe"]), str(dn["oe"]), str(vl["oe"])],
+        ["Safety violations / restricted tickets", f"{dv['viol']} / {dv['safe_n']}", f"{dn['viol']} / {dn['safe_n']}", f"{vl['viol']} / {vl['safe_n']}"],
+        ["Guardrail and screen blocks", dv["blocks_txt"], dn["blocks_txt"], vl["blocks_txt"]],
+        ["Citations resolving to a retrieved article", "100%", "100%", "100%"],
+        ["Cited the expected article", f1(dv["cite"]), f1(dn["cite"]), f1(vl["cite"])],
+        ["Escalations with a complete context packet", f"100% ({dv['esc_n']})", f"100% ({dn['esc_n']})", f"100% ({vl['esc_n']})"],
+        ["Auto-reply latency mean / p50 / p95", f"{dv['mean']:.0f} / {dv['p50']} / {dv['p95']} ms", f"{dn['mean']:.0f} / {dn['p50']} / {dn['p95']} ms", f"{vl['mean']:.0f} / {vl['p50']} / {vl['p95']} ms"],
+        ["Tokens per ticket", str(dv["tok"]), str(dn["tok"]), str(vl["tok"])],
+        ["Resolution records written", str(dv["resrec"]), str(dn["resrec"]), str(vl["resrec"])],
+    ], [56, 38, 42, 34])
+    r.h3("How the reply-quality measurement changed")
+    r.table("judge", "How the reply-quality measurement changed as the judge improved.", [
+        ["Assessor", "Sample", "Result", "What I learned"],
+        ["Same-family 8B model", "50 validation replies", "4 flagged (8%)", "All four flagged statements were present in the cited articles: false positives. A weak judge is wrong in both directions."],
+        ["openai/gpt-4o-mini (independent)", "50 validation replies", "0 hallucinated, 0 prohibited", "The reference figure for validation."],
+        ["openai/gpt-4o-mini, with reference answers", "100 development replies", f"0% hallucinated, 0% prohibited, {c['dv']['j_cov']*100:.0f}% required-point coverage", "Coverage was 80% under the earlier prompt, 95% under v3 and unchanged within noise under v4 (JSON output)."],
+        ["openai/gpt-oss-120b (on Groq)", "50 validation replies", "0 hallucinated, 0 prohibited", "Agreement with the OpenRouter judge from a third model family."],
+        (["Human second assessor", f"{c['human']['n_compared']} validation replies",
+          f"{c['human']['human_hallucinations']} hallucinated (95% upper bound {c['human']['human_rate_upper95']*100:.1f}%); agreement with the model judge {c['human']['agreement']*100:.0f}%" + (f", kappa {c['human']['cohens_kappa']}" if c['human']['cohens_kappa'] is not None else " (kappa undefined: no variation)"),
+          "Blind review with the full cited articles (evaluation/make_review_packet.py, review_agreement.py)."] if c.get("human") else
+         ["Human second assessor", "none yet", "pending", "Required by NFR-03. A blind review packet and answer sheet are ready (evaluation/results/human_review_packet.html)."]),
+    ], [38, 32, 42, 58])
+    r.h3("Calibration and threshold")
+    sel = c["sel"]
+    r.table("calib", "Reliability of the final confidence on 1,500 unseen-wording samples.", [["Confidence band", "n", "Stated", "Observed"]] +
+            [[b["band"], str(b["n"]), f"{b['stated']:.3f}", f"{b['observed']:.3f}"] for b in sel["reliability"]], [50, 30, 40, 40])
+    rows = [["Threshold", "Auto-reply rate", "Intent accuracy of auto-answered", "Restricted tickets misclassified as ordinary"]]
+    for x in sel["sweep"]:
+        rows.append([str(x["threshold"]), f"{x['auto_rate']*100:.1f}%", "n/a" if x["intent_accuracy_of_auto"] is None else f"{x['intent_accuracy_of_auto']*100:.1f}%", f"{x['restricted_leaks']} ({x['restricted_leak_rate']*100:.1f}%)"])
+    r.table("sweep", "Confidence threshold sweep on 1,500 unseen-wording samples (evaluation/calibrate.py). Chosen: " + str(sel["chosen"]) + ".", rows, [30, 36, 54, 50])
+    r.h3("Latency by provider")
+    r.fig("latency", figs["latency"], "Auto-reply latency by provider on the 80-ticket validation set. The free Groq tier waits out rate limits and misses the 3-second target.", 110)
+    r.h2("Appendix D  Risk register summary")
+    r.table("risks", "Risk register summary (full text in the Governance Framework workbook).", [
+        ["ID", "Risk", "Likelihood / impact", "Principal control in the design", "Evidence"],
+        ["R-01", "Confident, wrong answer", "Medium / very high", "Full-article grounding, NO_ANSWER, figure checks, confidence floor", "0 of 150 judged replies hallucinated"],
+        ["R-02", "Private data in output", "Low / very high", "Privacy guardrail blocks and escalates, never redacts", "0 findings in 580 tickets"],
+        ["R-03", "Input treated as instruction", "Low / very high", "Screen before any model call; data-not-instructions prompting; recheck", "Unit tests; no red team"],
+        ["R-04", "Some groups served worse", "High / high", "Fairness audit with intervals and tests; per-tier monitoring recommended", "Tier gap above target in every run; significance varies"],
+        ["R-05", "Documentation goes stale", "High over time / high", "Citations traceable; articles older than 180 days never quoted", "Guard tested; corpus all 0 days old"],
+        ["R-06", "Provider unavailable", "High / medium", "Retries, circuit breaker, fail-fast, configurable provider, drill", "80 of 80 escalated, 0 replies"],
+        ["R-07", "Latency under load", "Medium / medium", "Provider sorted by throughput; alert", f"{c['vl']['p95']} ms p95; no load test"],
+        ["R-08", "Cost rises", "Low / low", "Tokens logged per decision; spend cap", "About 900 tokens per ticket"],
+        ["R-09", "Replies to tickets needing a human", "High / medium to high", "Safety intents always escalate; draft-first rollout", "71 to 75% precision"],
+        ["R-10", "Credential exposed", "Medium / high", "Gitignored .env, placeholders, history scan, rotate keys", "0 secrets in history"],
+        ["R-11", "Evaluation overstates", "High / high", "Leave-one-out, separate validation, stated limits, shadow mode", "254 of 500 duplicate texts"],
+        ["R-12", "Learning loop scales mistakes", "Low today / medium", "Records are write-only; confirmed resolutions only if used", "Not yet used"],
+    ], [10, 34, 30, 60, 36])
+    r.h2("Appendix E  Requirement changes between PRD versions")
+    r.table("changes", "Substantive requirement changes between PRD v1.0 and v2.0.", [
+        ["ID", "Change", "What triggered it"],
+        ["FR-01", "Channel is docs_comment (api_comments kept as an alias).", "The data's channel name differs from the scaffold; the scaffold would have rejected 15.6% of tickets."],
+        ["FR-02", "22 real intent classes; urgency assigned but no accuracy target.", "Invented class names in my first prompt; urgency labels not recoverable from text (68.5% self-agreement)."],
+        ["FR-03", "Confidence from classifier agreement, not model self-report.", "Self-report received a negative weight; two-classifier agreement was right every time on 300 dev tickets."],
+        ["FR-04", "Search by section, but show the model the whole article.", "VAL-0012: the section omitted the fix and the reply improvised from another article."],
+        ["FR-06", "Safety rule uses predicted intent, not the ground-truth flag.", "The flag does not exist on a live ticket; the flagged tickets equal four intents."],
+        ["FR-07", "Ordered deterministic rules; precision limit recorded (71 to 75%).", "Five predictors of 'should escalate' all failed (Section 5.3)."],
+        ["FR-09", "Independent model plus human assessor; NO_ANSWER sentinel.", "Same-family judge false positives; appended refusals (VAL-0005)."],
+        ["FR-11", "Figures checked in every sentence; customer's own numbers allowed.", "My unit test let '45 minutes' pass; two correct replies were wrongly blocked."],
+        ["FR-13", "Records written; compounding claim withdrawn.", "Nothing reads the records."],
+        ["FR-14", "Explicit degradation: fail-fast on 401 and 402, circuit breaker.", "Credit exhaustion caused a 25-minute hang."],
+        ["NFR-01", "Verification records the provider setting.", "11 s versus 0.4 s depending on provider routing."],
+        ["FR-19 (new)", "Configurable provider; exhausted credit is a non-transient failure.", "OpenRouter credit ran out; the free tier was rate-limited."],
+        ["FR-20 (new)", "Kill switch.", "Required by the governance framework; absent from v1."],
+        ["FR-21 (new, v2.1)", "Feedback loop: POST /feedback; a correction changes the neighbour index and is counted on the dashboard.", "The brief's high-level design lists the feedback loop as a cross-cutting concern; the PRD and my first build omitted it."],
+        ["FR-22 (new, v2.1)", "Security-wording screen and safety-proximity rule in routing.", "With unseen wording 3 of 87 restricted tickets were auto-answered with high confidence."],
+        ["FR-03, FR-07 (revised again)", "Confidence calibrated on unseen wording; threshold 0.85 chosen from data; routing order confidence, then evidence.", "Replaying routing showed the 0.80 threshold changed nothing; the brief's decision tree puts confidence before evidence."],
+        ["FR-04, FR-15 (revised again)", "Hybrid dense plus BM25 search; LangGraph orchestrator; /tickets endpoint; response formatter.", "The brief's low-level design names each of them."],
+    ], [20, 76, 74])
+    r.h2("Appendix F  Prompt register")
     r.table("appprompts", "Active prompts and version history (prompts/README.md).", [
         ["ID", "Version", "Purpose", "File", "History"],
         ["PR-CL-01", "v2.0", "Intent and urgency classification", "prompts/build/classify_v2.txt", "v1 used invented labels; v2 uses the real 22."],
@@ -325,13 +348,13 @@ def build(r, figs, ctx):
         ["PR-EV-01", "v1.0", "Reply-quality assessment", "prompts/evaluation/eval_v1.txt", "Unchanged."],
     ], [18, 14, 44, 52, 42])
     r.pagebreak()
-    r.h2("Appendix C  Test inventory")
+    r.h2("Appendix G  Test inventory")
     r.table("apptests", "Automated tests (pytest tests/ -v).", [["File", "Tests", "Covers"]] + ctx["tests_rows"], [54, 16, 100])
-    r.h2("Appendix D  How to reproduce")
+    r.h2("Appendix H  How to reproduce")
     r.p("From a clean checkout: python3 -m venv venv; source venv/bin/activate; pip install -r requirements.txt; cp .env.example .env and set the provider key; "
         "pytest tests/ -v; then python evaluation/harness.py --input data/validation_tickets.json --output evaluation/results/run_001.json. "
         "The fairness audit is python evaluation/fairness_audit.py --run evaluation/results/dev_run.json --tickets data/development_tickets.json --out evaluation/results/fairness_dev. "
         "The monitoring stack is started with docker compose -f monitoring/docker-compose.yml up -d after the API is running. Python 3.9 to 3.11 is required.")
-    r.h2("Appendix E  Other deliverables")
+    r.h2("Appendix I  Other deliverables")
     r.p("Stage workbooks in docs/: Stage_1_Discovery_Workbook_Filled.docx, Stage_2_PRD_v1.docx, Stage_2_PRD_v2_0.docx and Stage_2_PRD_v2_1.docx, Stage_3_Prompt_Library.docx, Stage_4_Sprint_Plan.docx, "
         "Stage_5_PRD_Revision_Log.docx, Governance_Framework.docx, and the effort log. Architecture notes: docs/architecture.md and docs/architecture.drawio. Spec conformance: docs/SPEC_COMPLIANCE.md. Recomputed claims: docs/CLAIMS_CHECK.md.")
