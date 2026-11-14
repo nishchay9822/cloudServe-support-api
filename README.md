@@ -55,12 +55,12 @@ Provider-outage drill: run with the key unset. Expect every ticket processed, al
 pytest tests/ -v
 ```
 
-106 tests, no network needed.
+115 tests, no network needed.
 
 ## Run the API
 
 ```bash
-uvicorn src.api:app --reload
+python -m src.api                 # or: uvicorn src.api:app --reload
 ```
 
 Docs at `http://localhost:8000/docs`.
@@ -131,7 +131,7 @@ Final_Capstone_Project/
 │   └── api.py          ← FastAPI
 ├── prompts/            ← versioned prompts + register (prompts/README.md)
 ├── evaluation/         ← harness.py, metrics.py, judge.py, analysis scripts, results/
-├── tests/              ← 106 tests
+├── tests/              ← 115 tests
 ├── monitoring/         ← Prometheus config, alert rules, Grafana dashboard, traffic replay
 ├── docs/               ← stage documents, architecture.md, architecture.drawio
 ├── data/               ← tickets, ground truth, documentation, calibration.json

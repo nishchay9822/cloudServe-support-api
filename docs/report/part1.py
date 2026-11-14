@@ -14,7 +14,7 @@ def build(r, figs, ctx):
         "evidence and confidence are good enough. Otherwise it escalates to a human with a prepared packet: a short summary, the relevant "
         "articles and the reason it did not answer. The routing decision is ordinary deterministic code, not a model's opinion, and every "
         "decision is written to an audit log. The system is a Python pipeline (ingest, classify, retrieve, route, generate, guardrails, "
-        "log) behind a FastAPI interface, with an unattended evaluation harness, 106 automated tests, a kill switch, and a Prometheus and "
+        "log) behind a FastAPI interface, with an unattended evaluation harness, 115 automated tests, a kill switch, and a Prometheus and "
         "Grafana monitoring configuration.")
     dv, dn, vl = ctx["dv"], ctx["dn"], ctx["vl"]
     r.p(f"<b>What it achieved.</b> On the 500 development tickets the system sent an automatic reply to {dv['auto_pct']:.1f}% and escalated {dv['esc_pct']:.1f}%, against a "

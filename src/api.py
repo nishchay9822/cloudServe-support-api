@@ -125,3 +125,9 @@ def kill_switch(req: KillSwitch):
     elif os.path.exists(path):
         os.remove(path)
     return {"kill_switch": pipeline.kill_switch_on()}
+
+
+if __name__ == "__main__":      # python -m src.api   (the spec's example command)
+    import uvicorn
+    uvicorn.run("src.api:app", host=os.getenv("API_HOST", "127.0.0.1"), port=int(os.getenv("API_PORT", "8000")))
+

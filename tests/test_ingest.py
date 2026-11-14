@@ -54,3 +54,13 @@ def test_load_tickets_reads_a_list(tmp_path):
     p = tmp_path / "t.json"
     p.write_text('[{"ticket_id": "A"}, {"ticket_id": "B"}]')
     assert [t["ticket_id"] for t in load_tickets(str(p))] == ["A", "B"]
+
+
+def test_original_text_and_channel_are_preserved_and_ground_truth_is_not():
+    raw = {"ticket_id": "O1", "channel": "api_comments", "subject": "  Re:  Rollback ", "body": "line one\r\n\r\nline  two\x00 e\u00e9",
+           "labels": {"intent": "x"}, "history": {"escalated": True}}
+    n = normalize_ticket(raw)
+    assert n["channel"] == "docs_comment"                      # canonical channel used by the pipeline
+    assert n["original"] == {"channel": "api_comments", "subject": raw["subject"], "body": raw["body"]}   # untouched
+    assert "\x00" not in n["body"]                              # the cleaned body is what downstream steps read
+    assert "labels" not in n and "history" not in n

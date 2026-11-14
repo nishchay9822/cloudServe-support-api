@@ -9,6 +9,7 @@ Design goals (A11 - fail gracefully):
 - Missing API key or provider outage raises LLMUnavailable, which callers
   turn into an escalation. It never crashes the pipeline.
 """
+import json
 import os
 import time
 from typing import Optional
@@ -57,6 +58,43 @@ def _client():
     return _state["client"]
 
 
+# Response cache (the spec encourages caching: it saves free-tier allowance and makes runs reproducible).
+# Only deterministic calls (temperature 0) are cached, keyed on model + messages + max_tokens, so changing a prompt or a model
+# can never return an old answer. It is never consulted when no key is configured, so the provider-outage drill still shows no replies.
+CACHE_ENABLED = os.getenv("LLM_CACHE", "1") == "1"
+CACHE_PATH = os.getenv("LLM_CACHE_PATH", os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "storage", "llm_cache.sqlite"))
+
+
+def _cache_key(model: str, messages: list, max_tokens: int) -> str:
+    import hashlib
+    return hashlib.sha256(json.dumps([model, max_tokens, messages], sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
+def _cache_conn():
+    import sqlite3
+    os.makedirs(os.path.dirname(CACHE_PATH), exist_ok=True)
+    conn = sqlite3.connect(CACHE_PATH, timeout=30)
+    conn.execute("CREATE TABLE IF NOT EXISTS llm_cache (k TEXT PRIMARY KEY, text TEXT NOT NULL)")
+    return conn
+
+
+def _cache_get(key: str) -> Optional[str]:
+    try:
+        with _cache_conn() as c:
+            row = c.execute("SELECT text FROM llm_cache WHERE k=?", (key,)).fetchone()
+        return row[0] if row else None
+    except Exception:
+        return None
+
+
+def _cache_put(key: str, text: str) -> None:
+    try:
+        with _cache_conn() as c:
+            c.execute("INSERT OR REPLACE INTO llm_cache VALUES (?,?)", (key, text))
+    except Exception:
+        pass
+
+
 RATE_LIMIT_MAX_WAIT_S = float(os.getenv("LLM_RATE_LIMIT_MAX_WAIT_S", "60"))
 RATE_LIMIT_MAX_WAITS = int(os.getenv("LLM_RATE_LIMIT_MAX_WAITS", "6"))
 
@@ -83,6 +121,12 @@ def reset_breaker() -> None:
     _state["open_until"] = 0.0
 
 
+def provider_host() -> str:
+    """Host of the model provider in use (for the audit log); never includes keys."""
+    from urllib.parse import urlparse
+    return urlparse(os.getenv("LLM_BASE_URL", BASE_URL)).netloc or "unknown"
+
+
 def is_available() -> bool:
     return bool(_api_key()) and time.time() >= _state["open_until"]
 
@@ -94,6 +138,13 @@ def chat(messages: list, max_tokens: int = 400, temperature: float = 0.0, model:
     """
     if not _api_key():
         raise LLMUnavailable("OPENROUTER_API_KEY is not set")
+    use_cache = CACHE_ENABLED and temperature == 0
+    ckey = _cache_key(model or model_name(), messages, max_tokens) if use_cache else None
+    if use_cache:
+        hit = _cache_get(ckey)
+        if hit is not None:
+            stats["cache_hits"] = stats.get("cache_hits", 0) + 1
+            return {"text": hit, "tokens": 0}
     if time.time() < _state["open_until"]:
         raise LLMUnavailable("circuit breaker open after repeated provider failures")
 
@@ -120,6 +171,8 @@ def chat(messages: list, max_tokens: int = 400, temperature: float = 0.0, model:
             stats["calls"] += 1
             stats["tokens"] += int(tokens)
             stats["seconds"] += time.time() - t_call
+            if use_cache and text:
+                _cache_put(ckey, text)
             return {"text": text, "tokens": int(tokens)}
         except Exception as e:  # network, rate limit, 5xx, malformed response
             last_err = e

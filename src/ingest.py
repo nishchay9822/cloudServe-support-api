@@ -62,6 +62,9 @@ def normalize_ticket(raw: dict, channel: Optional[str] = None) -> dict:
         "language_fluency": (_clean(raw.get("language_fluency")) or "fluent").lower(),
         "text": (subject + "\n" + body).strip(),
         "is_empty": not (subject or body),
+        # The spec asks ingest to preserve the original text and channel: the cleaned fields above are what the pipeline uses,
+        # the untouched originals travel with the ticket. Ground-truth fields (labels, history) are deliberately NOT copied.
+        "original": {"channel": raw.get("channel"), "subject": raw.get("subject"), "body": raw.get("body")},
     }
 
 

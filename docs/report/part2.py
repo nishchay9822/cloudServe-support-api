@@ -47,7 +47,7 @@ def build(r, figs, ctx):
         ["LangGraph state machine as the orchestrator",
          "A plain Python function (my first version).",
          "The brief's low-level design names LangGraph. The graph makes the early exits explicit: a conditional edge after every step sends an escalated ticket straight to the final step, so the escalation packet, metrics and log are written once on every path.",
-         "I first built a plain function and kept the LangChain packages unused; on checking the brief I moved to LangGraph. All 106 tests passed unchanged apart from the routing order."],
+         "I first built a plain function and kept the LangChain packages unused; on checking the brief I moved to LangGraph. All 115 tests passed unchanged apart from the routing order."],
         ["Hybrid search (dense plus BM25)",
          "Dense embeddings only.",
          "The brief's design specifies hybrid search. BM25 is fused with the dense ranking by reciprocal rank with a low weight (0.15).",
@@ -93,7 +93,7 @@ def build(r, figs, ctx):
     r.h1("6  Implementation", key="s6")
     r.h2("6.1  What was built and where it lives")
     r.p("The repository follows the layout the submission guide prescribes. Table 6 maps each component to its module and to the tests that exercise it. "
-        "The code is about 1,800 lines of Python in src/ and 1,600 in evaluation/, with 106 tests (about 860 lines) that run offline (the model is replaced by a "
+        "The code is about 1,800 lines of Python in src/ and 1,600 in evaluation/, with 115 tests (about 860 lines) that run offline (the model is replaced by a "
         "deterministic stand-in) with one command, pytest tests/ -v.")
     r.table("modules", "Components, their location in the repository, and their tests.", [
         ["Component", "Location", "What it does", "Tests"],

@@ -331,4 +331,4 @@ def build(r, figs, ctx):
         "The monitoring stack is started with docker compose -f monitoring/docker-compose.yml up -d after the API is running. Python 3.9 to 3.11 is required.")
     r.h2("Appendix E  Other deliverables")
     r.p("Stage workbooks in docs/: Stage_1_Discovery_Workbook_Filled.docx, Stage_2_PRD_v1.docx, Stage_2_PRD_v2_0.docx and Stage_2_PRD_v2_1.docx, Stage_3_Prompt_Library.docx, Stage_4_Sprint_Plan.docx, "
-        "Stage_5_PRD_Revision_Log.docx, Governance_Framework.docx, and the effort log. Architecture notes: docs/architecture.md and docs/architecture.drawio.")
+        "Stage_5_PRD_Revision_Log.docx, Governance_Framework.docx, and the effort log. Architecture notes: docs/architecture.md and docs/architecture.drawio. Spec conformance: docs/SPEC_COMPLIANCE.md. Recomputed claims: docs/CLAIMS_CHECK.md.")
