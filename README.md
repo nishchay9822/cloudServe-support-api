@@ -6,7 +6,7 @@ Architecture: see `docs/architecture.md` and `docs/architecture.drawio` (open in
 
 ---
 
-## Setup (Python 3.9 to 3.11; clean-checkout install and tests verified on 3.9 and 3.11)
+## Setup (Python 3.9 to 3.12; clean-checkout install and tests verified on 3.9, 3.11 and 3.12)
 
 ```bash
 git clone <your-repo-url>
@@ -31,7 +31,7 @@ export LLM_BASE_URL=https://api.groq.com/openai/v1
 export LLM_API_KEY=...
 export MODEL_NAME=llama-3.1-8b-instant
 ```
-(Groq switch is implemented but not tested against a live key.)
+A ready-made Groq configuration is in `.env.groq.example` (copy it to `.env`). Set `LLM_MAX_RPM` to stay inside free-tier limits.
 
 ---
 
@@ -55,7 +55,7 @@ Provider-outage drill: run with the key unset. Expect every ticket processed, al
 pytest tests/ -v
 ```
 
-115 tests, no network needed.
+124 tests, no network needed.
 
 ## Run the API
 
@@ -107,20 +107,20 @@ python evaluation/fairness_audit.py --run evaluation/results/dev_run.json \
 
 # Prometheus + Grafana (needs Docker; start the API on port 8000 first)
 docker compose -f monitoring/docker-compose.yml up -d     # Grafana http://localhost:3000
-python monitoring/replay_traffic.py --n 60                 # send validation tickets so the dashboard has data
+python monitoring/replay_traffic.py --n 60 --rounds 5      # send validation tickets so the dashboard has data
 
 # Rebuild the report PDF (extra packages: pip install -r docs/requirements-report.txt)
 python docs/report/build_report.py
 ```
 
-The completed governance workbook is `docs/Governance_Framework.docx`; the effort log template is `docs/Effort_Log.docx`.
+The completed governance workbook is `docs/Governance_Framework.docx`. The report is built to `docs/` by the command above.
 
 ---
 ## Directory structure
 
 ```
 Final_Capstone_Project/
-├── README.md, requirements.txt, .env.example, CONTEXT.md, TIMELINE.md
+├── README.md, requirements.txt, .env.example, CONTEXT.md
 ├── src/
 │   ├── ingest.py, classify.py, retrieve.py, route.py, generate.py
 │   ├── guardrails.py, logging_store.py
@@ -133,7 +133,7 @@ Final_Capstone_Project/
 ├── evaluation/         ← harness.py, metrics.py, judge.py, analysis scripts, results/
 ├── tests/              ← 124 tests
 ├── monitoring/         ← Prometheus config, alert rules, Grafana dashboard, traffic replay
-├── docs/               ← stage documents, architecture.md, architecture.drawio
+├── docs/               ← governance workbook, architecture.md, architecture.drawio, video script, report build scripts
 ├── data/               ← tickets, ground truth, documentation, calibration.json
 ├── storage/            ← runtime only (Chroma, decisions.db), never committed
 └── .github/workflows/ci.yml
@@ -160,7 +160,7 @@ Final_Capstone_Project/
 
 ## Known limitations
 
-See `CONTEXT.md`. In short: route and urgency labels are partly unpredictable from ticket text, headline accuracy is flattered by templated data, and the resolution-record learning loop (FR-13) is not demonstrated.
+See `CONTEXT.md`. In short: route and urgency labels are partly unpredictable from ticket text, headline accuracy is flattered by templated data, and the feedback loop (FR-13) is implemented and unit-tested, but a correction does not change the outcome for tickets held back by a safety rule.
 
 ---
 ## Attribution and AI use
