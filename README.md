@@ -165,7 +165,7 @@ See `CONTEXT.md`. In short: route and urgency labels are partly unpredictable fr
 ---
 ## Attribution and AI use
 
-- Most of the source code, tests, evaluation scripts, workbook text and the report were drafted by **Kiro**, an AI coding assistant, in conversation with the author, who set the goals, supplied the data and decisions, and is responsible for the submission. The commit history shows the work as it happened.
+- Most of the source code, tests, evaluation scripts and the report were drafted by **Kiro**, an AI coding assistant, in conversation with the author, who set the goals, supplied the data and decisions, and is responsible for the submission. The commit history shows the work as it happened.
 - Runtime models: Llama 3.1 8B Instruct (generation and fallback classification, via OpenRouter), GPT-4o-mini and GPT-OSS-120B (independent judges), Qwen3.8-27B (Groq fallback), and `all-MiniLM-L6-v2` (local embeddings).
 - Third-party libraries are listed in `requirements.txt` (FastAPI, Chroma, sentence-transformers, prometheus-client, python-docx and others). `langgraph` is the pipeline orchestrator (`src/pipeline.py`); `langchain` packages are listed because the brief suggests them but are not imported.
 - No external code was knowingly copied. Templates for the workbooks come from the course pack.
